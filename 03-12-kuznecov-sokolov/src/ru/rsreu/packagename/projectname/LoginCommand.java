@@ -9,16 +9,13 @@ public class LoginCommand implements ActionCommand {
 	@Override
 	public String execute(HttpServletRequest request) {
 		String page = null;
-		// извлечение из запроса логина и пароля
 		String login = request.getParameter(PARAM_NAME_LOGIN);
 		String pass = request.getParameter(PARAM_NAME_PASSWORD);
-		// проверка логина и пароля
 		if (LoginLogic.checkLogin(login, pass)) {
 			request.setAttribute("user", login);
-			// определение пути к main.jsp
 			page = "/jsp/main.jsp";
 		} else {
-			request.setAttribute("errorLoginPassMessage", "index.jsp");
+			request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("path.page.login"));
 			page = "/jsp/login.jsp";
 		}
 		return page;

@@ -4,7 +4,7 @@ import java.util.ResourceBundle;
 
 public class ConfigurationManager {
 	
-	private final static ResourceBundle resourceBundle =  ResourceBundle.getBundle("");
+	private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("");
 	private ConfigurationManager() {
 	}
 
