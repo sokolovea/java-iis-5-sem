@@ -5,6 +5,15 @@ xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation
 "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 id="WebApp_ID" version="3.0">
 	<display-name>03-12-kuznecov-sokolov</display-name>
+	<servlet>
+		<display-name>FrontControllerDisplay</display-name>
+		<servlet-name>FrontControllerName</servlet-name>
+		<servlet-class>ru.rsreu.kuznecovsokolov12.servlet.FrontController</servlet-class>
+	</servlet>
+  	<servlet-mapping>
+    	<servlet-name>FrontControllerName</servlet-name>
+    	<url-pattern>/controller</url-pattern>
+  	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>/jsp/index.jsp</welcome-file>
 	</welcome-file-list>

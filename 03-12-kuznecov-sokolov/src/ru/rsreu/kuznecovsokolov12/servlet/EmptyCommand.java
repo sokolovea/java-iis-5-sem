@@ -1,4 +1,4 @@
-package ru.rsreu.packagename.projectname;
+package ru.rsreu.kuznecovsokolov12.servlet;
 
 import javax.servlet.http.HttpServletRequest;
 

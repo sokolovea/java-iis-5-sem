@@ -1,4 +1,4 @@
-package ru.rsreu.packagename.projectname;
+package ru.rsreu.kuznecovsokolov12.servlet;
 
 public class LoginLogic {
 	private final static String ADMIN_LOGIN = "admin";
