@@ -35,7 +35,7 @@ public class FrontController extends HttpServlet {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
 			dispatcher.forward(request, response);
 		} else {
-			page = "/jsp/index.jsp";
+			page = ConfigurationManager.getProperty("path.page.index");
 			request.getSession().setAttribute("nullPage", MessageManager.getProperty("message.nullpage"));
 			response.sendRedirect(request.getContextPath() + page);
 		}

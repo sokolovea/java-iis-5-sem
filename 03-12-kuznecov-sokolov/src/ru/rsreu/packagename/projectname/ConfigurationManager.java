@@ -9,6 +9,6 @@ public class ConfigurationManager {
 	}
 
 	public static String getProperty(String key) {
-		return "/jsp/index.jsp";
+		return resourceBundle.getString(key);
 	}
 }

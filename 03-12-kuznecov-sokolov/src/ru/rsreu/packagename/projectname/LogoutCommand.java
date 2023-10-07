@@ -7,7 +7,7 @@ public class LogoutCommand implements ActionCommand {
 	@Override
 	public String execute(HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		String page = "/jsp/index.jsp";
+		String page = ConfigurationManager.getProperty("path.page.index");
 		 // уничтожение сессии
 		 request.getSession().invalidate();
 		 return page;

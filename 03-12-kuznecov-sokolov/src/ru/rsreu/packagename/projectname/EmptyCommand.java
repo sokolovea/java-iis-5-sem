@@ -10,7 +10,7 @@ public class EmptyCommand implements ActionCommand {
 		 * в случае ошибки или прямого обращения к контроллеру переадресация на страницу
 		 * ввода логина
 		 */
-		String page = "/jsp/login.jsp"; //ConfigurationManager.getProperty("path.page.login");
+		String page = ConfigurationManager.getProperty("path.page.login");
 		return page;
 	}
 

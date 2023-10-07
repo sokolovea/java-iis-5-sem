@@ -16,10 +16,10 @@ public class LoginCommand implements ActionCommand {
 		if (LoginLogic.checkLogin(login, pass)) {
 			request.setAttribute("user", login);
 			// определение пути к main.jsp
-			page = "/jsp/main.jsp";
+			page = ConfigurationManager.getProperty("path.page.main");
 		} else {
 			request.setAttribute("errorLoginPassMessage", "index.jsp");
-			page = "/jsp/login.jsp";
+			page = ConfigurationManager.getProperty("path.page.login");
 		}
 		return page;
 	}
