@@ -13,7 +13,7 @@ public class LoginCommand implements ActionCommand {
 		String pass = request.getParameter(PARAM_NAME_PASSWORD);
 		if (LoginLogic.checkLogin(login, pass)) {
 			request.setAttribute("user", login);
-			page = ConfigurationManager.getProperty("path.page.main");
+			page = ConfigurationManager.getProperty("path.page.team_select");
 		} else {
 			request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));
 			page = ConfigurationManager.getProperty("path.page.login");
