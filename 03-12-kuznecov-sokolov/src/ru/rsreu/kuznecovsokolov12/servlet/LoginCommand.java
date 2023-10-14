@@ -11,13 +11,24 @@ public class LoginCommand implements ActionCommand {
 		String page = null;
 		String login = request.getParameter(PARAM_NAME_LOGIN);
 		String pass = request.getParameter(PARAM_NAME_PASSWORD);
-		if (LoginLogic.checkLogin(login, pass)) {
-			request.setAttribute("user", login);
-			page = ConfigurationManager.getProperty("path.page.team_select");
-		} else {
-			request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));
-			page = ConfigurationManager.getProperty("path.page.login");
-		}
+		
+		EnumLogin loginResult = LoginLogic.checkLogin(login, pass);
+		request.setAttribute(LoginCommand.getRequestAttribute(loginResult), login);
+		page = LoginCommand.getPage(loginResult);
 		return page;
+	}
+	
+	private static String getRequestAttribute(EnumLogin loginResult) {
+		if (loginResult != EnumLogin.NOUSER) {
+			return loginResult.toString();
+		}
+		return "errorLoginPassMessage";
+	}
+	
+	private static String getPage(EnumLogin loginResult) {
+		if (loginResult == EnumLogin.USER || loginResult == EnumLogin.EXPERT || loginResult == EnumLogin.CAPTAIN) {
+			return ConfigurationManager.getProperty("path.page.team_select");
+		}
+		return ConfigurationManager.getProperty("path.page.login");
 	}
 }
