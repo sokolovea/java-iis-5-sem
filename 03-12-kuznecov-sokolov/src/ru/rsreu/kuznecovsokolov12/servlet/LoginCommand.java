@@ -13,7 +13,9 @@ public class LoginCommand implements ActionCommand {
 		String pass = request.getParameter(PARAM_NAME_PASSWORD);
 		
 		EnumLogin loginResult = LoginLogic.checkLogin(login, pass);
-		request.setAttribute(LoginCommand.getRequestAttribute(loginResult), login);
+//		System.out.println(LoginCommand.getRequestAttribute(loginResult));
+//		request.setAttribute(LoginCommand.getRequestAttribute(loginResult), login);
+		request.setAttribute("userRole", loginResult);
 		page = LoginCommand.getPage(loginResult);
 		return page;
 	}

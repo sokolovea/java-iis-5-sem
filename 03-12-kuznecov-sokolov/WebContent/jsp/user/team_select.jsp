@@ -11,7 +11,7 @@
 			<div id="main_content_bar">
 				<div id="left_bar" class="container">
 					<input type="button" value="Отчеты"/><br>
-					<a href="controller?command=Report">-Отчеты-</a>
+					<a href="controller?login=${userName}&role=${userRole}&command=Report">-Отчеты-</a>
 					    <input type="submit" value="Вернуться в команду" />
 					</form>
 				</div>
