@@ -10,13 +10,13 @@
 <body>
 		<div class="window"> 
 			<div id="top_bar" class="container">
-				<a href="controller?command=logout">Logout</a><br>
+				<a href="controller?command=login">Logout</a><br>
 			</div>
 			<div id="main_content_bar">
 				<div id="left_bar" class="container">
 					<ol>
 						<li id="button_report" class="menu_button">
-							<a href="team_select.jsp"><div>Отчеты</div></a>
+							<a href="controller?login=${userName}&role=${userRole}&command=Report"><div>Отчеты</div></a>
 						</li>
 						<li id="button_to_team" class="menu_button">
 							<a href="user_2.jsp"><div>Вернуться в команду</div></a>
