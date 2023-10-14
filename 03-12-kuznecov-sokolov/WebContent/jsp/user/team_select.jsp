@@ -6,12 +6,12 @@
 	<div class="window">
 		<form name="loginForm" method="POST" action="controller">
 			<div id="top_bar" class="container">
-				<a href="controller?command=logout">Logout</a><br>
+				<a href="controller?command=login">Logout</a><br>
 			</div>
 			<div id="main_content_bar">
 				<div id="left_bar" class="container">
 					<input type="button" value="Отчеты"/><br>
-					<form action="file:///C:/Users/cuzne/Downloads/user_2.html">
+					<a href="controller?command=Report">-Отчеты-</a>
 					    <input type="submit" value="Вернуться в команду" />
 					</form>
 				</div>
