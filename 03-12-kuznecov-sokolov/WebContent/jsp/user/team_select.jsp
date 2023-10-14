@@ -1,97 +1,46 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<html lang="ru-RU"><head><title>Выбор команды</title></head>
+<html lang="ru-RU">
+<head>
+	<title>Выбор команды</title>
+	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/main_win.css">
+	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/input_items.css">
+</head>
 <body>
-	<div class="window">
-		<form name="loginForm" method="POST" action="controller">
+		<div class="window"> 
 			<div id="top_bar" class="container">
 				<a href="controller?command=logout">Logout</a><br>
 			</div>
 			<div id="main_content_bar">
 				<div id="left_bar" class="container">
-					<input type="button" value="Отчеты"/><br>
-					<form action="file:///C:/Users/cuzne/Downloads/user_2.html">
-					    <input type="submit" value="Вернуться в команду" />
-					</form>
+					<ol>
+						<li id="button_report" class="menu_button">
+							<a href="team_select.jsp"><div>Отчеты</div></a>
+						</li>
+						<li id="button_to_team" class="menu_button">
+							<a href="user_2.jsp"><div>Вернуться в команду</div></a>
+						</li>
+					</ol>
 				</div>
 				<div id="center_bar" class="container">
-					<div>Создать команду<br/>
-						Введите название команды: <input type="form"/><br/>
-						<input type="button" value="Создать"/>
-					</div>
-					Список команд
+					<span>Создать новую команду</span><br/>
+						<div id="create_team"> 
+							<span>Введите название команды:</span> 
+							<input id="text_box_team_name" class="text_box" type="form"/>
+							<input type="button" value="Создать"/>
+						</div>
+						<div style="display:inline-block">
+							Сводная информация
+						</div>
+						<div>
+							Список команд
+						</div>
 				</div>
 				<div id="right_bar" class="container">
 					Список команд в которые вступил пользователь
 				</div>
 			</div>
-		</form>
-	</div>
-	
-	
-	
-	<style>
-  
-	input[type=button] {
-		width:200px;
-	}
-  
-	body {
-		display: flex;
-		justify-content: center;
-	}
-  
-	.window {
-		--main_height: 900px;
-		--top_bar_height: 70px;
-		--min_left_bar_w: 150px;
-		--min_right_bar_w: 150px;
-		--min_center_bar_w: 400px;
-		
-		width: 95%;
-		min-width: 700px;
-		height: var(--main_height);
-		border: 4px solid black;
-		padding: 10px;
-	}
-	
-	.container {
-		background: pink;
-		height: 100%;
-		border: 1px solid blue;
-	}
-	
-	#main_content_bar {
-		width: 100%;
-		display: flex;
-		height: calc(var(--main_height) - var(--top_bar_height));
-		flex-flow: row nowrap;
-		border: 2px solid red;
-	}
-	
-	
-	#top_bar {
-		flow-grow: 0;
-		width: 100%;
-		height: 70px;
-		border: 2px solid blue;
-	}
-	
-	#left_bar {
-		width: 15%;
-	}
-	
-	#right_bar {
-		width: 15%;
-	}
-	
-	#center_bar {
-		width: 70%;
-		flex-shrink: 10;
-	}
-	</style>
-	
-	
+		</div>
 </body>
 </html>
