@@ -1,7 +1,7 @@
 @import url("vars.css");
 
 body {
-	background-color: yellow;
+	background-color: var(--fourth_color);
 	display: flex;
 	justify-content: center;
 }
@@ -51,7 +51,9 @@ body {
 	height: var(--top_bar_height);
 	border: 0px solid blue;
 	border-radius: 50px;
-	
+	display: flex;
+	justify-content: end;
+	align-items: start;
 }
 
 #left_bar {
@@ -69,4 +71,39 @@ body {
 	min-width: var(--min_center_bar_w);
 	border-radius: 30px;
 	background-color: var(--fifth_color);
+	display: flex;
+	align-content: space-evenly;
+	flex-wrap: wrap;
+	justify-content: center;
 }
+
+#center_bar_top {
+	width: 90%;
+	display: flex;
+	align-self: start;
+	height: 30%;
+	justify-content: space-between;
+}
+
+#create_team {
+	wdith: 65%;
+}
+
+#teams_info {
+	width: 25%;
+}
+
+#center_bar_bottom {
+	width: 90%;
+	height: 60%;
+}
+
+.center_bar_boxes {
+	border-radius: 30px;
+	background: var(--fourth_color);
+	display: flex;
+	justify-content: center;
+}
+
+
+

@@ -52,10 +52,29 @@ input[type=button]:hover {
 	width: 250px;	
 }
 
-#logout_button {
-	background-color: red;
-	color: white;
+#logout_button_ref {
+	color: white;	
 }
+
+#logout_button {
+	border-radius: 5px;
+	background-color: var(--pressed_input_color);
+	transition: all 1s;
+	margin: 0 15px;
+} 
+
+#logout_button:hover {
+	transform: scale(0.9);
+}
+
+.top_bar_items {
+	display:flex;
+	justify-content: center;
+	align-items:center;
+	width: 80px;
+	height: 30px;
+}
+
 
 a {
     color: black;

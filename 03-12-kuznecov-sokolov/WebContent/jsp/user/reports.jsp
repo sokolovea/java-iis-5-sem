@@ -3,21 +3,24 @@
 <html lang="ru-RU">
 <head>
 	<title>Кабинет пользователя/капитана/эксперта</title>
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/main_win.css">
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/input_items.css">
+	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css1/main_win.css">
+	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css1/input_items.css">
 </head>
 <body>
 
 	<div class="window"> 
 		<div id="top_bar" class="container">
-			<div id="logout_button">
-				<a href="controller?command=login">Logout</a><br>
+			<div class="top_bar_items">
+				User name
+			</div>
+			<div id="logout_button" class="top_bar_items">
+				<a id="logout_button_ref" href="controller?command=login">Logout</a><br>
 			</div>
 		</div>
 		<div id="main_content_bar">
 			<div id="left_bar" class="container">
 				<ol>
-					<li id="button_report2343234234" class="menu_button">
+					<li id="button_report" class="menu_button">
 						<a href="controller?login=${userName}&role=${userRole}&command=Report"><div>Отчеты</div></a>
 					</li>
 					<li id="button_to_team" class="menu_button">

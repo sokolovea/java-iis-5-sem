@@ -4,14 +4,17 @@
 <html lang="ru-RU">
 <head>
 	<title>Выбор команды</title>
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/main_win.css">
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/input_items.css">
+	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css1/main_win.css">
+	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css1/input_items.css">
 </head>
 <body>
 		<div class="window"> 
 			<div id="top_bar" class="container">
-				<div id="logout_button">
-					<a href="controller?command=login">Logout</a><br>
+				<div class="top_bar_items">
+					User name
+				</div>
+				<div id="logout_button" class="top_bar_items">
+					<a id="logout_button_ref" href="controller?command=login">Logout</a><br>
 				</div>
 			</div>
 			<div id="main_content_bar">
@@ -26,18 +29,22 @@
 					</ol>
 				</div>
 				<div id="center_bar" class="container">
-					<span>Создать новую команду</span><br/>
-						<div id="create_team"> 
+					<div id="center_bar_top">
+						<div class="center_bar_boxes" id="create_team"> 
+							<span class="header_name">Создать новую команду</span><br/>
 							<span>Введите название команды:</span> 
 							<input id="text_box_team_name" class="text_box" type="form"/>
 							<input type="button" value="Создать"/>
 						</div>
-						<div style="display:inline-block">
-							Сводная информация
+						<div class="center_bar_boxes" id="teams_info">
+							Сводная информация о командах
 						</div>
-						<div>
+					</div>
+					<div class="center_bar_boxes" id="center_bar_bottom">
+						<div id="team_list">
 							Список команд
 						</div>
+					</div>		
 				</div>
 				<div id="right_bar" class="container">
 					Список команд в которые вступил пользователь
