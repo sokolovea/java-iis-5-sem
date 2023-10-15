@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="ru-RU">
 <head>
 	<title>Кабинет пользователя/капитана/эксперта</title>
@@ -23,7 +24,7 @@
 						<a href="controller?login=${userName}&password=${userPassword}&command=Report"><div>Отчеты</div></a>
 					</li>
 					<li id="button_to_team" class="menu_button">
-						<a href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu"><div>Выйти из команды</div></a>
+						<a href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu"><div>Команды</div></a>
 					</li>
 				</ol>
 			</div>
@@ -42,13 +43,24 @@
 			</div>
 			<div id="right_bar" class="container">
 				<div class='user_list'>
-					<div id="team_list">Список пользователей команды (возможно, лучше сделать в таблице)</div>
+					<div id="team_list">Список пользователей команды</div>
 				</div>
-				<div class='expert_block'>
-					Ваш эксперт: ...
-					<br>
-					
-				</div>	
+				<jsp:useBean id="myLogic" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
+					<div class='expert_block'>
+						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() != 'expert'}">
+							Эксперт:
+						</c:if>
+						<br>
+						<div>
+							<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() != 'expert'}">
+								<input type="button" value="Отказаться от эксперта"/>
+							</c:if>
+							<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'expert'}">
+								<input type="button" value="Отказаться от команды"/>
+							</c:if>
+						</div>	
+					</div>
+				 
 			</div>
 		</div>
 	</div>

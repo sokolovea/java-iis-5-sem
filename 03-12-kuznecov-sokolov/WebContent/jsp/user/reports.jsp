@@ -31,7 +31,6 @@
 			<jsp:useBean id="myLogic" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
 			<div id="center_bar" class="container">
 				<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'expert'}">
-		            <p>Раздел эксперта</p>
 		            <div>Вывод команд, консультирующихся у данного эксперта<br>
 		            	<table>
 						  <thead>
@@ -63,7 +62,6 @@
 		            </div>
 		        </c:if>
 				<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'user'}">
-		            <p>Раздел пользователя</p>
 		            <div>Вывод сообщений, которые удалил не сам пользователь<br>
 			            <table>
 						  <thead>
