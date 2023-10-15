@@ -1,8 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html lang="ru-RU"><head><title>Кабинет пользователя/капитана/эксперта</title></head>
+<html lang="ru-RU">
+<head>
+	<title>Кабинет пользователя/капитана/эксперта</title>
+	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/main_win.css">
+	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/input_items.css">
+</head>
 <body>
-        <div class='reports'>
+
+	<div class="window"> 
+		<div id="top_bar" class="container">
+			<a href="controller?command=login">Logout</a><br>
+		</div>
+		<div id="main_content_bar">
+			<div id="left_bar" class="container">
+				<ol>
+					<li id="button_report" class="menu_button">
+						<a href="controller?login=${userName}&role=${userRole}&command=Report"><div>Отчеты</div></a>
+					</li>
+					<li id="button_to_team" class="menu_button">
+						<a href="team_select.jsp"><div>Вернуться в команду</div></a>
+					</li>
+					<li id="button_select_expert" class="menu_button">
+						<a href="user_2.jsp"><div>Меню выбора эксперта капитаном (команды экспертом)</div></a>
+					</li>
+				</ol>
+			</div>
+			<div id="center_bar" class="container">
+			</div>
+			<div id="right_bar" class="container">
+			</div>
+		</div>
+	</div>
+     <!-- <div class='reports'>
         	<c:if test = "${userRole != 'USER'}">
 	            <p>Раздел эксперта</p>
 	            <div>Вывод команд, консультирующихся у данного эксперта</div>
@@ -34,5 +64,5 @@
             Ваш эксперт: ...
             <br>
             <input type="submit" value="Отказаться от консультирования (капитан)"/>
-        </div> -->
+        </div> --> -->
 </body></html>
