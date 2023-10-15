@@ -29,9 +29,6 @@ public class FrontController extends HttpServlet {
 		ActionCommand command = client.defineCommand(request);
 		page = command.execute(request);
 		if (page != null) {
-			/* */
-//			request.getSession().setAttribute("userName", "user");
-			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
 			dispatcher.forward(request, response);
 		} else {
