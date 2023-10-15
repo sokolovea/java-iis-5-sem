@@ -4,6 +4,7 @@
 	<title>Кабинет пользователя/капитана/эксперта</title>
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css1/main_win.css">
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css1/input_items.css">
+	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css1/user_2.css">
 </head>
 <body>
 	<div class="window">
@@ -27,13 +28,13 @@
 				</ol>
 			</div>
 			<div id="center_bar" class="container">
-				<div id="chat">
+				<div id="chat" class="center_bar_boxes">
 					<div>user1: Всем привет! [12:18:30]</div>
 					<div>user2: Здорова всем!!!))) [12:18:53]</div>
 					<div>captain: Коллеги, не отвлекаемся! Через минуту начинается игра [12:19:24]</div>
 					<div>captain: @expert, сколько лет было Пушкину на момент дуэли с Дантесом? [12:22:02]</div>
 				</div>
-				<div id="message_input_box">
+				<div id="message_input_box" class="center_bar_boxes">
 					<span>Ваше сообщение:</span>
 						<input id="text_box_message" class="text_box" type="form" name="message" size="100"></input>
 					<input type="button" value="Отправить"/>
@@ -51,18 +52,4 @@
 			</div>
 		</div>
 	</div>
-	
-	<style>
-  
-	.chat {
-		border-bottom: 2px solid black;
-		height: 600px;
-	}
-  
-	.user_list {
-		height: 300px;
-		border-bottom: 2px solid black;
-		margin-bottom: 40px;
-	}
-	</style>
 </body></html>

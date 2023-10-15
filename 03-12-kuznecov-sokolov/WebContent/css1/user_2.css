@@ -1,22 +1,19 @@
 @import url("vars.css");
 
-#center_bar_top {
+#chat {
 	width: 90%;
-	display: flex;
-	align-self: start;
-	height: 30%;
-	justify-content: space-between;
+	height: 80%;
+	display: inline-block;
+	flex-wrap: wrap;
 }
 
-#create_team {
-	wdith: 65%;
-}
-
-#teams_info {
-	width: 25%;
-}
-
-#center_bar_bottom {
+#message_input_box {
 	width: 90%;
-	height: 60%;
+	height: 10%;
+}
+
+.user_list {
+	height: 300px;
+	border-bottom: 2px solid black;
+	margin-bottom: 40px;
 }

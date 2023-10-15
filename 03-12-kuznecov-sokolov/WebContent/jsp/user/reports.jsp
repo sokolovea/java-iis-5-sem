@@ -42,8 +42,9 @@
 						</table>
 		            </div>
 		            <div>Вывод N команд, которым данный эксперт писал больше всего сообщений<br>
-		            	<input type="text" name="countCommands" value="100"/></p>
-	            		<table>
+		            	<input class="text_box" type="text" name="countCommands" value="100"/><br/>
+	            		<input type="button" name="countCommands_submit" value="Найти"/>
+		            	<table>
 						  <thead>
 						    <tr>
 						      <th>Наименование команды</th>

@@ -72,9 +72,10 @@ body {
 	border-radius: 30px;
 	background-color: var(--fifth_color);
 	display: flex;
+	flex-flow: column;
 	align-content: space-evenly;
 	flex-wrap: wrap;
-	justify-content: center;
+	justify-content: space-evenly;
 }
 
 .center_bar_boxes {
@@ -82,6 +83,7 @@ body {
 	background: var(--fourth_color);
 	display: flex;
 	justify-content: center;
+	align-items: center;
 }
 
 
