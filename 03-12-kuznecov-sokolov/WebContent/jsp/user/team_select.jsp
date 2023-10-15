@@ -10,7 +10,9 @@
 <body>
 		<div class="window"> 
 			<div id="top_bar" class="container">
-				<a href="controller?command=login">Logout</a><br>
+				<div id="logout_button">
+					<a href="controller?command=login">Logout</a><br>
+				</div>
 			</div>
 			<div id="main_content_bar">
 				<div id="left_bar" class="container">
@@ -19,7 +21,7 @@
 							<a href="controller?login=${userName}&role=${userRole}&command=Report"><div>Отчеты</div></a>
 						</li>
 						<li id="button_to_team" class="menu_button">
-							<a href="user_2.jsp"><div>Вернуться в команду</div></a>
+							<a href="team_select.jsp"><div>Вернуться в команду</div></a>
 						</li>
 					</ol>
 				</div>

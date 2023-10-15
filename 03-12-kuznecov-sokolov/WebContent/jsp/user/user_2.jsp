@@ -8,7 +8,9 @@
 <body>
 	<div class="window">
 		<div id="top_bar" class="container">
-			<a href="controller?command=logout">Logout</a><br>
+			<div id="logout_button">
+				<a href="controller?command=login">Logout</a><br>
+			</div>
 		</div>
 		<div id="main_content_bar">
 			<div id="left_bar" class="container">

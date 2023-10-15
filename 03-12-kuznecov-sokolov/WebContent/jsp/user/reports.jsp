@@ -10,12 +10,14 @@
 
 	<div class="window"> 
 		<div id="top_bar" class="container">
-			<a href="controller?command=login">Logout</a><br>
+			<div id="logout_button">
+				<a href="controller?command=login">Logout</a><br>
+			</div>
 		</div>
 		<div id="main_content_bar">
 			<div id="left_bar" class="container">
 				<ol>
-					<li id="button_report" class="menu_button">
+					<li id="button_report2343234234" class="menu_button">
 						<a href="controller?login=${userName}&role=${userRole}&command=Report"><div>Отчеты</div></a>
 					</li>
 					<li id="button_to_team" class="menu_button">
@@ -76,5 +78,5 @@
             Ваш эксперт: ...
             <br>
             <input type="submit" value="Отказаться от консультирования (капитан)"/>
-        </div> --> -->
+        </div> -->
 </body></html>

@@ -63,6 +63,11 @@ input[type=button]:hover {
 	width: 250px;	
 }
 
+#logout_button {
+	background-color: red;
+	color: white;
+}
+
 a {
     color: black;
     text-decoration: none;
