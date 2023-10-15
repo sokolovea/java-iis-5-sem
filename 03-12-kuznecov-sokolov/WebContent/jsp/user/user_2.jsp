@@ -24,26 +24,20 @@
 					<li id="button_to_team" class="menu_button">
 						<a href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu"><div>Выйти из команды</div></a>
 					</li>
-					<li id="button_to_team" class="menu_button">
-						<a href="controller?command=login"><div>Меню выбора эксперта капитаном</div></a>
-					</li>
-					<li id="button_to_team" class="menu_button">
-						<a href="controller?command=login"><div>Отказаться от консультирования (капитан)</div></a>
-					</li>
 				</ol>
 			</div>
 			<div id="center_bar" class="container">
-				<div class='chat'>
+				<div id="chat">
 					<div>user1: Всем привет! [12:18:30]</div>
 					<div>user2: Здорова всем!!!))) [12:18:53]</div>
 					<div>captain: Коллеги, не отвлекаемся! Через минуту начинается игра [12:19:24]</div>
 					<div>captain: @expert, сколько лет было Пушкину на момент дуэли с Дантесом? [12:22:02]</div>
-					
 				</div>
-				<p>Ваше сообщение:
-					<input id="text_box_message" class="text_box" type="form" name="message" size="100"></input>
-				</p>
-				<input type="button" value="Отправить"/>
+				<div id="message_input_box">
+					<span>Ваше сообщение:</span>
+						<input id="text_box_message" class="text_box" type="form" name="message" size="100"></input>
+					<input type="button" value="Отправить"/>
+				</div>
 			</div>
 			<div id="right_bar" class="container">
 				<div class='user_list'>

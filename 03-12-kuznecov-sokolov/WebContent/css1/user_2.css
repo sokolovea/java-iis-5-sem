@@ -1,0 +1,22 @@
+@import url("vars.css");
+
+#center_bar_top {
+	width: 90%;
+	display: flex;
+	align-self: start;
+	height: 30%;
+	justify-content: space-between;
+}
+
+#create_team {
+	wdith: 65%;
+}
+
+#teams_info {
+	width: 25%;
+}
+
+#center_bar_bottom {
+	width: 90%;
+	height: 60%;
+}

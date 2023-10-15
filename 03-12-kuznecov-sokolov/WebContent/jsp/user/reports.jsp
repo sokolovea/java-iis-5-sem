@@ -24,10 +24,7 @@
 						<a href="controller?login=${userName}&password=${userPassword}&command=Report"><div>Отчеты</div></a>
 					</li>
 					<li id="button_to_team" class="menu_button">
-						<a href="controller?login=${userName}&password=${userPassword}&command=Login"><div>Вернуться в команду</div></a>
-					</li>
-					<li id="button_select_expert" class="menu_button">
-						<a href="controller?command=login"><div>Меню выбора эксперта капитаном (команды экспертом)</div></a>
+						<a href="controller?login=${userName}&password=${userPassword}&destination=team&command=Menu"><div>Вернуться в команду</div></a>
 					</li>
 				</ol>
 			</div>

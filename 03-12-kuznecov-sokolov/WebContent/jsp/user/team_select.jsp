@@ -6,6 +6,7 @@
 	<title>Выбор команды</title>
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css1/main_win.css">
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css1/input_items.css">
+	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css1/team_select.css">
 </head>
 <body>
 		<div class="window"> 
