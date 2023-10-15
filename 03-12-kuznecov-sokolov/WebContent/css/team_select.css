@@ -9,14 +9,19 @@
 }
 
 #create_team {
+	display: inline-block;
 	wdith: 65%;
 }
 
 #teams_info {
 	width: 25%;
+	margin-left: 5px;
 }
 
 #center_bar_bottom {
 	width: 90%;
 	height: 60%;
+}
+
+.header_name {
 }

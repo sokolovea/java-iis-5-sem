@@ -3,9 +3,9 @@
 <html lang="ru-RU">
 <head>
 	<title>Кабинет пользователя/капитана/эксперта</title>
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css1/main_win.css">
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css1/input_items.css">
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css1/user_2.css">
+	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/main_win.css">
+	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/input_items.css">
+	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/user_2.css">
 </head>
 <body>
 	<div class="window">
@@ -37,7 +37,7 @@
 				</div>
 				<div id="message_input_box" class="center_bar_boxes">
 					<span>Ваше сообщение:</span>
-						<input id="text_box_message" class="text_box" type="form" name="message" size="100"></input>
+						<input id="text_box_message" class="text_box" type="text" name="message" size="100"></input>
 					<input type="button" value="Отправить"/>
 				</div>
 			</div>

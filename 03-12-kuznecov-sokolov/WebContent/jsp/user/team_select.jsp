@@ -4,9 +4,9 @@
 <html lang="ru-RU">
 <head>
 	<title>Выбор команды</title>
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css1/main_win.css">
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css1/input_items.css">
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css1/team_select.css">
+	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/main_win.css">
+	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/input_items.css">
+	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/team_select.css">
 </head>
 <body>
 		<div class="window"> 
@@ -32,13 +32,19 @@
 				<div id="center_bar" class="container">
 					<div id="center_bar_top">
 						<div class="center_bar_boxes" id="create_team"> 
-							<span class="header_name">Создать новую команду</span><br/>
-							<span>Введите название команды:</span> 
-							<input id="text_box_team_name" class="text_box" type="form"/>
-							<input type="button" value="Создать"/>
+							<div>
+								<span class="header_name">Создать новую команду</span>
+							</div>
+							<div>
+								<span>Введите название команды:</span> 
+								<input id="text_box_team_name" class="text_box" type="form"/>
+								<input type="button" value="Создать"/>
+							</div>
 						</div>
 						<div class="center_bar_boxes" id="teams_info">
-							Сводная информация о командах
+							<div>
+								Сводная информация о командах
+							</div>
 						</div>
 					</div>
 					<div class="center_bar_boxes" id="center_bar_bottom">

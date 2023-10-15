@@ -1,7 +1,7 @@
 @import url("vars.css");
 
 body {
-	background-color: yellow;
+	background-color: var(--fourth_color);
 	display: flex;
 	justify-content: center;
 }
@@ -51,7 +51,9 @@ body {
 	height: var(--top_bar_height);
 	border: 0px solid blue;
 	border-radius: 50px;
-	
+	display: flex;
+	justify-content: end;
+	align-items: start;
 }
 
 #left_bar {
@@ -69,4 +71,25 @@ body {
 	min-width: var(--min_center_bar_w);
 	border-radius: 30px;
 	background-color: var(--fifth_color);
+	display: flex;
+	flex-flow: column;
+	align-content: space-evenly;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
 }
+
+.center_bar_boxes {
+	border-radius: 30px;
+	background: var(--fourth_color);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.center_bar_boxes > *{
+	margin: 10px;
+}
+
+
+
+

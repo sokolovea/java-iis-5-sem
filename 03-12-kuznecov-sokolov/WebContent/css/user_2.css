@@ -4,7 +4,6 @@
 	width: 90%;
 	height: 80%;
 	display: inline-block;
-	flex-wrap: wrap;
 }
 
 #message_input_box {
