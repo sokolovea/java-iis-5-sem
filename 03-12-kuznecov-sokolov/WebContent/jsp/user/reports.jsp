@@ -61,7 +61,7 @@
 						</table>
 		            </div>
 		        </c:if>
-				<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'user'}">
+				<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() != 'expert'}">
 		            <div>Вывод сообщений, которые удалил не сам пользователь<br>
 			            <table>
 						  <thead>
