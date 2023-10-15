@@ -46,21 +46,20 @@
 					<div id="team_list">Список пользователей команды</div>
 				</div>
 				<jsp:useBean id="myLogic" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
-					<div class='expert_block'>
-						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() != 'expert'}">
-							Эксперт:
+				<div class='expert_block'>
+					<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() != 'expert'}">
+						Эксперт:
+					</c:if>
+					<br>
+					<div>
+						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'captain'}">
+							<input style="width:auto" type="button" value="Отказаться от эксперта"/>
 						</c:if>
-						<br>
-						<div>
-							<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'captain'}">
-								<input type="button" value="Отказаться от эксперта"/>
-							</c:if>
-							<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'expert'}">
-								<input type="button" value="Отказаться от команды"/>
-							</c:if>
-						</div>	
-					</div>
-				 
+						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'expert'}">
+							<input style="width:auto" type="button" value="Отказаться от команды"/>
+						</c:if>
+					</div>	
+				</div>
 			</div>
 		</div>
 	</div>

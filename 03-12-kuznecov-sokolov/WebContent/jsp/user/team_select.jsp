@@ -15,7 +15,7 @@
 					User name
 				</div>
 				<div id="logout_button" class="top_bar_items">
-					<a id="logout_button_ref" href="controller?command=logout">Logout</a><br>
+					<a id="logout_button_ref" href="controller?command=login">Logout</a><br>
 				</div>
 			</div>
 			<div id="main_content_bar">
