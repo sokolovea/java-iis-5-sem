@@ -14,16 +14,16 @@
 			<div id="left_bar" class="container">
 				<ol>
 					<li id="button_report" class="menu_button">
-						<a href="user_2.jsp"><div>Отчеты</div></a>
+						<a href="controller?login=${userName}&password=${userPassword}&command=Report"><div>Отчеты</div></a>
 					</li>
 					<li id="button_to_team" class="menu_button">
-						<a href="team_select.jsp"><div>Выйти из команды</div></a>
+						<a href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu"><div>Выйти из команды</div></a>
 					</li>
 					<li id="button_to_team" class="menu_button">
-						<a href="user_2.jsp"><div>Меню выбора эксперта капитаном</div></a>
+						<a href="controller?command=login"><div>Меню выбора эксперта капитаном</div></a>
 					</li>
 					<li id="button_to_team" class="menu_button">
-						<a href="user_2.jsp"><div>Отказаться от консультирования (капитан)</div></a>
+						<a href="controller?command=login"><div>Отказаться от консультирования (капитан)</div></a>
 					</li>
 				</ol>
 			</div>

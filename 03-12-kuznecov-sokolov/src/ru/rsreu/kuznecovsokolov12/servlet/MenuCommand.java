@@ -2,7 +2,7 @@ package ru.rsreu.kuznecovsokolov12.servlet;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class ReportCommand implements ActionCommand {
+public class MenuCommand implements ActionCommand {
 	private static final String PARAM_NAME_LOGIN = "login";
 	private static final String PARAM_NAME_PASSWORD = "password";
 	@Override
@@ -11,10 +11,10 @@ public class ReportCommand implements ActionCommand {
 		request.getSession().setAttribute("userName", login);
 		String password = request.getParameter(PARAM_NAME_PASSWORD);
 		request.getSession().setAttribute("userPassword", password);
+		String destination = request.getParameter("destination");
 		EnumLogin loginResult = LoginLogic.checkLogin(login, password);
-		String userRole = loginResult.toString();
-		request.setAttribute(ReportCommand.getRequestAttribute(loginResult), login);
-		return ReportCommand.getPage(loginResult);
+		request.setAttribute(MenuCommand.getRequestAttribute(loginResult), login);
+		return MenuCommand.getPage(loginResult, destination);
 	}
 	
 	private static String getRequestAttribute(EnumLogin loginResult) {
@@ -24,9 +24,13 @@ public class ReportCommand implements ActionCommand {
 		return "errorLoginPassMessage";
 	}
 	
-	private static String getPage(EnumLogin loginResult) {
+	private static String getPage(EnumLogin loginResult, String destination) {
 		if (loginResult == EnumLogin.USER || loginResult == EnumLogin.EXPERT || loginResult == EnumLogin.CAPTAIN) {
-			return ConfigurationManager.getProperty("path.page.reports");
+			if (destination.equals("team")) {
+				return ConfigurationManager.getProperty("path.page.team");
+			} else if (destination.equals("main")) {
+				return ConfigurationManager.getProperty("path.page.team_select");
+			}
 		}
 		return ConfigurationManager.getProperty("path.page.login");
 	}
