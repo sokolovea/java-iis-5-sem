@@ -1,8 +1,13 @@
 package ru.rsreu.kuznecovsokolov12.servlet;
 
 public enum CommandEnum {
+	MENU {
+		{
+			this.command = new MenuCommand();
+		}
+	},
 	
-	REPORT{
+	REPORT {
 		{
 			this.command = new ReportCommand();
 		}

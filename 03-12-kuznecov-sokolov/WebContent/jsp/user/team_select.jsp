@@ -21,10 +21,10 @@
 				<div id="left_bar" class="container">
 					<ol>
 						<li id="button_report" class="menu_button">
-							<a href="controller?login=${userName}&role=${userRole}&command=Report"><div>Отчеты</div></a>
+							<a href="controller?login=${userName}&password=${userPassword}&command=Report"><div>Отчеты</div></a>
 						</li>
 						<li id="button_to_team" class="menu_button">
-							<a href="team_select.jsp"><div>Вернуться в команду</div></a>
+							<a href="controller?login=${userName}&password=${userPassword}&destination=team&command=Menu"><div>Вернуться в команду</div></a>
 						</li>
 					</ol>
 				</div>

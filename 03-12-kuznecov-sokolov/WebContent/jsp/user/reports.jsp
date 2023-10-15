@@ -21,24 +21,25 @@
 			<div id="left_bar" class="container">
 				<ol>
 					<li id="button_report" class="menu_button">
-						<a href="controller?login=${userName}&role=${userRole}&command=Report"><div>Отчеты</div></a>
+						<a href="controller?login=${userName}&password=${userPassword}&command=Report"><div>Отчеты</div></a>
 					</li>
 					<li id="button_to_team" class="menu_button">
-						<a href="team_select.jsp"><div>Вернуться в команду</div></a>
+						<a href="controller?login=${userName}&password=${userPassword}&command=Login"><div>Вернуться в команду</div></a>
 					</li>
 					<li id="button_select_expert" class="menu_button">
-						<a href="user_2.jsp"><div>Меню выбора эксперта капитаном (команды экспертом)</div></a>
+						<a href="controller?command=login"><div>Меню выбора эксперта капитаном (команды экспертом)</div></a>
 					</li>
 				</ol>
 			</div>
+			<jsp:useBean id="myLogic" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
 			<div id="center_bar" class="container">
-				<c:if test = "${userRole != 'USER'}">
+				<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'expert'}">
 		            <p>Раздел эксперта</p>
 		            <div>Вывод команд, консультирующихся у данного эксперта</div>
 		            <div>Вывод N команд, которым данный эксперт писал больше всего сообщений</div>
 		            <div>Вывод команд, отказавшихся от консультирования у данного эксперта</div>
 		        </c:if>
-		        <c:if test = "${userRole == 'USER'}">
+				<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'user'}">
 		            <p>Раздел пользователя</p>
 		            <div>Вывод сообщений, которые удалил не сам пользователь</div>
 		            <div>История санкций, наложенных на данного пользователя</div>

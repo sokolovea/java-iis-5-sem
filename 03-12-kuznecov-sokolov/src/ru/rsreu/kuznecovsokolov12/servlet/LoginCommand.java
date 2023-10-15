@@ -13,10 +13,10 @@ public class LoginCommand implements ActionCommand {
 		String pass = request.getParameter(PARAM_NAME_PASSWORD);
 		
 		EnumLogin loginResult = LoginLogic.checkLogin(login, pass);
-//		System.out.println(LoginCommand.getRequestAttribute(loginResult));
-//		request.setAttribute(LoginCommand.getRequestAttribute(loginResult), login);
-		request.setAttribute("userRole", loginResult);
+		request.setAttribute("userName", login);
+		request.setAttribute("userPassword", pass);
 		page = LoginCommand.getPage(loginResult);
+		System.out.println(ru.rsreu.kuznecovsokolov12.servlet.EnumLogin.ADMIN.toString());
 		return page;
 	}
 	
