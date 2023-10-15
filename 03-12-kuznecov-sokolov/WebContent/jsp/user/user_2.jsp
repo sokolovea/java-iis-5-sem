@@ -52,7 +52,7 @@
 						</c:if>
 						<br>
 						<div>
-							<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() != 'expert'}">
+							<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'captain'}">
 								<input type="button" value="Отказаться от эксперта"/>
 							</c:if>
 							<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'expert'}">
