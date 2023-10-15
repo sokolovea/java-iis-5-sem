@@ -12,7 +12,6 @@ public class ReportCommand implements ActionCommand {
 		String password = request.getParameter(PARAM_NAME_PASSWORD);
 		request.getSession().setAttribute("userPassword", password);
 		EnumLogin loginResult = LoginLogic.checkLogin(login, password);
-		String userRole = loginResult.toString();
 		request.setAttribute(ReportCommand.getRequestAttribute(loginResult), login);
 		return ReportCommand.getPage(loginResult);
 	}

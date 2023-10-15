@@ -5,26 +5,27 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginCommand implements ActionCommand {
 	private static final String PARAM_NAME_LOGIN = "login";
 	private static final String PARAM_NAME_PASSWORD = "password";
+	private static final String PARAM_USER_NAME = "userName";
+	private static final String PARAM_USER_PASSWORD = "userPassword";
 
 	@Override
 	public String execute(HttpServletRequest request) {
 		String page = null;
-		String login = request.getParameter(PARAM_NAME_LOGIN);
-		String pass = request.getParameter(PARAM_NAME_PASSWORD);
+		String login = request.getParameter(LoginCommand.PARAM_NAME_LOGIN);
+		String pass = request.getParameter(LoginCommand.PARAM_NAME_PASSWORD);
 		
 		EnumLogin loginResult = LoginLogic.checkLogin(login, pass);
-		request.setAttribute("userName", login);
-		request.setAttribute("userPassword", pass);
+		request.setAttribute(LoginCommand.PARAM_USER_NAME, login);
+		request.setAttribute(LoginCommand.PARAM_USER_PASSWORD, pass);
+		if (!LoginCommand.isLogined(loginResult)) {
+			request.setAttribute("errorLoginPassMessage", "Login or password incorrect");
+		}
 		page = LoginCommand.getPage(loginResult);
-		System.out.println(ru.rsreu.kuznecovsokolov12.servlet.EnumLogin.ADMIN.toString());
 		return page;
 	}
 	
-	private static String getRequestAttribute(EnumLogin loginResult) {
-		if (loginResult != EnumLogin.NOUSER) {
-			return loginResult.toString();
-		}
-		return "errorLoginPassMessage";
+	private static boolean isLogined(EnumLogin loginResult) {
+		return (loginResult != EnumLogin.NOUSER);
 	}
 	
 	private static String getPage(EnumLogin loginResult) {
