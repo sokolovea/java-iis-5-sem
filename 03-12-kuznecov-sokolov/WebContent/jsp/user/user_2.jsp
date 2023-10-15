@@ -30,10 +30,10 @@
 			</div>
 			<div id="center_bar" class="container">
 				<div id="chat" class="center_bar_boxes">
-					<div>user1: Всем привет! [12:18:30]</div>
-					<div>user2: Здорова всем!!!))) [12:18:53]</div>
-					<div>captain: Коллеги, не отвлекаемся! Через минуту начинается игра [12:19:24]</div>
-					<div>captain: @expert, сколько лет было Пушкину на момент дуэли с Дантесом? [12:22:02]</div>
+					<div class="message">user1: Всем привет! [12:18:30]</div>
+					<div class="message">user2: Здорова всем!!!))) [12:18:53]</div>
+					<div class="message">captain: Коллеги, не отвлекаемся! Через минуту начинается игра [12:19:24]</div>
+					<div class="message">captain: @expert, сколько лет было Пушкину на момент дуэли с Дантесом? [12:22:02]</div>
 				</div>
 				<div id="message_input_box" class="center_bar_boxes">
 					<span>Ваше сообщение:</span>
