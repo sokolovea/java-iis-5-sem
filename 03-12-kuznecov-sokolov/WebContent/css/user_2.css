@@ -3,7 +3,9 @@
 #chat {
 	width: 90%;
 	height: 80%;
-	display: inline-block;
+	display: flex;
+	flex-wrap: wrap;
+	overflow: auto;
 }
 
 #message_input_box {
@@ -20,4 +22,15 @@
 .message {
 	margin-left: 10px;
 	margin-top: 20px;
+	background-color: var(--fifth_color);
+	border-radius: 30px;
+	height: 3rem;
+	width: 90%;
+	display:flex;
+	justify-content: flex-start;
+	align-items:center;
+}
+
+.message_user {
+	margin-left: 15px;
 }

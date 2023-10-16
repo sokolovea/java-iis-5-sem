@@ -33,10 +33,76 @@
 			</div>
 			<div id="center_bar" class="container">
 				<div id="chat" class="center_bar_boxes">
-					<div class="message">user1: Всем привет! [12:18:30]</div>
-					<div class="message">user2: Здорова всем!!!))) [12:18:53]</div>
-					<div class="message">captain: Коллеги, не отвлекаемся! Через минуту начинается игра [12:19:24]</div>
-					<div class="message">captain: @expert, сколько лет было Пушкину на момент дуэли с Дантесом? [12:22:02]</div>
+					<div class="message"> 
+						<div class="message_user">user1</div>:
+						<div class="message_data">Всем привет!</div> 
+						<div class="message_time">[12:18:30]</div>
+					</div>
+					<div class="message"> 
+						<div class="message_user">user2</div>: 
+						<div class="message_data">Здорова всем!!!)))</div> 
+						<div class="message_time">[12:18:53]</div>
+					</div>
+					<div class="message"> 
+						<div class="message_user">captain</div>: 
+						<div class="message_data">Коллеги, не отвлекаемся! Через минуту начинается игра</div> 
+						<div class="message_time">[12:19:24]</div>
+					</div>
+					<div class="message"> 
+						<div class="message_user">captain</div>: 
+						<div class="message_data">@expert, сколько лет было Пушкину на момент дуэли с Дантесом?</div> 
+						<div class="message_time">[12:22:02]</div>
+					</div>
+					<div class="message"> 
+						<div class="message_user">captain</div>: 
+						<div class="message_data">Коллеги, не отвлекаемся! Через минуту начинается игра</div> 
+						<div class="message_time">[12:19:24]</div>
+					</div>
+					<div class="message"> 
+						<div class="message_user">captain</div>: 
+						<div class="message_data">@expert, сколько лет было Пушкину на момент дуэли с Дантесом?</div> 
+						<div class="message_time">[12:22:02]</div>
+					</div>
+					<div class="message"> 
+						<div class="message_user">captain</div>: 
+						<div class="message_data">Коллеги, не отвлекаемся! Через минуту начинается игра</div> 
+						<div class="message_time">[12:19:24]</div>
+					</div>
+					<div class="message"> 
+						<div class="message_user">captain</div>: 
+						<div class="message_data">@expert, сколько лет было Пушкину на момент дуэли с Дантесом?</div> 
+						<div class="message_time">[12:22:02]</div>
+					</div>
+					<div class="message"> 
+						<div class="message_user">captain</div>: 
+						<div class="message_data">Коллеги, не отвлекаемся! Через минуту начинается игра</div> 
+						<div class="message_time">[12:19:24]</div>
+					</div>
+					<div class="message"> 
+						<div class="message_user">captain</div>: 
+						<div class="message_data">@expert, сколько лет было Пушкину на момент дуэли с Дантесом?</div> 
+						<div class="message_time">[12:22:02]</div>
+					</div>
+					<div class="message"> 
+						<div class="message_user">captain</div>: 
+						<div class="message_data">Коллеги, не отвлекаемся! Через минуту начинается игра</div> 
+						<div class="message_time">[12:19:24]</div>
+					</div>
+					<div class="message"> 
+						<div class="message_user">captain</div>: 
+						<div class="message_data">@expert, сколько лет было Пушкину на момент дуэли с Дантесом?</div> 
+						<div class="message_time">[12:22:02]</div>
+					</div>
+					<div class="message"> 
+						<div class="message_user">captain</div>: 
+						<div class="message_data">Коллеги, не отвлекаемся! Через минуту начинается игра</div> 
+						<div class="message_time">[12:19:24]</div>
+					</div>
+					<div class="message"> 
+						<div class="message_user">captain</div>: 
+						<div class="message_data">@expert, сколько лет было Пушкину на момент дуэли с Дантесом?</div> 
+						<div class="message_time">[12:22:02]</div>
+					</div>
 				</div>
 				<div id="message_input_box" class="center_bar_boxes">
 					<span>Ваше сообщение:</span>
