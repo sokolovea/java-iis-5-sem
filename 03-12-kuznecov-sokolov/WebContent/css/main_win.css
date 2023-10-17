@@ -7,7 +7,7 @@ body {
 }
 
 .window {
-	--main_height: 850px;
+	--main_height: 95%;
 	--top_bar_height: 50px;
 	--min_left_bar_w: 150px;
 	--min_right_bar_w: 150px;
