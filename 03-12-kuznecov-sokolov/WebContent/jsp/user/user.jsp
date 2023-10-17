@@ -5,7 +5,7 @@
 	<title>Кабинет пользователя/капитана/эксперта</title>
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/main_win.css">
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/input_items.css">
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/user_2.css">
+	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/user.css">
 </head>
 <body>
 	<div class="window">
@@ -21,87 +21,45 @@
 			<div id="left_bar" class="container">
 				<ol>
 					<li id="button_report" class="menu_button">
-						<a href="controller?login=${userName}&password=${userPassword}&command=Report"><div>Отчеты</div></a>
+						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Report"><div>Отчеты</div></a>
 					</li>
 					<li id="button_to_team" class="menu_button">
-						<a href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu"><div>Команды</div></a>
+						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu"><div>Команды</div></a>
 					</li>
 					<li id="button_exit_team" class="menu_button">
-						<a href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu"><div>Выйти из команды</div></a>
+						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu"><div>Выйти из команды</div></a>
 					</li>
 				</ol>
 			</div>
 			<div id="center_bar" class="container">
 				<div id="chat" class="center_bar_boxes">
 					<div class="message"> 
-						<div class="message_user">user1</div>:
+						<div class="message_header">
+							<div class="message_user">user1</div>
+							<div class="message_time">[12:18:30]</div>
+						</div>
 						<div class="message_data">Всем привет!</div> 
-						<div class="message_time">[12:18:30]</div>
 					</div>
 					<div class="message"> 
-						<div class="message_user">user2</div>: 
+						<div class="message_header">
+							<div class="message_user">user2</div>
+							<div class="message_time">[12:18:53]</div>
+						</div>
 						<div class="message_data">Здорова всем!!!)))</div> 
-						<div class="message_time">[12:18:53]</div>
 					</div>
 					<div class="message"> 
-						<div class="message_user">captain</div>: 
+						<div class="message_header">
+							<div class="message_user">captain</div>
+							<div class="message_time">[12:19:24]</div>
+						</div>
 						<div class="message_data">Коллеги, не отвлекаемся! Через минуту начинается игра</div> 
-						<div class="message_time">[12:19:24]</div>
 					</div>
 					<div class="message"> 
-						<div class="message_user">captain</div>: 
+						<div class="message_header">
+							<div class="message_user">captain</div>
+							<div class="message_time">[12:22:02]</div>
+						</div>
 						<div class="message_data">@expert, сколько лет было Пушкину на момент дуэли с Дантесом?</div> 
-						<div class="message_time">[12:22:02]</div>
-					</div>
-					<div class="message"> 
-						<div class="message_user">captain</div>: 
-						<div class="message_data">Коллеги, не отвлекаемся! Через минуту начинается игра</div> 
-						<div class="message_time">[12:19:24]</div>
-					</div>
-					<div class="message"> 
-						<div class="message_user">captain</div>: 
-						<div class="message_data">@expert, сколько лет было Пушкину на момент дуэли с Дантесом?</div> 
-						<div class="message_time">[12:22:02]</div>
-					</div>
-					<div class="message"> 
-						<div class="message_user">captain</div>: 
-						<div class="message_data">Коллеги, не отвлекаемся! Через минуту начинается игра</div> 
-						<div class="message_time">[12:19:24]</div>
-					</div>
-					<div class="message"> 
-						<div class="message_user">captain</div>: 
-						<div class="message_data">@expert, сколько лет было Пушкину на момент дуэли с Дантесом?</div> 
-						<div class="message_time">[12:22:02]</div>
-					</div>
-					<div class="message"> 
-						<div class="message_user">captain</div>: 
-						<div class="message_data">Коллеги, не отвлекаемся! Через минуту начинается игра</div> 
-						<div class="message_time">[12:19:24]</div>
-					</div>
-					<div class="message"> 
-						<div class="message_user">captain</div>: 
-						<div class="message_data">@expert, сколько лет было Пушкину на момент дуэли с Дантесом?</div> 
-						<div class="message_time">[12:22:02]</div>
-					</div>
-					<div class="message"> 
-						<div class="message_user">captain</div>: 
-						<div class="message_data">Коллеги, не отвлекаемся! Через минуту начинается игра</div> 
-						<div class="message_time">[12:19:24]</div>
-					</div>
-					<div class="message"> 
-						<div class="message_user">captain</div>: 
-						<div class="message_data">@expert, сколько лет было Пушкину на момент дуэли с Дантесом?</div> 
-						<div class="message_time">[12:22:02]</div>
-					</div>
-					<div class="message"> 
-						<div class="message_user">captain</div>: 
-						<div class="message_data">Коллеги, не отвлекаемся! Через минуту начинается игра</div> 
-						<div class="message_time">[12:19:24]</div>
-					</div>
-					<div class="message"> 
-						<div class="message_user">captain</div>: 
-						<div class="message_data">@expert, сколько лет было Пушкину на момент дуэли с Дантесом?</div> 
-						<div class="message_time">[12:22:02]</div>
 					</div>
 				</div>
 				<div id="message_input_box" class="center_bar_boxes">

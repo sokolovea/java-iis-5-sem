@@ -16,17 +16,17 @@
 					User name
 				</div>
 				<div id="logout_button" class="top_bar_items">
-					<a id="logout_button_ref" href="controller?command=logout">Logout</a><br>
+					<a id="logout_button_ref" href="controller?command=logout">Logout</a>
 				</div>
 			</div>
 			<div id="main_content_bar">
 				<div id="left_bar" class="container">
 					<ol>
 						<li id="button_report" class="menu_button">
-							<a href="controller?login=${userName}&password=${userPassword}&command=Report"><div>Отчеты</div></a>
+							<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Report">Отчеты</a>
 						</li>
 						<li id="button_to_team" class="menu_button">
-							<a href="controller?login=${userName}&password=${userPassword}&destination=team&command=Menu"><div>Вернуться в команду</div></a>
+							<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=team&command=Menu">Вернуться в команду</a>
 						</li>
 					</ol>
 				</div>
