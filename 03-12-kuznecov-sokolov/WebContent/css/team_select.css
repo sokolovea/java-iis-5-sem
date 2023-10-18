@@ -4,13 +4,8 @@
 	width: 90%;
 	display: flex;
 	align-self: start;
-	height: 30%;
+	height: 20%;
 	justify-content: space-between;
-}
-
-#create_team {
-	display: inline-block;
-	wdith: 65%;
 }
 
 #teams_info {
@@ -20,9 +15,70 @@
 
 #center_bar_bottom {
 	width: 90%;
-	height: 60%;
+	height: 70%;
 }
 
+#create_team {
+	display: flex;
+	width: 70%;
+	flex-flow: column;
+	justify-content: space-between;
+}
+
+#create_team_caption {
+}
+
+#create_team_input {
+	width: 90%;
+	display: flex;
+}
+
+#create_team_input > * {
+	margin: 10px;
+}
+
+#create_team_text_box {
+	width: 70%;
+}
+
+#create_team_send {
+	width: 20%;
+}
 
 .header_name {
+	 font-size: 24px;
+	 font-weight: 100;
+	 color: var(--second_color);
+}
+
+#team_list {
+	width: 90%;
+	height: 90%;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+}
+
+#team_list_header {
+	height: 10%;
+	text-align: center;
+	width: 100%;
+}
+
+#teams {
+	overflow-y: scroll;
+	height: 90%;
+	width: 100%;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+}
+
+.team_box {
+	width: 30%;
+	min-width: 150px;
+	height: 30%;
+	background: var(--fifth_color);
+	margin-bottom: 15px;
+	border-radius: 30px;
 }

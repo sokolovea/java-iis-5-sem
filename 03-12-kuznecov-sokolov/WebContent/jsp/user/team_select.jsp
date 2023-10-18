@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
 <html lang="ru-RU">
 <head>
 	<title>Выбор команды</title>
@@ -32,14 +31,17 @@
 				</div>
 				<div id="center_bar" class="container">
 					<div id="center_bar_top">
-						<div class="center_bar_boxes" id="create_team"> 
-							<div>
-								<span class="header_name">Создать новую команду</span>
+						<div id="create_team" class="center_bar_boxes"> 
+							<div id="create_team_caption" class="header_name">
+								Создание команды
 							</div>
-							<div>
-								<span>Введите название команды:</span> 
-								<input id="text_box_team_name" class="text_box" type="form"/>
-								<input type="button" value="Создать"/>
+							<div id="create_team_input">
+								<div id="create_team_text_box">
+									<input class="text_box" type="text" placeholder="Название команды"/>
+								</div>
+								<div id="create_team_send">
+									<input type="button" value="Создать"/>
+								</div>
 							</div>
 						</div>
 						<div class="center_bar_boxes" id="teams_info">
@@ -50,7 +52,53 @@
 					</div>
 					<div class="center_bar_boxes" id="center_bar_bottom">
 						<div id="team_list">
-							Список команд
+							<div id="team_list_header" class="header_name">
+								Список команд
+							</div>
+							<div id="teams">
+								<div class="team_box">
+									Команда 1
+								</div>
+								<div class="team_box">
+									Команда 2
+								</div>
+								<div class="team_box">
+									Команда 3
+								</div>
+								<div class="team_box">
+									Команда 4
+								</div>
+								<div class="team_box">
+									Команда 5
+								</div>
+								<div class="team_box">
+									Команда 6
+								</div>
+								<div class="team_box">
+									Команда 7
+								</div>
+								<div class="team_box">
+									Команда 1
+								</div>
+								<div class="team_box">
+									Команда 2
+								</div>
+								<div class="team_box">
+									Команда 3
+								</div>
+								<div class="team_box">
+									Команда 4
+								</div>
+								<div class="team_box">
+									Команда 5
+								</div>
+								<div class="team_box">
+									Команда 6
+								</div>
+								<div class="team_box">
+									Команда 7
+								</div>
+							</div>
 						</div>
 					</div>		
 				</div>

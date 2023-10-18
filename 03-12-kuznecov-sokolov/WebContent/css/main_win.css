@@ -27,16 +27,6 @@ body {
 	border: 0px solid blue;
 }
 
-
-#create_team {
-	width: 70%;
-	padding: 3px;
-	display: flex;
-	justify-content: space-evenly;
-	align-items: center;
-	display:inline-block
-}
-
 #main_content_bar {
 	width: 100%;
 	display: flex;

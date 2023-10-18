@@ -21,13 +21,13 @@
 			<div id="left_bar" class="container">
 				<ol>
 					<li id="button_report" class="menu_button">
-						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Report"><div>Отчеты</div></a>
+						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Report">Отчеты</a>
 					</li>
 					<li id="button_to_team" class="menu_button">
-						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu"><div>Команды</div></a>
+						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu">Команды</a>
 					</li>
 					<li id="button_exit_team" class="menu_button">
-						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu"><div>Выйти из команды</div></a>
+						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu">Выйти из команды</a>
 					</li>
 				</ol>
 			</div>
@@ -63,7 +63,7 @@
 					</div>
 				</div>
 				<div id="message_input_box" class="center_bar_boxes">
-					<div id="message_input_box_input">	
+					<div id="message_input_box_text_box">	
 						<input id="text_box_message" class="text_box" type="text" name="message" placeholder="Введите сообщение"></input>
 					</div>
 					<div id="message_input_box_send">

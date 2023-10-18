@@ -5,9 +5,13 @@
 	<title>Кабинет пользователя/капитана/эксперта</title>
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/main_win.css">
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/input_items.css">
+	<style>
+    	th {
+			border: 2px solid;
+		}	
+    </style>
 </head>
 <body>
-
 	<div class="window"> 
 		<div id="top_bar" class="container">
 			<div class="top_bar_items">
@@ -21,10 +25,10 @@
 			<div id="left_bar" class="container">
 				<ol>
 					<li id="button_report" class="menu_button">
-						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Report"><div>Отчеты</div></a>
+						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Report">Отчеты</a>
 					</li>
 					<li id="button_to_team" class="menu_button">
-						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=team&command=Menu"><div>Вернуться в команду</div></a>
+						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=team&command=Menu">Вернуться в команду</a>
 					</li>
 				</ol>
 			</div>
@@ -94,9 +98,4 @@
 			</div>
 		</div>
 	</div>
-    <style>
-    	th {
-			border: 2px solid;
-		}	
-    </style>
 </body></html>
