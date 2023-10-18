@@ -5,10 +5,10 @@
 	height: 80%;
 	display: flex;
 	flex-wrap: wrap;
-	overflow: auto;
-	align-content: end;
-	justify-content: start;
+	overflow-y: scroll;
 	column-gap: 100%;
+	justify-content: start;
+	align-content: flex-start;
 }
 
 #message_input_box {
@@ -16,10 +16,36 @@
 	height: 10%;
 }
 
-.user_list {
-	height: 300px;
-	border-bottom: 2px solid black;
+.team_list {
+	border-bottom: 3px solid var(--first_color);
 	margin-bottom: 40px;
+}
+
+#team_list_caption {
+	margin-bottom: 20px;
+}
+
+#member_list {
+	display: flex;
+	flex-flow: column;
+	justify-content: start;
+	align-items: center;
+}
+
+#team_capitan {
+	outline: 3px solid orange;
+}
+
+.team_member {
+	width: 90%;
+	height: auto;
+	background: var(--fifth_color);
+	border-radius: 15px;
+	margin-bottom: 10px;
+	display: flex;
+	justify-content: center;
+	font-size: 25px;
+	color: var(--second_color);
 }
 
 .message {

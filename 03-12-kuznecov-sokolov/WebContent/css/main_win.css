@@ -64,6 +64,8 @@ body {
 #right_bar {
 	width: 15%;
 	min-width: var(--min_right_bar_w);
+	display: flex;
+	flex-flow: column;
 }
 
 #center_bar {

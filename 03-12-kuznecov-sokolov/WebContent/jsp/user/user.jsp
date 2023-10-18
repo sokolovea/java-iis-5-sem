@@ -69,8 +69,19 @@
 				</div>
 			</div>
 			<div id="right_bar" class="container">
-				<div class='user_list'>
-					<div id="team_list">Список пользователей команды</div>
+				<div class='team_list'>
+					<div id="team_list_caption">Список пользователей команды</div>
+					<div id="member_list">
+						<div id="team_capitan" class="team_member">
+							captain
+						</div>
+						<div class="team_member">
+							user1
+						</div>
+						<div class="team_member">
+							user2
+						</div>
+					</div>
 				</div>
 				<jsp:useBean id="myLogic" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
 				<div class='expert_block'>
