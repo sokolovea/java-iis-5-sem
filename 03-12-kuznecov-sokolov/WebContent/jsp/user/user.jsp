@@ -63,14 +63,17 @@
 					</div>
 				</div>
 				<div id="message_input_box" class="center_bar_boxes">
-					<span>Ваше сообщение:</span>
-						<input id="text_box_message" class="text_box" type="text" name="message" size="100"></input>
-					<input type="button" value="Отправить"/>
+					<div id="message_input_box_input">	
+						<input id="text_box_message" class="text_box" type="text" name="message" placeholder="Введите сообщение"></input>
+					</div>
+					<div id="message_input_box_send">
+						<input type="button" value="Отправить"/>
+					</div>
 				</div>
 			</div>
 			<div id="right_bar" class="container">
 				<div class='team_list'>
-					<div id="team_list_caption">Список пользователей команды</div>
+					<div id="team_list_caption">Члены команды</div>
 					<div id="member_list">
 						<div id="team_capitan" class="team_member">
 							captain
@@ -84,17 +87,18 @@
 					</div>
 				</div>
 				<jsp:useBean id="myLogic" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
-				<div class='expert_block'>
+				<div id="expert_block">
 					<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() != 'expert'}">
-						Эксперт:
+						<div id="expert_block_caption">
+							Эксперт: expert12
+						</div>
 					</c:if>
-					<br>
-					<div>
+					<div id="expert_block_buttons">
 						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'captain'}">
-							<input style="width:auto" type="button" value="Отказаться от эксперта"/>
+							<input type="button" value="Отказаться от эксперта"/>
 						</c:if>
 						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'expert'}">
-							<input style="width:auto" type="button" value="Отказаться от команды"/>
+							<input type="button" value="Отказаться от команды"/>
 						</c:if>
 					</div>	
 				</div>

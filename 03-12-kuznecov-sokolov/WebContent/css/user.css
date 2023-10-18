@@ -14,7 +14,36 @@
 #message_input_box {
 	width: 90%;
 	height: 10%;
+	justify-content: space-around;
 }
+
+#message_input_box_input {
+	width: 75%;
+}
+
+#message_input_box_input #text_box_message {
+	width: 100%;
+}
+
+#expert_block {
+	width: 90%;
+	display: flex;
+	flex-flow: column;
+	border: 3px solid var(--first_color);
+	justify-content: space-evenly;
+	height: auto;
+	align-items: center;
+	border-radius: 15px;
+}
+
+#expert_block_caption {
+	text-align: center;
+}
+
+#expert_block_caption, #expert_block_buttons:has(input) {
+	margin: 10px;
+}
+
 
 .team_list {
 	border-bottom: 3px solid var(--first_color);
@@ -73,7 +102,7 @@
 }
 
 .message_time {
-	color: rgba(44, 212, 181, 0.5);
+	color: rgba(44, 212, 181, 0.7);
 	font-size: 15px;
 	display: flex;
 	justify-content: center;

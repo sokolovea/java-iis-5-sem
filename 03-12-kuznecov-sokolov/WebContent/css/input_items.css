@@ -2,10 +2,12 @@
 
 input[type=button] {
     background: var(--third_color);
-    border: 2px solid var(--second_color);
+    border: 2px solid var(--first_color);
     border-radius: 30px;
-    height: 2.5rem;
-    width: 6rem;
+    height: auto;
+    width: 100%;
+    padding: 10px;
+    text-wrap: wrap;
 }
 
 input[type=button]:hover {
@@ -49,10 +51,6 @@ input[type=button]:hover {
 #text_box_team_name {
     width: 250px;
     justify-self: flex-start;
-}
-
-#text_box_message {
-	width: 250px;	
 }
 
 #logout_button_ref {
