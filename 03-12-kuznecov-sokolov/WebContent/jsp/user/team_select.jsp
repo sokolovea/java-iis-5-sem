@@ -45,8 +45,11 @@
 							</div>
 						</div>
 						<div class="center_bar_boxes" id="teams_info">
-							<div>
-								Сводная информация о командах
+							<div id="team_count">
+								Всего команд: 0
+							</div>
+							<div id="online">
+								Онлайн: 1
 							</div>
 						</div>
 					</div>
@@ -57,46 +60,130 @@
 							</div>
 							<div id="teams">
 								<div class="team_box">
-									Команда 1
+									<div class="team_box_top">
+										<div class="team_name">
+											Команда 1
+										</div>
+										<div class="team_fullness">
+											3/10
+										</div>
+									</div>
+									<div class="team_box_bottom">
+										<div class="team_captain">
+											captain
+										</div>
+										<div class="team_join_button">
+											<input type="button" value="Вступить"/>
+										</div>
+									</div>
 								</div>
 								<div class="team_box">
-									Команда 2
+									<div class="team_box_top">
+										<div class="team_name">
+											Команда 2
+										</div>
+										<div class="team_fullness">
+											0/10
+										</div>
+									</div>
+									<div class="team_box_bottom">
+										<div class="team_captain">
+											captain1
+										</div>
+										<div class="team_join_button">
+											<input type="button" value="Вступить"/>
+										</div>
+									</div>
 								</div>
 								<div class="team_box">
-									Команда 3
+									<div class="team_box_top">
+										<div class="team_name">
+											Команда 3
+										</div>
+										<div class="team_fullness">
+											0/10
+										</div>
+									</div>
+									<div class="team_box_bottom">
+										<div class="team_captain">
+											captain1
+										</div>
+										<div class="team_join_button">
+											<input type="button" value="Вступить"/>
+										</div>
+									</div>
 								</div>
 								<div class="team_box">
-									Команда 4
+									<div class="team_box_top">
+										<div class="team_name">
+											Команда 4
+										</div>
+										<div class="team_fullness">
+											0/10
+										</div>
+									</div>
+									<div class="team_box_bottom">
+										<div class="team_captain">
+											captain1
+										</div>
+										<div class="team_join_button">
+											<input type="button" value="Вступить"/>
+										</div>
+									</div>
 								</div>
 								<div class="team_box">
-									Команда 5
+									<div class="team_box_top">
+										<div class="team_name">
+											Команда 5
+										</div>
+										<div class="team_fullness">
+											0/10
+										</div>
+									</div>
+									<div class="team_box_bottom">
+										<div class="team_captain">
+											captain1
+										</div>
+										<div class="team_join_button">
+											<input type="button" value="Вступить"/>
+										</div>
+									</div>
 								</div>
 								<div class="team_box">
-									Команда 6
+									<div class="team_box_top">
+										<div class="team_name">
+											Команда 6
+										</div>
+										<div class="team_fullness">
+											0/10
+										</div>
+									</div>
+									<div class="team_box_bottom">
+										<div class="team_captain">
+											captain1
+										</div>
+										<div class="team_join_button">
+											<input type="button" value="Вступить"/>
+										</div>
+									</div>
 								</div>
 								<div class="team_box">
-									Команда 7
-								</div>
-								<div class="team_box">
-									Команда 1
-								</div>
-								<div class="team_box">
-									Команда 2
-								</div>
-								<div class="team_box">
-									Команда 3
-								</div>
-								<div class="team_box">
-									Команда 4
-								</div>
-								<div class="team_box">
-									Команда 5
-								</div>
-								<div class="team_box">
-									Команда 6
-								</div>
-								<div class="team_box">
-									Команда 7
+									<div class="team_box_top">
+										<div class="team_name">
+											Команда 7
+										</div>
+										<div class="team_fullness">
+											0/10
+										</div>
+									</div>
+									<div class="team_box_bottom">
+										<div class="team_captain">
+											captain1
+										</div>
+										<div class="team_join_button">
+											<input type="button" value="Вступить"/>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -104,12 +191,27 @@
 				</div>
 				<jsp:useBean id="myLogic" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
 				<div id="right_bar" class="container">
-					<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() != 'expert'}">
-						Текущая команда пользователя:
-					</c:if>
-					<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'expert'}">
-						Список команд, которые консультируются у эксперта:
-					</c:if>
+					<div id="list_of_teams">
+						<div id="list_of_teams_caption">
+							<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() != 'expert'}">
+								Текущая команда пользователя:
+							</c:if>
+							<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'expert'}">
+								Список команд, которые консультируются у эксперта:
+							</c:if>
+						</div>
+						<div id="user_teams">
+							<div class="rb_user_team_name">
+								Команда 1
+							</div>
+							<div class="rb_user_team_name">
+								Команда 2
+							</div>
+							<div class="rb_user_team_name">
+								Команда 3
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
