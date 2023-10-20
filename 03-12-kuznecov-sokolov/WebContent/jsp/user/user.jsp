@@ -20,14 +20,14 @@
 		<div id="main_content_bar">
 			<div id="left_bar" class="container">
 				<ol>
-					<li id="button_report" class="menu_button">
-						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Report">Отчеты</a>
-					</li>
 					<li id="button_to_team" class="menu_button">
 						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu">Команды</a>
 					</li>
 					<li id="button_exit_team" class="menu_button">
-						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu">Выйти из команды</a>
+						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu">Покинуть команду</a>
+					</li>
+					<li id="button_report" class="menu_button">
+						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Report">Отчеты</a>
 					</li>
 				</ol>
 			</div>
@@ -73,7 +73,7 @@
 			</div>
 			<div id="right_bar" class="container">
 				<div class='team_list'>
-					<div id="team_list_caption">Члены команды</div>
+					<div id="team_list_caption" class="right_bar_header">Члены команды</div>
 					<div id="member_list">
 						<div id="team_capitan" class="team_member">
 							captain

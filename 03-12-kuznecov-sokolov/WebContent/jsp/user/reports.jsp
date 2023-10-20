@@ -11,12 +11,16 @@
 			const reports = document.getElementsByClassName("report");
 			for (let i = 0; i < reports.length; i++) {
 				reports[i].style.opacity = 0;
+				reports[i].style.zIndex = 0;
+				reports[i].style.pointerEvents = "none";
 			}
 			document.getElementById(report_id).style.opacity = 1;
+			document.getElementById(report_id).style.zIndex = 1;
+			document.getElementById(report_id).style.pointerEvents = "auto";
 			
 			const reports_button = document.getElementsByClassName("report_button");
 			for (let i = 0; i < reports_button.length; i++) {
-				reports_button[i].style.textDecoration = "none";
+				reports_button[i].style.textDecoration = "auto";
 			}
 			element.style.textDecoration = "underline black";
 		}
@@ -35,11 +39,11 @@
 		<div id="main_content_bar">
 			<div id="left_bar" class="container">
 				<ol>
+					<li id="button_to_team" class="menu_button">
+						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=team&command=Menu">Моя команда</a>
+					</li>
 					<li id="button_report" class="menu_button">
 						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Report">Отчеты</a>
-					</li>
-					<li id="button_to_team" class="menu_button">
-						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=team&command=Menu">Вернуться в команду</a>
 					</li>
 				</ol>
 			</div>
@@ -62,8 +66,9 @@
 			            <div id="report_more_messages" class="report">
 							<div class="report_caption">Вывод N команд, которым данный эксперт писал больше всего сообщений</div>
 							<div class="report_inputs">
-								<input class="text_box" type="text" name="countCommands" value="100"/><br/>
-		            			<input type="button" name="countCommands_submit" value="Найти"/>
+								<span style="margin-right: 7px;">N =</span> 
+								<input id="n_teams_text_box" class="text_box" type="number" name="countCommands" value="100"/><br/>
+		            			<input id="n_teams_search" type="button" name="countCommands_submit" value="Найти"/>
 							</div>
 							<div class="report_table">
 								<table>
@@ -129,19 +134,32 @@
 			</div>
 			<div id="right_bar" class="container">
 				<div id="avaliable_reports">
-					<div id="reports_header">
+					<div id="reports_header" class="right_bar_header">
 						Доступные отчеты
 					</div>
 					<div id="reports_buttons">
-						<div class="report_button" onclick='reportSelector(this, "report_messages_deleted_by_no_user")'>
-							Отчет 1
-						</div>
-						<div class="report_button" onclick='reportSelector(this, "report_sanction_history")'>
-							Отчет 2
-						</div>
-						<div class="report_button" onclick='reportSelector(this, "report_user_messages_stat")'>
-							Отчет 3
-						</div>
+						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'expert'}">
+							<div class="report_button" onclick='reportSelector(this, "report_consult_with_expert")'>
+								Вывод команд, консультирующихся у данного эксперта
+							</div>
+							<div class="report_button" onclick='reportSelector(this, "report_more_messages")'>
+								Вывод N команд, которым данный эксперт писал больше всего сообщений
+							</div>
+							<div class="report_button" onclick='reportSelector(this, "report_team_reject_consult")'>
+								Вывод команд, отказавшихся от консультирования у данного эксперта
+							</div>
+						</c:if>
+						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() != 'expert'}">
+							<div class="report_button" onclick='reportSelector(this, "report_messages_deleted_by_no_user")'>
+								Вывод сообщений, которые удалил не сам пользователь
+							</div>
+							<div class="report_button" onclick='reportSelector(this, "report_sanction_history")'>
+								История санкций, наложенных на данного пользователя
+							</div>
+							<div class="report_button" onclick='reportSelector(this, "report_user_messages_stat")'>
+								Вывод количества оставленных и удаленных сообщений у данного пользователя
+							</div>
+						</c:if>
 					</div>
 				</div>
 			</div>

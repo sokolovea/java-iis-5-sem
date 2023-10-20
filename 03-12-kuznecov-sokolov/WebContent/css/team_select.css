@@ -70,7 +70,7 @@
 }
 
 #teams {
-	overflow-y: scroll;
+	overflow-y: auto;
 	height: 90%;
 	width: 100%;
 	display: flex;
@@ -81,7 +81,7 @@
 .team_box {
 	width: 30%;
 	min-width: 150px;
-	height: 30%;
+	height: 28%;
 	background: var(--fifth_color);
 	margin-bottom: 15px;
 	border-radius: 30px;

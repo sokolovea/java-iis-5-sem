@@ -21,11 +21,11 @@
 		<div id="main_content_bar">
 			<div id="left_bar" class="container">
 				<ol>
+					<li id="button_to_team" class="menu_button">
+						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=team&command=Menu">Моя команда</a>
+					</li>
 					<li id="button_report" class="menu_button">
 						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Report">Отчеты</a>
-					</li>
-					<li id="button_to_team" class="menu_button">
-						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=team&command=Menu">Вернуться в команду</a>
 					</li>
 				</ol>
 			</div>
@@ -192,7 +192,7 @@
 			<jsp:useBean id="myLogic" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
 			<div id="right_bar" class="container">
 				<div id="list_of_teams">
-					<div id="list_of_teams_caption">
+					<div id="list_of_teams_caption" class="right_bar_header">
 						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() != 'expert'}">
 							Текущая команда пользователя:
 						</c:if>
