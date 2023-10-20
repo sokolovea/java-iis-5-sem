@@ -1,0 +1,71 @@
+@import url("vars.css");
+
+th {
+	border: 2px solid;
+}
+
+#avaliable_reports {
+	width: 90%;
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+}
+
+#reports_header {
+	margin-bottom: 20px;
+	font-size: 20px;
+	text-align: center;
+}
+
+#reports_buttons {
+	display: flex;
+	flex-flow: column;
+}
+
+.report_button {
+	color: var(--first_color);
+	padding: 10px;
+	font-size: 18px;
+	cursor: pointer;
+	transition: transform 0.5s;
+}
+
+.report_button:hover {
+	transform: scale(1.08);
+	text-decoration: underline black;
+}
+
+#report_container {
+	width: 90%;
+	margin: 30px 0;
+}
+
+#center_bar {
+	justify-content: start;	
+}
+
+.report {
+	max-width: 50%;
+	position: absolute;
+	opacity: 0;
+}
+
+.report:first-child {
+	opacity: 1;
+}
+
+.report_button:first-child {
+	text-decoration: underline black;
+}
+
+.report_caption {
+	max-width: 100%;
+	font-size: 30px;
+	text-align: center;
+	text-wrap: wrap;
+}
+
+.report_table, .report_string {
+	display: flex;
+	justify-content: center;
+}
