@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="ru-RU">
+<meta http-equiv="Cache-Control" content="no-cache">
 <head>
 	<title>Кабинет пользователя/капитана/эксперта</title>
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/main_win.css">

@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ru-RU">
+<meta http-equiv="Cache-Control" content="no-cache">
 <head>
 	<title>Выбор команды</title>
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/main_win.css">
