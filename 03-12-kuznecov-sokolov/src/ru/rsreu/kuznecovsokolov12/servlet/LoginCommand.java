@@ -36,7 +36,7 @@ public class LoginCommand implements ActionCommand {
 			return ConfigurationManager.getProperty("path.page.moderator");
 		}
 		if (loginResult == EnumLogin.ADMIN) {
-			return ConfigurationManager.getProperty("path.page.administrator");
+			return ConfigurationManager.getProperty("path.page.admin");
 		}
 		return ConfigurationManager.getProperty("path.page.login");
 	}

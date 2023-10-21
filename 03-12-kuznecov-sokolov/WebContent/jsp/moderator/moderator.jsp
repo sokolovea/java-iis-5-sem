@@ -27,7 +27,7 @@
 				</ol>
 			</div>
 			<div id="center_bar" class="container">
-				<div id="chat" class="center_bar_boxes"> <!--
+				<div id="chat" class="center_bar_boxes">
 					<div class="message"> 
 						<div class="message_header">
 							<div class="message_user">user1</div>
@@ -55,7 +55,7 @@
 							<div class="message_time">[12:22:02]</div>
 						</div>
 						<div class="message_data">@expert, сколько лет было Пушкину на момент дуэли с Дантесом?</div> 
-					</div> -->
+					</div>
 				</div> <!--
 				<div id="message_input_box" class="center_bar_boxes">
 					<div id="message_input_box_text_box">	
@@ -65,39 +65,19 @@
 						<input type="button" value="Отправить"/>
 					</div>
 				</div> -->
-			</div> <!--
+			</div>
 			<div id="right_bar" class="container">
-				<div class='team_list'>
-					<div id="team_list_caption" class="right_bar_header">Члены команды</div>
-					<div id="member_list">
-						<div id="team_capitan" class="team_member">
-							captain
-						</div>
-						<div class="team_member">
-							user1
-						</div>
-						<div class="team_member">
-							user2
-						</div>
-					</div>
-				</div>
-				<jsp:useBean id="myLogic" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
-				<div id="expert_block">
-					<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() != 'expert'}">
-						<div id="expert_block_caption">
-							Эксперт: expert12
-						</div>
-					</c:if>
-					<div id="expert_block_buttons">
-						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'captain'}">
-							<input type="button" value="Отказаться от эксперта"/>
-						</c:if>
-						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'expert'}">
-							<input type="button" value="Отказаться от команды"/>
-						</c:if>
-					</div>	
-				</div>
-			</div> -->
+				<div>Общий чат</div>
+				<div>Команда 1</div>
+				<div>Команда 2</div>
+				<div>Команда 3</div>
+				<br>
+				<br>
+				<br>
+				<div>User1</div>
+				<div>User2</div>
+				<div>User3</div>
+			</div>
 		</div>
 	</div>
 </body></html>
