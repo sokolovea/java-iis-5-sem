@@ -11,12 +11,7 @@
 <body>
 	<div class="window">
 		<div id="top_bar" class="container">
-			<div class="top_bar_items">
-				User name
-			</div>
-			<div id="logout_button" class="top_bar_items">
-				<a id="logout_button_ref" href="controller?command=logout">Logout</a><br>
-			</div>
+			<c:import url="../general/top_bar_content.jsp"/>
 		</div>
 		<div id="main_content_bar">
 			<div id="left_bar" class="container">
@@ -74,6 +69,7 @@
 			</div>
 			<div id="right_bar" class="container">
 				<div class='team_list'>
+					<div id="team_name" class="right_bar_header">Команда 1</div>
 					<div id="team_list_caption" class="right_bar_header">Члены команды</div>
 					<div id="member_list">
 						<div id="team_capitan" class="team_member">

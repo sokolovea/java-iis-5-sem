@@ -12,12 +12,7 @@
 <body>
 	<div class="window"> 
 		<div id="top_bar" class="container">
-			<div class="top_bar_items">
-				User name
-			</div>
-			<div id="logout_button" class="top_bar_items">
-				<a id="logout_button_ref" href="controller?command=logout">Logout</a>
-			</div>
+			<c:import url="../general/top_bar_content.jsp"/>
 		</div>
 		<div id="main_content_bar">
 			<div id="left_bar" class="container">
@@ -50,7 +45,7 @@
 							Всего команд: 0
 						</div>
 						<div id="online">
-							Онлайн: 1
+							Онлайн: 0
 						</div>
 					</div>
 				</div>

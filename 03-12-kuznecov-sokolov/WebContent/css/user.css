@@ -48,6 +48,7 @@
 .team_list {
 	border-bottom: 3px solid var(--first_color);
 	margin-bottom: 40px;
+	max-width: 100%;
 }
 
 #team_list_caption {
@@ -117,4 +118,10 @@
 	justify-content: start;
 	width: 100%;
 	height: 100%;
+}
+
+#team_name {
+	font-size: 30px;
+	text-wrap: wrap;
+	margin-bottom: 20px;
 }

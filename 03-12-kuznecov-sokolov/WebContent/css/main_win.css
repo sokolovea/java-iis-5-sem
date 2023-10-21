@@ -86,6 +86,8 @@ body {
 .right_bar_header {
 	font-size: 20px;
 	color: var(--second_color);
+	text-align: center;
+	width: 100%;
 }
 
 

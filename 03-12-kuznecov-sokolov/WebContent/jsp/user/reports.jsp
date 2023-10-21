@@ -30,12 +30,7 @@
 <body>
 	<div class="window"> 
 		<div id="top_bar" class="container">
-			<div class="top_bar_items">
-				User name
-			</div>
-			<div id="logout_button" class="top_bar_items">
-				<a id="logout_button_ref" href="controller?command=logout">Logout</a><br>
-			</div>
+			<c:import url="../general/top_bar_content.jsp"/>
 		</div>
 		<div id="main_content_bar">
 			<div id="left_bar" class="container">
@@ -141,10 +136,10 @@
 					<div id="reports_buttons">
 						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'expert'}">
 							<div class="report_button" onclick='reportSelector(this, "report_consult_with_expert")'>
-								Вывод команд, консультирующихся у данного эксперта
+								Консультирующиеся команды
 							</div>
 							<div class="report_button" onclick='reportSelector(this, "report_more_messages")'>
-								Вывод N команд, которым данный эксперт писал больше всего сообщений
+								Полезное сотрудничество
 							</div>
 							<div class="report_button" onclick='reportSelector(this, "report_team_reject_consult")'>
 								Вывод команд, отказавшихся от консультирования у данного эксперта
@@ -152,13 +147,13 @@
 						</c:if>
 						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() != 'expert'}">
 							<div class="report_button" onclick='reportSelector(this, "report_messages_deleted_by_no_user")'>
-								Вывод сообщений, которые удалил не сам пользователь
+								Удаленные сообщения
 							</div>
 							<div class="report_button" onclick='reportSelector(this, "report_sanction_history")'>
-								История санкций, наложенных на данного пользователя
+								История санкций
 							</div>
 							<div class="report_button" onclick='reportSelector(this, "report_user_messages_stat")'>
-								Вывод количества оставленных и удаленных сообщений у данного пользователя
+								Статистика сообщений
 							</div>
 						</c:if>
 					</div>
