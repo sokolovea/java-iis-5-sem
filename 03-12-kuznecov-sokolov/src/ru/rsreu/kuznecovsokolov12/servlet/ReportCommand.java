@@ -24,7 +24,7 @@ public class ReportCommand implements ActionCommand {
 	}
 	
 	private static String getPage(EnumLogin loginResult) {
-		if (loginResult == EnumLogin.USER || loginResult == EnumLogin.EXPERT || loginResult == EnumLogin.CAPTAIN) {
+		if (loginResult != EnumLogin.NOUSER) {
 			return ConfigurationManager.getProperty("path.page.reports");
 		}
 		return ConfigurationManager.getProperty("path.page.login");
