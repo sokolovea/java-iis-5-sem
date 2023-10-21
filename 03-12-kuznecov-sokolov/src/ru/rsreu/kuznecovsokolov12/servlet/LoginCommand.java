@@ -32,6 +32,12 @@ public class LoginCommand implements ActionCommand {
 		if (loginResult == EnumLogin.USER || loginResult == EnumLogin.EXPERT || loginResult == EnumLogin.CAPTAIN) {
 			return ConfigurationManager.getProperty("path.page.team_select");
 		}
+		if (loginResult == EnumLogin.MODERATOR) {
+			return ConfigurationManager.getProperty("path.page.moderator");
+		}
+		if (loginResult == EnumLogin.ADMIN) {
+			return ConfigurationManager.getProperty("path.page.administrator");
+		}
 		return ConfigurationManager.getProperty("path.page.login");
 	}
 }

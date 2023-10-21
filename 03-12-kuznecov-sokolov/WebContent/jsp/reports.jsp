@@ -3,7 +3,7 @@
 <html lang="ru-RU">
 <meta http-equiv="Cache-Control" content="no-cache">
 <head>
-	<title>Кабинет пользователя/капитана/эксперта</title>
+	<title>Отчеты</title>
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/main_win.css">
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/input_items.css">
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/reports.css">
@@ -89,7 +89,7 @@
 							</div>
 						</div>
 			        </c:if>
-					<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() != 'expert'}">
+					<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'user' || myLogic.checkLogin(userName, userPassword).toString() == 'captain'}">
 			            <div id="report_messages_deleted_by_no_user" class="report">
 							<div class="report_caption">Вывод сообщений, которые удалил не сам пользователь</div>
 							<div class="report_table">
@@ -125,7 +125,56 @@
 			            		Удалено сообщений:<br>
 							</div>
 						</div>
-		             </c:if>
+		            </c:if>
+		            <c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'moderator'}">
+			            <div id="report_moderator_users" class="report">
+							<div class="report_caption">Вывод учетных записей, являющихся пользователями</div>
+							<div class="report_table">
+								<table>
+									<thead>
+										<tr>
+											<th>Логин</th>
+							      			<th>ФИО</th>
+							      			<th>email</th>
+							      			<th>Авторизован</th>
+										</tr>
+								    </thead>
+								</table>
+							</div>
+						</div>
+						<div  id="report_moderator_sanction_history" class="report">
+							<div class="report_caption">Статистика блокировок и разблокировок пользователей данным модератором</div>
+							<div class="report_table">
+								<table>
+									<thead>
+										<tr>
+											<th>Тип санкции</th>
+							    			<th>Пользователь</th>
+										    <th>Причина</th>
+										    <th>Время</th>
+										</tr>
+								    </thead>
+								</table>
+							</div>
+						</div>
+			            <div id="report_moderator_blocked_n" class="report">
+							<div class="report_caption">Вывод пользователей, заблокированных N или более раз</div>
+							<div class="report_inputs">
+								<span style="margin-right: 7px;">N =</span> 
+								<input id="n_moderator_blocked_n_text_box" class="text_box" type="number" name="countBlocked" value="100"/><br/>
+		            			<input id="n_moderator_blocked_n_search" type="button" name="countBlocked_submit" value="Найти"/>
+							</div>
+							<div class="report_table">
+								<table>
+									<thead>
+										<tr>
+											<th>Пользователь</th>
+										</tr>
+								    </thead>
+								</table>
+							</div>
+						</div>
+		            </c:if>
 	             </div>
 			</div>
 			<div id="right_bar" class="container">
@@ -145,7 +194,7 @@
 								Вывод команд, отказавшихся от консультирования у данного эксперта
 							</div>
 						</c:if>
-						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() != 'expert'}">
+						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'user' || myLogic.checkLogin(userName, userPassword).toString() == 'captain'}">
 							<div class="report_button" onclick='reportSelector(this, "report_messages_deleted_by_no_user")'>
 								Удаленные сообщения
 							</div>
@@ -154,6 +203,17 @@
 							</div>
 							<div class="report_button" onclick='reportSelector(this, "report_user_messages_stat")'>
 								Статистика сообщений
+							</div>
+						</c:if>
+						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'moderator'}">
+							<div class="report_button" onclick='reportSelector(this, "report_moderator_users")'>
+								Вывод учетных записей, являющихся пользователями
+							</div>
+							<div class="report_button" onclick='reportSelector(this, "report_moderator_sanction_history")'>
+								Статистика блокировок и разблокировок пользователей данным модератором
+							</div>
+							<div class="report_button" onclick='reportSelector(this, "report_moderator_blocked_n")'>
+								Вывод пользователей, заблокированных N или более раз
 							</div>
 						</c:if>
 					</div>
