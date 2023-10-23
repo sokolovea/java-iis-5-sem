@@ -6,7 +6,7 @@
 	<title>Кабинет модератора</title>
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/main_win.css">
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/input_items.css">
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/user.css">
+	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/settings.css">
 </head>
 <body>
 	<div class="window">
@@ -30,11 +30,21 @@
 				</ol>
 			</div>
 			<div id="center_bar" class="container">
-				<div>
-					<input id="team_capacity" class="text_box" type="number" name="teamCapacity" value="10"/><br/>
-					<input id="expert_capacity" class="text_box" type="number" name="expertCapacity" value="5"/><br/>
-		        	<input id="save_changes" type="button" name="saveChanges" value="Сохранить"/>
-		        </div>
+				<div id="settings_div">
+					<div id="settings_box">
+						<div class="setting">
+							<div class="setting_caption">Team capacity</div>
+							<input id="team_capacity" class="text_box" type="number" name="teamCapacity" value="10"/><br/>
+						</div>
+						<div class="setting">
+							<div class="setting_caption">Expert capacity</div>
+							<input id="expert_capacity" class="text_box" type="number" name="expertCapacity" value="5"/><br/>
+			        	</div>
+					</div>
+					<div id="settings_box_button">
+						<input id="save_changes" type="button" name="saveChanges" value="Сохранить"/>
+					</div>
+				</div>
 			</div>
 			<div id="right_bar" class="container">
 				Список всех пользователей СИС

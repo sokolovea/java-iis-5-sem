@@ -1,0 +1,46 @@
+@import url("vars.css");
+
+#settings_div {
+	width: 90%;
+	height: 90%;
+	display: flex;
+	align-items: center;
+	flex-flow: column;
+}
+
+#settings_box {
+	display: flex;
+	justify-content: space-evenly;
+	width: 90%;
+	height: auto;
+	margin-bottom: 30px;
+	flex-wrap: wrap;
+}
+
+#settings_box_button {
+	display: flex;
+}
+
+.setting {
+	width: 30%;
+	padding: 15px;
+	height: auto;
+	background: var(--fourth_color);
+	border-radius: 30px;
+	display: flex;
+	align-items: center;
+	flex-flow: column;
+	margin-bottom: 10px;
+	margin-right: 10px;
+}
+
+.setting > .text_box {
+	max-width: 100px;
+}
+
+.setting_caption {
+	text-align: center;
+	font-size: 20px;
+	color: var(--second_color);
+	margin-bottom: 10px;
+}
