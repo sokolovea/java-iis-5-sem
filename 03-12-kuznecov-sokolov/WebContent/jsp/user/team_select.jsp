@@ -12,7 +12,7 @@
 <body>
 	<div class="window"> 
 		<div id="top_bar" class="container">
-			<c:import url="../general/top_bar_content.jsp"/>
+			<c:import url="/jsp/general/top_bar_content.jsp"/>
 		</div>
 		<div id="main_content_bar">
 			<div id="left_bar" class="container">

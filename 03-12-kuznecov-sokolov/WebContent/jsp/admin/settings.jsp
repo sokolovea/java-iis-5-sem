@@ -6,7 +6,7 @@
 	<title>Кабинет модератора</title>
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/main_win.css">
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/input_items.css">
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/user.css">
+	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/admin.css">
 </head>
 <body>
 	<div class="window">

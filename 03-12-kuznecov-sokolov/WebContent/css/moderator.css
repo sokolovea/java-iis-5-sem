@@ -1,0 +1,60 @@
+@import url("vars.css");
+
+#chat_type, #user_list {
+	width: 90%;
+	height: 50%;
+	border: 1px solid black;
+}
+
+#chat {
+	width: 90%;
+	height: 90%;
+	display: flex;
+	flex-wrap: wrap;
+	overflow-y: scroll;
+	column-gap: 100%;
+	justify-content: start;
+	align-content: flex-start;
+}
+
+.message {
+	background-color: var(--fifth_color);
+	border-radius: 30px;
+	height: auto;
+	width: auto;
+	display:flex;
+	justify-content: flex-start;
+	align-content: center;
+	flex-wrap: wrap;
+}
+
+.message_header {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.message_user {
+	color: var(--second_color);
+	font-size: 25px;
+	width: 40%;
+	margin-left: 15px;
+}
+
+.message_time {
+	color: rgba(44, 212, 181, 0.7);
+	font-size: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: auto;
+	margin-right: 30px;
+}
+
+.message_data {
+	padding: 15px;
+	display: flex;
+	justify-content: start;
+	width: 100%;
+	height: 100%;
+}

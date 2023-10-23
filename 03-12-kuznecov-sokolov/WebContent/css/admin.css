@@ -1,0 +1,83 @@
+@import url("vars.css");
+
+#user_info_form {
+	width: 90%;
+	height: 90%;
+}
+
+.user_form_item {
+	margin: 10px;
+	display: flex;
+	width: 100%;
+	justify-content: start;
+	flex-flow: row;
+}
+
+.user_form_item_caption {
+	width: 30%;
+	text-align: end;
+	margin-right: 20px;
+	margin-top: 5px;
+}
+
+.user_form_item > :where(.text_box, select) {
+	width: 50%;
+}
+
+.user_form_buttons {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.user_form_buttons > input[type=button] {
+	width: auto;
+	margin-left: 10px;
+}
+
+#user_info_form_caption {
+	text-align: center;
+	color: var(--second_color);
+	font-size: 30px;
+	margin-bottom: 30px;
+}
+
+#current_user_caption {
+	text-align: center;
+	font-size: 20px;
+}
+
+#full_users_list_box {
+	width: 90%;
+	display: flex;
+	flex-flow: column;
+	max-height: 100%;
+}
+
+#full_users_list {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	border-bottom: 3px dashed var(--first_color);
+	border-radius: 30px;
+	max-height: 80%;
+	overflow-y: auto;
+}
+
+#users_filter {
+	margin-bottom: 15px;
+}
+
+#full_users_list > .user {
+	padding: 7px;
+	color: var(--first_color);
+	font-size: 20px;
+	border: 0px solid black;
+	transition: all 0.25s;
+	cursor: pointer;
+	margin-bottom: 3px;
+}
+
+#full_users_list > .user:hover {
+	font-size: 24px;
+	color: var(--pressed_input_color);
+}

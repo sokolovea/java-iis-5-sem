@@ -6,7 +6,7 @@
 	<title>Кабинет модератора</title>
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/main_win.css">
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/input_items.css">
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/user.css">
+	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/moderator.css">
 </head>
 <body>
 	<div class="window">
@@ -56,27 +56,22 @@
 						</div>
 						<div class="message_data">@expert, сколько лет было Пушкину на момент дуэли с Дантесом?</div> 
 					</div>
-				</div> <!--
-				<div id="message_input_box" class="center_bar_boxes">
-					<div id="message_input_box_text_box">	
-						<input id="text_box_message" class="text_box" type="text" name="message" placeholder="Введите сообщение"></input>
-					</div>
-					<div id="message_input_box_send">
-						<input type="button" value="Отправить"/>
-					</div>
-				</div> -->
+				</div>
 			</div>
 			<div id="right_bar" class="container">
-				<div>Общий чат</div>
-				<div>Команда 1</div>
-				<div>Команда 2</div>
-				<div>Команда 3</div>
-				<br>
-				<br>
-				<br>
-				<div>User1</div>
-				<div>User2</div>
-				<div>User3</div>
+				<div id="chat_type">
+					<div class="right_bar_header">Чат</div>
+					<div>Общий чат</div>
+					<div>Команда 1</div>
+					<div>Команда 2</div>
+					<div>Команда 3</div>
+				</div>
+				<div id="user_list">
+					<div class="right_bar_header">Пользователи</div>
+					<div>User1</div>
+					<div>User2</div>
+					<div>User3</div>
+				</div>
 			</div>
 		</div>
 	</div>
