@@ -5,7 +5,7 @@
 	height: 80%;
 	display: flex;
 	flex-wrap: wrap;
-	overflow-y: scroll;
+	overflow-y: auto;
 	column-gap: 100%;
 	justify-content: start;
 	align-content: flex-start;
@@ -112,8 +112,15 @@
 	margin-right: 30px;
 }
 
-.message_data {
+.message_content {
+	width: 100%;
 	padding: 15px;
+	display: flex;
+	justify-content: space-between;
+    align-items: end;
+}
+
+.message_data {
 	display: flex;
 	justify-content: start;
 	width: 100%;

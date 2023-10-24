@@ -30,47 +30,89 @@
 				<div id="chat" class="center_bar_boxes">
 					<div class="message"> 
 						<div class="message_header">
-							<div class="message_user">user1</div>
-							<div class="message_time">[12:18:30]</div>
+							<div class="user_box">
+								<div class="message_user">user1</div>
+							</div>
+							<div class="time_and_team_box">
+								<div class="message_team">Команда 1 -&nbsp</div>
+								<div class="message_time">[12:18:30]</div>
+							</div>
 						</div>
-						<div class="message_data">Всем привет!</div> 
+						<div class="message_content">
+							<div class="message_data">Всем привет!</div> 
+							<div class="delete_message_button">✖</div>
+						</div>
 					</div>
 					<div class="message"> 
 						<div class="message_header">
-							<div class="message_user">user2</div>
-							<div class="message_time">[12:18:53]</div>
+							<div class="user_box">
+								<div class="message_user">user2</div>
+							</div>
+							<div class="time_and_team_box">
+								<div class="message_team">Команда 2 -&nbsp</div>
+								<div class="message_time">[12:18:53]</div>
+							</div>
 						</div>
-						<div class="message_data">Здорова всем!!!)))</div> 
+						<div class="message_content">
+							<div class="message_data">Здорова всем!!!)))</div> 
+							<div class="delete_message_button">✖</div>
+						</div>
 					</div>
 					<div class="message"> 
 						<div class="message_header">
-							<div class="message_user">captain</div>
-							<div class="message_time">[12:19:24]</div>
+							<div class="user_box">
+								<div class="message_user">captain</div>
+							</div>
+							<div class="time_and_team_box">
+								<div class="message_team">Команда 1 -&nbsp</div>
+								<div class="message_time">[12:19:24]</div>
+							</div>
 						</div>
-						<div class="message_data">Коллеги, не отвлекаемся! Через минуту начинается игра</div> 
+						<div class="message_content">
+							<div class="message_data">Коллеги, не отвлекаемся! Через минуту начинается игра</div> 
+							<div class="delete_message_button">✖</div>
+						</div>
 					</div>
 					<div class="message"> 
 						<div class="message_header">
-							<div class="message_user">captain</div>
-							<div class="message_time">[12:22:02]</div>
+							<div class="user_box">
+								<div class="message_user">captain</div>
+							</div>
+							<div class="time_and_team_box">
+								<div class="message_team">Команда 1 -&nbsp</div>
+								<div class="message_time">[12:22:02]</div>
+							</div>
 						</div>
-						<div class="message_data">@expert, сколько лет было Пушкину на момент дуэли с Дантесом?</div> 
+						<div class="message_content">
+							<div class="message_data">@expert, сколько лет было Пушкину на момент дуэли с Дантесом?</div>
+							<div class="delete_message_button">✖</div>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div id="right_bar" class="container">
-				<div id="chat_type">
-					<div class="right_bar_header">Чат</div>
-					<div>Общий чат</div>
-					<div>Команда 1</div>
-					<div>Команда 2</div>
-					<div>Команда 3</div>
-				</div>
-				<div id="user_list">
-					<div class="right_bar_header">Пользователи</div>
-					<div>User1</div>
-					<div>User2</div>
-					<div>User3</div>
+				<div id="right_bar_div">
+					<div id="chat_type">
+						<div class="right_bar_header">Чат</div>
+						<div id="chats_filter">
+							<input id="chat_filter_input" class="text_box" type="text" name="chatFilter" placeholder="Фильтр"/>
+						</div>
+						<div id="full_chats_list">
+							<div id="general_chat" class="team">Общий чат</div>
+							<div class="team">Команда 1</div>
+							<div class="team">Команда 2</div>
+							<div class="team">Команда 3</div>
+							<div class="team">Команда 1</div>
+							<div class="team">Команда 2</div>
+							<div class="team">Команда 3</div>
+							<div class="team">Команда 1</div>
+							<div class="team">Команда 2</div>
+							<div class="team">Команда 3</div>
+						</div>
+					</div>
+					<div id="user_list">
+						<c:import url="/jsp/general/user_list.jsp"/>
+					</div>
 				</div>
 			</div>
 		</div>

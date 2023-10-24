@@ -47,10 +47,6 @@
 				</div>
 			</div>
 			<div id="right_bar" class="container">
-				Список всех пользователей СИС
-				<div>User1</div>
-				<div>User2</div>
-				<div>User3</div>
 			</div>
 		</div>
 	</div>

@@ -34,28 +34,40 @@
 							<div class="message_user">user1</div>
 							<div class="message_time">[12:18:30]</div>
 						</div>
-						<div class="message_data">Всем привет!</div> 
+						<div class="message_content">
+							<div class="message_data">Всем привет!</div> 
+							<div class="delete_message_button">✖</div>
+						</div>
 					</div>
 					<div class="message"> 
 						<div class="message_header">
 							<div class="message_user">user2</div>
 							<div class="message_time">[12:18:53]</div>
 						</div>
-						<div class="message_data">Здорова всем!!!)))</div> 
+						<div class="message_content">
+							<div class="message_data">Здорова всем!!!)))</div> 
+							<div class="delete_message_button">✖</div>
+						</div>
 					</div>
 					<div class="message"> 
 						<div class="message_header">
 							<div class="message_user">captain</div>
 							<div class="message_time">[12:19:24]</div>
 						</div>
-						<div class="message_data">Коллеги, не отвлекаемся! Через минуту начинается игра</div> 
+						<div class="message_content">
+							<div class="message_data">Коллеги, не отвлекаемся! Через минуту начинается игра</div> 
+							<div class="delete_message_button">✖</div>
+						</div>
 					</div>
 					<div class="message"> 
 						<div class="message_header">
 							<div class="message_user">captain</div>
 							<div class="message_time">[12:22:02]</div>
 						</div>
-						<div class="message_data">@expert, сколько лет было Пушкину на момент дуэли с Дантесом?</div> 
+						<div class="message_content">
+							<div class="message_data">@expert, сколько лет было Пушкину на момент дуэли с Дантесом?</div> 
+							<div class="delete_message_button">✖</div>
+						</div>
 					</div>
 				</div>
 				<div id="message_input_box" class="center_bar_boxes">

@@ -1,0 +1,30 @@
+@import url("vars.css");
+
+#full_users_list {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	border-bottom: 3px dashed var(--first_color);
+	border-radius: 30px;
+	max-height: 80%;
+	overflow-y: auto;
+}
+
+#users_filter {
+	margin-bottom: 15px;
+}
+
+#full_users_list > .user {
+	padding: 7px;
+	color: var(--first_color);
+	font-size: 20px;
+	border: 0px solid black;
+	transition: all 0.25s;
+	cursor: pointer;
+	margin-bottom: 3px;
+}
+
+#full_users_list > .user:hover {
+	font-size: 24px;
+	color: var(--pressed_input_color);
+}

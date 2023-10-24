@@ -11,12 +11,7 @@
 <body>
 	<div class="window">
 		<div id="top_bar" class="container">
-			<div class="top_bar_items">
-				User name
-			</div>
-			<div id="logout_button" class="top_bar_items">
-				<a id="logout_button_ref" href="controller?command=logout">Logout</a><br>
-			</div>
+			<c:import url="/jsp/general/top_bar_content.jsp"/>
 		</div>
 		<div id="main_content_bar">
 			<div id="left_bar" class="container">
@@ -35,19 +30,19 @@
 					<div id="current_user_caption">Текущий пользователь: не выбран</div>
 					<div class="user_form_item">
 						<div class="user_form_item_caption">Логин</div>
-						<input id="user_login" class="text_box" type="text" name="userLogin" value="user1"/>
+						<input id="user_login" class="text_box" type="text" name="userLogin" placeholder="user1"/>
 					</div>
 					<div class="user_form_item">
 						<div class="user_form_item_caption">Пароль</div>
-						<input id="user_password" class="text_box" type="text" name="userPassword" value="1234567890"/>
+						<input id="user_password" class="text_box" type="text" name="userPassword" placeholder="1234567890"/>
 					</div>
 					<div class="user_form_item">
 						<div class="user_form_item_caption">Имя</div>
-						<input id="user_name" class="text_box" type="text" name="userName" value="Userov User Userovich"/>
+						<input id="user_name" class="text_box" type="text" name="userName" placeholder="Userov User Userovich"/>
 					</div>
 					<div class="user_form_item">
 						<div class="user_form_item_caption">Электронная почта</div>
-						<input id="user_email" class="text_box" type="text" name="userEmail" value="123@yandex.ru"/>
+						<input id="user_email" class="text_box" type="text" name="userEmail" placeholder="123@yandex.ru"/>
 					</div>
 					<div class="user_form_item">
 						<div class="user_form_item_caption">Роль</div>
@@ -67,17 +62,7 @@
 			</div>
 			<div id="right_bar" class="container">
 				<div id="full_users_list_box">
-					<div id="full_users_list_caption" class="right_bar_header">
-						Список всех пользователей СИС
-					</div>
-					<div id="users_filter">
-						<input id="user_filter_input" class="text_box" type="text" name="userFilter" placeholder="Фильтр"/>
-					</div>
-					<div id="full_users_list">
-						<div class="user">User1</div>
-						<div class="user">User2</div>
-						<div class="user">User3</div>
-					</div>
+					<c:import url="/jsp/general/user_list.jsp"/>
 				</div>
 			</div>
 		</div>
