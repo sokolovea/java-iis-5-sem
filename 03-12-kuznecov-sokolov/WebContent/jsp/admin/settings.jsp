@@ -20,14 +20,7 @@
 		</div>
 		<div id="main_content_bar">
 			<div id="left_bar" class="container">
-				<ol>
-					<li id="button_report" class="menu_button">
-						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Report">Отчеты</a>
-					</li>
-					<li id="button_main" class="menu_button">
-						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu">Главное меню</a>
-					</li>
-				</ol>
+				<c:import url="/jsp/general/left_bar_menu.jsp"/>
 			</div>
 			<div id="center_bar" class="container">
 				<div id="settings_div">

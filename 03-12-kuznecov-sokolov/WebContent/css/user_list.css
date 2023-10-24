@@ -6,7 +6,6 @@
 	align-items: center;
 	border-bottom: 3px dashed var(--first_color);
 	border-radius: 30px;
-	max-height: 80%;
 	overflow-y: auto;
 }
 

@@ -34,14 +34,7 @@
 		</div>
 		<div id="main_content_bar">
 			<div id="left_bar" class="container">
-				<ol>
-					<li id="button_to_team" class="menu_button">
-						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=team&command=Menu">Моя команда</a>
-					</li>
-					<li id="button_report" class="menu_button">
-						<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Report">Отчеты</a>
-					</li>
-				</ol>
+				<c:import url="/jsp/general/left_bar_menu.jsp"/>
 			</div>
 			<jsp:useBean id="myLogic" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
 			<div id="center_bar" class="container">
