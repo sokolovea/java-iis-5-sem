@@ -132,3 +132,11 @@
 	text-wrap: wrap;
 	margin-bottom: 20px;
 }
+
+.deleted_message {
+	opacity: 0.5;
+}
+
+.message_buttons {
+	display: flex;
+}

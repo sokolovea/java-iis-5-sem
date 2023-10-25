@@ -113,3 +113,11 @@
 	font-size: 24px;
 	color: var(--pressed_input_color);
 }
+
+.deleted_message {
+	opacity: 0.5;
+}
+
+.message_buttons {
+	display: flex;
+}

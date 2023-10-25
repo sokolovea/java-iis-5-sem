@@ -26,7 +26,10 @@
 						</div>
 						<div class="message_content">
 							<div class="message_data">Всем привет!</div> 
-							<div class="delete_message_button">✖</div>
+							<div class="message_buttons">
+								<div class="restore_message_button">&#8635</div>
+								<div class="delete_message_button">✖</div>
+							</div>
 						</div>
 					</div>
 					<div class="message"> 
@@ -36,17 +39,23 @@
 						</div>
 						<div class="message_content">
 							<div class="message_data">Здорова всем!!!)))</div> 
-							<div class="delete_message_button">✖</div>
+							<div class="message_buttons">
+								<div class="restore_message_button">&#8635</div>
+								<div class="delete_message_button">✖</div>
+							</div>
 						</div>
 					</div>
-					<div class="message"> 
+					<div class="message deleted_message"> 
 						<div class="message_header">
 							<div class="message_user">captain</div>
 							<div class="message_time">[12:19:24]</div>
 						</div>
 						<div class="message_content">
 							<div class="message_data">Коллеги, не отвлекаемся! Через минуту начинается игра</div> 
-							<div class="delete_message_button">✖</div>
+							<div class="message_buttons">
+								<div class="restore_message_button">&#8635</div>
+								<div class="delete_message_button">✖</div>
+							</div>
 						</div>
 					</div>
 					<div class="message"> 
@@ -56,7 +65,10 @@
 						</div>
 						<div class="message_content">
 							<div class="message_data">@expert, сколько лет было Пушкину на момент дуэли с Дантесом?</div> 
-							<div class="delete_message_button">✖</div>
+							<div class="message_buttons">
+								<div class="restore_message_button">&#8635</div>
+								<div class="delete_message_button">✖</div>
+							</div>
 						</div>
 					</div>
 				</div>

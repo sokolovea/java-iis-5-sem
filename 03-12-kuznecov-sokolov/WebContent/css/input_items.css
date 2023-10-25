@@ -79,7 +79,7 @@ input[type=button]:hover {
 	height: 30px;
 }
 
-.delete_message_button {
+.delete_message_button, .restore_message_button {
 	width: 20px;
 	height: 20px;
 	color: white;
@@ -91,10 +91,23 @@ input[type=button]:hover {
 	opacity: 0;
 	cursor: pointer;
 	transition: all 0.3s;
+	padding: 1px;
+    align-items: end;
+    pointer-events: none;
 }
 
-.message:hover > .message_content > .delete_message_button {
+.restore_message_button {
+	background: blue;
+}
+
+.message:not(.deleted_message):hover > .message_content .delete_message_button {
 	opacity: 1;
+	pointer-events: auto;
+}
+
+.deleted_message:hover > .message_content .restore_message_button {
+	opacity: 1;
+	pointer-events: auto;
 }
 
 a {
