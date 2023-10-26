@@ -121,3 +121,52 @@
 .message_buttons {
 	display: flex;
 }
+
+#user_sanction {
+	display: flex;
+	position: absolute;
+	width: 120px;
+	align-items: center;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.5s;
+	z-index: 1000;
+}
+
+#sanction_list {
+	width: 90%;
+	display: flex;
+	flex-flow: column;
+	background: var(--third_color);
+	border: 3px solid var(--first_color);
+	border-radius: 10px;
+}
+
+#sanc_triangle {
+	width: 10%;
+	height: 0;
+	border-bottom: 10px solid transparent;
+	border-top: 10px solid transparent;
+	border-left: 20px solid var(--first_color);
+}
+
+.sanction {
+	display: flex;
+	justify-content: center;
+	margin: 0 5px;
+	padding: 3px 0;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.sanction:first-child {
+	margin-top: 5px;
+}
+
+.sanction:last-child {
+	margin-bottom: 5px;
+}
+
+.sanction:hover {
+	background: var(--fifth_color);
+}

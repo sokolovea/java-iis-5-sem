@@ -7,8 +7,41 @@
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/main_win.css">
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/input_items.css">
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/moderator.css">
+	<script>
+		function showSanctionMenu(event, element, qweqwe) {
+			const menu = document.getElementById("user_sanction");
+			const item_pos = element.getBoundingClientRect();
+			menu.style.opacity = 1;
+			menu.style.pointerEvents = "auto";
+			menu.style.top = item_pos.top - menu.offsetHeight / 2 + element.offsetHeight / 2;
+			menu.style.left = item_pos.left - menu.offsetWidth + 10;
+		}
+		
+		function closeSanctionMenu(event, element) {
+			const menu = document.getElementById("sanc_triangle");
+			const item_pos = element.getBoundingClientRect();
+			if (event.relatedTarget != menu) {
+				document.getElementById("user_sanction").style.opacity = 0;
+				document.getElementById("user_sanction").style.pointerEvents = "none";
+			}
+		}
+		
+		function closeSancMenu() {
+			const menu = document.getElementById("user_sanction");
+			menu.style.opacity = 0;
+			menu.style.pointerEvents = "none";
+		}
+	</script>
 </head>
 <body>
+	<div id="user_sanction" onmouseleave='closeSancMenu()'>
+		<div id="sanction_list">
+			<div class="sanction">Block</div>
+			<div class="sanction">Unblock</div>
+		</div>
+		<div id="sanc_triangle"></div>
+	</div>
+	
 	<div class="window">
 		<div id="top_bar" class="container">
 			<div class="top_bar_items">
@@ -27,7 +60,7 @@
 					<div class="message"> 
 						<div class="message_header">
 							<div class="user_box">
-								<div class="message_user">user1</div>
+								<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>user1</div>
 							</div>
 							<div class="time_and_team_box">
 								<div class="message_team">Команда 1 -&nbsp</div>
@@ -45,7 +78,7 @@
 					<div class="message deleted_message"> 
 						<div class="message_header">
 							<div class="user_box">
-								<div class="message_user">user2</div>
+								<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>user2</div>
 							</div>
 							<div class="time_and_team_box">
 								<div class="message_team">Команда 2 -&nbsp</div>
@@ -63,7 +96,7 @@
 					<div class="message"> 
 						<div class="message_header">
 							<div class="user_box">
-								<div class="message_user">captain</div>
+								<div class="message_user banned_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>captain</div>
 							</div>
 							<div class="time_and_team_box">
 								<div class="message_team">Команда 1 -&nbsp</div>
@@ -81,7 +114,7 @@
 					<div class="message"> 
 						<div class="message_header">
 							<div class="user_box">
-								<div class="message_user">captain</div>
+								<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>captain</div>
 							</div>
 							<div class="time_and_team_box">
 								<div class="message_team">Команда 1 -&nbsp</div>
