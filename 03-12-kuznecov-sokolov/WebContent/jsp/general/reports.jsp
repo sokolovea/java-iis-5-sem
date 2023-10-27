@@ -190,6 +190,11 @@
 						</div>
 						<div id="report_admin_user_role_history" class="report">
 							<div class="report_caption">Вывод информации о истории назначения на роль по конкретной учетной записи</div>
+							<div class="report_inputs">
+								<span style="margin-right: 7px;">N =</span> 
+								<input id="n_teams_text_box" class="text_box" type="number" name="adminUserRole" value="Нужен другой стиль для текста"/><br/>
+		            			<input id="n_teams_search" type="button" name="adminUserRole_submit" value="Найти"/>
+							</div>
 							<div class="report_table">
 								<table>
 									<thead>
