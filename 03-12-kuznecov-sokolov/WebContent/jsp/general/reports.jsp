@@ -168,6 +168,43 @@
 							</div>
 						</div>
 		            </c:if>
+		            
+		            
+		            <c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'admin'}">
+			            <div id="report_admin_users" class="report">
+							<div class="report_caption">Вывод информации о всех учетных записях</div>
+							<div class="report_table">
+								<table>
+									<thead>
+										<tr>
+											<th>Логин</th>
+											<th>Пароль</th>
+							      			<th>ФИО</th>
+							      			<th>email</th>
+							      			<th>Роль</th> <!-- решил добавить -->
+							      			<th>Авторизован</th>
+										</tr>
+								    </thead>
+								</table>
+							</div>
+						</div>
+						<div id="report_admin_user_role_history" class="report">
+							<div class="report_caption">Вывод информации о истории назначения на роль по конкретной учетной записи</div>
+							<div class="report_table">
+								<table>
+									<thead>
+										<tr>
+											<th>Пользователь</th>
+							    			<th>Роль</th>
+										    <th>Время назначения</th>
+										</tr>
+								    </thead>
+								</table>
+							</div>
+						</div>
+		            </c:if>
+		            
+		            
 	             </div>
 			</div>
 			<div id="right_bar" class="container">
@@ -207,6 +244,14 @@
 							</div>
 							<div class="report_button" onclick='reportSelector(this, "report_moderator_blocked_n")'>
 								Вывод пользователей, заблокированных N или более раз
+							</div>
+						</c:if>
+						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'admin'}">
+							<div class="report_button" onclick='reportSelector(this, "report_admin_users")'>
+								Вывод информации о всех учетных записях
+							</div>
+							<div class="report_button" onclick='reportSelector(this, "report_admin_user_role_history")'>
+								Вывод информации о истории назначения на роль по конкретной учетной записи
 							</div>
 						</c:if>
 					</div>
