@@ -79,12 +79,16 @@ th {
 	justify-content: start;
 }
 
-#n_teams_text_box, #n_moderator_blocked_n_text_box {
+#n_teams_text_box, #n_moderator_blocked_n_text_box, #user_login_text_box {
 	width: 10%;
 	margin-right: 20px;
 }
 
-#n_teams_search, #n_moderator_blocked_n_search {
+#user_login_text_box {
+	width: 25%;
+}
+
+#n_teams_search, #n_moderator_blocked_n_search, #user_search {
 	width: min-content;
 	padding-left: 20px;
 	padding-right: 20px;

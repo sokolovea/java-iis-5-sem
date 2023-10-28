@@ -7,6 +7,15 @@
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/main_win.css">
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/input_items.css">
 	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/admin.css">
+	<script type="text/javascript">
+		function clearFormData() {
+			document.getElementById("user_login").value = "";
+			document.getElementById("user_password").value = "";
+			document.getElementById("user_name").value = "";
+			document.getElementById("user_email").value = "";
+			document.getElementById("").options[0].selected = "selected";
+		}
+	</script>
 </head>
 <body>
 	<div class="window">
@@ -50,6 +59,7 @@
 						<input id="save_changes" type="button" name="saveChanges" value="Сохранить"/>
 						<input id="create_user" type="button" name="creatUser" value="Создать пользователя"/>
 						<input id="remove_user" type="button" name="removeUser" value="Удалить пользователя"/>
+						<input id="clear_form" type="button" name="clearForm" value="Очистить форму"/>
 					</div>
 		        </div>
 			</div>
