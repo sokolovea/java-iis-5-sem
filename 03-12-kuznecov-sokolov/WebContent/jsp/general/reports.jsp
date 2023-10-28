@@ -39,6 +39,7 @@
 			<jsp:useBean id="myLogic" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
 			<div id="center_bar" class="container">
 				<div id="report_container">
+				
 					<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'expert'}">
 						<div id="report_consult_with_expert" class="report">
 							<div class="report_caption">Вывод команд, консультирующихся у данного эксперта</div>
@@ -82,6 +83,7 @@
 							</div>
 						</div>
 			        </c:if>
+			        
 					<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'user' || myLogic.checkLogin(userName, userPassword).toString() == 'captain'}">
 			            <div id="report_messages_deleted_by_no_user" class="report">
 							<div class="report_caption">Вывод сообщений, которые удалил не сам пользователь</div>
@@ -119,6 +121,7 @@
 							</div>
 						</div>
 		            </c:if>
+		            
 		            <c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'moderator'}">
 			            <div id="report_moderator_users" class="report">
 							<div class="report_caption">Вывод учетных записей, являющихся пользователями</div>
@@ -154,7 +157,7 @@
 							<div class="report_caption">Вывод пользователей, заблокированных N или более раз</div>
 							<div class="report_inputs">
 								<span style="margin-right: 7px;">N =</span> 
-								<input id="n_moderator_blocked_n_text_box" class="text_box" type="number" name="countBlocked" value="100"/><br/>
+								<input id="n_moderator_blocked_n_text_box" class="text_box" type="number" name="countBlocked" value="100"/>
 		            			<input id="n_moderator_blocked_n_search" type="button" name="countBlocked_submit" value="Найти"/>
 							</div>
 							<div class="report_table">
@@ -168,7 +171,6 @@
 							</div>
 						</div>
 		            </c:if>
-		            
 		            
 		            <c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'admin'}">
 			            <div id="report_admin_users" class="report">
@@ -191,9 +193,9 @@
 						<div id="report_admin_user_role_history" class="report">
 							<div class="report_caption">Вывод информации о истории назначения на роль по конкретной учетной записи</div>
 							<div class="report_inputs">
-								<span style="margin-right: 7px;">N =</span> 
-								<input id="n_teams_text_box" class="text_box" type="number" name="adminUserRole" value="Нужен другой стиль для текста"/><br/>
-		            			<input id="n_teams_search" type="button" name="adminUserRole_submit" value="Найти"/>
+								<span style="margin-right: 7px;">login =</span> 
+								<input id="user_login_text_box" class="text_box" type="text" name="adminUserRole" placeholder="Введите логин пользователя"/>
+		            			<input id="user_search" type="button" name="adminUserRole_submit" value="Найти"/>
 							</div>
 							<div class="report_table">
 								<table>
@@ -208,7 +210,6 @@
 							</div>
 						</div>
 		            </c:if>
-		            
 		            
 	             </div>
 			</div>

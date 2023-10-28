@@ -33,21 +33,21 @@
 		</c:if>
 		<c:if test="${role == 'moderator'}">
 			<li id="button_main" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu">Главное меню[TODO]</a>
+				<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu">Главное меню</a>
 			</li>
 			<li id="button_report" class="menu_button">
 				<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Report">Отчеты</a>
 			</li>
 		</c:if>
 		<c:if test="${role == 'admin'}">
-			<li id="button_report" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Report">Отчеты</a>
-			</li>
 			<li id="button_main" class="menu_button">
 				<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu">Главное меню</a>
 			</li>
 			<li id="button_settings" class="menu_button">
 				<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=settings&command=Menu">Настройки СИС</a>
+			</li>
+			<li id="button_report" class="menu_button">
+				<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Report">Отчеты</a>
 			</li>
 		</c:if>
 	</ol>
