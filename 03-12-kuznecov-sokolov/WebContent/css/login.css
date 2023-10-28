@@ -47,3 +47,7 @@
 	font-size: 20px;
 	color: var(--second_color);
 }
+
+#error_box {
+	color: var(--focus_input_color);
+}
