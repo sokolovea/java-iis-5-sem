@@ -34,6 +34,11 @@ public class MenuCommand implements ActionCommand {
 				return ConfigurationManager.getProperty("path.page.team_select");
 			}
 		}
+		if (loginResult == EnumLogin.MODERATOR) {
+			if (destination.equals("main")) {
+				return ConfigurationManager.getProperty("path.page.moderator");
+			}
+		}
 		if (loginResult == EnumLogin.ADMIN ) {
 			if (destination.equals("settings")) {
 				return ConfigurationManager.getProperty("path.page.admin_settings");
