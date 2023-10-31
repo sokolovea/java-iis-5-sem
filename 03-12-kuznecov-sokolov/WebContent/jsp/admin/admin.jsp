@@ -13,7 +13,7 @@
 			document.getElementById("user_password").value = "";
 			document.getElementById("user_name").value = "";
 			document.getElementById("user_email").value = "";
-			document.getElementById("").options[0].selected = "selected";
+			document.getElementById("user_role").options[0].selected = "selected";
 		}
 	</script>
 </head>
@@ -59,7 +59,7 @@
 						<input id="save_changes" type="button" name="saveChanges" value="Сохранить"/>
 						<input id="create_user" type="button" name="creatUser" value="Создать пользователя"/>
 						<input id="remove_user" type="button" name="removeUser" value="Удалить пользователя"/>
-						<input id="clear_form" type="button" name="clearForm" value="Очистить форму"/>
+						<input id="clear_form" type="button" name="clearForm" value="Очистить форму" onclick='clearFormData()'/>
 					</div>
 		        </div>
 			</div>
