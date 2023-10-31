@@ -31,6 +31,25 @@
 			menu.style.opacity = 0;
 			menu.style.pointerEvents = "none";
 		}
+		
+		function chatFilter() {
+			  // Получите значение введенного текста из поля фильтра
+			  var input = document.getElementById("chat_filter_input");
+			  var filter = input.value.toLowerCase();
+
+			  // Получите все элементы с классом "team" из списка чатов
+			  var teams = document.getElementsByClassName("team");
+
+			  // Переберите все элементы и скройте те, которые не соответствуют фильтру
+			  for (var i = 0; i < teams.length; i++) {
+			    var teamName = teams[i].textContent.toLowerCase();
+			    if (teamName.indexOf(filter) > -1) {
+			      teams[i].style.display = "block"; // Отобразите элемент, если он соответствует фильтру
+			    } else {
+			      teams[i].style.display = "none"; // Спрячьте элемент, если он не соответствует фильтру
+			    }
+			  }
+			}
 	</script>
 </head>
 <body>
@@ -136,7 +155,7 @@
 					<div id="chat_type">
 						<div class="right_bar_header">Чат</div>
 						<div id="chats_filter">
-							<input id="chat_filter_input" class="text_box" type="text" name="chatFilter" placeholder="Фильтр"/>
+							<input id="chat_filter_input" class="text_box" type="text" name="chatFilter" placeholder="Фильтр"  onkeyup="chatFilter()"/>
 						</div>
 						<div id="full_chats_list">
 							<div id="general_chat" class="team">Общий чат</div>
