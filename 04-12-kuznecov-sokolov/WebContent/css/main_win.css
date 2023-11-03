@@ -4,10 +4,11 @@ body {
 	background-color: var(--fourth_color);
 	display: flex;
 	justify-content: center;
+	/* font-family: Gill Sans Extrabold, sans-serif; */
 }
 
 .window {
-	--main_height: 750px;
+	--main_height: 700px;
 	--top_bar_height: 50px;
 	--min_left_bar_w: 150px;
 	--min_right_bar_w: 150px;
