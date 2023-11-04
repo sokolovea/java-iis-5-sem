@@ -5,6 +5,5 @@ import java.util.List;
 
 public abstract class TeamDAO {
 	
-	//Общ
 	public abstract List<String> getCommonTeamInfo() throws SQLException;
 }

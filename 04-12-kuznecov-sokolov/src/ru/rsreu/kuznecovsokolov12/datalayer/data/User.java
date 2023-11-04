@@ -30,6 +30,10 @@ public class User extends AbstractEntity {
 		this.setIsAuthorized(is_authorized);;
 	}
 	
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -76,6 +80,10 @@ public class User extends AbstractEntity {
 
 	public void setIsAuthorized(boolean is_authorized) {
 		this.is_authorized = is_authorized;
+	}
+
+	public boolean checkPassword(String enterPass) {
+		return this.getPassword().equals(enterPass);
 	}
 
 	
