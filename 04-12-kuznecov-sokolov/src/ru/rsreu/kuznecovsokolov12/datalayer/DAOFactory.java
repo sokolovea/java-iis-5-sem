@@ -6,6 +6,8 @@ public abstract class DAOFactory {
 		return result;
 	}
 	
-	public abstract QueryDAO getTeacherDAO();
+	public abstract UserDAO getUserDAO();
+	
+	public abstract SettingDAO getSettingDAO();
 	
 }
