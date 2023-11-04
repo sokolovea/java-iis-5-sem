@@ -11,14 +11,14 @@ import java.util.List;
 import com.prutzkow.resourcer.ProjectResourcer;
 import com.prutzkow.resourcer.Resourcer;
 
-import ru.rsreu.kuznecovsokolov12.datalayer.AdminDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.TableRow;
 
-public class OracleAdminDAO extends AdminDAO {
+public class OracleUserDAO extends UserDAO {
 
 	private Connection connection;
 
-	public OracleAdminDAO(Connection connection) {
+	public OracleUserDAO(Connection connection) {
 		this.connection = connection;
 	}
 
@@ -27,19 +27,31 @@ public class OracleAdminDAO extends AdminDAO {
 	}
 
 	@Override
-	public List<String> getNetworkInformationSystemSettings() throws SQLException {
+	public List<String> getUsersListForAdmin() throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void setNetworkInformationSystemSettings(String settings) throws SQLException {
+	public List<String> getUsersListForModerator() throws SQLException {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public List<String> getUserInfo() throws SQLException {
+	public List<String> getUsersListForOtherUser() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getUserInfoForAdmin() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getUserInfoForAdminReport() throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -55,5 +67,6 @@ public class OracleAdminDAO extends AdminDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	
 }

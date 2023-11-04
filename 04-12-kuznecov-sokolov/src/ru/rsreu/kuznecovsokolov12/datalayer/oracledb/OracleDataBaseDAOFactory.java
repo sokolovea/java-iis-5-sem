@@ -6,7 +6,8 @@ import java.sql.SQLException;
 import java.util.Locale;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
-import ru.rsreu.kuznecovsokolov12.datalayer.AdminDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 
 public class OracleDataBaseDAOFactory extends DAOFactory {
 	private static volatile OracleDataBaseDAOFactory instance;
@@ -37,8 +38,13 @@ public class OracleDataBaseDAOFactory extends DAOFactory {
 	}
 
 	@Override
-	public AdminDAO getTeacherDAO() {
-		return new OracleAdminDAO(connection);
+	public UserDAO getUserDAO() {
+		return new OracleUserDAO(connection);
+	}
+
+	@Override
+	public SettingDAO getSettingDAO() {
+		return new OracleSettingDAO(connection);
 	}
 
 }
