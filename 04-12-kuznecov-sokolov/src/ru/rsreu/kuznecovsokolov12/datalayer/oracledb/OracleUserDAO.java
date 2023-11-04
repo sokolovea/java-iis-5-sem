@@ -25,6 +25,12 @@ public class OracleUserDAO extends UserDAO {
 	public Connection getConnection() {
 		return this.connection;
 	}
+	
+	@Override
+	public List<String> getUsersListForAuthorization() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public List<String> getUsersListForAdmin() throws SQLException {
