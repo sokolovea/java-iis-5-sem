@@ -7,7 +7,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.TableRow;
 
 public abstract class UserDAO {
 	
-	public abstract List<String> getUsersListForAuthorization() throws SQLException;
+	public abstract String getUserByLogin(String login) throws SQLException;
 	
 	public abstract List<String> getUsersListForAdmin() throws SQLException;
 	

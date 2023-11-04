@@ -27,8 +27,7 @@ public class OracleUserDAO extends UserDAO {
 	}
 	
 	@Override
-	public List<String> getUsersListForAuthorization() throws SQLException {
-		// TODO Auto-generated method stub
+	public String getUserByLogin(String login) {
 		return null;
 	}
 
