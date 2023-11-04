@@ -38,7 +38,7 @@ public class OracleUserDAO extends UserDAO {
 		Statement statement = this.getConnection().createStatement();
 		Resourcer resourcer = ProjectResourcer.getInstance();
 		ResultSet resultSet = statement
-				.executeQuery("SELECT * FROM USER WHERE LOGIN = " + login);
+				.executeQuery("SELECT * FROM \"USER\" WHERE \"login\" = " + "'" + login + "'");
 		if (resultSet.next()) {
 			user.setId(resultSet.getInt("ID"));
 			user.setLogin(resultSet.getString("LOGIN"));

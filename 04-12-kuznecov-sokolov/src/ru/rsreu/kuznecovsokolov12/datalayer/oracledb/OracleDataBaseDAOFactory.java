@@ -31,11 +31,19 @@ public class OracleDataBaseDAOFactory extends DAOFactory {
 	private void connected() throws ClassNotFoundException, SQLException {
 		Locale.setDefault(Locale.ENGLISH);
 //		Class.forName("oracle.jdbc.driver.OracleDriver");
-//		String url = "jdbc:oracle:thin:@localhost:1521:XE";
-		String url = "SYSTEM@//localhost:1521:XE";
+		String url = "jdbc:oracle:thin:@localhost:1521:XE";
+//		String url = "SYSTEM@//localhost:1521:XE";
 		String user = "SYSTEM";
 		String password = "1";
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		System.out.println("BEFORE CONNECTION!");
 		connection = DriverManager.getConnection(url, user, password);
+		if (connection != null) {
+			System.out.println("CONNECTED!");
+		}
+		else {
+			System.out.println("FAILED TO CONNECT!");
+		}
 	}
 
 	@Override

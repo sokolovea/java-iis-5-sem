@@ -12,8 +12,6 @@ import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleDataBaseDAOFactory;
 
 public class LoginLogic {
 	
-	final static private DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
-	final static private UserDAO userDAO = factory.getUserDAO();
 //	private final static String ADMIN_LOGIN = "admin";
 //	private final static String ADMIN_PASS = "1";
 //	
@@ -30,6 +28,10 @@ public class LoginLogic {
 //	private final static String USER_PASS = "1";
 
 	public static EnumLogin checkLogin(String enterLogin, String enterPass) throws SQLException {
+		
+		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+		UserDAO userDAO = factory.getUserDAO();
+		
 		User user = userDAO.getUserByLogin(enterLogin);
 		if (user.checkPassword(enterPass)) {
 			return EnumLogin.ADMIN;
