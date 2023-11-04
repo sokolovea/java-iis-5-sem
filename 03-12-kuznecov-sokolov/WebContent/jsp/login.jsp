@@ -11,7 +11,7 @@
 	<div id="login_main_box">
 		<div id="app_name">Эксперты и команды</div>
 		<form id="login" name="loginForm" method="POST" action="controller">
-		<input type="hidden" name="command" value="login" />
+			<input type="hidden" name="command" value="login" />
 			<div id="login_box">
 				<div id="login_box_caption">Логин</div>
 				<input class="text_box" type="text" name="login" value=""/>
