@@ -1,5 +1,7 @@
 package ru.rsreu.kuznecovsokolov12.servlet;
 
+import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletRequest;
 
 public class LoginCommand implements ActionCommand {
@@ -14,7 +16,13 @@ public class LoginCommand implements ActionCommand {
 		String login = request.getParameter(LoginCommand.PARAM_NAME_LOGIN);
 		String pass = request.getParameter(LoginCommand.PARAM_NAME_PASSWORD);
 		
-		EnumLogin loginResult = LoginLogic.checkLogin(login, pass);
+		EnumLogin loginResult = null;
+		try {
+			loginResult = LoginLogic.checkLogin(login, pass);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		request.setAttribute(LoginCommand.PARAM_USER_NAME, login);
 		request.setAttribute(LoginCommand.PARAM_USER_PASSWORD, pass);
 		if (!LoginCommand.isLogined(loginResult)) {

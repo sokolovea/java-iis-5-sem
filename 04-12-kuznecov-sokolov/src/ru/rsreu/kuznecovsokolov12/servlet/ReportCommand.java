@@ -1,5 +1,7 @@
 package ru.rsreu.kuznecovsokolov12.servlet;
 
+import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletRequest;
 
 public class ReportCommand implements ActionCommand {
@@ -12,7 +14,13 @@ public class ReportCommand implements ActionCommand {
 		request.getSession().setAttribute("userName", login);
 		String password = request.getParameter(PARAM_NAME_PASSWORD);
 		request.getSession().setAttribute("userPassword", password);
-		EnumLogin loginResult = LoginLogic.checkLogin(login, password);
+		EnumLogin loginResult = null;
+		try {
+			loginResult = LoginLogic.checkLogin(login, password);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		request.setAttribute(ReportCommand.getRequestAttribute(loginResult), login);
 		return ReportCommand.getPage(loginResult);
 	}

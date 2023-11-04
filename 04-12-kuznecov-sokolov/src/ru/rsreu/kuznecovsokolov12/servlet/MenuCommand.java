@@ -1,5 +1,7 @@
 package ru.rsreu.kuznecovsokolov12.servlet;
 
+import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletRequest;
 
 public class MenuCommand implements ActionCommand {
@@ -15,7 +17,13 @@ public class MenuCommand implements ActionCommand {
 		String password = request.getParameter(PARAM_NAME_PASSWORD);
 		request.getSession().setAttribute(MenuCommand.PARAM_USER_PASSWORD, password);
 		String destination = request.getParameter(MenuCommand.PARAM_DESTINATION);
-		EnumLogin loginResult = LoginLogic.checkLogin(login, password);
+		EnumLogin loginResult = null;
+		try {
+			loginResult = LoginLogic.checkLogin(login, password);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return MenuCommand.getPage(loginResult, destination);
 	}
 	

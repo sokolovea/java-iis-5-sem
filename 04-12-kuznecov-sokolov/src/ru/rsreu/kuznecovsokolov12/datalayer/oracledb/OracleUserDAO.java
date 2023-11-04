@@ -12,7 +12,7 @@ import com.prutzkow.resourcer.ProjectResourcer;
 import com.prutzkow.resourcer.Resourcer;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.TableRow;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public class OracleUserDAO extends UserDAO {
 
@@ -25,52 +25,47 @@ public class OracleUserDAO extends UserDAO {
 	public Connection getConnection() {
 		return this.connection;
 	}
-	
-	@Override
-	public String getUserByLogin(String login) {
-		return null;
-	}
 
 	@Override
-	public List<String> getUsersListForAdmin() throws SQLException {
+	public User getUserByID(int id) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<String> getUsersListForModerator() throws SQLException {
+	public User getUserByLogin(String login) throws SQLException {
+		User user = new User();
+		Statement statement = this.getConnection().createStatement();
+		Resourcer resourcer = ProjectResourcer.getInstance();
+		ResultSet resultSet = statement
+				.executeQuery("SELECT * FROM USER WHERE LOGIN = " + login);
+		if (resultSet.next()) {
+			user.setId(resultSet.getInt("ID"));
+			user.setLogin(resultSet.getString("LOGIN"));
+			user.setPassword(resultSet.getString("PASSWORD"));
+			user.setName(resultSet.getString("NAME"));
+			user.setEmail(resultSet.getString("EMAIL"));
+			user.setIsAuthorized(resultSet.getBoolean("IS_AUTHORIZED"));
+		}
+		return user;
+	}
+
+	@Override
+	public List<User> getUsers() throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<String> getUsersListForOtherUser() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<String> getUserInfoForAdmin() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<String> getUserInfoForAdminReport() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setUserInfo(String userInfo) throws SQLException {
+	public void addUser(User user) throws SQLException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public List<String> getUserRoleHistory() throws SQLException {
+	public void updateUser(User user) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	
