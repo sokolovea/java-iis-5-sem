@@ -4,9 +4,9 @@
 <head>
 	<meta http-equiv="Cache-Control" content="no-cache">
 	<title>Кабинет администратора</title>
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/main_win.css">
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/input_items.css">
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/admin.css">
+	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/main_win.css">
+	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/input_items.css">
+	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/admin.css">
 	<script type="text/javascript">
 		function clearFormData() {
 			document.getElementById("user_login").value = "";

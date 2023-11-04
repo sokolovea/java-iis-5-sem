@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/user_list.css">
+	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/user_list.css">
 </head>
 <body>
 	<jsp:useBean id="myLogic" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
@@ -16,9 +16,11 @@
 			<li id="button_to_team" class="menu_button">
 				<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu">Команды</a>
 			</li>
-			<li id="button_exit_team" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu">Покинуть команду</a>
-			</li>
+			<c:if test="${role != 'captain'}">
+				<li id="button_exit_team" class="menu_button">
+					<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu">Покинуть команду</a>
+				</li>
+			</c:if>
 			<li id="button_report" class="menu_button">
 				<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Report">Отчеты</a>
 			</li>

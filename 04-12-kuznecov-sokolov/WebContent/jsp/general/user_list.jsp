@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/user_list.css">
+	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/user_list.css">
 </head>
 <body>
 	<script>

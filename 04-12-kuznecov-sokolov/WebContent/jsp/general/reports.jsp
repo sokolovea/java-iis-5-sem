@@ -4,9 +4,9 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <head>
 	<title>Отчеты</title>
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/main_win.css">
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/input_items.css">
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/reports.css">
+	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/main_win.css">
+	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/input_items.css">
+	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/reports.css">
 	<script type="text/javascript">
 		function reportSelector(element, report_id) {
 			const reports = document.getElementsByClassName("report");

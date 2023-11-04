@@ -5,9 +5,9 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <head>
 	<title>Выбор команды</title>
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/main_win.css">
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/input_items.css">
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/team_select.css">
+	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/main_win.css">
+	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/input_items.css">
+	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/team_select.css">
 </head>
 <body>
 	<div class="window"> 
@@ -191,14 +191,16 @@
 					</div>
 					<div id="user_teams">
 						<div class="rb_user_team_name">
-							Команда 1
+							<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=team&command=Menu">Команда 1</a>
 						</div>
-						<div class="rb_user_team_name">
-							Команда 2
-						</div>
-						<div class="rb_user_team_name">
-							Команда 3
-						</div>
+						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'expert'}">
+							<div class="rb_user_team_name">
+								<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=team&command=Menu">Команда 2</a>
+							</div>
+							<div class="rb_user_team_name">
+								<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=team&command=Menu">Команда 3</a>
+							</div>
+						</c:if>
 					</div>
 				</div>
 			</div>

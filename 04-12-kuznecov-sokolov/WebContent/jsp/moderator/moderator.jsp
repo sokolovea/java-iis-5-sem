@@ -4,16 +4,16 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <head>
 	<title>Кабинет модератора</title>
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/main_win.css">
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/input_items.css">
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/moderator.css">
+	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/main_win.css">
+	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/input_items.css">
+	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/moderator.css">
 	<script>
 		function showSanctionMenu(event, element, qweqwe) {
 			const menu = document.getElementById("user_sanction");
 			const item_pos = element.getBoundingClientRect();
 			menu.style.opacity = 1;
 			menu.style.pointerEvents = "auto";
-			menu.style.top = item_pos.top - menu.offsetHeight / 2 + element.offsetHeight / 2;
+			menu.style.top = document.body.scrollTop + item_pos.top - menu.offsetHeight / 2 + element.offsetHeight / 2;
 			menu.style.left = item_pos.left - menu.offsetWidth + 10;
 		}
 		
@@ -142,6 +142,60 @@
 						</div>
 						<div class="message_content">
 							<div class="message_data">@expert, сколько лет было Пушкину на момент дуэли с Дантесом?</div>
+							<div class="message_buttons">
+								<div class="restore_message_button">&#8635</div>
+								<div class="delete_message_button">✖</div>
+							</div>
+						</div>
+					</div>
+					<div class="message"> 
+						<div class="message_header">
+							<div class="user_box">
+								<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>user2</div>
+							</div>
+							<div class="time_and_team_box">
+								<div class="message_team">Команда 1 -&nbsp</div>
+								<div class="message_time">[12:22:56]</div>
+							</div>
+						</div>
+						<div class="message_content">
+							<div class="message_data">Очевидно, что 37 лет, точная информация.</div>
+							<div class="message_buttons">
+								<div class="restore_message_button">&#8635</div>
+								<div class="delete_message_button">✖</div>
+							</div>
+						</div>
+					</div>
+					<div class="message"> 
+						<div class="message_header">
+							<div class="user_box">
+								<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>user1</div>
+							</div>
+							<div class="time_and_team_box">
+								<div class="message_team">Команда 1 -&nbsp</div>
+								<div class="message_time">[12:23:09]</div>
+							</div>
+						</div>
+						<div class="message_content">
+							<div class="message_data">Подтверждаю, вспомнил.</div>
+							<div class="message_buttons">
+								<div class="restore_message_button">&#8635</div>
+								<div class="delete_message_button">✖</div>
+							</div>
+						</div>
+					</div>
+					<div class="message"> 
+						<div class="message_header">
+							<div class="user_box">
+								<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>user2</div>
+							</div>
+							<div class="time_and_team_box">
+								<div class="message_team">Команда 1 -&nbsp</div>
+								<div class="message_time">[12:23:34]</div>
+							</div>
+						</div>
+						<div class="message_content">
+							<div class="message_data">Ну вот, да, я прав, зачем ещё эксперта отвлекать на такие простые вопросы.</div>
 							<div class="message_buttons">
 								<div class="restore_message_button">&#8635</div>
 								<div class="delete_message_button">✖</div>

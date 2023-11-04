@@ -2,9 +2,9 @@
 <html lang="ru-RU">
 <head>
 	<title>Авторизация</title>
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/main_win.css">
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/input_items.css">
-	<link rel="stylesheet" href="/03-12-kuznecov-sokolov/css/login.css">
+	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/main_win.css">
+	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/input_items.css">
+	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/login.css">
 </head>
 <meta http-equiv="Cache-Control" content="no-cache">
 <body>
