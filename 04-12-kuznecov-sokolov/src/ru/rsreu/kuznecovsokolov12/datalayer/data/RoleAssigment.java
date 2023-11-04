@@ -10,6 +10,9 @@ public class RoleAssigment extends AbstractEntity {
 	private int receiver;
 	private Timestamp time;
 	
+	public RoleAssigment() {
+	}
+
 	public RoleAssigment(int id, int role, int sender, int receiver, Timestamp time) {
 		this.id = id;
 		this.role = role;

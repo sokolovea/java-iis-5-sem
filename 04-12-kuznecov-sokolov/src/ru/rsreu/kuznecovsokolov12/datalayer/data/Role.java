@@ -6,6 +6,9 @@ public class Role extends AbstractEntity {
 	private String name;
 	private RoleGroup group;
 	
+	public Role() {
+	}
+
 	public Role(int id, String name, RoleGroup group) {
 		this.setId(id);
 		this.setName(name);

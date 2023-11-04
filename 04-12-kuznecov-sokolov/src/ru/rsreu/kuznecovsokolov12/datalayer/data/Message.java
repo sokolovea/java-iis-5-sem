@@ -9,14 +9,15 @@ public class Message extends AbstractEntity {
 	private int author;
 	private Timestamp time;
 	
-	
+	public Message() {
+	}
+
 	public Message(int id, String data, int author, Timestamp time) {
 		this.setId(id);
 		this.setData(data);
 		this.setAuthor(author);
 		this.setTime(time);
 	}
-
 
 	public int getId() {
 		return id;

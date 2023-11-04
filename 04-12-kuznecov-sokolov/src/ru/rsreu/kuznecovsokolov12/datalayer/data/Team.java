@@ -5,6 +5,9 @@ public class Team extends AbstractEntity {
 	private int id;
 	private String name;
 	
+	public Team() {
+	}
+
 	public Team(int id, String name) {
 		this.setId(id);
 		this.setName(name);

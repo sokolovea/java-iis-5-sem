@@ -8,6 +8,9 @@ public class MessageAttaching extends AbstractEntity {
 	private int team;
 	private int message;
 	
+	public MessageAttaching() {
+	}
+
 	public MessageAttaching(int id, int team, int message) {
 		this.setId(id);
 		this.setTeam(team);
@@ -32,7 +35,5 @@ public class MessageAttaching extends AbstractEntity {
 	public void setMessage(int message) {
 		this.message = message;
 	}
-	
-	
 
 }

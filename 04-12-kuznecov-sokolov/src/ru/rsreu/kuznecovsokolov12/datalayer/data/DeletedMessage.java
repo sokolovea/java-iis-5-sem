@@ -9,6 +9,9 @@ public class DeletedMessage extends AbstractEntity {
 	private int message;
 	private Timestamp time;
 	
+	public DeletedMessage() {
+	}
+
 	public DeletedMessage(int id, int sender, int message, Timestamp time) {
 		this.setId(id);
 		this.setSender(sender);

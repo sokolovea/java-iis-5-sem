@@ -4,9 +4,9 @@ public class User extends AbstractEntity {
 
 	private int id;
 	private String login;
-	private String  password;
+	private String password;
 	private String name;
-	private String  email;
+	private String email;
 	private boolean is_authorized = false;
 	
 	public User(String login, String password) {
