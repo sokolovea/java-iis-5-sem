@@ -13,8 +13,12 @@ import javax.sql.DataSource;
 
 import oracle.jdbc.pool.OracleDataSource;
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
+import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.RoleAssigmentDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.RoleDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.TeamInteractDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 
 public class OracleDataBaseDAOFactory extends DAOFactory {
@@ -100,6 +104,26 @@ public class OracleDataBaseDAOFactory extends DAOFactory {
 		return new OracleSettingDAO(connection);
 	}
 	
+	@Override
+	public TeamDAO getTeamDAO() {
+		return new OracleTeamDAO(connection);
+	}
+
+	@Override
+	public TeamInteractDAO getTeamInteractDAO() {
+		return new OracleTeamInteractDAO(connection);
+	}
+
+	@Override
+	public RoleAssigmentDAO getRoleAssigmentDAO() {
+		return new OracleRoleAssigmentDAO(connection);
+	}
+
+	@Override
+	public MessageDAO getMessageDAO() {
+		return new OracleMessageDAO(connection);
+	}
+
 	@Override
 	public void returnConnectionToPool() {
 		try {

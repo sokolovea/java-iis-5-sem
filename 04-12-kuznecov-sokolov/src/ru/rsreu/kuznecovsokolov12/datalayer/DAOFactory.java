@@ -12,6 +12,14 @@ public abstract class DAOFactory {
 	
 	public abstract SettingDAO getSettingDAO();
 	
+	public abstract TeamDAO getTeamDAO();
+	
+	public abstract TeamInteractDAO getTeamInteractDAO();
+	
+	public abstract RoleAssigmentDAO getRoleAssigmentDAO();
+	
+	public abstract MessageDAO getMessageDAO();
+	
 	public abstract void returnConnectionToPool();
 	
 }
