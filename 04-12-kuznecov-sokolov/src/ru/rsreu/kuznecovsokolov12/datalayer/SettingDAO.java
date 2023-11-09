@@ -6,7 +6,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.*;
 
 public abstract class SettingDAO {
 	
-	public abstract Setting getSetting() throws SQLException;
+	public abstract List<Setting> getSetting() throws SQLException;
 
 	public abstract void setSetting(Setting setting) throws SQLException;
 }
