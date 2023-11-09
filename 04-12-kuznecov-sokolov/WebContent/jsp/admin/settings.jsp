@@ -3,7 +3,7 @@
 <html lang="ru-RU">
 <meta http-equiv="Cache-Control" content="no-cache">
 <head>
-	<title>Кабинет модератора</title>
+	<title>Кабинет администратора</title>
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/main_win.css">
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/input_items.css">
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/settings.css">
@@ -26,12 +26,12 @@
 				<div id="settings_div">
 					<div id="settings_box">
 						<div class="setting">
-							<div class="setting_caption">Team capacity</div>
-							<input id="team_capacity" class="text_box" type="number" name="teamCapacity" value="10"/><br/>
+							<div class="setting_caption">Максимум человек в команде</div>
+							<input id="team_capacity" class="text_box" type="number" name="teamCapacity" value="${setting_list[0].getValue()}"/><br/>
 						</div>
 						<div class="setting">
-							<div class="setting_caption">Expert capacity</div>
-							<input id="expert_capacity" class="text_box" type="number" name="expertCapacity" value="5"/><br/>
+							<div class="setting_caption">Максимум команд у эксперта</div>
+							<input id="expert_capacity" class="text_box" type="number" name="expertCapacity" value="${setting_list[1].getValue()}"/><br/>
 			        	</div>
 					</div>
 					<div id="settings_box_button">

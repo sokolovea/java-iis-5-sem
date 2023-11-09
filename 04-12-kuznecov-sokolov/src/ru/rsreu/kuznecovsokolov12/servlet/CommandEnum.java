@@ -22,6 +22,11 @@ public enum CommandEnum {
 		{
 			this.command = new LogoutCommand();
 		}
+	},
+	DATABASE {
+		{
+			this.command = new DatabaseCommand();
+		}
 	};
 	ActionCommand command;
 
