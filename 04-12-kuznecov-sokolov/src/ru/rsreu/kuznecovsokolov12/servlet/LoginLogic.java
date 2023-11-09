@@ -9,6 +9,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleDataBaseDAOFactory;
+import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleUserDAO;
 
 public class LoginLogic {
 	
@@ -33,8 +34,10 @@ public class LoginLogic {
 		UserDAO userDAO = factory.getUserDAO();
 		
 		User user = userDAO.getUserByLogin(enterLogin);
-		if (user.checkPassword(enterPass)) {
-			return EnumLogin.ADMIN;
+		boolean loginResult = user.checkPassword(enterPass);
+		factory.returnConnectionToPool();
+		if (!loginResult) {
+			return EnumLogin.NOUSER;
 		}
 //		if (ADMIN_LOGIN.equals(enterLogin) && ADMIN_PASS.equals(enterPass)) {
 //			return EnumLogin.ADMIN;
@@ -48,5 +51,6 @@ public class LoginLogic {
 //			return EnumLogin.USER;
 //		}
 		return EnumLogin.NOUSER;
+		
 	}
 }

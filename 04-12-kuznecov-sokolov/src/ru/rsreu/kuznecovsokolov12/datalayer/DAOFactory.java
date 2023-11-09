@@ -10,4 +10,6 @@ public abstract class DAOFactory {
 	
 	public abstract SettingDAO getSettingDAO();
 	
+	public abstract void returnConnectionToPool();
+	
 }
