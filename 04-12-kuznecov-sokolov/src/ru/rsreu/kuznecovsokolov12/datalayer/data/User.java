@@ -31,7 +31,6 @@ public class User extends AbstractEntity {
 	}
 	
 	public User() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getId() {

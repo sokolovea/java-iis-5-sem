@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 
 import oracle.jdbc.pool.OracleDataSource;
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
+import ru.rsreu.kuznecovsokolov12.datalayer.RoleDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 
@@ -89,6 +90,11 @@ public class OracleDataBaseDAOFactory extends DAOFactory {
 		return new OracleUserDAO(connection);
 	}
 
+	@Override
+	public RoleDAO getRoleDAO() {
+		return new OracleRoleDAO(connection);
+	}
+	
 	@Override
 	public SettingDAO getSettingDAO() {
 		return new OracleSettingDAO(connection);
