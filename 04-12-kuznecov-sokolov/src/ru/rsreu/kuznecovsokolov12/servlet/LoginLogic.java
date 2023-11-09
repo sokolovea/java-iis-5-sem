@@ -7,6 +7,7 @@ import jdk.jshell.UnresolvedReferenceException;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.*;
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
+import ru.rsreu.kuznecovsokolov12.datalayer.RoleDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleDataBaseDAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleUserDAO;
@@ -32,24 +33,26 @@ public class LoginLogic {
 		
 		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
 		UserDAO userDAO = factory.getUserDAO();
+		RoleDAO roleDAO = factory.getRoleDAO();
 		
 		User user = userDAO.getUserByLogin(enterLogin);
 		boolean loginResult = user.checkPassword(enterPass);
-		factory.returnConnectionToPool();
 		if (!loginResult) {
+			factory.returnConnectionToPool();
 			return EnumLogin.NOUSER;
 		}
-//		if (ADMIN_LOGIN.equals(enterLogin) && ADMIN_PASS.equals(enterPass)) {
-//			return EnumLogin.ADMIN;
-//		} else if (MODERATOR_LOGIN.equals(enterLogin) && MODERATOR_PASS.equals(enterPass)) {
-//			return EnumLogin.MODERATOR;
-//		} else if (EXPERT_LOGIN.equals(enterLogin) && EXPERT_PASS.equals(enterPass)) {
-//			return EnumLogin.EXPERT;
-//		} else if (CAPTAIN_LOGIN.equals(enterLogin) && CAPTAIN_PASS.equals(enterPass)) {
-//			return EnumLogin.CAPTAIN;
-//		} else if (USER_LOGIN.equals(enterLogin) && USER_PASS.equals(enterPass)) {
-//			return EnumLogin.USER;
-//		}
+		Role role = roleDAO.getUserRole(user);
+		String roleName = role.getName();
+		factory.returnConnectionToPool();
+		if (roleName.equals("Administrator")) {
+			return EnumLogin.ADMIN;
+		} else if (roleName.equals("Moderator")) {
+			return EnumLogin.MODERATOR;
+		} else if (roleName.equals("Expert")) {
+			return EnumLogin.EXPERT;
+		} else if (roleName.equals("Common user")) {
+			return EnumLogin.USER;
+		}
 		return EnumLogin.NOUSER;
 		
 	}
