@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class Sanction extends AbstractEntity {
 
 	private int id;
-	private SanctionType type;
+	private int type;
 	private int sender;
 	private int receiver;
 	private String reason;
@@ -14,7 +14,7 @@ public class Sanction extends AbstractEntity {
 	public Sanction() {
 	}
 
-	public Sanction(int id, SanctionType type, int sender, int receiver, String reason, Timestamp time) {
+	public Sanction(int id, int type, int sender, int receiver, String reason, Timestamp time) {
 		this.setId(id);
 		this.setType(type);
 		this.setSender(sender);
@@ -29,10 +29,10 @@ public class Sanction extends AbstractEntity {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public SanctionType getType() {
+	public int getType() {
 		return type;
 	}
-	public void setType(SanctionType type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 	public int getSender() {

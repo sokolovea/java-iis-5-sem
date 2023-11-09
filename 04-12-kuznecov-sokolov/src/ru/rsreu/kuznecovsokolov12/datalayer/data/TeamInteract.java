@@ -6,14 +6,14 @@ public class TeamInteract extends AbstractEntity {
 
 	private int id;
 	private int user;
-	private TeamInteractType type;
+	private int type;
 	private int team;
 	private Timestamp time;
-	
+	 
 	public TeamInteract() {
 	}
 
-	public TeamInteract(int id, int user, TeamInteractType type, int team, Timestamp time) {
+	public TeamInteract(int id, int user, int type, int team, Timestamp time) {
 		this.setId(id);
 		this.setUser(user);
 		this.setType(type);
@@ -37,11 +37,11 @@ public class TeamInteract extends AbstractEntity {
 		this.user = user;
 	}
 
-	public TeamInteractType getType() {
+	public int getType() {
 		return type;
 	}
 
-	public void setType(TeamInteractType type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 

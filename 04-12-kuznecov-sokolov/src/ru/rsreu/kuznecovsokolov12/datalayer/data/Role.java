@@ -4,12 +4,12 @@ public class Role extends AbstractEntity {
 
 	private int id;
 	private String name;
-	private RoleGroup group;
+	private int group;
 	
 	public Role() {
 	}
 
-	public Role(int id, String name, RoleGroup group) {
+	public Role(int id, String name, int group) {
 		this.setId(id);
 		this.setName(name);
 		this.setGroup(group);
@@ -31,11 +31,11 @@ public class Role extends AbstractEntity {
 		this.name = name;
 	}
 
-	public RoleGroup getGroup() {
+	public int getGroup() {
 		return group;
 	}
 
-	public void setGroup(RoleGroup group) {
+	public void setGroup(int group) {
 		this.group = group;
 	}
 	
