@@ -5,5 +5,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.*;
 
 public interface DeletedMessageDAO {
 	
-	List<DeletedMessage> getAllDeletedMessage();
+	List<DeletedMessage> getAllDeletedMessages();
+	
+	List<DeletedMessage> getDeletedMessagesForTeam();
 }

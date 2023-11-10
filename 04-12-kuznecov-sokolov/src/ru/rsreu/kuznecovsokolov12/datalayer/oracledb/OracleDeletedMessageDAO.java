@@ -8,7 +8,13 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.DeletedMessage;
 public class OracleDeletedMessageDAO implements DeletedMessageDAO {
 
 	@Override
-	public List<DeletedMessage> getAllDeletedMessage() {
+	public List<DeletedMessage> getAllDeletedMessages() {
+		return null;
+	}
+
+	@Override
+	public List<DeletedMessage> getDeletedMessagesForTeam() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
