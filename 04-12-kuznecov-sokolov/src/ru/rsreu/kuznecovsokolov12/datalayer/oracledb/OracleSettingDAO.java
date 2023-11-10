@@ -13,7 +13,7 @@ import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Setting;
 
-public class OracleSettingDAO extends SettingDAO {
+public class OracleSettingDAO implements SettingDAO {
 
 	private Connection connection;
 

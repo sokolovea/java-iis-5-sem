@@ -8,7 +8,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.TeamInteractDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.TeamInteract;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
-public class OracleTeamInteractDAO extends TeamInteractDAO {
+public class OracleTeamInteractDAO implements TeamInteractDAO {
 
 	private Connection connection;
 

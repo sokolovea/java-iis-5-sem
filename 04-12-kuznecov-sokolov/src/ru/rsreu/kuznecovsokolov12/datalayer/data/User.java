@@ -2,12 +2,18 @@ package ru.rsreu.kuznecovsokolov12.datalayer.data;
 
 public class User extends AbstractEntity {
 
-	private int id;
 	private String login;
 	private String password;
 	private String name;
 	private String email;
 	private boolean is_authorized = false;
+	
+	public User() {
+	}
+	
+	public User(int id) {
+		super(id);
+	}
 	
 	public User(String login, String password) {
 		this.setLogin(login);
@@ -28,17 +34,6 @@ public class User extends AbstractEntity {
 	public User(int id, String login, String password, String name, String email, boolean is_authorized) {
 		this(id, login, password, name, email);
 		this.setIsAuthorized(is_authorized);;
-	}
-	
-	public User() {
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getLogin() {

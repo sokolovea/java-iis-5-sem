@@ -2,25 +2,20 @@ package ru.rsreu.kuznecovsokolov12.datalayer.data;
 
 public class Role extends AbstractEntity {
 
-	private int id;
 	private String name;
-	private int group;
+	private RoleGroup group;
 	
 	public Role() {
 	}
 
-	public Role(int id, String name, int group) {
-		this.setId(id);
+	public Role(int id) {
+		super(id);
+	}
+	
+	public Role(int id, String name, RoleGroup group) {
+		this(id);
 		this.setName(name);
 		this.setGroup(group);
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getName() {
@@ -31,11 +26,11 @@ public class Role extends AbstractEntity {
 		this.name = name;
 	}
 
-	public int getGroup() {
+	public RoleGroup getGroup() {
 		return group;
 	}
 
-	public void setGroup(int group) {
+	public void setGroup(RoleGroup group) {
 		this.group = group;
 	}
 	

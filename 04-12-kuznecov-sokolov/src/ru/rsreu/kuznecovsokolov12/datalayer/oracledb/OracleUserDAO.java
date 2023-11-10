@@ -14,7 +14,7 @@ import com.prutzkow.resourcer.Resourcer;
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
-public class OracleUserDAO extends UserDAO {
+public class OracleUserDAO implements UserDAO {
 
 	private Connection connection;
 

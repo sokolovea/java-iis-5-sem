@@ -7,7 +7,7 @@ import java.util.List;
 import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 
-public class OracleTeamDAO extends TeamDAO {
+public class OracleTeamDAO implements TeamDAO {
 
 	private Connection connection;
 

@@ -8,7 +8,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.RoleAssigmentDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.RoleAssigment;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
-public class OracleRoleAssigmentDAO extends RoleAssigmentDAO {
+public class OracleRoleAssigmentDAO implements RoleAssigmentDAO {
 
 	private Connection connection;
 

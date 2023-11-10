@@ -6,11 +6,11 @@ import java.util.List;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 
-public abstract class MessageDAO {
+public interface MessageDAO {
 
-	public abstract List<Message> getUndeletedMessagesForTeam(Team team) throws SQLException;
+	List<Message> getUndeletedMessagesForTeam(Team team) throws SQLException;
 	
-	public abstract List<Message> getAllMessagesForTeam(Team team) throws SQLException;
+	List<Message> getAllMessagesForTeam(Team team) throws SQLException;
 
-	public abstract List<Message> getAllMessages() throws SQLException;
+	List<Message> getAllMessages() throws SQLException;
 }

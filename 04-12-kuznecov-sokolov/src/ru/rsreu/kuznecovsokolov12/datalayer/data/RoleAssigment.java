@@ -4,50 +4,54 @@ import java.sql.Timestamp;
 
 public class RoleAssigment extends AbstractEntity {
 
-	private int id;
-	private int role;
-	private int sender;
-	private int receiver;
+	private Role role;
+	private User sender;
+	private User receiver;
 	private Timestamp time;
 	
 	public RoleAssigment() {
 	}
+	
+	public RoleAssigment(int id) {
+		super(id);
+	}
 
-	public RoleAssigment(int id, int role, int sender, int receiver, Timestamp time) {
-		this.id = id;
-		this.role = role;
-		this.sender = sender;
-		this.receiver = receiver;
-		this.time = time;
+	public RoleAssigment(int id, Role role, User sender, User receiver, Timestamp time) {
+		this(id);
+		this.setRole(role);;
+		this.setSender(sender);;
+		this.setReceiver(receiver);;
+		this.setTime(time);;
 	}
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public int getRole() {
+	public Role getRole() {
 		return role;
 	}
-	public void setRole(int role) {
+	
+	public void setRole(Role role) {
 		this.role = role;
 	}
-	public int getSender() {
+	
+	public User getSender() {
 		return sender;
 	}
-	public void setSender(int sender) {
+	
+	public void setSender(User sender) {
 		this.sender = sender;
 	}
-	public int getReceiver() {
+	
+	public User getReceiver() {
 		return receiver;
 	}
-	public void setReceiver(int receiver) {
+	
+	public void setReceiver(User receiver) {
 		this.receiver = receiver;
 	}
+	
 	public Timestamp getTime() {
 		return time;
 	}
+	
 	public void setTime(Timestamp time) {
 		this.time = time;
 	}

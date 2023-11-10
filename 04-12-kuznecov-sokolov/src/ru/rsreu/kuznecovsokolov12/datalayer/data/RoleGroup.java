@@ -1,24 +1,19 @@
 package ru.rsreu.kuznecovsokolov12.datalayer.data;
 
-public class RoleGroup {
+public class RoleGroup extends AbstractEntity {
 	
-	private int id;
 	private String name;
 	
 	public RoleGroup() {
 	}
 	
-	public RoleGroup(int id, String name) {
-       this.name = name;
-       this.id = id;
+	public RoleGroup(int id) {
+		super(id);
 	}
 	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+	public RoleGroup(int id, String name) {
+		this(id);
+		this.name = name;
 	}
 
 	public String getName() {

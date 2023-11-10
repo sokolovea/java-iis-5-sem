@@ -8,7 +8,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 
-public class OracleMessageDAO extends MessageDAO {
+public class OracleMessageDAO implements MessageDAO {
 
 	private Connection connection;
 

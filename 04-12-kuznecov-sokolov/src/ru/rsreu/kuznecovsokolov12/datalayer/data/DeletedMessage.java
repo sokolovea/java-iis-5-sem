@@ -4,43 +4,38 @@ import java.sql.Timestamp;
 
 public class DeletedMessage extends AbstractEntity {
 
-	private int id;
-	private int sender;
-	private int message;
+	private User sender;
+	private Message message;
 	private Timestamp time;
 	
 	public DeletedMessage() {
 	}
-
-	public DeletedMessage(int id, int sender, int message, Timestamp time) {
-		this.setId(id);
+	
+	public DeletedMessage(int id) {
+		super(id);
+	}
+	
+	public DeletedMessage(int id, User sender, Message message, Timestamp time) {
+		this(id);
 		this.setSender(sender);
 		this.setMessage(message);
 		this.setTime(time);
 	}
 	
-	public int getSender() {
+	public User getSender() {
 		return sender;
 	}
 
-	public void setSender(int sender) {
+	public void setSender(User sender) {
 		this.sender = sender;
 	}
 
-	public int getMessage() {
+	public Message getMessage() {
 		return message;
 	}
 
-	public void setMessage(int message) {
+	public void setMessage(Message message) {
 		this.message = message;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public Timestamp getTime() {

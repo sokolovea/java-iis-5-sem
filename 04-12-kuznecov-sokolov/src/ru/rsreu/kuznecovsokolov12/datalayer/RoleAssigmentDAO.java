@@ -7,9 +7,9 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.RoleAssigment;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 
-public abstract class RoleAssigmentDAO {
+public interface RoleAssigmentDAO {
 
-	public abstract List<RoleAssigment> getRoleAssigmentsForUser(User user) throws SQLException;
+	List<RoleAssigment> getRoleAssigmentsForUser(User user) throws SQLException;
 
-	public abstract List<RoleAssigment> getAllRoleAssigments() throws SQLException;
+	List<RoleAssigment> getAllRoleAssigments() throws SQLException;
 }

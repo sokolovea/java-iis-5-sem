@@ -4,52 +4,47 @@ import java.sql.Timestamp;
 
 public class TeamInteract extends AbstractEntity {
 
-	private int id;
-	private int user;
-	private int type;
-	private int team;
+	private User user;
+	private TeamInteractType type;
+	private Team team;
 	private Timestamp time;
 	 
 	public TeamInteract() {
 	}
 
-	public TeamInteract(int id, int user, int type, int team, Timestamp time) {
-		this.setId(id);
+	public TeamInteract(int id) {
+		super(id);
+	}
+	
+	public TeamInteract(int id, User user, TeamInteractType type, Team team, Timestamp time) {
+		this(id);
 		this.setUser(user);
 		this.setType(type);
 		this.setTeam(team);
 		this.setTime(time);
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(int user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
-	public int getType() {
+	public TeamInteractType getType() {
 		return type;
 	}
 
-	public void setType(int type) {
+	public void setType(TeamInteractType type) {
 		this.type = type;
 	}
 
-	public int getTeam() {
+	public Team getTeam() {
 		return team;
 	}
 
-	public void setTeam(int team) {
+	public void setTeam(Team team) {
 		this.team = team;
 	}
 

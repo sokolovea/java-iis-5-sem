@@ -16,7 +16,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Role;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
-public class OracleRoleDAO extends RoleDAO {
+public class OracleRoleDAO implements RoleDAO {
 
 	private Connection connection;
 

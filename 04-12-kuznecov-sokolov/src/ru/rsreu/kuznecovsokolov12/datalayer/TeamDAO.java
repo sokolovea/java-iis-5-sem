@@ -5,11 +5,11 @@ import java.util.List;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 
-public abstract class TeamDAO {
+public interface TeamDAO {
 	
-	public abstract List<Team> getAllTeam() throws SQLException;
+	List<Team> getAllTeam() throws SQLException;
 
-	public abstract Team getTeamByName(String name) throws SQLException;
+	Team getTeamByName(String name) throws SQLException;
 	
-	public abstract Team getTeamById(int id) throws SQLException;
+	Team getTeamById(int id) throws SQLException;
 }

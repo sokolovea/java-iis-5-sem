@@ -1,38 +1,37 @@
 package ru.rsreu.kuznecovsokolov12.datalayer.data;
 
-import java.sql.Timestamp;
 
 public class MessageAttaching extends AbstractEntity {
 
-	private int id;
-	private int team;
-	private int message;
+	private Team team;
+	private Message message;
 	
 	public MessageAttaching() {
 	}
 
-	public MessageAttaching(int id, int team, int message) {
-		this.setId(id);
+	public MessageAttaching(int id) {
+		super(id);
+	}
+	
+	public MessageAttaching(int id, Team team, Message message) {
+		this(id);
 		this.setTeam(team);
 		this.setMessage(message);
 	}
 
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public int getTeam() {
+	public Team getTeam() {
 		return team;
 	}
-	public void setTeam(int team) {
+	
+	public void setTeam(Team team) {
 		this.team = team;
 	}
-	public int getMessage() {
+	
+	public Message getMessage() {
 		return message;
 	}
-	public void setMessage(int message) {
+	
+	public void setMessage(Message message) {
 		this.message = message;
 	}
 

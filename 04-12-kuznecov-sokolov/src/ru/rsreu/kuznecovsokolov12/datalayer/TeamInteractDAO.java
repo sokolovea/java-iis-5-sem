@@ -6,10 +6,10 @@ import java.util.List;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.TeamInteract;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
-public abstract class TeamInteractDAO {
+public interface TeamInteractDAO {
 
-	public abstract List<TeamInteract> getTeamInteractsForUser(User user) throws SQLException;
+	List<TeamInteract> getTeamInteractsForUser(User user) throws SQLException;
 
-	public abstract List<TeamInteract> getAllTeamInteracts() throws SQLException;
+	List<TeamInteract> getAllTeamInteracts() throws SQLException;
 
 }
