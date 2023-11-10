@@ -13,6 +13,11 @@ public class Setting extends AbstractEntity {
 		super(id);
 	}
 	
+	public Setting(String name, int value) {
+		this.setName(name);
+		this.setValue(value);
+	}
+	
 	public Setting(int id, String name, int value) {
 		this(id);
 		this.setName(name);

@@ -22,8 +22,6 @@
 						login: "<%= loginValue %>",
 						password:"<%= passwordValue %>",
 					command: "Database",
-				  key1: "value1",
-				  key2: "value2",
 				  teamCapacity: document.getElementById("team_capacity").value,
 				  expertCapacity: document.getElementById("expert_capacity").value
 				};
@@ -32,6 +30,22 @@
 				  var xhr = new XMLHttpRequest();
 				  xhr.open("POST", url, true);
 				  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				  
+				  // Обработчик события onload для выполнения действий после успешного запроса
+				  xhr.onload = function () {
+				    if (xhr.status === 200) {
+				      console.log("Пакет отправлен! Мы сейчас в обработчике!");
+				      var redirectUrl = "controller?login=" + "<%= loginValue %>" + "&password=" + "<%= passwordValue %>" + "&destination=settings&command=Menu"; // Предполагается, что сервер вернул URL для перенаправления
+				      console.log(redirectUrl);
+				      location.reload();
+				      //window.location.href = redirectUrl;
+				      // Дополнительные действия после успешного выполнения запроса
+				      // Например, можно обновить интерфейс или перенаправить пользователя
+				    } else {
+				      console.error("Ошибка при отправке запроса:", xhr.statusText);
+				      // Обработка ошибок, если необходимо
+				    }
+				  };
 
 		
 				  // Преобразование данных в формат x-www-form-urlencoded
@@ -45,7 +59,6 @@
 		
 				  // Отправка запроса
 				  xhr.send(encodedData);
-				  console.log("Пакет отправлен!");
 				}
 		
 				
