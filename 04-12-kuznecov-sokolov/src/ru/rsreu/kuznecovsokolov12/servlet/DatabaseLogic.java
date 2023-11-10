@@ -33,12 +33,16 @@ public class DatabaseLogic {
 	public static void updateSetting(String teamCapacity, String expertCapacity) throws SQLException {
 		
 		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
-		SettingDAO settingDAO = factory.getSettingDAO();
-		Setting settingTeamCapacity = new Setting(1, "max_team_capacity", Integer.parseInt(teamCapacity));
-		Setting settingExpertCapacity = new Setting(2, "max_team_consulted_expert", Integer.parseInt(expertCapacity));
-		settingDAO.setSetting(settingTeamCapacity);
-		settingDAO.setSetting(settingExpertCapacity);
-		factory.returnConnectionToPool();
+		try {
+			SettingDAO settingDAO = factory.getSettingDAO();
+			Setting settingTeamCapacity = new Setting("max_team_capacity", Integer.parseInt(teamCapacity));
+			Setting settingExpertCapacity = new Setting("max_team_consulted_expert", Integer.parseInt(expertCapacity));
+			settingDAO.setSetting(settingTeamCapacity);
+			settingDAO.setSetting(settingExpertCapacity);
+		} finally {
+			factory.returnConnectionToPool();
+			System.out.println("Вернули соединение в пул!");
+		}
 		
 	}
 }

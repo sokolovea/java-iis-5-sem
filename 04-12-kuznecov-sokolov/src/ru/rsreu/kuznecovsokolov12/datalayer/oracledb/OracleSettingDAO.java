@@ -45,6 +45,6 @@ public class OracleSettingDAO implements SettingDAO {
 	@Override
 	public void setSetting(Setting setting) throws SQLException {
 		Statement statement = this.getConnection().createStatement();
-		statement.executeUpdate("update \"SETTING\" set \"value\" = " + setting.getValue() + " where \"SETTING\".\"name\" = " + setting.getName());
+		statement.executeUpdate("update \"SETTING\" set \"value\" = " + setting.getValue() + " where \"SETTING\".\"name\" = " + "\'" + setting.getName() + "\'");
 	}
 }
