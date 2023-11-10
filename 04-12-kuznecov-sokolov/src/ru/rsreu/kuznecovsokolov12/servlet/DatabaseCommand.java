@@ -24,7 +24,12 @@ public class DatabaseCommand implements ActionCommand {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		try {
+			DatabaseLogic.updateSetting(teamCapacity, expertCapacity);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		request.setAttribute(DatabaseCommand.getRequestAttribute(loginResult), login);
 		System.out.println("DatabaseCommand.getPage(loginResult); = " + DatabaseCommand.getPage(loginResult));
 		
