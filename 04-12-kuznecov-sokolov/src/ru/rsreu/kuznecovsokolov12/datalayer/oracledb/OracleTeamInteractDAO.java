@@ -10,6 +10,8 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public class OracleTeamInteractDAO implements TeamInteractDAO {
 
+	
+	
 	private Connection connection;
 
 	public OracleTeamInteractDAO(Connection connection) {

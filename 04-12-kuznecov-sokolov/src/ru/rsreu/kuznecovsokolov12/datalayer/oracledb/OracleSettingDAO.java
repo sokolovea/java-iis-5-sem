@@ -16,7 +16,8 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.Setting;
 
 public class OracleSettingDAO implements SettingDAO {
 
-	private final static String SQL_QUERY_UPDATE = "update \"SETTING\" set \"value\" = ? where \"SETTING\".\"name\" = ?";
+	private final static String SQL_SETTING_UPDATE = "update \"SETTING\" set \"value\" = ? where \"SETTING\".\"name\" = ?";
+	private final static String SQL_SETTING_SELECT = "select * FROM \"SETTING\"";
 
 	private Connection connection;
 	
@@ -32,9 +33,7 @@ public class OracleSettingDAO implements SettingDAO {
 	public List<Setting> getSetting() throws SQLException {
 		List<Setting> settingList = new ArrayList<Setting>();
 		Statement statement = this.getConnection().createStatement();
-		Resourcer resourcer = ProjectResourcer.getInstance();
-		ResultSet resultSet = statement
-				.executeQuery("select * FROM \"SETTING\"");
+		ResultSet resultSet = statement.executeQuery(SQL_SETTING_SELECT);
 		while (resultSet.next()) {
 			Setting setting = new Setting();
 			setting.setId(resultSet.getInt("ID"));
@@ -48,7 +47,7 @@ public class OracleSettingDAO implements SettingDAO {
 	@Override
 	public void setSetting(Setting setting) throws SQLException {
 		PreparedStatement ps;
-		ps = this.connection.prepareStatement(SQL_QUERY_UPDATE);
+		ps = this.connection.prepareStatement(SQL_SETTING_UPDATE);
 		ps.setInt(1, setting.getValue());
 		ps.setString(2, setting.getName());
 		ps.executeUpdate();
