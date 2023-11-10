@@ -14,6 +14,11 @@ public class DatabaseCommand implements ActionCommand {
 		request.getSession().setAttribute("userName", login);
 		String password = request.getParameter(PARAM_NAME_PASSWORD);
 		request.getSession().setAttribute("userPassword", password);
+		String key1 = request.getParameter("key1");
+		String key2 = request.getParameter("key2");
+		String v1 = request.getParameter("teamCapacity");
+		System.out.println(login + "; " + password + "; " +key1 + "; " + key2 + "; " + v1);
+		
 		EnumLogin loginResult = null;
 		try {
 			loginResult = LoginLogic.checkLogin(login, password);

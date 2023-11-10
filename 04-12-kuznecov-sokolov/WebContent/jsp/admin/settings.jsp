@@ -7,6 +7,49 @@
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/main_win.css">
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/input_items.css">
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/settings.css">
+	<%
+		String loginValue = request.getParameter("login");
+		System.out.println("login = " + loginValue);
+		String passwordValue = request.getParameter("password");
+	%>
+	<script>
+			function sendPostRequest() {
+				var queryParams = new URLSearchParams(window.location.search);
+				console.log("Ответ от сервера:!!!");
+				// Пример использования
+				var url = "controller";
+				var data = {
+						login: "<%= loginValue %>",
+						password:"<%= passwordValue %>",
+					command: "Database",
+				  key1: "value1",
+				  key2: "value2",
+				  teamCapacity: document.getElementById("team_capacity").value,
+				  expertCapacity: document.getElementById("expert_capacity").value
+				};
+				
+				
+				  var xhr = new XMLHttpRequest();
+				  xhr.open("POST", url, true);
+				  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+		
+				  // Преобразование данных в формат x-www-form-urlencoded
+				  var formData = [];
+				  for (var key in data) {
+				    if (data.hasOwnProperty(key)) {
+				      formData.push(encodeURIComponent(key) + "=" + encodeURIComponent(data[key]));
+				    }
+				  }
+				  var encodedData = formData.join("&");
+		
+				  // Отправка запроса
+				  xhr.send(encodedData);
+				  console.log("Пакет отправлен!");
+				}
+		
+				
+	</script>
 </head>
 <body>
 	<div class="window">
@@ -35,7 +78,7 @@
 			        	</div>
 					</div>
 					<div id="settings_box_button">
-						<input id="save_changes" type="button" name="saveChanges" value="Сохранить"/>
+						<input id="save_changes" onclick='sendPostRequest()' type="button" name="saveChanges" value="Сохранить"/>
 					</div>
 				</div>
 			</div>
