@@ -1,8 +1,15 @@
 package ru.rsreu.kuznecovsokolov12.servlet;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+
+import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
+import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
+import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public class ReportCommand implements ActionCommand {
 	private static final String PARAM_NAME_LOGIN = "login";
@@ -22,6 +29,20 @@ public class ReportCommand implements ActionCommand {
 			e.printStackTrace();
 		}
 		request.setAttribute(ReportCommand.getRequestAttribute(loginResult), login);
+		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+		UserDAO userDAO = factory.getUserDAO();
+		List<User> adminReportFirst = new ArrayList<User>();
+		try {
+			adminReportFirst = userDAO.getUsers();
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			// TODO Auto-generated catch block
+			factory.returnConnectionToPool();
+		}
+		if (loginResult == EnumLogin.ADMIN) {
+			 request.setAttribute("adminReportFirst", adminReportFirst);
+		}
 		return ReportCommand.getPage(loginResult);
 	}
 	
