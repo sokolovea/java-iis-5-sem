@@ -81,6 +81,10 @@
 			</div>
 			<div id="center_bar" class="container">
 				<form id="settings_form" action="controller" method="POST">
+					<input type="hidden" name="login" value="<%= loginValue %>"/>
+				    <input type="hidden" name="password" value="<%= passwordValue %>"/>
+				    <input type="hidden" name="command" value="Database"/>
+				    <input type="hidden" name="activity" value="update_setting"/>
 					<div id="settings_div">
 						<div id="settings_box">
 							<div class="setting">
@@ -91,11 +95,6 @@
 								<div class="setting_caption">Максимум команд у эксперта</div>
 								<input id="expert_capacity" class="text_box" type="number" name="expertCapacity" value="${setting_list[1].getValue()}"/><br/>
 				        	</div>
-				        	    <!-- Добавляем скрытые поля -->
-						    <input type="hidden" name="login" value="<%= loginValue %>"/>
-						    <input type="hidden" name="password" value="<%= passwordValue %>"/>
-						    <input type="hidden" name="command" value="Database"/>
-						    <input type="hidden" name="activity" value="update_setting"/>
 						</div>
 						<div id="settings_box_button">
 							<input id="save_changes" type="submit" name="saveChanges" value="Сохранить"/>
