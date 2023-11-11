@@ -28,6 +28,7 @@ public class LoginCommand implements ActionCommand {
 		if (!LoginCommand.isLogined(loginResult)) {
 			request.setAttribute("errorLoginPassMessage", "Login or password incorrect");
 		}
+//		request.setAttribute("destination", "main");
 		page = LoginCommand.getPage(loginResult);
 		return page;
 	}
