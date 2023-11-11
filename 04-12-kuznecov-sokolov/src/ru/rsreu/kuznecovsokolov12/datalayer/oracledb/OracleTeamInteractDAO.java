@@ -8,15 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.TeamInteractDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.TeamInteract;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.TeamInteractType;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public class OracleTeamInteractDAO implements TeamInteractDAO {
 
-	private final static String SQL_SELECT_TEAM_INTERACT_BY_USER = "TODO";
-	private final static String SQL_ALL_TEAM_INTERACTS_SELECT = "TODO";
+	private final static String SQL_SELECT_TEAM_INTERACTS_BY_USER = "select * from \"USER\" join \"TEAM_INTERACT\" on \"user_id\" = \"user\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"TEAM\" on \"team_id\" = \"team\" where \"user_id\" = ?";
+	private final static String SQL_ALL_TEAM_INTERACTS_SELECT = "select * from \"TEAM_INTERACT\"";
 	
 	public final static String COLUMN_TEAM_INTERACT_ID 	= "team_interact_id";
 	public final static String COLUMN_TEAM_INTERACT_TIME 	= "time";
@@ -41,7 +40,7 @@ public class OracleTeamInteractDAO implements TeamInteractDAO {
 	public List<TeamInteract> getTeamInteractsForUser(User user) throws SQLException {
 		PreparedStatement ps;
 		List<TeamInteract> result = new ArrayList<TeamInteract>();
-		ps = this.connection.prepareStatement(SQL_SELECT_TEAM_INTERACT_BY_USER);
+		ps = this.connection.prepareStatement(SQL_SELECT_TEAM_INTERACTS_BY_USER);
 		ps.setInt(1, user.getId());
 		ResultSet resultSet = ps.executeQuery();
 		while (resultSet.next()) {

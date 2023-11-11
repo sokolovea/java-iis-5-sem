@@ -3,7 +3,6 @@ package ru.rsreu.kuznecovsokolov12.datalayer.oracledb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +16,8 @@ public class OracleUserDAO implements UserDAO {
 	private final static String SQL_ALL_USERS_SELECT = "select * FROM \"USER\"";
 	private final static String SQL_USER_UPDATE = "update \"USER\" set \"login\" = ?, \"password\" = ?, \"user_name\" = ?, \"email\" = ?, \"is_authorized\" = ? where \"USER\".\"user_id\" = ?";
 	private final static String SQL_USER_CREATE = "INSERT INTO \"USER\" (\"login\", \"password\", \"user_name\", \"email\") VALUES (?, ?, ?, ?)";
+	private final static String SQL_UNPRIVILEGED_USERS_SELECT = "select \"USER\".* from ((\"USER\" join \"ROLE_ASSIGMENT\" on \"USER\".\"user_id\" = \"ROLE_ASSIGMENT\".\"receiver\") join \"ROLE\" on \"ROLE_ASSIGMENT\".\"role\" = \"ROLE\".\"role_id\") join \"ROLE_GROUP\" on \"ROLE\".\"group\" = \"ROLE_GROUP\".\"role_group_id\" where \"ROLE_GROUP\".\"role_group_name\" = 'User'";
+	private final static String SQL_BLOCKED_MORE_N_TIMES_USERS_SELECT = "select \"USER\".\"user_id\", count(\"login\") from (\"USER\" join \"SANCTION\" on \"USER\".\"user_id\" = \"SANCTION\".\"receiver\") join \"SANCTION_TYPE\" ON \"SANCTION_TYPE\".\"sanction_t_id\" = \"SANCTION\".\"type\" where \"SANCTION_TYPE\".\"sanction_t_name\" = 'Block' group by \"USER\".\"user_id\" having count(\"login\") >= ?";
 	
 	public final static String COLUMN_USER_ID 			  = "user_id";
 	public final static String COLUMN_USER_LOGIN 		  = "login";
@@ -108,14 +109,29 @@ public class OracleUserDAO implements UserDAO {
 	
 	@Override
 	public List<User> getUnprivilegedUsers() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement ps;
+		List<User> result = new ArrayList<User>();
+		ps = this.connection.prepareStatement(SQL_UNPRIVILEGED_USERS_SELECT);
+		ResultSet resultSet = ps.executeQuery();
+		while (resultSet.next()) {
+			User user = getUserData(resultSet, ALL_USER_COLUMNS);
+			result.add(user);
+		}
+		return result;
 	}
 
 	@Override
 	public List<User> getBlockedUsersMoreNTimes(int N) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement ps;
+		List<User> result = new ArrayList<User>();
+		ps = this.connection.prepareStatement(SQL_BLOCKED_MORE_N_TIMES_USERS_SELECT);
+		ps.setInt(1, N);
+		ResultSet resultSet = ps.executeQuery();
+		while (resultSet.next()) {
+			User user = getUserData(resultSet, ALL_USER_COLUMNS);
+			result.add(user);
+		}
+		return result;
 	}
 	
 	public static User getUserData(ResultSet resultSet, String... columns) throws SQLException {
@@ -154,10 +170,15 @@ public class OracleUserDAO implements UserDAO {
 		return user;
 	}
 	
-	// Р�СЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР°РЅРЅС‹Р№ РјРµС‚РѕРґ С‚РѕР»СЊРєРѕ РїСЂРё РєСЂР°Р№РЅРµР№ РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё
-	public static User getUserData(ResultSet resultSet, int... columns) throws SQLException {
+	// Use this method only extreme cases!!!
+	public static User getUserData(ResultSet resultSet, Integer... columns) throws SQLException {
 		User user = new User();
 		for (int i = 0; i < columns.length; i++) {
+			
+			if (columns[i] == null) {
+				continue;
+			}
+			
 			if (i == 0) {
 				user.setId(resultSet.getInt(columns[i]));
 				continue;

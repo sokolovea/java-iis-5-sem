@@ -8,9 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.prutzkow.resourcer.ProjectResourcer;
-import com.prutzkow.resourcer.Resourcer;
-
 import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Setting;
 

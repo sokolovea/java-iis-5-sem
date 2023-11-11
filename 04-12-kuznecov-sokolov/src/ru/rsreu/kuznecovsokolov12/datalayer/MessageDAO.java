@@ -11,6 +11,8 @@ public interface MessageDAO {
 
 	List<Message> getUndeletedMessagesForTeam(Team team) throws SQLException;
 	
+	List<Message> getDeletedMessagesForTeam(Team team) throws SQLException;
+	
 	List<Message> getAllMessagesForTeam(Team team) throws SQLException;
 
 	List<Message> getAllMessages() throws SQLException;

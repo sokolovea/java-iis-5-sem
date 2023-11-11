@@ -3,12 +3,9 @@ package ru.rsreu.kuznecovsokolov12.datalayer.oracledb;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.DeletedMessageDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.DeletedMessage;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.RoleAssigment;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 
 public class OracleDeletedMessageDAO implements DeletedMessageDAO {
 
@@ -24,17 +21,6 @@ public class OracleDeletedMessageDAO implements DeletedMessageDAO {
 
 	public Connection getConnection() {
 		return this.connection;
-	}
-	
-	@Override
-	public List<DeletedMessage> getAllDeletedMessages() {
-		return null;
-	}
-
-	@Override
-	public List<DeletedMessage> getDeletedMessagesForTeam(Team team) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	public static DeletedMessage getDelMessageData(ResultSet resultSet, String... columns) throws SQLException {

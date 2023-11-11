@@ -4,24 +4,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.prutzkow.resourcer.ProjectResourcer;
-import com.prutzkow.resourcer.Resourcer;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.RoleDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Role;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.RoleGroup;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.Sanction;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.SanctionType;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public class OracleRoleDAO implements RoleDAO {
 
-	private final static String SQL_SELECT_ROLE_BY_USER = "select \"ROLE\".* from (\"USER\" join \"ROLE_ASSIGMENT\" on \"USER\".\"user_id\" = \"ROLE_ASSIGMENT\".\"receiver\") join \"ROLE\" on \"ROLE_ASSIGMENT\".\"role\" = \"ROLE\".\"role_id\" where \"USER\".\"user_id\" = ?";
+	private final static String SQL_SELECT_ROLE_BY_USER = "select \"ROLE\".*, \"ROLE_GROUP\".* from (\"USER\" join \"ROLE_ASSIGMENT\" on \"USER\".\"user_id\" = \"ROLE_ASSIGMENT\".\"receiver\") join \"ROLE\" on \"ROLE_ASSIGMENT\".\"role\" = \"ROLE\".\"role_id\" join \"ROLE_GROUP\" on \"ROLE_GROUP\".\"role_group_id\" = \"ROLE\".\"group\" where \"USER\".\"user_id\" = ?";
+	private final static String SQL_ALL_ROLES_SELECT = "select * from \"ROLE\"";
 	
 	public final static String COLUMN_ROLE_ID 		= "role_id";
 	public final static String COLUMN_ROLE_NAME 	= "role_name";
@@ -50,8 +45,22 @@ public class OracleRoleDAO implements RoleDAO {
 		ResultSet resultSet = ps.executeQuery();
 		if (resultSet.next()) {
 			role = getRoleData(resultSet, ALL_ROLE_COLUMNS);
+			role.setGroup(getRoleGroupData(resultSet, ALL_ROLE_GROUP_COLUMNS));
 		}
 		return role;
+	}
+	
+	@Override
+	public List<Role> getAllRoles() throws SQLException {
+		PreparedStatement ps;
+		List<Role> result = new ArrayList<>();
+		ps = this.connection.prepareStatement(SQL_ALL_ROLES_SELECT);
+		ResultSet resultSet = ps.executeQuery();
+		while (resultSet.next()) {
+			Role role = getRoleData(resultSet, ALL_ROLE_COLUMNS);
+			result.add(role);
+		}
+		return result;
 	}
 	
 	public static Role getRoleData(ResultSet resultSet, String... columns) throws SQLException {
@@ -85,6 +94,8 @@ public class OracleRoleDAO implements RoleDAO {
 		}
 		return roleGroup;
 	}
+
+	
 
 	
 }
