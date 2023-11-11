@@ -63,8 +63,10 @@ public class MenuCommand implements ActionCommand {
 					List<Setting> settingList = settingDAO.getSetting();
 					request.setAttribute("setting_list", settingList);
 				} catch (SQLException e) {
+					factory.returnConnectionToPool();
 					e.printStackTrace();
 				}
+				factory.returnConnectionToPool();
 				return ConfigurationManager.getProperty("path.page.admin_settings");
 			} else if (destination.equals("main")) {
 				return ConfigurationManager.getProperty("path.page.admin");

@@ -41,7 +41,7 @@ public class DatabaseLogic {
 			settingDAO.setSetting(settingExpertCapacity);
 		} finally {
 			factory.returnConnectionToPool();
-			System.out.println("Вернули соединение в пул!");
+//			System.out.println("Вернули соединение в пул!");
 		}
 		
 	}

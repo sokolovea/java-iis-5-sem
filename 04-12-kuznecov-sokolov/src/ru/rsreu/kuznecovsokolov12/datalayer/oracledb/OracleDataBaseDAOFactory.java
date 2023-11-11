@@ -24,6 +24,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 public class OracleDataBaseDAOFactory extends DAOFactory {
 	private static volatile OracleDataBaseDAOFactory instance;
 	private Connection connection;
+	private static int count = 0;
 
 	private OracleDataBaseDAOFactory() {
 	}
@@ -62,6 +63,8 @@ public class OracleDataBaseDAOFactory extends DAOFactory {
 			envCtx = (Context) (new InitialContext().lookup("java:comp/env"));
 			ds = (DataSource) envCtx.lookup("jdbc/database");
 			connection = ds.getConnection();
+			count += 1;
+			System.out.println("¬з€ли соединение из пула в factory, всего вз€то " + count);
 		} catch (NamingException e) {
 			System.out.println("CRITICAL DATASOURCE EXCEPTION!");
 		}
@@ -128,6 +131,8 @@ public class OracleDataBaseDAOFactory extends DAOFactory {
 	public void returnConnectionToPool() {
 		try {
 			this.connection.close();
+			count -= 1;
+			System.out.println("¬ернули соединение в пул в factory, всего осталось " + count);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
