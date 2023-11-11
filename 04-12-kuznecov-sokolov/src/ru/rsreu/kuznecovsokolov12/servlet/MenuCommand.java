@@ -43,7 +43,7 @@ public class MenuCommand implements ActionCommand {
 //		return "errorLoginPassMessage";
 //	}
 	
-	private static String getPage(EnumLogin loginResult, String destination, HttpServletRequest request) {
+	public static String getPage(EnumLogin loginResult, String destination, HttpServletRequest request) {
 		if (loginResult == EnumLogin.USER || loginResult == EnumLogin.EXPERT || loginResult == EnumLogin.CAPTAIN) {
 			if (destination.equals("team")) {
 				return ConfigurationManager.getProperty("path.page.team");

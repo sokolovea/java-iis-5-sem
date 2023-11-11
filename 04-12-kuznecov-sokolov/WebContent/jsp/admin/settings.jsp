@@ -80,21 +80,28 @@
 				<c:import url="/jsp/general/left_bar_menu.jsp"/>
 			</div>
 			<div id="center_bar" class="container">
-				<div id="settings_div">
-					<div id="settings_box">
-						<div class="setting">
-							<div class="setting_caption">Максимум человек в команде</div>
-							<input id="team_capacity" class="text_box" type="number" name="teamCapacity" value="${setting_list[0].getValue()}"/><br/>
+				<form id="settings_form" action="controller" method="POST">
+					<div id="settings_div">
+						<div id="settings_box">
+							<div class="setting">
+								<div class="setting_caption">Максимум человек в команде</div>
+								<input id="team_capacity" class="text_box" type="number" name="teamCapacity" value="${setting_list[0].getValue()}"/><br/>
+							</div>
+							<div class="setting">
+								<div class="setting_caption">Максимум команд у эксперта</div>
+								<input id="expert_capacity" class="text_box" type="number" name="expertCapacity" value="${setting_list[1].getValue()}"/><br/>
+				        	</div>
+				        	    <!-- Добавляем скрытые поля -->
+						    <input type="hidden" name="login" value="<%= loginValue %>"/>
+						    <input type="hidden" name="password" value="<%= passwordValue %>"/>
+						    <input type="hidden" name="command" value="Database"/>
+						    <input type="hidden" name="activity" value="update_setting"/>
 						</div>
-						<div class="setting">
-							<div class="setting_caption">Максимум команд у эксперта</div>
-							<input id="expert_capacity" class="text_box" type="number" name="expertCapacity" value="${setting_list[1].getValue()}"/><br/>
-			        	</div>
+						<div id="settings_box_button">
+							<input id="save_changes" type="submit" name="saveChanges" value="Сохранить"/>
+						</div>
 					</div>
-					<div id="settings_box_button">
-						<input id="save_changes" onclick='sendPostRequest()' type="button" name="saveChanges" value="Сохранить"/>
-					</div>
-				</div>
+				</form>
 			</div>
 			<div id="right_bar" class="container">
 			</div>
