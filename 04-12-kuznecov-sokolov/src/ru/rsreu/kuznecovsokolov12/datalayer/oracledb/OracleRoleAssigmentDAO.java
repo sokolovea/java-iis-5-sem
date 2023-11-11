@@ -11,9 +11,9 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public class OracleRoleAssigmentDAO implements RoleAssigmentDAO {
 
-	private final static String COLUMN_ROLE_ASSIGMENT_ID 	= "role_assigment_id";
-	private final static String COLUMN_ROLE_ASSIGMENT_TIME 	= "time";
-	private final static String[] ALL_ROLE_ASSIGMENT_COLUMNS = {COLUMN_ROLE_ASSIGMENT_ID, COLUMN_ROLE_ASSIGMENT_TIME};
+	public final static String COLUMN_ROLE_ASSIGMENT_ID 	= "role_assigment_id";
+	public final static String COLUMN_ROLE_ASSIGMENT_TIME 	= "time";
+	public final static String[] ALL_ROLE_ASSIGMENT_COLUMNS = {COLUMN_ROLE_ASSIGMENT_ID, COLUMN_ROLE_ASSIGMENT_TIME};
 	
 	private Connection connection;
 

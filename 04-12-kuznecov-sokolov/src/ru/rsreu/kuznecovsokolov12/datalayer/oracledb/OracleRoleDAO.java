@@ -23,13 +23,13 @@ public class OracleRoleDAO implements RoleDAO {
 
 	private final static String SQL_SELECT_ROLE_BY_USER = "select \"ROLE\".* from (\"USER\" join \"ROLE_ASSIGMENT\" on \"USER\".\"user_id\" = \"ROLE_ASSIGMENT\".\"receiver\") join \"ROLE\" on \"ROLE_ASSIGMENT\".\"role\" = \"ROLE\".\"role_id\" where \"USER\".\"user_id\" = ?";
 	
-	private final static String COLUMN_ROLE_ID 		= "role_id";
-	private final static String COLUMN_ROLE_NAME 	= "role_name";
-	private final static String[] ALL_ROLE_COLUMNS = {COLUMN_ROLE_ID, COLUMN_ROLE_NAME};
+	public final static String COLUMN_ROLE_ID 		= "role_id";
+	public final static String COLUMN_ROLE_NAME 	= "role_name";
+	public final static String[] ALL_ROLE_COLUMNS = {COLUMN_ROLE_ID, COLUMN_ROLE_NAME};
 	
-	private final static String COLUMN_ROLE_GROUP_ID 	= "role_group_id";
-	private final static String COLUMN_ROLE_GROUP_NAME 	= "role_group_name";
-	private final static String[] ALL_ROLE_GROUP_COLUMNS = {COLUMN_ROLE_GROUP_ID, COLUMN_ROLE_GROUP_NAME};
+	public final static String COLUMN_ROLE_GROUP_ID 	= "role_group_id";
+	public final static String COLUMN_ROLE_GROUP_NAME 	= "role_group_name";
+	public final static String[] ALL_ROLE_GROUP_COLUMNS = {COLUMN_ROLE_GROUP_ID, COLUMN_ROLE_GROUP_NAME};
 	
 	private Connection connection;
 

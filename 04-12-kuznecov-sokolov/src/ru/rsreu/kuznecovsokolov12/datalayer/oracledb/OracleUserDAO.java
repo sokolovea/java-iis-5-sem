@@ -18,13 +18,13 @@ public class OracleUserDAO implements UserDAO {
 	private final static String SQL_USER_UPDATE = "update \"USER\" set \"login\" = ?, \"password\" = ?, \"user_name\" = ?, \"email\" = ?, \"is_authorized\" = ? where \"USER\".\"user_id\" = ?";
 	private final static String SQL_USER_CREATE = "INSERT INTO \"USER\" (\"login\", \"password\", \"user_name\", \"email\") VALUES (?, ?, ?, ?)";
 	
-	private final static String COLUMN_USER_ID 			  = "user_id";
-	private final static String COLUMN_USER_LOGIN 		  = "login";
-	private final static String COLUMN_USER_PASSWORD 	  = "password";
-	private final static String COLUMN_USER_NAME 		  = "user_name";
-	private final static String COLUMN_USER_EMAIL 	      = "email";
-	private final static String COLUMN_USER_IS_AUTHORIZED = "is_authorized";
-	private final static String[] ALL_USER_COLUMNS = {COLUMN_USER_ID, COLUMN_USER_LOGIN, COLUMN_USER_PASSWORD, COLUMN_USER_NAME, COLUMN_USER_EMAIL, COLUMN_USER_IS_AUTHORIZED};
+	public final static String COLUMN_USER_ID 			  = "user_id";
+	public final static String COLUMN_USER_LOGIN 		  = "login";
+	public final static String COLUMN_USER_PASSWORD 	  = "password";
+	public final static String COLUMN_USER_NAME 		  = "user_name";
+	public final static String COLUMN_USER_EMAIL 	      = "email";
+	public final static String COLUMN_USER_IS_AUTHORIZED = "is_authorized";
+	public final static String[] ALL_USER_COLUMNS = {COLUMN_USER_ID, COLUMN_USER_LOGIN, COLUMN_USER_PASSWORD, COLUMN_USER_NAME, COLUMN_USER_EMAIL, COLUMN_USER_IS_AUTHORIZED};
 	
 	
 	

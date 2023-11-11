@@ -16,14 +16,15 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 public class OracleTeamInteractDAO implements TeamInteractDAO {
 
 	private final static String SQL_SELECT_TEAM_INTERACT_BY_USER = "TODO";
+	private final static String SQL_ALL_TEAM_INTERACTS_SELECT = "TODO";
 	
-	private final static String COLUMN_TEAM_INTERACT_ID 	= "team_interact_id";
-	private final static String COLUMN_TEAM_INTERACT_TIME 	= "time";
-	private final static String[] ALL_TEAM_INTERACT_COLUMNS = {COLUMN_TEAM_INTERACT_ID, COLUMN_TEAM_INTERACT_TIME};
+	public final static String COLUMN_TEAM_INTERACT_ID 	= "team_interact_id";
+	public final static String COLUMN_TEAM_INTERACT_TIME 	= "time";
+	public final static String[] ALL_TEAM_INTERACT_COLUMNS = {COLUMN_TEAM_INTERACT_ID, COLUMN_TEAM_INTERACT_TIME};
 	
-	private final static String COLUMN_TEAM_INTERACT_TYPE_ID 	= "type_id";
-	private final static String COLUMN_TEAM_INTERACT_TYPE_NAME 	= "type_name";
-	private final static String[] ALL_TEAM_INTERACT_TYPE_COLUMNS = {COLUMN_TEAM_INTERACT_TYPE_ID, COLUMN_TEAM_INTERACT_TYPE_NAME};
+	public final static String COLUMN_TEAM_INTERACT_TYPE_ID 	= "type_id";
+	public final static String COLUMN_TEAM_INTERACT_TYPE_NAME 	= "type_name";
+	public final static String[] ALL_TEAM_INTERACT_TYPE_COLUMNS = {COLUMN_TEAM_INTERACT_TYPE_ID, COLUMN_TEAM_INTERACT_TYPE_NAME};
 	
 	
 	private Connection connection;
@@ -41,9 +42,13 @@ public class OracleTeamInteractDAO implements TeamInteractDAO {
 		PreparedStatement ps;
 		List<TeamInteract> result = new ArrayList<TeamInteract>();
 		ps = this.connection.prepareStatement(SQL_SELECT_TEAM_INTERACT_BY_USER);
+		ps.setInt(1, user.getId());
 		ResultSet resultSet = ps.executeQuery();
 		while (resultSet.next()) {
 			TeamInteract teamInteract = getTeamInteractData(resultSet, ALL_TEAM_INTERACT_COLUMNS);
+			teamInteract.setType(getTeamInteractTypeData(resultSet, ALL_TEAM_INTERACT_TYPE_COLUMNS));
+			teamInteract.setTeam(OracleTeamDAO.getTeamData(resultSet, OracleTeamDAO.ALL_TEAM_COLUMNS));
+			teamInteract.setUser(OracleUserDAO.getUserData(resultSet, OracleUserDAO.ALL_USER_COLUMNS));
 			result.add(teamInteract);
 		}
 		return result;
@@ -51,8 +56,15 @@ public class OracleTeamInteractDAO implements TeamInteractDAO {
 
 	@Override
 	public List<TeamInteract> getAllTeamInteracts() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement ps;
+		List<TeamInteract> result = new ArrayList<TeamInteract>();
+		ps = this.connection.prepareStatement(SQL_ALL_TEAM_INTERACTS_SELECT);
+		ResultSet resultSet = ps.executeQuery();
+		while (resultSet.next()) {
+			TeamInteract teamInteract = getTeamInteractData(resultSet, ALL_TEAM_INTERACT_COLUMNS);
+			result.add(teamInteract);
+		}
+		return result;
 	}
 	
 	public static TeamInteract getTeamInteractData(ResultSet resultSet, String... columns) throws SQLException {

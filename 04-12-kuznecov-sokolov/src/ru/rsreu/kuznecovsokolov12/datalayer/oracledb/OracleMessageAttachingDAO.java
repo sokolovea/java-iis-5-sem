@@ -10,8 +10,8 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.MessageAttaching;
 
 public class OracleMessageAttachingDAO implements MessageAttachingDAO {
 
-	private final static String COLUMN_MESSAGE_ATTACH_ID 	= "message_attach_id";
-	private final static String[] ALL_MESSAGE_ATTACH_COLUMNS = {COLUMN_MESSAGE_ATTACH_ID};
+	public final static String COLUMN_MESSAGE_ATTACH_ID 	= "message_attach_id";
+	public final static String[] ALL_MESSAGE_ATTACH_COLUMNS = {COLUMN_MESSAGE_ATTACH_ID};
 	
 	private Connection connection;
 

@@ -14,14 +14,14 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public class OracleSanctionDAO implements SanctionDAO {
 	
-	private final static String COLUMN_SANCTION_ID 		= "sanction_id";
-	private final static String COLUMN_SANCTION_REASON 	= "reason";
-	private final static String COLUMN_SANCTION_TIME 	= "time";
-	private final static String[] ALL_SANCTION_COLUMNS = {COLUMN_SANCTION_ID, COLUMN_SANCTION_REASON, COLUMN_SANCTION_TIME};
+	public final static String COLUMN_SANCTION_ID 		= "sanction_id";
+	public final static String COLUMN_SANCTION_REASON 	= "reason";
+	public final static String COLUMN_SANCTION_TIME 	= "time";
+	public final static String[] ALL_SANCTION_COLUMNS = {COLUMN_SANCTION_ID, COLUMN_SANCTION_REASON, COLUMN_SANCTION_TIME};
 	
-	private final static String COLUMN_SANCTION_TYPE_ID 	= "sanction_t_id";
-	private final static String COLUMN_SANCTION_TYPE_NAME 	= "sanction_t_name";
-	private final static String[] ALL_SANCTION_TYPE_COLUMNS = {COLUMN_SANCTION_TYPE_ID, COLUMN_SANCTION_TYPE_NAME};
+	public final static String COLUMN_SANCTION_TYPE_ID 	= "sanction_t_id";
+	public final static String COLUMN_SANCTION_TYPE_NAME 	= "sanction_t_name";
+	public final static String[] ALL_SANCTION_TYPE_COLUMNS = {COLUMN_SANCTION_TYPE_ID, COLUMN_SANCTION_TYPE_NAME};
 	
 	
 	private Connection connection;

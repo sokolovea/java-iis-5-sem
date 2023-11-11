@@ -16,9 +16,9 @@ public class OracleTeamDAO implements TeamDAO {
 	private final static String SQL_SELECT_TEAM_BY_NAME = "TODO";
 	private final static String SQL_SELECT_TEAM_BY_ID = "TODO";
 	
-	private final static String COLUMN_TEAM_ID 		= "team_id";
-	private final static String COLUMN_TEAM_NAME 	= "team_name";
-	private final static String[] ALL_TEAM_COLUMNS = {COLUMN_TEAM_ID, COLUMN_TEAM_NAME};
+	public final static String COLUMN_TEAM_ID 		= "team_id";
+	public final static String COLUMN_TEAM_NAME 	= "team_name";
+	public final static String[] ALL_TEAM_COLUMNS = {COLUMN_TEAM_ID, COLUMN_TEAM_NAME};
 	
 	private Connection connection;
 
