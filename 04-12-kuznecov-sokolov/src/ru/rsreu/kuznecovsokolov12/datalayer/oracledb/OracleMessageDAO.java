@@ -14,15 +14,15 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public class OracleMessageDAO implements MessageDAO {
 
-	private final static String SQL_USER_SELECT_BY_ID = "SELECT * FROM \"USER\" WHERE \"id\" = ?";
-	private final static String SQL_USER_SELECT_BY_LOGIN = "SELECT * FROM \"USER\", \"MESSAGE\" WHERE \"login\" = ?";
-	private final static String SQL_ALL_USERS_SELECT = "select * FROM \"SETTING\"";
-	private final static String SQL_USER_UPDATE = "update \"USER\" set \"login\" = ?, \"password\" = ?, \"is_authorized\" = ?, \"name\" = ?, \"email\" = ? where \"USER\".\"id\" = ?";
-	private final static String SQL_USER_CREATE = "INSERT INTO \"USER\" (\"login\", \"password\", \"name\", \"email\") VALUES (?, ?, ?, ?)";
+//	private final static String SQL_USER_SELECT_BY_ID = "SELECT * FROM \"USER\" WHERE \"id\" = ?";
+//	private final static String SQL_USER_SELECT_BY_LOGIN = "SELECT * FROM \"USER\", \"MESSAGE\" WHERE \"login\" = ?";
+	private final static String SQL_ALL_MESSAGES_SELECT = "select * FROM \"MESSAGE\"";
+//	private final static String SQL_USER_UPDATE = "update \"USER\" set \"login\" = ?, \"password\" = ?, \"is_authorized\" = ?, \"name\" = ?, \"email\" = ? where \"USER\".\"id\" = ?";
+//	private final static String SQL_USER_CREATE = "INSERT INTO \"USER\" (\"login\", \"password\", \"name\", \"email\") VALUES (?, ?, ?, ?)";
 	
-	private final static String COLUMN_MESSAGE_ID 		  = "ID";
-	private final static String COLUMN_MESSAGE_DATA 	  = "DATA";
-	private final static String COLUMN_MESSAGE_TIME 	  = "TIME";
+	private final static String COLUMN_MESSAGE_ID 		  = "message_id";
+	private final static String COLUMN_MESSAGE_DATA 	  = "data";
+	private final static String COLUMN_MESSAGE_TIME 	  = "message_time";
 	private final static String[] ALL_MESSAGE_COLUMNS = {COLUMN_MESSAGE_ID, COLUMN_MESSAGE_DATA, COLUMN_MESSAGE_TIME};
 	
 	
@@ -40,7 +40,7 @@ public class OracleMessageDAO implements MessageDAO {
 	public List<Message> getUndeletedMessagesForTeam(Team team) throws SQLException {
 		PreparedStatement ps;
 		List<Message> result = new ArrayList<Message>();
-		ps = this.connection.prepareStatement(SQL_ALL_USERS_SELECT);
+		ps = this.connection.prepareStatement(SQL_ALL_MESSAGES_SELECT);
 		ResultSet resultSet = ps.executeQuery();
 		while (resultSet.next()) {
 			Message message = getMessageData(resultSet, ALL_MESSAGE_COLUMNS);
@@ -76,27 +76,6 @@ public class OracleMessageDAO implements MessageDAO {
 			
 			if (column.equals(COLUMN_MESSAGE_TIME)) {
 				message.setTime(resultSet.getTimestamp(column));
-				continue;
-			}
-		}
-		return message;
-	}
-	
-	public static Message getMessageData(ResultSet resultSet, int... columns) throws SQLException {
-		Message message = new Message();
-		for (int i = 0; i < columns.length; i++) {
-			if (i == 0) {
-				message.setId(resultSet.getInt(columns[i]));
-				continue;
-			}
-			
-			if (i == 1) {
-				message.setData(resultSet.getString(columns[i]));
-				continue;
-			}
-			
-			if (i == 2) {
-				message.setTime(resultSet.getTimestamp(columns[i]));
 				continue;
 			}
 		}

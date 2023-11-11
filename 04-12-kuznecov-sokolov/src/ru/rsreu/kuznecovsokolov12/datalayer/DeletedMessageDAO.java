@@ -7,5 +7,6 @@ public interface DeletedMessageDAO {
 	
 	List<DeletedMessage> getAllDeletedMessages();
 	
-	List<DeletedMessage> getDeletedMessagesForTeam();
+	List<DeletedMessage> getDeletedMessagesForTeam(Team team);
+
 }

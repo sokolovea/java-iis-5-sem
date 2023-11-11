@@ -12,18 +12,18 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public class OracleUserDAO implements UserDAO {
 
-	private final static String SQL_USER_SELECT_BY_ID = "SELECT * FROM \"USER\" WHERE \"id\" = ?";
+	private final static String SQL_USER_SELECT_BY_ID = "SELECT * FROM \"USER\" WHERE \"user_id\" = ?";
 	private final static String SQL_USER_SELECT_BY_LOGIN = "SELECT * FROM \"USER\", \"MESSAGE\" WHERE \"login\" = ?";
 	private final static String SQL_ALL_USERS_SELECT = "select * FROM \"USER\"";
-	private final static String SQL_USER_UPDATE = "update \"USER\" set \"login\" = ?, \"password\" = ?, \"is_authorized\" = ?, \"name\" = ?, \"email\" = ? where \"USER\".\"id\" = ?";
-	private final static String SQL_USER_CREATE = "INSERT INTO \"USER\" (\"login\", \"password\", \"name\", \"email\") VALUES (?, ?, ?, ?)";
+	private final static String SQL_USER_UPDATE = "update \"USER\" set \"login\" = ?, \"password\" = ?, \"user_name\" = ?, \"email\" = ?, \"is_authorized\" = ? where \"USER\".\"user_id\" = ?";
+	private final static String SQL_USER_CREATE = "INSERT INTO \"USER\" (\"login\", \"password\", \"user_name\", \"email\") VALUES (?, ?, ?, ?)";
 	
-	private final static String COLUMN_USER_ID 			  = "ID";
-	private final static String COLUMN_USER_LOGIN 		  = "LOGIN";
-	private final static String COLUMN_USER_PASSWORD 	  = "PASSWORD";
-	private final static String COLUMN_USER_NAME 		  = "NAME";
-	private final static String COLUMN_USER_EMAIL 	      = "EMAIL";
-	private final static String COLUMN_USER_IS_AUTHORIZED = "IS_AUTHORIZED";
+	private final static String COLUMN_USER_ID 			  = "user_id";
+	private final static String COLUMN_USER_LOGIN 		  = "login";
+	private final static String COLUMN_USER_PASSWORD 	  = "password";
+	private final static String COLUMN_USER_NAME 		  = "user_name";
+	private final static String COLUMN_USER_EMAIL 	      = "email";
+	private final static String COLUMN_USER_IS_AUTHORIZED = "is_authorized";
 	private final static String[] ALL_USER_COLUMNS = {COLUMN_USER_ID, COLUMN_USER_LOGIN, COLUMN_USER_PASSWORD, COLUMN_USER_NAME, COLUMN_USER_EMAIL, COLUMN_USER_IS_AUTHORIZED};
 	
 	
@@ -142,6 +142,7 @@ public class OracleUserDAO implements UserDAO {
 		return user;
 	}
 	
+	// Использовать данный метод только при крайней необходимости
 	public static User getUserData(ResultSet resultSet, int... columns) throws SQLException {
 		User user = new User();
 		for (int i = 0; i < columns.length; i++) {
