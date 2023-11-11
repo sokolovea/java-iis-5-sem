@@ -178,5 +178,17 @@ public class OracleUserDAO implements UserDAO {
 		}
 		return user;
 	}
+
+	@Override
+	public List<User> getUnprivilegedUsers() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<User> getBlockedUsersMoreNTimes(int N) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

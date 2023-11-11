@@ -12,7 +12,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 
 public class OracleDeletedMessageDAO implements DeletedMessageDAO {
 
-	v final static String COLUMN_DEL_MESSAGE_ID 		  = "del_message_id";
+	public final static String COLUMN_DEL_MESSAGE_ID 	  = "del_message_id";
 	public final static String COLUMN_DEL_MESSAGE_TIME 	  = "del_message_time";
 	public final static String[] ALL_DEL_MESSAGE_COLUMNS = {COLUMN_DEL_MESSAGE_ID, COLUMN_DEL_MESSAGE_TIME};
 	

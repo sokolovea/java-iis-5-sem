@@ -13,6 +13,10 @@ public interface UserDAO {
 	
 	List<User> getUsers() throws SQLException;
 	
+	List<User> getUnprivilegedUsers() throws SQLException;
+	
+	List<User> getBlockedUsersMoreNTimes(int N) throws SQLException;
+	
 	void addUser(User user) throws SQLException;
 	
 	void updateUser(User user) throws SQLException;

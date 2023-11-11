@@ -82,4 +82,22 @@ public class OracleMessageDAO implements MessageDAO {
 		return message;
 	}
 
+	@Override
+	public int getCountMessagesSendedByUser(User user) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getCountDeletedMessagesSendedByUser(User user) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Message> getMessagesDeletedByNoSelfUser(User user) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

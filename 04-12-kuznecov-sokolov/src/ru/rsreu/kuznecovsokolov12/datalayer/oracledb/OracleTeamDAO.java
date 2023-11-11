@@ -9,6 +9,7 @@ import java.util.List;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public class OracleTeamDAO implements TeamDAO {
 
@@ -83,6 +84,24 @@ public class OracleTeamDAO implements TeamDAO {
 			}
 		}
 		return team;
+	}
+
+	@Override
+	public List<Team> getTeamsConsultedByExpert(User expert) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Team> getNTeamsBestCooperatedExpert(User expert, int N) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Team> getTeamsEjectedExpert(User expert) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
