@@ -19,20 +19,7 @@ public class FrontController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		processRequest(request, response);
-		
-		String page = null;
-		ActionFactory client = new ActionFactory();
-		ActionCommand command = client.defineCommand(request);
-		page = command.execute(request);
-		if (page != null) {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
-			dispatcher.forward(request, response);
-		} else {
-			page = ConfigurationManager.getProperty("path.page.index");
-			request.getSession().setAttribute("nullPage", MessageManager.getProperty("message.nullpage"));
-			response.sendRedirect(request.getContextPath() + page);
-		}
+		processRequest(request, response);
 	}
 
 	private void processRequest(HttpServletRequest request, HttpServletResponse response)
