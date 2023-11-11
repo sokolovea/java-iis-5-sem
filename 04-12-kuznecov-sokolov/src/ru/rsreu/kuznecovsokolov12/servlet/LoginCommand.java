@@ -1,8 +1,14 @@
 package ru.rsreu.kuznecovsokolov12.servlet;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+
+import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
+import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
+import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public class LoginCommand implements ActionCommand {
 	private static final String PARAM_NAME_LOGIN = "login";
@@ -28,6 +34,10 @@ public class LoginCommand implements ActionCommand {
 		if (!LoginCommand.isLogined(loginResult)) {
 			request.setAttribute("errorLoginPassMessage", "Login or password incorrect");
 		}
+		
+		if (loginResult == EnumLogin.ADMIN) {
+			return MenuCommand.getPage(loginResult, "main", request);
+		}
 //		request.setAttribute("destination", "main");
 		page = LoginCommand.getPage(loginResult);
 		return page;
@@ -38,6 +48,7 @@ public class LoginCommand implements ActionCommand {
 	}
 	
 	private static String getPage(EnumLogin loginResult) {
+
 		if (loginResult == EnumLogin.USER || loginResult == EnumLogin.EXPERT || loginResult == EnumLogin.CAPTAIN) {
 			return ConfigurationManager.getProperty("path.page.team_select");
 		}
@@ -45,6 +56,7 @@ public class LoginCommand implements ActionCommand {
 			return ConfigurationManager.getProperty("path.page.moderator");
 		}
 		if (loginResult == EnumLogin.ADMIN) {
+			String destination = "main";
 			return ConfigurationManager.getProperty("path.page.admin");
 		}
 		return ConfigurationManager.getProperty("path.page.login");

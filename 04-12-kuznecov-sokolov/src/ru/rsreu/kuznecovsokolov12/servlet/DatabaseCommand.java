@@ -1,8 +1,14 @@
 package ru.rsreu.kuznecovsokolov12.servlet;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+
+import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
+import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
+import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.Setting;
 
 public class DatabaseCommand implements ActionCommand {
 	private static final String PARAM_NAME_LOGIN = "login";
@@ -14,26 +20,38 @@ public class DatabaseCommand implements ActionCommand {
 		request.getSession().setAttribute("userName", login);
 		String password = request.getParameter(PARAM_NAME_PASSWORD);
 		request.getSession().setAttribute("userPassword", password);
-		String teamCapacity = request.getParameter("teamCapacity");
-		String expertCapacity = request.getParameter("expertCapacity");
-		System.out.println(login + "; " + password + "; " + teamCapacity + "; " + expertCapacity + "; destination=" + request.getParameter("destination"));
+		String activity = request.getParameter("activity");
 		EnumLogin loginResult = null;
 		try {
 			loginResult = LoginLogic.checkLogin(login, password);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
 			if (loginResult == EnumLogin.ADMIN) {
-				if (request.getParameter("destination").equals("settings")) {
+				if (activity.equals("update_setting")) {
+					String teamCapacity = request.getParameter("teamCapacity");
+					String expertCapacity = request.getParameter("expertCapacity");
+					System.out.println(login + "; " + password + "; " + teamCapacity + "; " + expertCapacity + "; activity=" + activity);
 					DatabaseLogic.updateSetting(teamCapacity, expertCapacity);
+					DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+					SettingDAO settingDAO = factory.getSettingDAO();
+					List<Setting> settingList = settingDAO.getSetting();
+					request.setAttribute("setting_list", settingList);
+					factory.returnConnectionToPool();	
+					return ConfigurationManager.getProperty("path.page.admin_settings");
 				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
+		
+		
+		
+		
+
+		
+		
+		
 		request.setAttribute(DatabaseCommand.getRequestAttribute(loginResult), login);
 		System.out.println("DatabaseCommand.getPage(loginResult); = " + DatabaseCommand.getPage(loginResult));
 		
