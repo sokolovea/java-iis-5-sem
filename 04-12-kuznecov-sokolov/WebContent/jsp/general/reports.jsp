@@ -173,6 +173,7 @@
 		            </c:if>
 		            
 		            <c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'admin'}">
+
 			            <div id="report_admin_users" class="report">
 							<div class="report_caption">Вывод информации о всех учетных записях</div>
 							<div class="report_table">
@@ -187,6 +188,18 @@
 							      			<th>Авторизован</th>
 										</tr>
 								    </thead>
+								    <tbody>
+							        <c:forEach var="user" items="${adminReportFirst}">
+							            <tr>
+							                <td>${user.getLogin()}</td>
+							                <td>${user.getPassword()}</td>
+							                <td>${user.getName()}</td>
+							                <td>${user.getEmail()}</td>
+							                <td>???добавить???</td>
+							                <td>${user.isIsAuthorized()}</td>
+							            </tr>
+							        </c:forEach>
+							    </tbody>
 								</table>
 							</div>
 						</div>
