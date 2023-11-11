@@ -13,7 +13,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 public class OracleUserDAO implements UserDAO {
 
 	private final static String SQL_USER_SELECT_BY_ID = "SELECT * FROM \"USER\" WHERE \"user_id\" = ?";
-	private final static String SQL_USER_SELECT_BY_LOGIN = "SELECT * FROM \"USER\", \"MESSAGE\" WHERE \"login\" = ?";
+	private final static String SQL_USER_SELECT_BY_LOGIN = "SELECT * FROM \"USER\" WHERE \"login\" = ?";
 	private final static String SQL_ALL_USERS_SELECT = "select * FROM \"USER\"";
 	private final static String SQL_USER_UPDATE = "update \"USER\" set \"login\" = ?, \"password\" = ?, \"user_name\" = ?, \"email\" = ?, \"is_authorized\" = ? where \"USER\".\"user_id\" = ?";
 	private final static String SQL_USER_CREATE = "INSERT INTO \"USER\" (\"login\", \"password\", \"user_name\", \"email\") VALUES (?, ?, ?, ?)";
@@ -23,7 +23,7 @@ public class OracleUserDAO implements UserDAO {
 	public final static String COLUMN_USER_PASSWORD 	  = "password";
 	public final static String COLUMN_USER_NAME 		  = "user_name";
 	public final static String COLUMN_USER_EMAIL 	      = "email";
-	public final static String COLUMN_USER_IS_AUTHORIZED = "is_authorized";
+	public final static String COLUMN_USER_IS_AUTHORIZED  = "is_authorized";
 	public final static String[] ALL_USER_COLUMNS = {COLUMN_USER_ID, COLUMN_USER_LOGIN, COLUMN_USER_PASSWORD, COLUMN_USER_NAME, COLUMN_USER_EMAIL, COLUMN_USER_IS_AUTHORIZED};
 	
 	
@@ -106,6 +106,18 @@ public class OracleUserDAO implements UserDAO {
 		ps.executeUpdate();
 	}
 	
+	@Override
+	public List<User> getUnprivilegedUsers() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<User> getBlockedUsersMoreNTimes(int N) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	public static User getUserData(ResultSet resultSet, String... columns) throws SQLException {
 		User user = new User();
 		for (String column : columns) {
@@ -179,16 +191,6 @@ public class OracleUserDAO implements UserDAO {
 		return user;
 	}
 
-	@Override
-	public List<User> getUnprivilegedUsers() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<User> getBlockedUsersMoreNTimes(int N) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	
 }
