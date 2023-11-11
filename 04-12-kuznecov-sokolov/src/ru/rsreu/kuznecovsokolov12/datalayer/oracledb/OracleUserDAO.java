@@ -13,7 +13,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 public class OracleUserDAO implements UserDAO {
 
 	private final static String SQL_USER_SELECT_BY_ID = "SELECT * FROM \"USER\" WHERE \"user_id\" = ?";
-	private final static String SQL_USER_SELECT_BY_LOGIN = "SELECT * FROM \"USER\", \"MESSAGE\" WHERE \"login\" = ?";
+	private final static String SQL_USER_SELECT_BY_LOGIN = "SELECT * FROM \"USER\" WHERE \"login\" = ?";
 	private final static String SQL_ALL_USERS_SELECT = "select * FROM \"USER\"";
 	private final static String SQL_USER_UPDATE = "update \"USER\" set \"login\" = ?, \"password\" = ?, \"user_name\" = ?, \"email\" = ?, \"is_authorized\" = ? where \"USER\".\"user_id\" = ?";
 	private final static String SQL_USER_CREATE = "INSERT INTO \"USER\" (\"login\", \"password\", \"user_name\", \"email\") VALUES (?, ?, ?, ?)";
@@ -142,7 +142,7 @@ public class OracleUserDAO implements UserDAO {
 		return user;
 	}
 	
-	// Использовать данный метод только при крайней необходимости
+	// Р�СЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР°РЅРЅС‹Р№ РјРµС‚РѕРґ С‚РѕР»СЊРєРѕ РїСЂРё РєСЂР°Р№РЅРµР№ РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё
 	public static User getUserData(ResultSet resultSet, int... columns) throws SQLException {
 		User user = new User();
 		for (int i = 0; i < columns.length; i++) {
