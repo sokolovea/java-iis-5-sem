@@ -22,6 +22,7 @@
 						login: "<%= loginValue %>",
 						password:"<%= passwordValue %>",
 					command: "Database",
+					destination: "settings",
 				  teamCapacity: document.getElementById("team_capacity").value,
 				  expertCapacity: document.getElementById("expert_capacity").value
 				};

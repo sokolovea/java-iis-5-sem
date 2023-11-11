@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,6 +25,7 @@
 			    }
 			}
 		}
+		
 	</script>
 	<div id="full_users_list_caption" class="right_bar_header">
 		Список всех пользователей СИС
@@ -32,7 +34,10 @@
 		<input id="user_filter_input" class="text_box" type="text" name="userFilter" placeholder="Фильтр" onkeyup="userFilter()"/>
 	</div>
 	<div id="full_users_list">
-		<div class="user banned_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User1</div>
+		<c:forEach var="user" items="${user_list}">
+                <div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>${user.getLogin()}</div>
+        </c:forEach>
+		<!--<div class="user banned_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User1</div>
 		<div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User2</div>
 		<div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User3</div>
 		<div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User4</div>
@@ -43,7 +48,7 @@
 		<div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User9</div>
 		<div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User10</div>
 		<div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User11</div>
-		<div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User12</div>
+		<div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User12</div> -->
 		
 	</div>
 </body>

@@ -11,6 +11,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
 import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Setting;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public class MenuCommand implements ActionCommand {
 	private static final String PARAM_NAME_LOGIN = "login";
@@ -56,8 +57,8 @@ public class MenuCommand implements ActionCommand {
 			}
 		}
 		if (loginResult == EnumLogin.ADMIN ) {
+			DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
 			if (destination.equals("settings")) {
-				DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
 				SettingDAO settingDAO = factory.getSettingDAO();
 				try {
 					List<Setting> settingList = settingDAO.getSetting();
@@ -69,6 +70,16 @@ public class MenuCommand implements ActionCommand {
 				factory.returnConnectionToPool();
 				return ConfigurationManager.getProperty("path.page.admin_settings");
 			} else if (destination.equals("main")) {
+				UserDAO userDAO = factory.getUserDAO();
+				try {
+					List<User> userList = userDAO.getUsers();
+					request.setAttribute("user_list", userList);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					factory.returnConnectionToPool();
+					e.printStackTrace();
+				}
+				factory.returnConnectionToPool();
 				return ConfigurationManager.getProperty("path.page.admin");
 			}
 //			} else if (destination.equals("settings_modify")) {

@@ -16,7 +16,7 @@ public class DatabaseCommand implements ActionCommand {
 		request.getSession().setAttribute("userPassword", password);
 		String teamCapacity = request.getParameter("teamCapacity");
 		String expertCapacity = request.getParameter("expertCapacity");
-		System.out.println(login + "; " + password + "; " + teamCapacity + "; " + expertCapacity);
+		System.out.println(login + "; " + password + "; " + teamCapacity + "; " + expertCapacity + "; destination=" + request.getParameter("destination"));
 		EnumLogin loginResult = null;
 		try {
 			loginResult = LoginLogic.checkLogin(login, password);
@@ -25,7 +25,11 @@ public class DatabaseCommand implements ActionCommand {
 			e.printStackTrace();
 		}
 		try {
-			DatabaseLogic.updateSetting(teamCapacity, expertCapacity);
+			if (loginResult == EnumLogin.ADMIN) {
+				if (request.getParameter("destination").equals("settings")) {
+					DatabaseLogic.updateSetting(teamCapacity, expertCapacity);
+				}
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
