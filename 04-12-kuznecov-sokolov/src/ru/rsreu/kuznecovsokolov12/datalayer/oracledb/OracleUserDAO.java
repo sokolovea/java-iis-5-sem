@@ -154,7 +154,7 @@ public class OracleUserDAO implements UserDAO {
 		return user;
 	}
 	
-	// Использовать данный метод только при крайней необходимости
+	// Р�СЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР°РЅРЅС‹Р№ РјРµС‚РѕРґ С‚РѕР»СЊРєРѕ РїСЂРё РєСЂР°Р№РЅРµР№ РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё
 	public static User getUserData(ResultSet resultSet, int... columns) throws SQLException {
 		User user = new User();
 		for (int i = 0; i < columns.length; i++) {
