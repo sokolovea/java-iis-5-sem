@@ -47,6 +47,9 @@ public class LoginLogic {
 		Role role = roleDAO.getUserRole(user);
 		String roleName = role.getName();
 		factory.returnConnectionToPool();
+		if (roleName == null) {
+			return EnumLogin.NOUSER;
+		}
 		if (roleName.equals("Administrator")) {
 			return EnumLogin.ADMIN;
 		} else if (roleName.equals("Moderator")) {
@@ -57,6 +60,5 @@ public class LoginLogic {
 			return EnumLogin.USER;
 		}
 		return EnumLogin.NOUSER;
-		
 	}
 }

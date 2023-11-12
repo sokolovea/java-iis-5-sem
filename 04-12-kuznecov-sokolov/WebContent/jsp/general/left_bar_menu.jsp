@@ -10,9 +10,11 @@
 	<c:set var="role" value="${myLogic.checkLogin(userName, userPassword).toString()}"></c:set>
 	<ol>
 		<c:if test="${role == 'user' or role == 'captain'}">
-			<li id="button_to_team" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=team&command=Menu">Моя команда</a>
-			</li>
+			<c:if test="${!teamList.isEmpty()}">
+				<li id="button_to_team" class="menu_button">
+					<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Menu&destination=team&team_id=${teamList.get(0).getId()}">Моя команда</a>
+				</li>
+			</c:if>
 			<li id="button_to_team" class="menu_button">
 				<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu">Команды</a>
 			</li>
