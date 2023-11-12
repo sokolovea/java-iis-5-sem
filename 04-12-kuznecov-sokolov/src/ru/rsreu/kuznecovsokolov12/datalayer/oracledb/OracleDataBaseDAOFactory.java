@@ -67,7 +67,7 @@ public class OracleDataBaseDAOFactory extends DAOFactory {
 			ds = (DataSource) envCtx.lookup("jdbc/database");
 			connection = ds.getConnection();
 			count += 1;
-			System.out.println("����� ���������� �� ���� � factory, ����� ����� " + count);
+			System.out.println("Get 1 connection from pool, count of non-closed connections" + count);
 		} catch (NamingException e) {
 			System.out.println("CRITICAL DATASOURCE EXCEPTION!");
 		}
@@ -150,7 +150,7 @@ public class OracleDataBaseDAOFactory extends DAOFactory {
 		try {
 			this.connection.close();
 			count -= 1;
-			System.out.println("������� ���������� � ��� � factory, ����� �������� " + count);
+			System.out.println("Return 1 connection to pool, count of non-closed connections = " + count);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
