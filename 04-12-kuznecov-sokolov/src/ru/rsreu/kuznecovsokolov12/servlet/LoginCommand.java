@@ -38,6 +38,13 @@ public class LoginCommand implements ActionCommand {
 		if (loginResult == EnumLogin.ADMIN) {
 			return MenuCommand.getPage(loginResult, "main", request);
 		}
+		if (loginResult == EnumLogin.USER || loginResult == EnumLogin.EXPERT) {
+			return MenuCommand.getPage(loginResult, "main", request);
+		}
+		
+		if (loginResult == EnumLogin.MODERATOR) {
+			return MenuCommand.getPage(loginResult, "main", request);
+		}
 //		request.setAttribute("destination", "main");
 		page = LoginCommand.getPage(loginResult);
 		return page;

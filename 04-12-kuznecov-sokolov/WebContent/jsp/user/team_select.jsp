@@ -190,17 +190,11 @@
 						</c:if>
 					</div>
 					<div id="user_teams">
-						<div class="rb_user_team_name">
-							<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=team&command=Menu">Команда 1</a>
-						</div>
-						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'expert'}">
+						<c:forEach var="team" items="${teamList}">
 							<div class="rb_user_team_name">
-								<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=team&command=Menu">Команда 2</a>
+								<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Menu&destination=team&team_id=${team.getId()}">${team.getName()}</a>
 							</div>
-							<div class="rb_user_team_name">
-								<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=team&command=Menu">Команда 3</a>
-							</div>
-						</c:if>
+        				</c:forEach>
 					</div>
 				</div>
 			</div>

@@ -63,23 +63,53 @@ public class MenuCommand implements ActionCommand {
 				try {
 					User user = userDAO.getUserByLogin(login);
 					List<Team> teamList = teamDAO.getTeamsForUser(user);
-					messageList = messageDAO.getAllMessagesForTeam(teamList.get(0));
-					deletedMessageSet = messageDAO.getDeletedMessagesForTeam(teamList.get(0));
+					Team team = teamDAO.getTeamById(Integer.parseInt(request.getParameter("team_id")));
+					if (!teamList.contains(team)) {
+						factory.returnConnectionToPool();
+						return ConfigurationManager.getProperty("path.page.error");
+					}
+					messageList = messageDAO.getAllMessagesForTeam(team);
+					deletedMessageSet = messageDAO.getDeletedMessagesForTeam(team);
 					for (Message message: messageList) {
 						System.out.println("deletedMessageSet.contains(message) = " + deletedMessageSet.contains(message));	
 					}
 				} catch (SQLException e) {
 					;
 				}
+				factory.returnConnectionToPool();
 				request.setAttribute("messageList", messageList);
 				request.setAttribute("deletedMessageSet", deletedMessageSet);
 				return ConfigurationManager.getProperty("path.page.team");
 			} else if (destination.equals("main")) {
+				DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+				UserDAO userDAO = factory.getUserDAO();
+				TeamDAO teamDAO = factory.getTeamDAO();
+				String login = request.getParameter(PARAM_NAME_LOGIN);
+				List<Team> teamList = null;
+				try {
+					User user = userDAO.getUserByLogin(login);
+					teamList = teamDAO.getTeamsForUser(user);
+				} catch (SQLException e) {
+					;
+				}
+				factory.returnConnectionToPool();
+				request.setAttribute("teamList", teamList);
 				return ConfigurationManager.getProperty("path.page.team_select");
 			}
 		}
 		if (loginResult == EnumLogin.MODERATOR) {
+			DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
 			if (destination.equals("main")) {
+				UserDAO userDAO = factory.getUserDAO();
+				try {
+					List<User> userList = userDAO.getUnprivilegedUsers();
+					request.setAttribute("user_list", userList);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					factory.returnConnectionToPool();
+					e.printStackTrace();
+				}
+				factory.returnConnectionToPool();
 				return ConfigurationManager.getProperty("path.page.moderator");
 			}
 		}
@@ -110,9 +140,9 @@ public class MenuCommand implements ActionCommand {
 				return ConfigurationManager.getProperty("path.page.admin");
 			}
 //			} else if (destination.equals("settings_modify")) {
-//				// Запись в базу данных новых настроек через DAO
-//				щлщлщл
-//				return ConfigurationManager.getProperty("path.page.admin_settings"); //возврат обратно
+//				// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ DAO
+//				пїЅпїЅпїЅпїЅпїЅпїЅ
+//				return ConfigurationManager.getProperty("path.page.admin_settings"); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 //			}
 		}
 		return ConfigurationManager.getProperty("path.page.login");
