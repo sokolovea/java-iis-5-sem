@@ -20,11 +20,12 @@
 			<div id="center_bar" class="container">
 				<div id="chat" class="center_bar_boxes">
 					<c:forEach var="message" items="${messageList}">
-						<c:if test="${!deletedMessageSet.contains(message) || (deletedMessageSet.contains(message) && message.getAuthor().getLogin().equals(userName))}"> 
-							<c:if test="${!deletedMessageSet.contains(message)}"> 
+						<c:set var="messageIsDeleted" value="${deletedMessageSet.containsKey(message)}"></c:set>
+						<c:if test="${!messageIsDeleted || (messageIsDeleted && message.getAuthor().getLogin().equals(userName))}"> 
+							<c:if test="${!messageIsDeleted}"> 
 								<div class="message">
 							</c:if>
-							<c:if test="${deletedMessageSet.contains(message)}"> 
+							<c:if test="${messageIsDeleted}"> 
 								<div class="message deleted_message">
 							</c:if>
 								<div class="message_header">
@@ -36,7 +37,7 @@
 								<div class="message_content">
 									<div class="message_data">${message.getData()}</div>
 										<div class="message_buttons">
-											<c:if test="${message.getAuthor().getLogin().equals(userName)}"> 
+											<c:if test="${!messageIsDeleted && message.getAuthor().getLogin().equals(userName) || messageIsDeleted && message.getAuthor().getId().equals(deletedMessageSet.get(message))}"> 
 												<div class="restore_message_button">&#8635</div>
 												<div class="delete_message_button">✖</div>
 											</c:if>
@@ -57,25 +58,24 @@
 			</div>
 			<div id="right_bar" class="container">
 				<div class='team_list'>
-					<div id="team_name" class="right_bar_header">Команда 1</div>
+					<div id="team_name" class="right_bar_header">${team.getName()}</div>
 					<div id="team_list_caption" class="right_bar_header">Члены команды</div>
 					<div id="member_list">
 						<div id="team_capitan" class="team_member">
-							captain
+							${teamMembers.get(0).getLogin()}
 						</div>
-						<div class="team_member">
-							user1
-						</div>
-						<div class="team_member">
-							user2
-						</div>
+						<c:forEach var="member" begin="1" items="${teamMembers}">
+							<div class="team_member">
+								${member.getLogin()}
+							</div>
+						</c:forEach>
 					</div>
 				</div>
 				<jsp:useBean id="myLogic" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
 				<div id="expert_block">
 					<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() != 'expert'}">
 						<div id="expert_block_caption">
-							Эксперт: expert12
+							Эксперт: ${teamExpert.getLogin()}
 						</div>
 					</c:if>
 					<div id="expert_block_buttons">

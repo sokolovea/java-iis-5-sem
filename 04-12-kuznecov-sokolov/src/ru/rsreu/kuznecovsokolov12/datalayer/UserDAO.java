@@ -12,11 +12,15 @@ public interface UserDAO {
 	
 	User getUserByLogin(String login) throws SQLException;
 	
+	User getExpertForTeam(Team team) throws SQLException;
+	
 	List<User> getUsers() throws SQLException;
 	
 	List<User> getUnprivilegedUsers() throws SQLException;
 	
 	List<User> getBlockedUsersMoreNTimes(int N) throws SQLException;
+	
+	List<User> getTeamUserList(Team team) throws SQLException;
 	
 	Map<User, Role> getUsersWithRole() throws SQLException;
 	

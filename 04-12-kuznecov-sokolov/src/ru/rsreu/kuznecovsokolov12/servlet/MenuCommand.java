@@ -2,6 +2,7 @@ package ru.rsreu.kuznecovsokolov12.servlet;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
@@ -59,19 +60,24 @@ public class MenuCommand implements ActionCommand {
 				TeamDAO teamDAO = factory.getTeamDAO();
 				String login = request.getParameter(PARAM_NAME_LOGIN);
 				List<Message> messageList = null;
-				Set<Message> deletedMessageSet = null;
+				Map<Message, Integer> deletedMessageSet = null;
+				List<User> teamMembers = null;
+				Team team = null;
+				User teamExpert = null;
 				try {
 					User user = userDAO.getUserByLogin(login);
 					List<Team> teamList = teamDAO.getTeamsForUser(user);
-					Team team = teamDAO.getTeamById(Integer.parseInt(request.getParameter("team_id")));
+					team = teamDAO.getTeamById(Integer.parseInt(request.getParameter("team_id")));
 					if (!teamList.contains(team)) {
 						factory.returnConnectionToPool();
 						return ConfigurationManager.getProperty("path.page.error");
 					}
+					teamExpert = userDAO.getExpertForTeam(team);
+					teamMembers = userDAO.getTeamUserList(team);
 					messageList = messageDAO.getAllMessagesForTeam(team);
 					deletedMessageSet = messageDAO.getDeletedMessagesForTeam(team);
 					for (Message message: messageList) {
-						System.out.println("deletedMessageSet.contains(message) = " + deletedMessageSet.contains(message));	
+						System.out.println("deletedMessageSet.contains(message) = " + deletedMessageSet.containsKey(message));	
 					}
 				} catch (SQLException e) {
 					;
@@ -79,6 +85,9 @@ public class MenuCommand implements ActionCommand {
 				factory.returnConnectionToPool();
 				request.setAttribute("messageList", messageList);
 				request.setAttribute("deletedMessageSet", deletedMessageSet);
+				request.setAttribute("team", team);
+				request.setAttribute("teamMembers", teamMembers);
+				request.setAttribute("teamExpert", teamExpert);
 				return ConfigurationManager.getProperty("path.page.team");
 			} else if (destination.equals("main")) {
 				DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);

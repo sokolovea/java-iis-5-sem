@@ -5,8 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
@@ -18,7 +20,7 @@ public class OracleMessageDAO implements MessageDAO {
 
 	private final static String SQL_ALL_MESSAGES_SELECT = "select * FROM \"MESSAGE\" join \"USER\" on \"user_id\" = \"author\"";
 	private final static String SQL_SELECT_UNDELETED_MESSAGES_FOR_TEAM = "select \"MESSAGE\".*, \"USER\".* FROM \"MESSAGE\" join \"USER\" on \"user_id\" = \"author\" join \"MESSAGE_ATTACHING\" on \"message_id\" = \"message\" left join \"DELETED_MESSAGE\" on \"message_id\" = \"DELETED_MESSAGE\".\"message\" where \"team\" = ? and \"del_message_id\" is null";
-	private final static String SQL_SELECT_DELETED_MESSAGES_FOR_TEAM = "select \"MESSAGE\".*, \"USER\".* FROM \"MESSAGE\" join \"USER\" on \"user_id\" = \"author\" join \"MESSAGE_ATTACHING\" on \"message_id\" = \"message\" join \"DELETED_MESSAGE\" on \"message_id\" = \"DELETED_MESSAGE\".\"message\" where \"team\" = ?";
+	private final static String SQL_SELECT_DELETED_MESSAGES_FOR_TEAM = "select \"MESSAGE\".*, \"USER\".*, \"DELETED_MESSAGE\".\"sender\" FROM \"MESSAGE\" join \"USER\" on \"user_id\" = \"author\" join \"MESSAGE_ATTACHING\" on \"message_id\" = \"message\" join \"DELETED_MESSAGE\" on \"message_id\" = \"DELETED_MESSAGE\".\"message\" where \"team\" = ?";
 	private final static String SQL_SELECT_ALL_MESSAGES_FOR_TEAM = "select \"MESSAGE\".*, \"USER\".* FROM \"MESSAGE\" join \"USER\" on \"user_id\" = \"author\" join \"MESSAGE_ATTACHING\" on \"message_id\" = \"message\" where \"team\" = ?";
 	private final static String SQL_SELECT_MESSAGES_DEL_BY_NO_SELF_USER = "select \"MESSAGE\".* from \"USER\" join \"MESSAGE\" on \"USER\".\"user_id\" = \"MESSAGE\".\"author\" join \"DELETED_MESSAGE\" on \"MESSAGE\".\"message_id\" = \"DELETED_MESSAGE\".\"message\" where \"DELETED_MESSAGE\".\"sender\" != \"USER\".\"user_id\" and \"USER\".\"user_id\" = ?";
 	private final static String SQL_SELECT_COUNT_MESSAGES_BY_USER = "select count(\"MESSAGE\".\"message_id\") as \"count_messages\" from \"USER\" join \"MESSAGE\" on \"USER\".\"user_id\" = \"MESSAGE\".\"author\" where \"USER\".\"user_id\" = ?";
@@ -70,16 +72,17 @@ public class OracleMessageDAO implements MessageDAO {
 	}
 
 	@Override
-	public Set<Message> getDeletedMessagesForTeam(Team team) throws SQLException {
+	public Map<Message, Integer> getDeletedMessagesForTeam(Team team) throws SQLException {
 		PreparedStatement ps;
-		Set<Message> result = new HashSet<Message>();
+		Map<Message, Integer> result = new HashMap<>();
 		ps = this.connection.prepareStatement(SQL_SELECT_DELETED_MESSAGES_FOR_TEAM);
 		ps.setInt(1, team.getId());
 		ResultSet resultSet = ps.executeQuery();
 		while (resultSet.next()) {
 			Message message = getMessageData(resultSet, ALL_MESSAGE_COLUMNS);
 			message.setAuthor(OracleUserDAO.getUserData(resultSet, OracleUserDAO.ALL_USER_COLUMNS));
-			result.add(message);
+			int sender_id = resultSet.getInt("sender");
+			result.put(message, sender_id);
 		}
 		return result;
 	}
