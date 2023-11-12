@@ -106,6 +106,14 @@
 							      			<th>Время</th>
 										</tr>
 								    </thead>
+									  	<tbody>
+									        <c:forEach var="message" items="${userReportFirst}">
+									            <tr>
+									                <td>${message.getData()}</td>
+									                <td>${message.getTime()}</td>
+									            </tr>
+									        </c:forEach>
+								    	</tbody>
 								</table>
 							</div>
 						</div>
@@ -121,14 +129,24 @@
 										    <th>Время</th>
 										</tr>
 								    </thead>
+									<tbody>
+								        <c:forEach var="sanction" items="${userReportSecond}">
+								            <tr>
+								                <td>${sanction.getType().getName()}</td>
+								                <td>${sanction.getSender()}</td>
+								                <td>${sanction.getReason()}</td>
+								                <td>${sanction.getTime()}</td>
+								            </tr>
+								        </c:forEach>
+							    	</tbody>
 								</table>
 							</div>
 						</div>
 						<div id="report_user_messages_stat" class="report">
 							<div class="report_caption">Вывод количества оставленных и удаленных сообщений у данного пользователя</div>
 							<div class="report_string">
-								Всего сообщений:<br>
-			            		Удалено сообщений:<br>
+								Всего сообщений: ${countSendedMessages}<br>
+			            		Удалено сообщений: ${countDeletedMessages}<br>
 							</div>
 						</div>
 		            </c:if>
@@ -200,17 +218,17 @@
 										</tr>
 								    </thead>
 								    <tbody>
-							        <c:forEach var="user" items="${adminReportFirst}">
-							            <tr>
-							                <td>${user.getLogin()}</td>
-							                <td>${user.getPassword()}</td>
-							                <td>${user.getName()}</td>
-							                <td>${user.getEmail()}</td>
-							                <td>???добавить???</td>
-							                <td>${user.isIsAuthorized()}</td>
-							            </tr>
-							        </c:forEach>
-							    </tbody>
+								        <c:forEach var="user" items="${adminReportFirst}">
+								            <tr>
+								                <td>${user.getLogin()}</td>
+								                <td>${user.getPassword()}</td>
+								                <td>${user.getName()}</td>
+								                <td>${user.getEmail()}</td>
+								                <td>???добавить???</td>
+								                <td>${user.isIsAuthorized()}</td>
+								            </tr>
+								        </c:forEach>
+							    	</tbody>
 								</table>
 							</div>
 						</div>

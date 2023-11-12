@@ -121,6 +121,7 @@ public class MenuCommand implements ActionCommand {
 				factory.returnConnectionToPool();
 				return ConfigurationManager.getProperty("path.page.moderator");
 			}
+			factory.returnConnectionToPool();
 		}
 		if (loginResult == EnumLogin.ADMIN ) {
 			DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
