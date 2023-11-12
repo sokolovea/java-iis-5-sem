@@ -21,7 +21,7 @@
 				<div id="chat" class="center_bar_boxes">
 					<c:forEach var="message" items="${messageList}">
 						<c:set var="messageIsDeleted" value="${deletedMessageSet.containsKey(message)}"></c:set>
-						<c:if test="${!messageIsDeleted || (messageIsDeleted && message.getAuthor().getLogin().equals(userName))}"> 
+						<c:if test="${!messageIsDeleted or (messageIsDeleted && message.getAuthor().getLogin().equals(userName))}"> 
 							<c:if test="${!messageIsDeleted}"> 
 								<div class="message">
 							</c:if>

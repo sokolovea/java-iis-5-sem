@@ -80,7 +80,7 @@ public class MenuCommand implements ActionCommand {
 						System.out.println("deletedMessageSet.contains(message) = " + deletedMessageSet.containsKey(message));	
 					}
 				} catch (SQLException e) {
-					;
+					e.printStackTrace();
 				}
 				factory.returnConnectionToPool();
 				request.setAttribute("messageList", messageList);
