@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
@@ -68,9 +70,9 @@ public class OracleMessageDAO implements MessageDAO {
 	}
 
 	@Override
-	public List<Message> getDeletedMessagesForTeam(Team team) throws SQLException {
+	public Set<Message> getDeletedMessagesForTeam(Team team) throws SQLException {
 		PreparedStatement ps;
-		List<Message> result = new ArrayList<Message>();
+		Set<Message> result = new HashSet<Message>();
 		ps = this.connection.prepareStatement(SQL_SELECT_DELETED_MESSAGES_FOR_TEAM);
 		ps.setInt(1, team.getId());
 		ResultSet resultSet = ps.executeQuery();

@@ -45,5 +45,6 @@ public class Message extends AbstractEntity {
 	public void setTime(Timestamp time) {
 		this.time = time;
 	}
+	
 
 }

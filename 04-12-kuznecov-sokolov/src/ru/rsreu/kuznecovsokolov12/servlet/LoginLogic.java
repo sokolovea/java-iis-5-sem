@@ -36,6 +36,9 @@ public class LoginLogic {
 		RoleDAO roleDAO = factory.getRoleDAO();
 		
 		User user = userDAO.getUserByLogin(enterLogin);
+		if (user.getLogin() == null) {
+			return EnumLogin.NOUSER;
+		}
 		boolean loginResult = user.checkPassword(enterPass);
 		if (!loginResult) {
 			factory.returnConnectionToPool();

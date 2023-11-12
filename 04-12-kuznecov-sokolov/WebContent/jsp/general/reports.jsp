@@ -34,7 +34,7 @@
 		}
 		
 		window.onload = function() {
-			reportSelector(document.getElementById(element), report_id)
+			reportSelector(document.getElementById('${element}'), '${report_id}');
 		};
 	</script>
 </head>

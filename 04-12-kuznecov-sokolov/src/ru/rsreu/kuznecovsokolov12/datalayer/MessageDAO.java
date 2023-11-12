@@ -2,6 +2,7 @@ package ru.rsreu.kuznecovsokolov12.datalayer;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
@@ -11,7 +12,7 @@ public interface MessageDAO {
 
 	List<Message> getUndeletedMessagesForTeam(Team team) throws SQLException;
 	
-	List<Message> getDeletedMessagesForTeam(Team team) throws SQLException;
+	Set<Message> getDeletedMessagesForTeam(Team team) throws SQLException;
 	
 	List<Message> getAllMessagesForTeam(Team team) throws SQLException;
 

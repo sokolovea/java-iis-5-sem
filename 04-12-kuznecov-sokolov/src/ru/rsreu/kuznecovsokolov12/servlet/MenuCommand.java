@@ -2,15 +2,22 @@ package ru.rsreu.kuznecovsokolov12.servlet;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
+import ru.rsreu.kuznecovsokolov12.datalayer.DeletedMessageDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.DeletedMessage;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Setting;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public class MenuCommand implements ActionCommand {
@@ -46,6 +53,26 @@ public class MenuCommand implements ActionCommand {
 	public static String getPage(EnumLogin loginResult, String destination, HttpServletRequest request) {
 		if (loginResult == EnumLogin.USER || loginResult == EnumLogin.EXPERT || loginResult == EnumLogin.CAPTAIN) {
 			if (destination.equals("team")) {
+				DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+				MessageDAO messageDAO = factory.getMessageDAO();
+				UserDAO userDAO = factory.getUserDAO();
+				TeamDAO teamDAO = factory.getTeamDAO();
+				String login = request.getParameter(PARAM_NAME_LOGIN);
+				List<Message> messageList = null;
+				Set<Message> deletedMessageSet = null;
+				try {
+					User user = userDAO.getUserByLogin(login);
+					List<Team> teamList = teamDAO.getTeamsForUser(user);
+					messageList = messageDAO.getAllMessagesForTeam(teamList.get(0));
+					deletedMessageSet = messageDAO.getDeletedMessagesForTeam(teamList.get(0));
+					for (Message message: messageList) {
+						System.out.println("deletedMessageSet.contains(message) = " + deletedMessageSet.contains(message));	
+					}
+				} catch (SQLException e) {
+					;
+				}
+				request.setAttribute("messageList", messageList);
+				request.setAttribute("deletedMessageSet", deletedMessageSet);
 				return ConfigurationManager.getProperty("path.page.team");
 			} else if (destination.equals("main")) {
 				return ConfigurationManager.getProperty("path.page.team_select");

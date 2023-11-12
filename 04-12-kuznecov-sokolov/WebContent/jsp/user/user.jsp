@@ -19,15 +19,37 @@
 			</div>
 			<div id="center_bar" class="container">
 				<div id="chat" class="center_bar_boxes">
-									<div class="message"> 
+					<c:forEach var="message" items="${messageList}">
+						${System.out.println(deletedMessageSet.contains(message))}
+						<c:if test="${!deletedMessageSet.contains(message)}"> 
+							<div class="message">
+						</c:if>
+						<c:if test="${deletedMessageSet.contains(message)}"> 
+							<div class="message deleted_message">
+						</c:if>
+							<div class="message_header">
+								<div class="user_box">
+									<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>${message.getAuthor().getLogin()}</div>
+								</div>
+								<div class="message_time">[${message.getTime()}]</div>
+							</div>
+							<div class="message_content">
+								<div class="message_data">${message.getData()}</div>
+									<div class="message_buttons">
+										<c:if test="${message.getAuthor().getLogin().equals(userName)}"> 
+											<div class="restore_message_button">&#8635</div>
+											<div class="delete_message_button">✖</div>
+										</c:if>
+									</div>
+							</div>
+						</div>
+					</c:forEach>
+					<div class="message"> 
 						<div class="message_header">
 							<div class="user_box">
 								<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>user1</div>
 							</div>
-							<!-- <div class="time_and_team_box">
-								<div class="message_team">Команда 1 -&nbsp</div> -->
-								<div class="message_time">[12:18:30]</div>
-							<!-- </div> -->
+							<div class="message_time">[12:18:30]</div>
 						</div>
 						<div class="message_content">
 							<div class="message_data">Всем привет!</div> 
