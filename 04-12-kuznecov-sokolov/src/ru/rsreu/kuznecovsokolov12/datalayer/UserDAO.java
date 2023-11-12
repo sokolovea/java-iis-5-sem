@@ -2,6 +2,7 @@ package ru.rsreu.kuznecovsokolov12.datalayer;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.data.*;
 
@@ -16,6 +17,8 @@ public interface UserDAO {
 	List<User> getUnprivilegedUsers() throws SQLException;
 	
 	List<User> getBlockedUsersMoreNTimes(int N) throws SQLException;
+	
+	Map<User, Role> getUsersWithRole() throws SQLException;
 	
 	void addUser(User user) throws SQLException;
 	

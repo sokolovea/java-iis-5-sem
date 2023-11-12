@@ -15,7 +15,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public class OracleTeamDAO implements TeamDAO {
 
-	private final static String SQL_ALL_TEAMS_SELECT_WITH_CAP_AND_COUNT = "TODO";
+	private final static String SQL_ALL_TEAMS_SELECT_WITH_CAP_AND_COUNT = "select t1.\"team_id\", t1.\"team_name\", \"login\", \"MEMBERS\" from (select \"team_id\", \"team_name\", \"login\" from (select RANK() OVER (PARTITION BY \"team_id\" ORDER BY \"TEAM_INTERACT\".\"time\") \"RANK\", \"TEAM\".*, \"login\" from \"TEAM\" join \"TEAM_INTERACT\" on \"team_id\" = \"team\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"USER\" on \"user\" = \"user_id\" join \"ROLE_ASSIGMENT\" on \"receiver\" = \"user_id\" join \"ROLE\" on \"role\" = \"role_id\" where \"role_name\" = 'Common user' and \"type_name\" = 'Join') \"capitans_table\" where \"RANK\" = 1) t1 join (select \"team_id\", \"team_name\", case when \"count_exit\" is null then \"count_join\" else \"count_join\" - \"count_exit\" end members from (select \"team_id\", \"team_name\", count(*) \"count_join\" from \"TEAM\" join \"TEAM_INTERACT\" on \"team_id\" = \"team\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"USER\" on \"user\" = \"user_id\" join \"ROLE_ASSIGMENT\" on \"receiver\" = \"user_id\" join \"ROLE\" on \"role\" = \"role_id\" where \"role_name\" = 'Common user' and \"type_name\" = 'Join' group by \"team_id\", \"team_name\") t1 left join (select \"team_id\" \"team_id_2\", \"team_name\" \"team_name_2\", count(*) \"count_exit\" from \"TEAM\" join \"TEAM_INTERACT\" on \"team_id\" = \"team\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"USER\" on \"user\" = \"user_id\" join \"ROLE_ASSIGMENT\" on \"receiver\" = \"user_id\" join \"ROLE\" on \"role\" = \"role_id\" where \"role_name\" = 'Common user' and \"type_name\" = 'Exit' group by \"team_id\", \"team_name\") t2 on \"team_id_2\" = t1.\"team_id\") t2 on t1.\"team_id\"= t2.\"team_id\"";
 	private final static String SQL_SELECT_TEAM_BY_NAME = "select * from \"TEAM\" where \"team_name\" = ?";
 	private final static String SQL_SELECT_TEAM_BY_ID = "select * from \"TEAM\" where \"team_id\" = ?";
 	private final static String SQL_SELECT_TEAMS_CONSULTED_BY_EXPERT = "select distinct \"TEAM\".* from \"TEAM\" join \"TEAM_INTERACT\" on \"team_id\" = \"team\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"USER\" on \"user_id\" = \"user\" join \"ROLE_ASSIGMENT\" on \"user\" = \"receiver\" join \"ROLE\" on \"role_id\" = \"role\" where \"ROLE\".\"role_name\" = 'Expert' and \"USER\".\"user_id\" = ?";
@@ -44,8 +44,8 @@ public class OracleTeamDAO implements TeamDAO {
 		ResultSet resultSet = ps.executeQuery();
 		while (resultSet.next()) {
 			Team team = getTeamData(resultSet, ALL_TEAM_COLUMNS);
-			String capitan_name = resultSet.getString("capitan_name");
-			Integer count_members = resultSet.getInt("count_members");
+			String capitan_name = resultSet.getString(3);
+			Integer count_members = resultSet.getInt(4);
 			Map<String, Integer> map = new HashMap<>();
 			map.put(capitan_name, count_members);
 			result.put(team, map);

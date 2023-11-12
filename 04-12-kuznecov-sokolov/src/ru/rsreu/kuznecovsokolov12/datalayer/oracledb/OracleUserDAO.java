@@ -5,8 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.Role;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public class OracleUserDAO implements UserDAO {
@@ -14,6 +18,7 @@ public class OracleUserDAO implements UserDAO {
 	private final static String SQL_USER_SELECT_BY_ID = "SELECT * FROM \"USER\" WHERE \"user_id\" = ?";
 	private final static String SQL_USER_SELECT_BY_LOGIN = "SELECT * FROM \"USER\" WHERE \"login\" = ?";
 	private final static String SQL_ALL_USERS_SELECT = "select * FROM \"USER\"";
+	private static final String SQL_ALL_USERS_WITH_ROLE_SELECT = "select \"USER\".*, \"ROLE\".* from \"USER\" join \"ROLE_ASSIGMENT\" on \"user_id\" = \"receiver\" join \"ROLE\" on \"role\" = \"role_id\"";
 	private final static String SQL_USER_UPDATE = "update \"USER\" set \"login\" = ?, \"password\" = ?, \"user_name\" = ?, \"email\" = ?, \"is_authorized\" = ? where \"USER\".\"user_id\" = ?";
 	private final static String SQL_USER_CREATE = "INSERT INTO \"USER\" (\"login\", \"password\", \"user_name\", \"email\") VALUES (?, ?, ?, ?)";
 	private final static String SQL_UNPRIVILEGED_USERS_SELECT = "select \"USER\".* from ((\"USER\" join \"ROLE_ASSIGMENT\" on \"USER\".\"user_id\" = \"ROLE_ASSIGMENT\".\"receiver\") join \"ROLE\" on \"ROLE_ASSIGMENT\".\"role\" = \"ROLE\".\"role_id\") join \"ROLE_GROUP\" on \"ROLE\".\"group\" = \"ROLE_GROUP\".\"role_group_id\" where \"ROLE_GROUP\".\"role_group_name\" = 'User'";
@@ -74,6 +79,20 @@ public class OracleUserDAO implements UserDAO {
 		while (resultSet.next()) {
 			User user = getUserData(resultSet, ALL_USER_COLUMNS);
 			result.add(user);
+		}
+		return result;
+	}
+	
+	@Override
+	public Map<User, Role> getUsersWithRole() throws SQLException {
+		PreparedStatement ps;
+		Map<User, Role> result = new HashMap<>();
+		ps = this.connection.prepareStatement(SQL_ALL_USERS_WITH_ROLE_SELECT);
+		ResultSet resultSet = ps.executeQuery();
+		while (resultSet.next()) {
+			User user = getUserData(resultSet, ALL_USER_COLUMNS);
+			Role role = OracleRoleDAO.getRoleData(resultSet, OracleRoleDAO.ALL_ROLE_COLUMNS);
+			result.put(user, role);
 		}
 		return result;
 	}
@@ -211,6 +230,8 @@ public class OracleUserDAO implements UserDAO {
 		}
 		return user;
 	}
+
+	
 
 	
 	
