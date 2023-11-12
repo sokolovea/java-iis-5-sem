@@ -51,6 +51,8 @@ public class ReportCommand implements ActionCommand {
 		if (loginResult == EnumLogin.ADMIN) {
 			 request.setAttribute("adminReportFirst", adminReportFirst);
 			 request.setAttribute("adminReportSecond", adminReportSecond);
+			 request.setAttribute("element", "element");
+			 request.setAttribute("report_id", "report_id");
 		}
 		return ReportCommand.getPage(loginResult);
 	}
