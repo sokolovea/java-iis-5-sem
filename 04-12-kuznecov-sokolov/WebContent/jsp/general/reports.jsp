@@ -7,6 +7,8 @@
 		String loginValue = request.getParameter("login");
 		System.out.println("login = " + loginValue);
 		String passwordValue = request.getParameter("password");
+		String element = request.getParameter("element");
+		String report_id = request.getParameter("report_id");
 	%>
 	<title>Отчеты</title>
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/main_win.css">
@@ -30,6 +32,10 @@
 			}
 			element.style.textDecoration = "underline black";
 		}
+		
+		window.onload = function() {
+			reportSelector(element, report_id)
+		};
 	</script>
 </head>
 <body>
