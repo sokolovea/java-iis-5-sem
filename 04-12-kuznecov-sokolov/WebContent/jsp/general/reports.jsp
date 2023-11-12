@@ -3,6 +3,11 @@
 <html lang="ru-RU">
 <meta http-equiv="Cache-Control" content="no-cache">
 <head>
+	<%
+		String loginValue = request.getParameter("login");
+		System.out.println("login = " + loginValue);
+		String passwordValue = request.getParameter("password");
+	%>
 	<title>Отчеты</title>
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/main_win.css">
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/input_items.css">
@@ -205,20 +210,34 @@
 						</div>
 						<div id="report_admin_user_role_history" class="report">
 							<div class="report_caption">Вывод информации о истории назначения на роль по конкретной учетной записи</div>
-							<div class="report_inputs">
-								<span style="margin-right: 7px;">login =</span> 
-								<input id="user_login_text_box" class="text_box" type="text" name="adminUserRole" placeholder="Введите логин пользователя"/>
-		            			<input id="user_search" type="button" name="adminUserRole_submit" value="Найти"/>
-							</div>
+							<form id="admin_report_second_form" action="controller" method="POST">
+								<div class="report_inputs">
+									<input type="hidden" name="command" value="Report"/>
+									<input type="hidden" name="login" value="<%= loginValue %>"/>
+				    				<input type="hidden" name="password" value="<%= passwordValue %>"/>
+									<span style="margin-right: 7px;">login =</span> 
+									<input id="user_login_text_box" class="text_box" type="text" name="adminUserRole" placeholder="Введите логин пользователя"/>
+			            			<input id="user_search" type="submit" name="adminUserRole_submit" value="Найти"/>
+								</div>
+							</form>
 							<div class="report_table">
 								<table>
 									<thead>
 										<tr>
 											<th>Пользователь</th>
 							    			<th>Роль</th>
+							    			<th>Кто назначил</th>
 										    <th>Время назначения</th>
 										</tr>
 								    </thead>
+								  	<c:forEach var="roleAssigment" items="${adminReportSecond}">
+							            <tr>
+							                <td>${roleAssigment.getReceiver().getLogin()}</td>
+							                <td>${roleAssigment.getRole().getName()}</td>
+							                <td>${roleAssigment.getSender().getLogin()}</td>
+							                <td>${roleAssigment.getTime()}</td>
+							            </tr>
+							        </c:forEach>
 								</table>
 							</div>
 						</div>

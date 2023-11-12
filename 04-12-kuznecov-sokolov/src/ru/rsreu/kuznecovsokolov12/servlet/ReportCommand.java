@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
+import ru.rsreu.kuznecovsokolov12.datalayer.RoleAssigmentDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.RoleAssigment;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public class ReportCommand implements ActionCommand {
@@ -31,9 +33,15 @@ public class ReportCommand implements ActionCommand {
 		request.setAttribute(ReportCommand.getRequestAttribute(loginResult), login);
 		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
 		UserDAO userDAO = factory.getUserDAO();
+		RoleAssigmentDAO roleAssigmentDAO = factory.getRoleAssigmentDAO();
 		List<User> adminReportFirst = new ArrayList<User>();
+		List<RoleAssigment> adminReportSecond = new ArrayList<RoleAssigment>();
+		User userForSecondReport = new User();
 		try {
 			adminReportFirst = userDAO.getUsers();
+			String tempLogin = request.getParameter("adminUserRole");
+			userForSecondReport = userDAO.getUserByLogin(tempLogin);
+			adminReportSecond = roleAssigmentDAO.getRoleAssigmentsForUser(userForSecondReport);
 		} catch (Exception e) {
 			// TODO: handle exception
 		} finally {
@@ -42,6 +50,7 @@ public class ReportCommand implements ActionCommand {
 		}
 		if (loginResult == EnumLogin.ADMIN) {
 			 request.setAttribute("adminReportFirst", adminReportFirst);
+			 request.setAttribute("adminReportSecond", adminReportSecond);
 		}
 		return ReportCommand.getPage(loginResult);
 	}
