@@ -252,43 +252,43 @@
 					</div>
 					<div id="reports_buttons">
 						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'expert'}">
-							<div class="report_button" onclick='reportSelector(this, "report_consult_with_expert")'>
+							<div id="consulted_teams_button" class="report_button" onclick='reportSelector(this, "report_consult_with_expert")'>
 								Консультирующиеся команды
 							</div>
-							<div class="report_button" onclick='reportSelector(this, "report_more_messages")'>
+							<div id="usefull_cooperate_button" class="report_button" onclick='reportSelector(this, "report_more_messages")'>
 								Полезное сотрудничество
 							</div>
-							<div class="report_button" onclick='reportSelector(this, "report_team_reject_consult")'>
+							<div id="teams_ejected_expert_button" class="report_button" onclick='reportSelector(this, "report_team_reject_consult")'>
 								Вывод команд, отказавшихся от консультирования у данного эксперта
 							</div>
 						</c:if>
 						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'user' || myLogic.checkLogin(userName, userPassword).toString() == 'captain'}">
-							<div class="report_button" onclick='reportSelector(this, "report_messages_deleted_by_no_user")'>
+							<div id="deleted_message_button" class="report_button" onclick='reportSelector(this, "report_messages_deleted_by_no_user")'>
 								Удаленные сообщения
 							</div>
-							<div class="report_button" onclick='reportSelector(this, "report_sanction_history")'>
+							<div id="sanction_history_button" class="report_button" onclick='reportSelector(this, "report_sanction_history")'>
 								История санкций
 							</div>
-							<div class="report_button" onclick='reportSelector(this, "report_user_messages_stat")'>
+							<div id="message_stats_button" class="report_button" onclick='reportSelector(this, "report_user_messages_stat")'>
 								Статистика сообщений
 							</div>
 						</c:if>
 						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'moderator'}">
-							<div class="report_button" onclick='reportSelector(this, "report_moderator_users")'>
+							<div id="user_list_button" class="report_button" onclick='reportSelector(this, "report_moderator_users")'>
 								Вывод учетных записей, являющихся пользователями
 							</div>
-							<div class="report_button" onclick='reportSelector(this, "report_moderator_sanction_history")'>
+							<div id="block_stats_button" class="report_button" onclick='reportSelector(this, "report_moderator_sanction_history")'>
 								Статистика блокировок и разблокировок пользователей данным модератором
 							</div>
-							<div class="report_button" onclick='reportSelector(this, "report_moderator_blocked_n")'>
+							<div id="users_blocked_more_N_times_button" class="report_button" onclick='reportSelector(this, "report_moderator_blocked_n")'>
 								Вывод пользователей, заблокированных N или более раз
 							</div>
 						</c:if>
 						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'admin'}">
-							<div class="report_button" onclick='reportSelector(this, "report_admin_users")'>
+							<div id="users_info_list_button" class="report_button" onclick='reportSelector(this, "report_admin_users")'>
 								Вывод информации о всех учетных записях
 							</div>
-							<div class="report_button" onclick='reportSelector(this, "report_admin_user_role_history")'>
+							<div id="role_assigment_history_button" class="report_button" onclick='reportSelector(this, "report_admin_user_role_history")'>
 								Вывод информации о истории назначения на роль по конкретной учетной записи
 							</div>
 						</c:if>
