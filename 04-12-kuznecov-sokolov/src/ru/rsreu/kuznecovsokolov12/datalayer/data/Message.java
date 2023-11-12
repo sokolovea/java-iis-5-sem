@@ -47,4 +47,9 @@ public class Message extends AbstractEntity {
 	}
 	
 
+	@Override
+	public int hashCode() {
+		return this.getId();
+	}
+
 }

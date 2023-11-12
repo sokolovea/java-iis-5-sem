@@ -13,9 +13,12 @@ import javax.sql.DataSource;
 
 import oracle.jdbc.pool.OracleDataSource;
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
+import ru.rsreu.kuznecovsokolov12.datalayer.DeletedMessageDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.MessageAttachingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.RoleAssigmentDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.RoleDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.SanctionDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.TeamInteractDAO;
@@ -64,7 +67,7 @@ public class OracleDataBaseDAOFactory extends DAOFactory {
 			ds = (DataSource) envCtx.lookup("jdbc/database");
 			connection = ds.getConnection();
 			count += 1;
-			System.out.println("Взяли соединение из пула в factory, всего взято " + count);
+			System.out.println("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ factory, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ " + count);
 		} catch (NamingException e) {
 			System.out.println("CRITICAL DATASOURCE EXCEPTION!");
 		}
@@ -126,13 +129,28 @@ public class OracleDataBaseDAOFactory extends DAOFactory {
 	public MessageDAO getMessageDAO() {
 		return new OracleMessageDAO(connection);
 	}
+	
+	@Override
+	public DeletedMessageDAO getDeletedMessageDAO() {
+		return new OracleDeletedMessageDAO(connection);
+	}
+	
+	@Override
+	public SanctionDAO getSanctionDAO() {
+		return new OracleSanctionDAO(connection);
+	}
+	
+	@Override
+	public MessageAttachingDAO getMessageAttachingDAO() {
+		return new OracleMessageAttachingDAO(connection);
+	}
 
 	@Override
 	public void returnConnectionToPool() {
 		try {
 			this.connection.close();
 			count -= 1;
-			System.out.println("Вернули соединение в пул в factory, всего осталось " + count);
+			System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅ factory, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ " + count);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

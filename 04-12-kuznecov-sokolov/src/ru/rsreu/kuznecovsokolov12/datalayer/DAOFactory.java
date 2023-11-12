@@ -20,6 +20,12 @@ public abstract class DAOFactory {
 	
 	public abstract MessageDAO getMessageDAO();
 	
+	public abstract DeletedMessageDAO getDeletedMessageDAO();
+	
+	public abstract SanctionDAO getSanctionDAO();
+	
+	public abstract MessageAttachingDAO getMessageAttachingDAO();
+	
 	public abstract void returnConnectionToPool();
 	
 }
