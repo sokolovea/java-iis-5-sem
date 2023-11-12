@@ -21,4 +21,6 @@ public interface TeamDAO {
 	
 	List<Team> getTeamsEjectedExpert(User expert) throws SQLException;
 	
+	List<Team> getTeamsForUser(User user) throws SQLException;
+	
 }

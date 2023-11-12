@@ -18,6 +18,7 @@ public class OracleTeamDAO implements TeamDAO {
 	private final static String SQL_ALL_TEAMS_SELECT_WITH_CAP_AND_COUNT = "select t1.\"team_id\", t1.\"team_name\", \"login\", \"MEMBERS\" from (select \"team_id\", \"team_name\", \"login\" from (select RANK() OVER (PARTITION BY \"team_id\" ORDER BY \"TEAM_INTERACT\".\"time\") \"RANK\", \"TEAM\".*, \"login\" from \"TEAM\" join \"TEAM_INTERACT\" on \"team_id\" = \"team\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"USER\" on \"user\" = \"user_id\" join \"ROLE_ASSIGMENT\" on \"receiver\" = \"user_id\" join \"ROLE\" on \"role\" = \"role_id\" where \"role_name\" = 'Common user' and \"type_name\" = 'Join') \"capitans_table\" where \"RANK\" = 1) t1 join (select \"team_id\", \"team_name\", case when \"count_exit\" is null then \"count_join\" else \"count_join\" - \"count_exit\" end members from (select \"team_id\", \"team_name\", count(*) \"count_join\" from \"TEAM\" join \"TEAM_INTERACT\" on \"team_id\" = \"team\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"USER\" on \"user\" = \"user_id\" join \"ROLE_ASSIGMENT\" on \"receiver\" = \"user_id\" join \"ROLE\" on \"role\" = \"role_id\" where \"role_name\" = 'Common user' and \"type_name\" = 'Join' group by \"team_id\", \"team_name\") t1 left join (select \"team_id\" \"team_id_2\", \"team_name\" \"team_name_2\", count(*) \"count_exit\" from \"TEAM\" join \"TEAM_INTERACT\" on \"team_id\" = \"team\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"USER\" on \"user\" = \"user_id\" join \"ROLE_ASSIGMENT\" on \"receiver\" = \"user_id\" join \"ROLE\" on \"role\" = \"role_id\" where \"role_name\" = 'Common user' and \"type_name\" = 'Exit' group by \"team_id\", \"team_name\") t2 on \"team_id_2\" = t1.\"team_id\") t2 on t1.\"team_id\"= t2.\"team_id\"";
 	private final static String SQL_SELECT_TEAM_BY_NAME = "select * from \"TEAM\" where \"team_name\" = ?";
 	private final static String SQL_SELECT_TEAM_BY_ID = "select * from \"TEAM\" where \"team_id\" = ?";
+	private final static String SQL_SELECT_TEAMS_FOR_USER = "select distinct \"TEAM\".* from \"TEAM\" join \"TEAM_INTERACT\" on \"team_id\" = \"team\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"USER\" on \"user_id\" = \"user\" where \"USER\".\"user_id\" = ?";
 	private final static String SQL_SELECT_TEAMS_CONSULTED_BY_EXPERT = "select distinct \"TEAM\".* from \"TEAM\" join \"TEAM_INTERACT\" on \"team_id\" = \"team\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"USER\" on \"user_id\" = \"user\" join \"ROLE_ASSIGMENT\" on \"user\" = \"receiver\" join \"ROLE\" on \"role_id\" = \"role\" where \"ROLE\".\"role_name\" = 'Expert' and \"USER\".\"user_id\" = ?";
 	private final static String SQL_SELECT_N_TEAMS_BEST_COOPERATED_EXPERT = "select \"TEAM\".*, count(\"MESSAGE\".\"author\") as counts from \"TEAM\" join \"MESSAGE_ATTACHING\" on \"team_id\" = \"team\" join \"MESSAGE\" on \"message_id\" = \"message\" join \"USER\" on \"user_id\" = \"author\" join \"ROLE_ASSIGMENT\" on \"user_id\" = \"receiver\" join \"ROLE\" on \"role_id\" = \"role\" where \"ROLE\".\"role_name\" = 'Expert' and \"USER\".\"user_id\" = ? and rownum <= ? group by \"TEAM\".\"team_id\", \"TEAM\".\"team_name\" order by counts desc";
 	private final static String SQL_SELECT_TEAMS_EJECTED_EXPERT = "select distinct \"TEAM\".* from \"TEAM\" join \"TEAM_INTERACT\" on \"team_id\" = \"team\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"USER\" on \"user_id\" = \"user\" join \"ROLE_ASSIGMENT\" on \"user\" = \"receiver\" join \"ROLE\" on \"role_id\" = \"role\" where \"TEAM_INTERACT_TYPE\".\"type_name\" = 'Expert_ejected' and \"ROLE\".\"role_name\" = 'Expert' and \"USER\".\"user_id\" = ?";
@@ -108,6 +109,20 @@ public class OracleTeamDAO implements TeamDAO {
 		}
 		return result;
 	}
+	
+	@Override
+	public List<Team> getTeamsForUser(User user) throws SQLException {
+		PreparedStatement ps;
+		List<Team> result = new ArrayList<>();
+		ps = this.connection.prepareStatement(SQL_SELECT_TEAMS_FOR_USER);
+		ps.setInt(1, user.getId());
+		ResultSet resultSet = ps.executeQuery();
+		while (resultSet.next()) {
+			Team team = getTeamData(resultSet, ALL_TEAM_COLUMNS);
+			result.add(team);
+		}
+		return result;
+	}
 
 	@Override
 	public List<Team> getTeamsEjectedExpert(User expert) throws SQLException {
@@ -138,5 +153,6 @@ public class OracleTeamDAO implements TeamDAO {
 		}
 		return team;
 	}
+
 
 }
