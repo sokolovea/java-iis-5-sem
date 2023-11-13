@@ -189,6 +189,16 @@
 							      			<th>Авторизован</th>
 										</tr>
 								    </thead>
+								    <tbody>
+								        <c:forEach var="user" items="${moderatorReportFirst}">
+								            <tr>
+								                <td>${user.getLogin()}</td>
+								                <td>${user.getName()}</td>
+								                <td>${user.getEmail()}</td>
+								                <td>${user.isIsAuthorized()}</td>
+								            </tr>
+								        </c:forEach>
+						    		</tbody>
 								</table>
 							</div>
 						</div>
@@ -204,16 +214,32 @@
 										    <th>Время</th>
 										</tr>
 								    </thead>
+								    <tbody>
+								        <c:forEach var="sanction" items="${moderatorReportSecond}">
+								            <tr>
+								                <td>${sanction.getType().getName()}</td>
+								                <td>${sanction.getSender().getLogin()}</td>
+								                <td>${sanction.getReason()}</td>
+								                <td>${sanction.getTime()}</td>
+								            </tr>
+								        </c:forEach>
+						    		</tbody>
 								</table>
 							</div>
 						</div>
 			            <div id="report_moderator_blocked_n" class="report">
 							<div class="report_caption">Вывод пользователей, заблокированных N или более раз</div>
-							<div class="report_inputs">
-								<span style="margin-right: 7px;">N =</span> 
-								<input id="n_moderator_blocked_n_text_box" class="text_box" type="number" name="countBlocked" value="100"/>
-		            			<input id="n_moderator_blocked_n_search" type="button" name="countBlocked_submit" value="Найти"/>
-							</div>
+							<form id="admin_report_second_form" action="controller" method="POST">
+								<div class="report_inputs">
+									<input type="hidden" name="command" value="Report"/>
+									<input type="hidden" name="login" value="<%= loginValue %>"/>
+				    				<input type="hidden" name="password" value="<%= passwordValue %>"/>
+									<span style="margin-right: 7px;">login =</span> 
+									<span style="margin-right: 7px;">N =</span> 
+									<input id="n_moderator_blocked_n_text_box" class="text_box" type="number" name="countBlocked"/>
+			            			<input id="n_moderator_blocked_n_search" type="submit" name="countBlocked_submit" value="Найти"/>
+								</div>
+							</form>
 							<div class="report_table">
 								<table>
 									<thead>
@@ -221,6 +247,13 @@
 											<th>Пользователь</th>
 										</tr>
 								    </thead>
+								    <tbody>
+								        <c:forEach var="user" items="${moderatorReportThird}">
+								            <tr>
+								                <td>${user.getLogin()}</td>
+								            </tr>
+								        </c:forEach>
+						    		</tbody>
 								</table>
 							</div>
 						</div>

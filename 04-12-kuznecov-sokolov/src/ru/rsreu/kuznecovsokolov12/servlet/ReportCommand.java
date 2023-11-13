@@ -88,13 +88,34 @@ public class ReportCommand implements ActionCommand {
 				request.setAttribute("expertReportFirst", firstReportList);
 				
 				
-				if (request.getParameter("n_teams_search") != null) {
-					int n = Integer.parseInt(request.getParameter("n_teams_search"));
+				if (request.getParameter("countCommands") != null) {
+					int n = Integer.parseInt(request.getParameter("countCommands"));
 					Map<Team, Integer> secondReportList = teamDAO.getNTeamsBestCooperatedExpert(expert, n);
 					request.setAttribute("expertReportSecond", secondReportList);
 				}
 				List<Team> thirdReportList = teamDAO.getTeamsEjectedExpert(expert);
 				request.setAttribute("expertReportThird", thirdReportList);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			factory.returnConnectionToPool();
+		} else if (loginResult == EnumLogin.MODERATOR) {
+			User moderator = new User();
+			try {
+				moderator = userDAO.getUserByLogin(login);
+				List<User> firstReportList = userDAO.getUnprivilegedUsers();
+				request.setAttribute("moderatorReportFirst", firstReportList);
+				
+				List<Sanction> secondReportList = sanctionDAO.getSanctionsByUser(moderator);
+				request.setAttribute("moderatorReportSecond", secondReportList);
+				
+				
+				if (request.getParameter("countBlocked") != null) {
+					int n = Integer.parseInt(request.getParameter("countBlocked"));
+					List<User> thirdReportList = userDAO.getBlockedUsersMoreNTimes(n);
+					request.setAttribute("moderatorReportThird", thirdReportList);
+				}
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
