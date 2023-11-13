@@ -70,7 +70,8 @@ public class DatabaseCommand implements ActionCommand {
 					messageAttaching.setTeam(teamList.get(0));
 					messageAttachingDAO.addMessage(messageAttaching);
 					factory.returnConnectionToPool();
-					return ConfigurationManager.getProperty("path.page.team");
+					return MenuCommand.getPage(loginResult, "team", request);
+//					return ConfigurationManager.getProperty("path.page.team");
 				}
 			}
 		} catch (SQLException e) {
