@@ -76,6 +76,32 @@
 			</div>
 			<div id="center_bar" class="container">
 				<div id="chat" class="center_bar_boxes">
+				
+				
+					<c:forEach var="message" items="${messageList}">
+						<c:set var="messageIsDeleted" value="${deletedMessageSet.containsKey(message)}"></c:set>
+						<c:if test="${!messageIsDeleted || messageIsDeleted && message.getAuthor().getLogin().equals(userName)}">  
+							<div class="message<c:if test="${messageIsDeleted}"> deleted_message</c:if>">
+								<div class="message_header">
+									<div class="user_box">
+										<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>${message.getAuthor().getLogin()}</div>
+									</div>
+									<div class="message_time">[${message.getTime()}]</div>
+								</div>
+								<div class="message_content">
+									<div class="message_data">${message.getData()}</div>
+										<div class="message_buttons">
+											<c:if test="${!messageIsDeleted && message.getAuthor().getLogin().equals(userName) || messageIsDeleted && message.getAuthor().getId().equals(deletedMessageSet.get(message))}"> 
+												<div class="restore_message_button">&#8635</div>
+												<div class="delete_message_button">✖</div>
+											</c:if>
+										</div>
+								</div>
+							</div>
+						</c:if>
+					</c:forEach>
+					
+					
 					<div class="message"> 
 						<div class="message_header">
 							<div class="user_box">
