@@ -21,10 +21,12 @@ public class OracleMessageDAO implements MessageDAO {
 	private final static String SQL_ALL_MESSAGES_SELECT = "select * FROM \"MESSAGE\" join \"USER\" on \"user_id\" = \"author\"";
 	private final static String SQL_SELECT_UNDELETED_MESSAGES_FOR_TEAM = "select \"MESSAGE\".*, \"USER\".* FROM \"MESSAGE\" join \"USER\" on \"user_id\" = \"author\" join \"MESSAGE_ATTACHING\" on \"message_id\" = \"message\" left join \"DELETED_MESSAGE\" on \"message_id\" = \"DELETED_MESSAGE\".\"message\" where \"team\" = ? and \"del_message_id\" is null";
 	private final static String SQL_SELECT_DELETED_MESSAGES_FOR_TEAM = "select \"MESSAGE\".*, \"USER\".*, \"DELETED_MESSAGE\".\"sender\" FROM \"MESSAGE\" join \"USER\" on \"user_id\" = \"author\" join \"MESSAGE_ATTACHING\" on \"message_id\" = \"message\" join \"DELETED_MESSAGE\" on \"message_id\" = \"DELETED_MESSAGE\".\"message\" where \"team\" = ?";
-	private final static String SQL_SELECT_ALL_MESSAGES_FOR_TEAM = "select \"MESSAGE\".*, \"USER\".* FROM \"MESSAGE\" join \"USER\" on \"user_id\" = \"author\" join \"MESSAGE_ATTACHING\" on \"message_id\" = \"message\" where \"team\" = ?";
+	private final static String SQL_SELECT_ALL_MESSAGES_FOR_TEAM = "select \"MESSAGE\".*, \"USER\".* FROM \"MESSAGE\" join \"USER\" on \"user_id\" = \"author\" join \"MESSAGE_ATTACHING\" on \"message_id\" = \"message\" where \"team\" = ? order by \"message_time\"";
 	private final static String SQL_SELECT_MESSAGES_DEL_BY_NO_SELF_USER = "select \"MESSAGE\".* from \"USER\" join \"MESSAGE\" on \"USER\".\"user_id\" = \"MESSAGE\".\"author\" join \"DELETED_MESSAGE\" on \"MESSAGE\".\"message_id\" = \"DELETED_MESSAGE\".\"message\" where \"DELETED_MESSAGE\".\"sender\" != \"USER\".\"user_id\" and \"USER\".\"user_id\" = ?";
 	private final static String SQL_SELECT_COUNT_MESSAGES_BY_USER = "select count(\"MESSAGE\".\"message_id\") as \"count_messages\" from \"USER\" join \"MESSAGE\" on \"USER\".\"user_id\" = \"MESSAGE\".\"author\" where \"USER\".\"user_id\" = ?";
 	private final static String SQL_SELECT_COUNT_DEL_MESSAGES_BY_USER = "select count(\"MESSAGE\".\"message_id\") as \"count_del_messages\" from \"USER\" join \"MESSAGE\" on \"USER\".\"user_id\" = \"MESSAGE\".\"author\" join \"DELETED_MESSAGE\" on \"message\" = \"message_id\" where \"USER\".\"user_id\" = ?";
+	private static final String SQL_MESSAGE_CREATE = "INSERT INTO \"MESSAGE\" (\"data\", \"author\", \"message_time\") VALUES (?, ?, (select sysdate from dual))";
+	
 	
 	public final static String COLUMN_MESSAGE_ID 	  = "message_id";
 	public final static String COLUMN_MESSAGE_DATA 	  = "data";
@@ -142,6 +144,15 @@ public class OracleMessageDAO implements MessageDAO {
 		return result;
 	}
 
+	@Override
+	public void addMessage(Message message) throws SQLException {
+		PreparedStatement ps;
+		ps = this.connection.prepareStatement(SQL_MESSAGE_CREATE);
+		ps.setString(1, message.getData());
+		ps.setInt(2, message.getAuthor().getId());
+		ps.executeUpdate();
+	}
+
 	public static Message getMessageData(ResultSet resultSet, String... columns) throws SQLException {
 		Message message = new Message();
 		for (String column : columns) {
@@ -162,6 +173,7 @@ public class OracleMessageDAO implements MessageDAO {
 		}
 		return message;
 	}
+
 
 
 }
