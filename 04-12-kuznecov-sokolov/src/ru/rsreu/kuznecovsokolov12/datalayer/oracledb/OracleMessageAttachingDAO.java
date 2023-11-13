@@ -21,7 +21,10 @@ public class OracleMessageAttachingDAO implements MessageAttachingDAO {
 	private static final String SQL_SELECT_ALL_MESSAGES_ATTACH = "select \"MESSAGE_ATTACHING\".*, \"TEAM\".*, \"MESSAGE\".*, \"USER\".* FROM \"MESSAGE\" join \"USER\" on \"user_id\" = \"author\" join \"MESSAGE_ATTACHING\" on \"message_id\" = \"message\" join \"TEAM\" on \"team_id\" = \"team\" order by \"message_time\"";
 	
 	private static final String SQL_MESSAGE_CREATE = "INSERT INTO \"MESSAGE\" (\"data\", \"author\", \"message_time\") VALUES (?, ?, (select sysdate from dual))";
-	private static final String SQL_MESSAGE_ATTACHING_CREATE = "INSERT INTO \"MESSAGE_ATTACHING\" (\"team\", \"message\") VALUES (?, ?);";
+	private static final String SQL_MESSAGE_ATTACHING_CREATE = "INSERT INTO \"MESSAGE_ATTACHING\" (\"team\", \"message\") VALUES (?, ?)";
+	private static final String SQL_LAST_MESSAGE_ID_SELECT = "select \"message_id\" from \"MESSAGE\" where \"message_time\" = (select max(\"message_time\") from \"MESSAGE\")";
+	
+	
 	
 	public final static String COLUMN_MESSAGE_ATTACH_ID 	= "message_attach_id";
 	public final static String[] ALL_MESSAGE_ATTACH_COLUMNS = {COLUMN_MESSAGE_ATTACH_ID};
@@ -98,17 +101,14 @@ public class OracleMessageAttachingDAO implements MessageAttachingDAO {
 		ps.setString(1, messageAttach.getMessage().getData());
 		ps.setInt(2, messageAttach.getMessage().getAuthor().getId());
 		ps.executeUpdate();
-		ResultSet generatedKeys = ps.getGeneratedKeys();
-		int messageId = 0;
-		if (generatedKeys.next()) {
-			System.out.println(generatedKeys.getString(1));
-			messageId = generatedKeys.getInt(1);
+		ResultSet resultSet = ps.executeQuery(SQL_LAST_MESSAGE_ID_SELECT);
+		if (resultSet.next()) {
+			int messageId = resultSet.getInt(1);
 			ps = this.connection.prepareStatement(SQL_MESSAGE_ATTACHING_CREATE);
 			ps.setInt(1, messageAttach.getTeam().getId());
 			ps.setInt(2, messageId);
 			ps.executeUpdate();
 		}
-		
 	}
 	
 	public static MessageAttaching getMessageData(ResultSet resultSet, String... columns) throws SQLException {
