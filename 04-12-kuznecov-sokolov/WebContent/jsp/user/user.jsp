@@ -21,13 +21,8 @@
 				<div id="chat" class="center_bar_boxes">
 					<c:forEach var="message" items="${messageList}">
 						<c:set var="messageIsDeleted" value="${deletedMessageSet.containsKey(message)}"></c:set>
-						<c:if test="${!messageIsDeleted or (messageIsDeleted && message.getAuthor().getLogin().equals(userName))}"> 
-							<c:if test="${!messageIsDeleted}"> 
-								<div class="message">
-							</c:if>
-							<c:if test="${messageIsDeleted}"> 
-								<div class="message deleted_message">
-							</c:if>
+						<c:if test="${!messageIsDeleted || messageIsDeleted && message.getAuthor().getLogin().equals(userName)}">  
+							<div class="message<c:if test="${messageIsDeleted}"> deleted_message</c:if>">
 								<div class="message_header">
 									<div class="user_box">
 										<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>${message.getAuthor().getLogin()}</div>

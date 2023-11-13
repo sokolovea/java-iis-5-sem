@@ -54,7 +54,7 @@ public class ReportCommand implements ActionCommand {
 				userForSecondReport = userDAO.getUserByLogin(tempLogin);
 				adminReportSecond = roleAssigmentDAO.getRoleAssigmentsForUser(userForSecondReport);
 			} catch (Exception e) {
-				// TODO: handle exception
+				e.printStackTrace();
 			} finally {
 				// TODO Auto-generated catch block
 				factory.returnConnectionToPool();

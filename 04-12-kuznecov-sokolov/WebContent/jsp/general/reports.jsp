@@ -158,7 +158,7 @@
 								        <c:forEach var="sanction" items="${userReportSecond}">
 								            <tr>
 								                <td>${sanction.getType().getName()}</td>
-								                <td>${sanction.getSender()}</td>
+								                <td>${sanction.getSender().getLogin()}</td>
 								                <td>${sanction.getReason()}</td>
 								                <td>${sanction.getTime()}</td>
 								            </tr>
