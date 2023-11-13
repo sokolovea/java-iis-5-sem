@@ -59,6 +59,7 @@
 						<input id="save_changes" type="button" name="saveChanges" value="Сохранить"/>
 						<input id="create_user" type="button" name="creatUser" value="Создать пользователя"/>
 						<input id="remove_user" type="button" name="removeUser" value="Удалить пользователя"/>
+						<input id="find_user" type="button" name="findUser" value="Поиск пользователя по логину"/>
 						<input id="clear_form" type="button" name="clearForm" value="Очистить форму" onclick='clearFormData()'/>
 					</div>
 		        </div>

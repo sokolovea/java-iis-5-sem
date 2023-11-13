@@ -105,17 +105,19 @@ public class OracleMessageAttachingDAO implements MessageAttachingDAO {
 	@Override
 	public void addMessage(MessageAttaching messageAttach) throws SQLException {
 		PreparedStatement ps;
+		PreparedStatement ps1;
 		ps = this.connection.prepareStatement(SQL_MESSAGE_CREATE, PreparedStatement.RETURN_GENERATED_KEYS);
+//		ps1 = this.connection.prepareStatement(SQL_MESSAGE_CREATE, PreparedStatement.RETURN_GENERATED_KEYS);
 		ps.setString(1, messageAttach.getMessage().getData());
 		ps.setInt(2, messageAttach.getMessage().getAuthor().getId());
 		ps.executeUpdate();
 		ResultSet generatedKeys = ps.getGeneratedKeys();
         if (generatedKeys.next()) {
-        	ps.setInt(1, messageAttach.getTeam().getId());
         	long messageId = generatedKeys.getLong(1);
-        	ps = this.connection.prepareStatement(SQL_MESSAGE_ATTACHING_CREATE);
-    		ps.setLong(2, messageId);
-    		ps.executeUpdate();
+        	ps1 = this.connection.prepareStatement(SQL_MESSAGE_ATTACHING_CREATE);
+        	ps1.setInt(1, messageAttach.getTeam().getId());
+    		ps1.setLong(2, messageId);
+    		ps1.executeUpdate();
         }
 	}
 
