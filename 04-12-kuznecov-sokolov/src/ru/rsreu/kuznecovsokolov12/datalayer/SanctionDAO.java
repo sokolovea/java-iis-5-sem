@@ -13,4 +13,6 @@ public interface SanctionDAO {
 	List<Sanction> getSanctionsByUser(User sender) throws SQLException;
 	
 	Sanction getLastUserSanction(User user) throws SQLException;
+	
+	void addSanction(Sanction sanction) throws SQLException;
 }

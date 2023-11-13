@@ -17,6 +17,7 @@ public class OracleSanctionDAO implements SanctionDAO {
 	private static final String SQL_SELECT_USER_SANCTIONS = "select \"sanction_id\", \"reason\", \"time\", \"SANCTION_TYPE\".*, \"USER\".*, \"USER_receiver\".* from \"USER\" join \"SANCTION\" on \"USER\".\"user_id\" = \"sender\" join \"USER\" \"USER_receiver\" on \"USER_receiver\".\"user_id\" = \"receiver\" join \"SANCTION_TYPE\" on \"sanction_t_id\" = \"type\" where \"receiver\" = ?";
 	private static final String SQL_SELECT_SANCTIONS_BY_USER = "select \"sanction_id\", \"reason\", \"time\", \"SANCTION_TYPE\".*, \"USER\".*, \"USER_receiver\".* from \"USER\" join \"SANCTION\" on \"USER\".\"user_id\" = \"sender\" join \"USER\" \"USER_receiver\" on \"USER_receiver\".\"user_id\" = \"receiver\" join \"SANCTION_TYPE\" on \"sanction_t_id\" = \"type\" where \"sender\" = ?";
 	private static final String SQL_SELECT_LAST_USER_SANCTION = "select \"sanction_id\", \"reason\", \"time\", \"SANCTION_TYPE\".*, \"USER\".*, \"USER_receiver\".* from \"USER\" join \"SANCTION\" on \"USER\".\"user_id\" = \"sender\" join \"USER\" \"USER_receiver\" on \"USER_receiver\".\"user_id\" = \"receiver\" join \"SANCTION_TYPE\" on \"sanction_t_id\" = \"type\" where \"receiver\" = ? order by \"time\" desc FETCH NEXT 1 ROWS ONLY";
+	private static final String SQL_SANCTION_CREATE = "INSERT INTO \"SANCTION\" (\"type\", \"sender\", \"receiver\", \"reason\", \"time\") VALUES (?, ?, ?, ?, (select sysdate from dual))";
 
 	public final static String COLUMN_SANCTION_ID 		= "sanction_id";
 	public final static String COLUMN_SANCTION_REASON 	= "reason";
@@ -86,6 +87,17 @@ public class OracleSanctionDAO implements SanctionDAO {
 			sanction.setReceiver(OracleUserDAO.getUserData(resultSet, 12, 13, 14, 15, 16, 17));
 		}
 		return sanction;
+	}
+	
+	@Override
+	public void addSanction(Sanction sanction) throws SQLException {
+		PreparedStatement ps;
+		ps = this.connection.prepareStatement(SQL_SANCTION_CREATE);
+		ps.setInt(1, sanction.getType().getId());
+		ps.setInt(2, sanction.getSender().getId());
+		ps.setInt(3, sanction.getReceiver().getId());
+		ps.setString(4, sanction.getReason());
+		ps.executeUpdate();
 	}
 	
 	public static Sanction getSanctionData(ResultSet resultSet, String... columns) throws SQLException {

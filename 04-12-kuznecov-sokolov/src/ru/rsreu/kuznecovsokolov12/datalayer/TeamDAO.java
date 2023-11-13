@@ -23,4 +23,7 @@ public interface TeamDAO {
 	
 	List<Team> getTeamsForUser(User user) throws SQLException;
 	
+	void addTeam(Team team) throws SQLException;
+	
+	void deleteTeam(Team team) throws SQLException;
 }

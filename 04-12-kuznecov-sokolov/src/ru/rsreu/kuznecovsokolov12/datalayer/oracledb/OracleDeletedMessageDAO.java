@@ -7,15 +7,16 @@ import java.sql.SQLException;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.DeletedMessageDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.DeletedMessage;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
 
 public class OracleDeletedMessageDAO implements DeletedMessageDAO {
 
 	private static final String SQL_ADD_DELETED_MESSAGE_CREATE = "INSERT INTO \"DELETED_MESSAGE\" (\"sender\", \"message\", \"del_message_time\") VALUES (?, ?, (select sysdate from dual));";
+	private static final String SQL_DELETED_MESSAGE_DELETE = "delete from \"DELETED_MESSAGE\" where \"message\" = ?";
 
 	public final static String COLUMN_DEL_MESSAGE_ID 	  = "del_message_id";
 	public final static String COLUMN_DEL_MESSAGE_TIME 	  = "del_message_time";
 	public final static String[] ALL_DEL_MESSAGE_COLUMNS = {COLUMN_DEL_MESSAGE_ID, COLUMN_DEL_MESSAGE_TIME};
+
 	
 	private Connection connection;
 	
@@ -33,6 +34,14 @@ public class OracleDeletedMessageDAO implements DeletedMessageDAO {
 		ps = this.connection.prepareStatement(SQL_ADD_DELETED_MESSAGE_CREATE);
 		ps.setInt(1, deletedMessage.getSender().getId());
 		ps.setInt(2, deletedMessage.getMessage().getId());
+		ps.executeUpdate();
+	}
+	
+	@Override
+	public void removeFromDeletedMessage(DeletedMessage deletedMessage) throws SQLException {
+		PreparedStatement ps;
+		ps = this.connection.prepareStatement(SQL_DELETED_MESSAGE_DELETE);
+		ps.setInt(1, deletedMessage.getMessage().getId());
 		ps.executeUpdate();
 	}
 	

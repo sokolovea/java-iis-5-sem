@@ -12,4 +12,5 @@ public interface TeamInteractDAO {
 
 	List<TeamInteract> getAllTeamInteracts() throws SQLException;
 
+	void addTeamInteract(TeamInteract teamInteract) throws SQLException;
 }

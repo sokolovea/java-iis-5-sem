@@ -12,7 +12,6 @@ import java.util.Set;
 import ru.rsreu.kuznecovsokolov12.datalayer.MessageAttachingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.MessageAttaching;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 
 public class OracleMessageAttachingDAO implements MessageAttachingDAO {
 

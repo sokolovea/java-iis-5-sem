@@ -19,6 +19,7 @@ public class OracleRoleAssigmentDAO implements RoleAssigmentDAO {
 	public final static String COLUMN_ROLE_ASSIGMENT_ID 	= "role_assigment_id";
 	public final static String COLUMN_ROLE_ASSIGMENT_TIME 	= "time";
 	public final static String[] ALL_ROLE_ASSIGMENT_COLUMNS = {COLUMN_ROLE_ASSIGMENT_ID, COLUMN_ROLE_ASSIGMENT_TIME};
+	private static final String SQL_ROLE_ASSIGMENT_CREATE = "INSERT INTO \"ROLE_ASSIGMENT\" (\"role\", \"sender\", \"receiver\", \"time\") VALUES (?, ?, ?, (select sysdate from dual))";
 	
 	private Connection connection;
 
@@ -44,6 +45,16 @@ public class OracleRoleAssigmentDAO implements RoleAssigmentDAO {
 			result.add(roleAssig);
 		}
 		return result;
+	}
+	
+	@Override
+	public void addRoleAssigment(RoleAssigment roleAssigment) throws SQLException {
+		PreparedStatement ps;
+		ps = this.connection.prepareStatement(SQL_ROLE_ASSIGMENT_CREATE);
+		ps.setInt(1, roleAssigment.getRole().getId());
+		ps.setInt(2, roleAssigment.getSender().getId());
+		ps.setInt(3, roleAssigment.getReceiver().getId());
+		ps.executeUpdate();
 	}
 	
 	@Override

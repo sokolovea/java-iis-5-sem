@@ -26,6 +26,7 @@ public class OracleUserDAO implements UserDAO {
 	private static final String SQL_TEAM_USER_LIST_SELECT = "select \"user_id\", \"login\" from (select DISTINCT \"user_id\", \"login\", \"team_id\", first_value(\"type_name\") over (PARTITION BY \"user_id\", \"login\", \"team_id\" order by \"TEAM_INTERACT\".\"time\" desc) \"last_interact\" from \"TEAM\" join \"TEAM_INTERACT\" on \"team_id\" = \"team\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"USER\" on \"user_id\" = \"user\" join \"ROLE_ASSIGMENT\" on \"user\" = \"receiver\" join \"ROLE\" on \"role_id\" = \"role\" where \"ROLE\".\"role_name\" = 'Common user' and \"team_id\" = ?) where \"last_interact\" = 'Join'";
 	private final static String SQL_USER_UPDATE = "update \"USER\" set \"login\" = ?, \"password\" = ?, \"user_name\" = ?, \"email\" = ?, \"is_authorized\" = ? where \"USER\".\"user_id\" = ?";
 	private final static String SQL_USER_CREATE = "INSERT INTO \"USER\" (\"login\", \"password\", \"user_name\", \"email\") VALUES (?, ?, ?, ?)";
+	private static final String SQL_USER_DELETE = "delete from \"USER\" where \"user_id\" = ?";
 	
 	public final static String COLUMN_USER_ID 			  = "user_id";
 	public final static String COLUMN_USER_LOGIN 		  = "login";
@@ -181,6 +182,14 @@ public class OracleUserDAO implements UserDAO {
 			result.add(user);
 		}
 		return result;
+	}
+	
+	@Override
+	public void deleteUser(User user) throws SQLException {
+		PreparedStatement ps;
+		ps = this.connection.prepareStatement(SQL_USER_DELETE);
+		ps.setInt(1, user.getId());
+		ps.executeUpdate();
 	}
 	
 	public static User getUserData(ResultSet resultSet, String... columns) throws SQLException {

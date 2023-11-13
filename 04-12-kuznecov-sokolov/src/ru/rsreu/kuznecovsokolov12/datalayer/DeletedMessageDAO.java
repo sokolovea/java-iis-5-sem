@@ -8,4 +8,6 @@ public interface DeletedMessageDAO {
 
 	void addDeletedMessage(DeletedMessage deletedMessage) throws SQLException;
 	
+	void removeFromDeletedMessage(DeletedMessage deletedMessage) throws SQLException;
+	
 }

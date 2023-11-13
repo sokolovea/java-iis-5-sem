@@ -22,6 +22,8 @@ public class OracleTeamDAO implements TeamDAO {
 	private final static String SQL_SELECT_TEAMS_CONSULTED_BY_EXPERT = "select distinct \"TEAM\".* from \"TEAM\" join \"TEAM_INTERACT\" on \"team_id\" = \"team\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"USER\" on \"user_id\" = \"user\" join \"ROLE_ASSIGMENT\" on \"user\" = \"receiver\" join \"ROLE\" on \"role_id\" = \"role\" where \"ROLE\".\"role_name\" = 'Expert' and \"USER\".\"user_id\" = ?";
 	private final static String SQL_SELECT_N_TEAMS_BEST_COOPERATED_EXPERT = "select \"TEAM\".*, count(\"MESSAGE\".\"author\") as counts from \"TEAM\" join \"MESSAGE_ATTACHING\" on \"team_id\" = \"team\" join \"MESSAGE\" on \"message_id\" = \"message\" join \"USER\" on \"user_id\" = \"author\" join \"ROLE_ASSIGMENT\" on \"user_id\" = \"receiver\" join \"ROLE\" on \"role_id\" = \"role\" where \"ROLE\".\"role_name\" = 'Expert' and \"USER\".\"user_id\" = ? and rownum <= ? group by \"TEAM\".\"team_id\", \"TEAM\".\"team_name\" order by counts desc";
 	private final static String SQL_SELECT_TEAMS_EJECTED_EXPERT = "select distinct \"TEAM\".* from \"TEAM\" join \"TEAM_INTERACT\" on \"team_id\" = \"team\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"USER\" on \"user_id\" = \"user\" join \"ROLE_ASSIGMENT\" on \"user\" = \"receiver\" join \"ROLE\" on \"role_id\" = \"role\" where \"TEAM_INTERACT_TYPE\".\"type_name\" = 'Expert_ejected' and \"ROLE\".\"role_name\" = 'Expert' and \"USER\".\"user_id\" = ?";
+	private static final String SQL_TEAM_CREATE = "INSERT INTO \"TEAM\" (\"team_name\") VALUES (?)";
+	private static final String SQL_TEAM_DELETE = "delete from \"TEAM\" where \"team_id\" = ?";
 	
 	public final static String COLUMN_TEAM_ID 		= "team_id";
 	public final static String COLUMN_TEAM_NAME 	= "team_name";
@@ -111,6 +113,22 @@ public class OracleTeamDAO implements TeamDAO {
 	}
 	
 	@Override
+	public void addTeam(Team team) throws SQLException {
+		PreparedStatement ps;
+		ps = this.connection.prepareStatement(SQL_TEAM_CREATE);
+		ps.setString(1, team.getName());
+		ps.executeUpdate();
+	}
+	
+	@Override
+	public void deleteTeam(Team team) throws SQLException {
+		PreparedStatement ps;
+		ps = this.connection.prepareStatement(SQL_TEAM_DELETE);
+		ps.setInt(1, team.getId());
+		ps.executeUpdate();
+	}
+	
+	@Override
 	public List<Team> getTeamsForUser(User user) throws SQLException {
 		PreparedStatement ps;
 		List<Team> result = new ArrayList<>();
@@ -154,5 +172,5 @@ public class OracleTeamDAO implements TeamDAO {
 		return team;
 	}
 
-
+	
 }
