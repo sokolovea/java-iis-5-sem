@@ -7,6 +7,7 @@
 	<%
 		String loginValue = request.getParameter("login");
 		String passwordValue = request.getParameter("password");
+		String teamId = request.getParameter("team_id");
 	%>
 	<title>Кабинет пользователя/капитана/эксперта</title>
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/main_win.css">
@@ -47,7 +48,8 @@
 						</c:if>
 					</c:forEach>
 				</div>
-				<form class="display_contents_form" id="admin_report_second_form" action="controller" method="POST">
+				<form class="display_contents_form" id="message_chat_form" action="controller" method="POST">
+					<input type="hidden" name="team_id" value="<%= teamId %>"/>
 					<input type="hidden" name="command" value="Database"/>
 					<input type="hidden" name="activity" value="send_message"/>
 					<input type="hidden" name="login" value="<%= loginValue %>"/>
