@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
 import ru.rsreu.kuznecovsokolov12.datalayer.DeletedMessageDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.MessageAttachingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.DeletedMessage;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.MessageAttaching;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Setting;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
@@ -76,9 +78,7 @@ public class MenuCommand implements ActionCommand {
 					teamMembers = userDAO.getTeamUserList(team);
 					messageList = messageDAO.getAllMessagesForTeam(team);
 					deletedMessageSet = messageDAO.getDeletedMessagesForTeam(team);
-					for (Message message: messageList) {
-						System.out.println("deletedMessageSet.contains(message) = " + deletedMessageSet.containsKey(message));	
-					}
+
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -109,15 +109,24 @@ public class MenuCommand implements ActionCommand {
 		if (loginResult == EnumLogin.MODERATOR) {
 			DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
 			if (destination.equals("main")) {
+				MessageAttachingDAO messageAttachDAO = factory.getMessageAttachingDAO();
 				UserDAO userDAO = factory.getUserDAO();
+//				TeamDAO teamDAO = factory.getTeamDAO();
+//				String login = request.getParameter(PARAM_NAME_LOGIN);
+				List<MessageAttaching> messageList = null;
+				Set<MessageAttaching> deletedMessageSet = null;
+				List<User> userList = null;
 				try {
-					List<User> userList = userDAO.getUnprivilegedUsers();
-					request.setAttribute("user_list", userList);
+					userList = userDAO.getUnprivilegedUsers();
+					messageList = messageAttachDAO.getAllMessageAttachs();
+					deletedMessageSet = messageAttachDAO.getAllDeletedMessageAttachs();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					factory.returnConnectionToPool();
 					e.printStackTrace();
 				}
+				request.setAttribute("user_list", userList);
+				request.setAttribute("messageList", messageList);
+				request.setAttribute("deletedMessageSet", deletedMessageSet);
 				factory.returnConnectionToPool();
 				return ConfigurationManager.getProperty("path.page.moderator");
 			}

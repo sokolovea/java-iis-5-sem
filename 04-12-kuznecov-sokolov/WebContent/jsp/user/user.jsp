@@ -25,7 +25,7 @@
 							<div class="message<c:if test="${messageIsDeleted}"> deleted_message</c:if>">
 								<div class="message_header">
 									<div class="user_box">
-										<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>${message.getAuthor().getLogin()}</div>
+										<div class="message_user">${message.getAuthor().getLogin()}</div>
 									</div>
 									<div class="message_time">[${message.getTime()}]</div>
 								</div>

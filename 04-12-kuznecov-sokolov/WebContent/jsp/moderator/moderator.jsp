@@ -79,29 +79,30 @@
 				
 				
 					<c:forEach var="message" items="${messageList}">
-						<c:set var="messageIsDeleted" value="${deletedMessageSet.containsKey(message)}"></c:set>
-						<c:if test="${!messageIsDeleted || messageIsDeleted && message.getAuthor().getLogin().equals(userName)}">  
+						<c:set var="messageIsDeleted" value="${deletedMessageSet.contains(message)}"></c:set>
+						<c:if test="${!messageIsDeleted || messageIsDeleted && message.getMessage().getAuthor().getLogin().equals(userName)}">  
 							<div class="message<c:if test="${messageIsDeleted}"> deleted_message</c:if>">
 								<div class="message_header">
 									<div class="user_box">
-										<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>${message.getAuthor().getLogin()}</div>
+										<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>${message.getMessage().getAuthor().getLogin()}</div>
 									</div>
-									<div class="message_time">[${message.getTime()}]</div>
+									<div class="time_and_team_box">
+										<div class="message_team">${message.getTeam().getName()} -&nbsp</div>
+										<div class="message_time">[${message.getMessage().getTime()}]</div>
+									</div>
 								</div>
 								<div class="message_content">
-									<div class="message_data">${message.getData()}</div>
-										<div class="message_buttons">
-											<c:if test="${!messageIsDeleted && message.getAuthor().getLogin().equals(userName) || messageIsDeleted && message.getAuthor().getId().equals(deletedMessageSet.get(message))}"> 
-												<div class="restore_message_button">&#8635</div>
-												<div class="delete_message_button">✖</div>
-											</c:if>
-										</div>
+									<div class="message_data">${message.getMessage().getData()}</div>
+									<div class="message_buttons">
+										<div class="restore_message_button">&#8635</div>
+										<div class="delete_message_button">✖</div>
+									</div>
 								</div>
 							</div>
 						</c:if>
 					</c:forEach>
 					
-					
+	<!--				
 					<div class="message"> 
 						<div class="message_header">
 							<div class="user_box">
@@ -120,6 +121,8 @@
 							</div>
 						</div>
 					</div>
+					
+					
 					<div class="message deleted_message"> 
 						<div class="message_header">
 							<div class="user_box">
@@ -228,6 +231,7 @@
 							</div>
 						</div>
 					</div>
+					-->
 				</div>
 			</div>
 			<div id="right_bar" class="container">
