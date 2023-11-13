@@ -7,13 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
+import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Setting;
 
 public class DatabaseCommand implements ActionCommand {
 	private static final String PARAM_NAME_LOGIN = "login";
 	private static final String PARAM_NAME_PASSWORD = "password";
-	
+
 	@Override
 	public String execute(HttpServletRequest request) {
 		String login = request.getParameter(PARAM_NAME_LOGIN);
@@ -28,47 +29,46 @@ public class DatabaseCommand implements ActionCommand {
 				if (activity.equals("update_setting")) {
 					String teamCapacity = request.getParameter("teamCapacity");
 					String expertCapacity = request.getParameter("expertCapacity");
-					System.out.println(login + "; " + password + "; " + teamCapacity + "; " + expertCapacity + "; activity=" + activity);
+					System.out.println(login + "; " + password + "; " + teamCapacity + "; " + expertCapacity
+							+ "; activity=" + activity);
 					DatabaseLogic.updateSetting(teamCapacity, expertCapacity);
 					DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
 					SettingDAO settingDAO = factory.getSettingDAO();
 					List<Setting> settingList = settingDAO.getSetting();
 					request.setAttribute("setting_list", settingList);
-					factory.returnConnectionToPool();	
+					factory.returnConnectionToPool();
 					return ConfigurationManager.getProperty("path.page.admin_settings");
+				}
+			} else if (loginResult == EnumLogin.USER) {
+				if (activity.equals("send_message")) {
+					DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+					MessageDAO messageDAO = factory.getMessageDAO();
+					String messageString = request.getParameter("message");
+					if (messageString == null) {
+						System.out.println("Null message!!!");
+					}
+					Message message = 
+					factory.returnConnectionToPool();
 				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-		
-		
 
-		
-		
-		
 		request.setAttribute(DatabaseCommand.getRequestAttribute(loginResult), login);
 		System.out.println("DatabaseCommand.getPage(loginResult); = " + DatabaseCommand.getPage(loginResult));
-		
-		
-		
-		
-		
+
 		return DatabaseCommand.getPage(loginResult);
 	}
-	
+
 	private static String getRequestAttribute(EnumLogin loginResult) {
 		if (loginResult != EnumLogin.NOUSER) {
 			return loginResult.toString();
 		}
 		return "errorLoginPassMessage";
 	}
-	
+
 	private static String getPage(EnumLogin loginResult) {
 		if (loginResult != EnumLogin.NOUSER) {
 			return ConfigurationManager.getProperty("path.page.reports");

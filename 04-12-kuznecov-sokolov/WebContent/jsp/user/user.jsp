@@ -3,6 +3,11 @@
 <html lang="ru-RU">
 <meta http-equiv="Cache-Control" content="no-cache">
 <head>
+<head>
+	<%
+		String loginValue = request.getParameter("login");
+		String passwordValue = request.getParameter("password");
+	%>
 	<title>Кабинет пользователя/капитана/эксперта</title>
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/main_win.css">
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/input_items.css">
@@ -42,14 +47,20 @@
 						</c:if>
 					</c:forEach>
 				</div>
-				<div id="message_input_box" class="center_bar_boxes">
-					<div id="message_input_box_text_box">	
-						<input id="text_box_message" class="text_box" type="text" name="message" placeholder="Введите сообщение"></input>
+				<form id="admin_report_second_form" action="controller" method="POST">
+					<input type="hidden" name="command" value="Database"/>
+					<input type="hidden" name="activity" value="send_message"/>
+					<input type="hidden" name="login" value="<%= loginValue %>"/>
+				    <input type="hidden" name="password" value="<%= passwordValue %>"/>
+					<div id="message_input_box" class="center_bar_boxes">
+						<div id="message_input_box_text_box">	
+							<input id="text_box_message" class="text_box" type="text" name="message" placeholder="Введите сообщение"></input>
+						</div>
+						<div id="message_input_box_send">
+							<input type="submit" value="Отправить"/>
+						</div>
 					</div>
-					<div id="message_input_box_send">
-						<input type="button" value="Отправить"/>
-					</div>
-				</div>
+				</form>
 			</div>
 			<div id="right_bar" class="container">
 				<div class='team_list'>

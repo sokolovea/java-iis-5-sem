@@ -5,7 +5,6 @@
 <head>
 	<%
 		String loginValue = request.getParameter("login");
-		System.out.println("login = " + loginValue);
 		String passwordValue = request.getParameter("password");
 		String element = request.getParameter("element");
 		String report_id = request.getParameter("report_id");
