@@ -90,6 +90,24 @@ public class OracleMessageAttachingDAO implements MessageAttachingDAO {
 		}
 		return result;
 	}
+
+	@Override
+	public void addMessage(MessageAttaching messageAttach) throws SQLException {
+		PreparedStatement ps;
+		ps = this.connection.prepareStatement(SQL_MESSAGE_CREATE, PreparedStatement.RETURN_GENERATED_KEYS);
+		ps.setString(1, messageAttach.getMessage().getData());
+		ps.setInt(2, messageAttach.getMessage().getAuthor().getId());
+		ps.executeUpdate();
+		ResultSet generatedKeys = ps.getGeneratedKeys();
+		int messageId = 0;
+		if (generatedKeys.next()) {
+			messageId = generatedKeys.getInt(1);
+		}
+		ps = this.connection.prepareStatement(SQL_MESSAGE_ATTACHING_CREATE);
+		ps.setInt(1, messageAttach.getTeam().getId());
+		ps.setInt(2, messageId);
+		ps.executeUpdate();
+	}
 	
 	public static MessageAttaching getMessageData(ResultSet resultSet, String... columns) throws SQLException {
 		MessageAttaching messageAttach = new MessageAttaching();
@@ -102,22 +120,6 @@ public class OracleMessageAttachingDAO implements MessageAttachingDAO {
 		return messageAttach;
 	}
 
-	@Override
-	public void addMessage(MessageAttaching messageAttach) throws SQLException {
-		PreparedStatement ps;
-		ps = this.connection.prepareStatement(SQL_MESSAGE_CREATE, PreparedStatement.RETURN_GENERATED_KEYS);
-		ps.setString(1, messageAttach.getMessage().getData());
-		ps.setInt(2, messageAttach.getMessage().getAuthor().getId());
-		ps.executeUpdate();
-		ResultSet generatedKeys = ps.getGeneratedKeys();
-        if (generatedKeys.next()) {
-        	ps.setInt(1, messageAttach.getTeam().getId());
-        	int messageId = generatedKeys.getInt(1);
-        	ps = this.connection.prepareStatement(SQL_MESSAGE_ATTACHING_CREATE);
-    		ps.setInt(2, messageId);
-    		ps.executeUpdate();
-        }
-	}
 
 
 }

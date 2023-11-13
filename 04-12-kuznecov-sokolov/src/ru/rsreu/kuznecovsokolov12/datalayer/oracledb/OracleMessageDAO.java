@@ -25,7 +25,6 @@ public class OracleMessageDAO implements MessageDAO {
 	private final static String SQL_SELECT_MESSAGES_DEL_BY_NO_SELF_USER = "select \"MESSAGE\".* from \"USER\" join \"MESSAGE\" on \"USER\".\"user_id\" = \"MESSAGE\".\"author\" join \"DELETED_MESSAGE\" on \"MESSAGE\".\"message_id\" = \"DELETED_MESSAGE\".\"message\" where \"DELETED_MESSAGE\".\"sender\" != \"USER\".\"user_id\" and \"USER\".\"user_id\" = ?";
 	private final static String SQL_SELECT_COUNT_MESSAGES_BY_USER = "select count(\"MESSAGE\".\"message_id\") as \"count_messages\" from \"USER\" join \"MESSAGE\" on \"USER\".\"user_id\" = \"MESSAGE\".\"author\" where \"USER\".\"user_id\" = ?";
 	private final static String SQL_SELECT_COUNT_DEL_MESSAGES_BY_USER = "select count(\"MESSAGE\".\"message_id\") as \"count_del_messages\" from \"USER\" join \"MESSAGE\" on \"USER\".\"user_id\" = \"MESSAGE\".\"author\" join \"DELETED_MESSAGE\" on \"message\" = \"message_id\" where \"USER\".\"user_id\" = ?";
-	private static final String SQL_MESSAGE_CREATE = "INSERT INTO \"MESSAGE\" (\"data\", \"author\", \"message_time\") VALUES (?, ?, (select sysdate from dual))";
 	
 	
 	public final static String COLUMN_MESSAGE_ID 	  = "message_id";
