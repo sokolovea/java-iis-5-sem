@@ -101,12 +101,14 @@ public class OracleMessageAttachingDAO implements MessageAttachingDAO {
 		ResultSet generatedKeys = ps.getGeneratedKeys();
 		int messageId = 0;
 		if (generatedKeys.next()) {
+			System.out.println(generatedKeys.getString(1));
 			messageId = generatedKeys.getInt(1);
+			ps = this.connection.prepareStatement(SQL_MESSAGE_ATTACHING_CREATE);
+			ps.setInt(1, messageAttach.getTeam().getId());
+			ps.setInt(2, messageId);
+			ps.executeUpdate();
 		}
-		ps = this.connection.prepareStatement(SQL_MESSAGE_ATTACHING_CREATE);
-		ps.setInt(1, messageAttach.getTeam().getId());
-		ps.setInt(2, messageId);
-		ps.executeUpdate();
+		
 	}
 	
 	public static MessageAttaching getMessageData(ResultSet resultSet, String... columns) throws SQLException {
@@ -119,7 +121,4 @@ public class OracleMessageAttachingDAO implements MessageAttachingDAO {
 		}
 		return messageAttach;
 	}
-
-
-
 }
