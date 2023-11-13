@@ -16,4 +16,6 @@ public interface MessageAttachingDAO {
 	
 	List<MessageAttaching> getAllMessageAttachs() throws SQLException;
 	
+	void addMessage(MessageAttaching messageAttach) throws SQLException;
+	
 }

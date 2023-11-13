@@ -144,15 +144,6 @@ public class OracleMessageDAO implements MessageDAO {
 		return result;
 	}
 
-	@Override
-	public void addMessage(Message message) throws SQLException {
-		PreparedStatement ps;
-		ps = this.connection.prepareStatement(SQL_MESSAGE_CREATE);
-		ps.setString(1, message.getData());
-		ps.setInt(2, message.getAuthor().getId());
-		ps.executeUpdate();
-	}
-
 	public static Message getMessageData(ResultSet resultSet, String... columns) throws SQLException {
 		Message message = new Message();
 		for (String column : columns) {
