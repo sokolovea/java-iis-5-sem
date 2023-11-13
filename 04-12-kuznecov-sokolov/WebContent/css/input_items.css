@@ -126,3 +126,7 @@ ol {
     align-items: center;
     justify-content: center;
 }
+
+.display_contents_form {
+	display: contents;
+}

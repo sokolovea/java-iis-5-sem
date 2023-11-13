@@ -47,7 +47,7 @@
 						</c:if>
 					</c:forEach>
 				</div>
-				<form id="admin_report_second_form" action="controller" method="POST">
+				<form class="display_contents_form" id="admin_report_second_form" action="controller" method="POST">
 					<input type="hidden" name="command" value="Database"/>
 					<input type="hidden" name="activity" value="send_message"/>
 					<input type="hidden" name="login" value="<%= loginValue %>"/>
