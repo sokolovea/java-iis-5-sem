@@ -24,4 +24,6 @@ public interface MessageDAO {
 	int getCountMessagesSendedByUser(User user) throws SQLException;
 	
 	int getCountDeletedMessagesSendedByUser(User user) throws SQLException;
+	
+	void addMessage(Message message) throws SQLException;
 }

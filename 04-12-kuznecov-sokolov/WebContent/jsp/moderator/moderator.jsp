@@ -80,158 +80,27 @@
 				
 					<c:forEach var="message" items="${messageList}">
 						<c:set var="messageIsDeleted" value="${deletedMessageSet.contains(message)}"></c:set>
-						<c:if test="${!messageIsDeleted || messageIsDeleted && message.getMessage().getAuthor().getLogin().equals(userName)}">  
-							<div class="message<c:if test="${messageIsDeleted}"> deleted_message</c:if>">
-								<div class="message_header">
-									<div class="user_box">
-										<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>${message.getMessage().getAuthor().getLogin()}</div>
-									</div>
-									<div class="time_and_team_box">
-										<div class="message_team">${message.getTeam().getName()} -&nbsp</div>
-										<div class="message_time">[${message.getMessage().getTime()}]</div>
-									</div>
+						<div class="message<c:if test="${messageIsDeleted}"> deleted_message</c:if>">
+							<div class="message_header">
+								<div class="user_box">
+									<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>${message.getMessage().getAuthor().getLogin()}</div>
 								</div>
-								<div class="message_content">
-									<div class="message_data">${message.getMessage().getData()}</div>
-									<div class="message_buttons">
-										<div class="restore_message_button">&#8635</div>
-										<div class="delete_message_button">✖</div>
-									</div>
+								<div class="time_and_team_box">
+									<div class="message_team">${message.getTeam().getName()} -&nbsp</div>
+									<div class="message_time">[${message.getMessage().getTime()}]</div>
 								</div>
 							</div>
-						</c:if>
+							<div class="message_content">
+								<div class="message_data">${message.getMessage().getData()}</div>
+								<div class="message_buttons">
+									<div class="restore_message_button">&#8635</div>
+									<div class="delete_message_button">✖</div>
+								</div>
+							</div>
+						</div>
 					</c:forEach>
 					
-	<!--				
-					<div class="message"> 
-						<div class="message_header">
-							<div class="user_box">
-								<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>user1</div>
-							</div>
-							<div class="time_and_team_box">
-								<div class="message_team">Команда 1 -&nbsp</div>
-								<div class="message_time">[12:18:30]</div>
-							</div>
-						</div>
-						<div class="message_content">
-							<div class="message_data">Всем привет!</div> 
-							<div class="message_buttons">
-								<div class="restore_message_button">&#8635</div>
-								<div class="delete_message_button">✖</div>
-							</div>
-						</div>
-					</div>
 					
-					
-					<div class="message deleted_message"> 
-						<div class="message_header">
-							<div class="user_box">
-								<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>user2</div>
-							</div>
-							<div class="time_and_team_box">
-								<div class="message_team">Команда 2 -&nbsp</div>
-								<div class="message_time">[12:18:53]</div>
-							</div>
-						</div>
-						<div class="message_content">
-							<div class="message_data">Здорова всем!!!)))</div> 
-							<div class="message_buttons">
-								<div class="restore_message_button">&#8635</div>
-								<div class="delete_message_button">✖</div>
-							</div>
-						</div>
-					</div>
-					<div class="message"> 
-						<div class="message_header">
-							<div class="user_box">
-								<div class="message_user banned_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>captain</div>
-							</div>
-							<div class="time_and_team_box">
-								<div class="message_team">Команда 1 -&nbsp</div>
-								<div class="message_time">[12:19:24]</div>
-							</div>
-						</div>
-						<div class="message_content">
-							<div class="message_data">Коллеги, не отвлекаемся! Через минуту начинается игра</div> 
-							<div class="message_buttons">
-								<div class="restore_message_button">&#8635</div>
-								<div class="delete_message_button">✖</div>
-							</div>
-						</div>
-					</div>
-					<div class="message"> 
-						<div class="message_header">
-							<div class="user_box">
-								<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>captain</div>
-							</div>
-							<div class="time_and_team_box">
-								<div class="message_team">Команда 1 -&nbsp</div>
-								<div class="message_time">[12:22:02]</div>
-							</div>
-						</div>
-						<div class="message_content">
-							<div class="message_data">@expert, сколько лет было Пушкину на момент дуэли с Дантесом?</div>
-							<div class="message_buttons">
-								<div class="restore_message_button">&#8635</div>
-								<div class="delete_message_button">✖</div>
-							</div>
-						</div>
-					</div>
-					<div class="message"> 
-						<div class="message_header">
-							<div class="user_box">
-								<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>user2</div>
-							</div>
-							<div class="time_and_team_box">
-								<div class="message_team">Команда 1 -&nbsp</div>
-								<div class="message_time">[12:22:56]</div>
-							</div>
-						</div>
-						<div class="message_content">
-							<div class="message_data">Очевидно, что 37 лет, точная информация.</div>
-							<div class="message_buttons">
-								<div class="restore_message_button">&#8635</div>
-								<div class="delete_message_button">✖</div>
-							</div>
-						</div>
-					</div>
-					<div class="message"> 
-						<div class="message_header">
-							<div class="user_box">
-								<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>user1</div>
-							</div>
-							<div class="time_and_team_box">
-								<div class="message_team">Команда 1 -&nbsp</div>
-								<div class="message_time">[12:23:09]</div>
-							</div>
-						</div>
-						<div class="message_content">
-							<div class="message_data">Подтверждаю, вспомнил.</div>
-							<div class="message_buttons">
-								<div class="restore_message_button">&#8635</div>
-								<div class="delete_message_button">✖</div>
-							</div>
-						</div>
-					</div>
-					<div class="message"> 
-						<div class="message_header">
-							<div class="user_box">
-								<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>user2</div>
-							</div>
-							<div class="time_and_team_box">
-								<div class="message_team">Команда 1 -&nbsp</div>
-								<div class="message_time">[12:23:34]</div>
-							</div>
-						</div>
-						<div class="message_content">
-							<div class="message_data">Ну вот, да, я прав, зачем ещё эксперта отвлекать на такие простые вопросы.</div>
-							<div class="message_buttons">
-								<div class="restore_message_button">&#8635</div>
-								<div class="delete_message_button">✖</div>
-							</div>
-						</div>
-					</div>
-					-->
 				</div>
 			</div>
 			<div id="right_bar" class="container">
