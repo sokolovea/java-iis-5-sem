@@ -79,6 +79,8 @@ public class ReportCommand implements ActionCommand {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			request.setAttribute("element", "deleted_message_button");
+			request.setAttribute("report_id", "report_messages_deleted_by_no_user");
 			factory.returnConnectionToPool();
 		} else if (loginResult == EnumLogin.EXPERT) {
 			User expert = new User();
@@ -99,6 +101,8 @@ public class ReportCommand implements ActionCommand {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			request.setAttribute("element", "usefull_cooperate_button");
+			request.setAttribute("report_id", "report_more_messages");
 			factory.returnConnectionToPool();
 		} else if (loginResult == EnumLogin.MODERATOR) {
 			User moderator = new User();
@@ -120,6 +124,8 @@ public class ReportCommand implements ActionCommand {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			request.setAttribute("element", "users_blocked_more_N_times_button");
+			request.setAttribute("report_id", "report_moderator_blocked_n");
 			factory.returnConnectionToPool();
 		}
 		return ReportCommand.getPage(loginResult);
