@@ -112,9 +112,9 @@ public class OracleMessageAttachingDAO implements MessageAttachingDAO {
 		ResultSet generatedKeys = ps.getGeneratedKeys();
         if (generatedKeys.next()) {
         	ps.setInt(1, messageAttach.getTeam().getId());
-        	int messageId = generatedKeys.getInt(1);
+        	long messageId = generatedKeys.getLong(1);
         	ps = this.connection.prepareStatement(SQL_MESSAGE_ATTACHING_CREATE);
-    		ps.setInt(2, messageId);
+    		ps.setLong(2, messageId);
     		ps.executeUpdate();
         }
 	}

@@ -7,11 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
+import ru.rsreu.kuznecovsokolov12.datalayer.MessageAttachingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.MessageAttaching;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Setting;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
@@ -50,9 +52,10 @@ public class DatabaseCommand implements ActionCommand {
 					MessageDAO messageDAO = factory.getMessageDAO();
 					UserDAO userDAO = factory.getUserDAO();
 					TeamDAO teamDAO = factory.getTeamDAO();
+					MessageAttachingDAO messageAttachingDAO = factory.getMessageAttachingDAO();
 					User user = userDAO.getUserByLogin(login);
 					List<Team> teamList = teamDAO.getTeamsForUser(user);
-					if (team.size() == 0) {
+					if (teamList.size() == 0) {
 						System.out.println("Null team list for user!!!");
 					}
 					String messageString = request.getParameter("message");
@@ -62,7 +65,10 @@ public class DatabaseCommand implements ActionCommand {
 					Message message = new Message();
 					message.setAuthor(user);
 					message.setData(messageString);
-					messageDAO.addMessage(message);
+					MessageAttaching messageAttaching = new MessageAttaching();
+					messageAttaching.setMessage(message);
+					messageAttaching.setTeam(teamList.get(0));
+					messageAttachingDAO.addMessage(messageAttaching);
 					factory.returnConnectionToPool();
 					return ConfigurationManager.getProperty("path.page.team");
 				}
