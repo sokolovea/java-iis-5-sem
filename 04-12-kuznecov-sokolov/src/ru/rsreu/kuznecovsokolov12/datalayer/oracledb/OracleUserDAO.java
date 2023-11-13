@@ -22,8 +22,8 @@ public class OracleUserDAO implements UserDAO {
 	private final static String SQL_ALL_USERS_SELECT = "select * FROM \"USER\"";
 	private static final String SQL_ALL_USERS_WITH_ROLE_SELECT = "select \"USER\".*, \"ROLE\".* from \"USER\" join \"ROLE_ASSIGMENT\" on \"user_id\" = \"receiver\" join \"ROLE\" on \"role\" = \"role_id\"";
 	private final static String SQL_UNPRIVILEGED_USERS_SELECT = "select \"USER\".* from ((\"USER\" join \"ROLE_ASSIGMENT\" on \"USER\".\"user_id\" = \"ROLE_ASSIGMENT\".\"receiver\") join \"ROLE\" on \"ROLE_ASSIGMENT\".\"role\" = \"ROLE\".\"role_id\") join \"ROLE_GROUP\" on \"ROLE\".\"group\" = \"ROLE_GROUP\".\"role_group_id\" where \"ROLE_GROUP\".\"role_group_name\" = 'User'";
-	private final static String SQL_BLOCKED_MORE_N_TIMES_USERS_SELECT = "select \"USER\".\"user_id\", count(\"login\") from (\"USER\" join \"SANCTION\" on \"USER\".\"user_id\" = \"SANCTION\".\"receiver\") join \"SANCTION_TYPE\" ON \"SANCTION_TYPE\".\"sanction_t_id\" = \"SANCTION\".\"type\" where \"SANCTION_TYPE\".\"sanction_t_name\" = 'Block' group by \"USER\".\"user_id\" having count(\"login\") >= ?";
-	private static final String SQL_TEAM_USER_LIST_SELECT = "select \"USER\".*, \"TEAM_INTERACT\".\"time\" from \"TEAM\" join \"TEAM_INTERACT\" on \"team_id\" = \"team\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"USER\" on \"user_id\" = \"user\" join \"ROLE_ASSIGMENT\" on \"user\" = \"receiver\" join \"ROLE\" on \"role_id\" = \"role\" where \"type_name\" = 'Join' and \"ROLE\".\"role_name\" = 'Common user' and \"team_id\" = ? minus select \"USER\".*, \"TEAM_INTERACT\".\"time\" from \"TEAM\" join \"TEAM_INTERACT\" on \"team_id\" = \"team\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"USER\" on \"user_id\" = \"user\" join \"ROLE_ASSIGMENT\" on \"user\" = \"receiver\" join \"ROLE\" on \"role_id\" = \"role\" where \"type_name\" = 'Exit' and \"ROLE\".\"role_name\" = 'Common user' and \"team_id\" = ? order by \"time\"";
+	private final static String SQL_BLOCKED_MORE_N_TIMES_USERS_SELECT = "select \"USER\".\"user_id\", \"login\", count(\"login\") count_blocks from (\"USER\" join \"SANCTION\" on \"USER\".\"user_id\" = \"SANCTION\".\"receiver\") join \"SANCTION_TYPE\" ON \"SANCTION_TYPE\".\"sanction_t_id\" = \"SANCTION\".\"type\" where \"SANCTION_TYPE\".\"sanction_t_name\" = 'Block' group by \"USER\".\"user_id\", \"login\" having count(\"login\") >= ?";
+	private static final String SQL_TEAM_USER_LIST_SELECT = "select \"user_id\", \"login\" from (select DISTINCT \"user_id\", \"login\", \"team_id\", first_value(\"type_name\") over (PARTITION BY \"user_id\", \"login\", \"team_id\" order by \"TEAM_INTERACT\".\"time\" desc) \"last_interact\" from \"TEAM\" join \"TEAM_INTERACT\" on \"team_id\" = \"team\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"USER\" on \"user_id\" = \"user\" join \"ROLE_ASSIGMENT\" on \"user\" = \"receiver\" join \"ROLE\" on \"role_id\" = \"role\" where \"ROLE\".\"role_name\" = 'Common user' and \"team_id\" = ?) where \"last_interact\" = 'Join'";
 	private final static String SQL_USER_UPDATE = "update \"USER\" set \"login\" = ?, \"password\" = ?, \"user_name\" = ?, \"email\" = ?, \"is_authorized\" = ? where \"USER\".\"user_id\" = ?";
 	private final static String SQL_USER_CREATE = "INSERT INTO \"USER\" (\"login\", \"password\", \"user_name\", \"email\") VALUES (?, ?, ?, ?)";
 	
@@ -163,7 +163,7 @@ public class OracleUserDAO implements UserDAO {
 		ps.setInt(1, N);
 		ResultSet resultSet = ps.executeQuery();
 		while (resultSet.next()) {
-			User user = getUserData(resultSet, ALL_USER_COLUMNS);
+			User user = getUserData(resultSet, COLUMN_USER_ID, COLUMN_USER_LOGIN);
 			result.add(user);
 		}
 		return result;
@@ -175,10 +175,9 @@ public class OracleUserDAO implements UserDAO {
 		List<User> result = new ArrayList<User>();
 		ps = this.connection.prepareStatement(SQL_TEAM_USER_LIST_SELECT);
 		ps.setInt(1, team.getId());
-		ps.setInt(2, team.getId());
 		ResultSet resultSet = ps.executeQuery();
 		while (resultSet.next()) {
-			User user = getUserData(resultSet, ALL_USER_COLUMNS);
+			User user = getUserData(resultSet, COLUMN_USER_ID, COLUMN_USER_LOGIN);
 			result.add(user);
 		}
 		return result;
