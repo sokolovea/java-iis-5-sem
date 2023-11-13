@@ -3,6 +3,7 @@ package ru.rsreu.kuznecovsokolov12.servlet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,10 +12,12 @@ import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
 import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.RoleAssigmentDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.SanctionDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.RoleAssigment;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Sanction;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public class ReportCommand implements ActionCommand {
@@ -40,6 +43,7 @@ public class ReportCommand implements ActionCommand {
 		RoleAssigmentDAO roleAssigmentDAO = factory.getRoleAssigmentDAO();
 		MessageDAO messageDAO = factory.getMessageDAO();
 		SanctionDAO sanctionDAO = factory.getSanctionDAO();
+		TeamDAO teamDAO = factory.getTeamDAO();
 		if (loginResult == EnumLogin.ADMIN) {
 			List<User> adminReportFirst = new ArrayList<User>();
 			List<RoleAssigment> adminReportSecond = new ArrayList<RoleAssigment>();
@@ -72,6 +76,26 @@ public class ReportCommand implements ActionCommand {
 				int countDeletedMessages = messageDAO.getCountDeletedMessagesSendedByUser(user);
 				request.setAttribute("countSendedMessages", countSendedMessages);
 				request.setAttribute("countDeletedMessages", countDeletedMessages);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			factory.returnConnectionToPool();
+		} else if (loginResult == EnumLogin.EXPERT) {
+			User expert = new User();
+			try {
+				expert = userDAO.getUserByLogin(login);
+				List<Team> firstReportList = teamDAO.getTeamsConsultedByExpert(expert);
+				request.setAttribute("expertReportFirst", firstReportList);
+				
+				
+				if (request.getParameter("n_teams_search") != null) {
+					int n = Integer.parseInt(request.getParameter("n_teams_search"));
+					Map<Team, Integer> secondReportList = teamDAO.getNTeamsBestCooperatedExpert(expert, n);
+					request.setAttribute("expertReportSecond", secondReportList);
+				}
+				List<Team> thirdReportList = teamDAO.getTeamsEjectedExpert(expert);
+				request.setAttribute("expertReportThird", thirdReportList);
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

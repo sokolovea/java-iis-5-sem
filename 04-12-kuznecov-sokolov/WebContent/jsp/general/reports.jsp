@@ -60,16 +60,27 @@
 										<tr>
 											<th>Наименование команды</th>
 										</tr>
+										<tbody>
+									        <c:forEach var="team" items="${expertReportFirst}">
+									            <tr>
+									                <td>${team.getName()}</td>
+									            </tr>
+									        </c:forEach>
+							    		</tbody>
 								    </thead>
 								</table>
 							</div>
 						</div>
 			            <div id="report_more_messages" class="report">
 							<div class="report_caption">Вывод N команд, которым данный эксперт писал больше всего сообщений</div>
+							<form id="admin_report_second_form" action="controller" method="POST">
 							<div class="report_inputs">
+								<input type="hidden" name="command" value="Report"/>
+								<input type="hidden" name="login" value="<%= loginValue %>"/>
+				    			<input type="hidden" name="password" value="<%= passwordValue %>"/>
 								<span style="margin-right: 7px;">N =</span> 
 								<input id="n_teams_text_box" class="text_box" type="number" name="countCommands" value="100"/><br/>
-		            			<input id="n_teams_search" type="button" name="countCommands_submit" value="Найти"/>
+		            			<input id="n_teams_search" type="submit" name="countCommands_submit" value="Найти"/>
 							</div>
 							<div class="report_table">
 								<table>
@@ -77,6 +88,13 @@
 										<tr>
 											<th>Наименование команды</th>
 										</tr>
+										<tbody>
+									        <c:forEach var="team" items="${expertReportSecond}">
+									            <tr>
+									                <td>${team.getKey().getName()}</td>
+									            </tr>
+									        </c:forEach>
+							    		</tbody>
 								    </thead>
 								</table>
 							</div>
@@ -90,6 +108,13 @@
 											<th>Наименование команды</th>
 										</tr>
 								    </thead>
+							    	<tbody>
+								        <c:forEach var="team" items="${expertReportThird}">
+								            <tr>
+								                <td>${team.getName()}</td>
+								            </tr>
+								        </c:forEach>
+						    		</tbody>
 								</table>
 							</div>
 						</div>
@@ -106,14 +131,14 @@
 							      			<th>Время</th>
 										</tr>
 								    </thead>
-									  	<tbody>
-									        <c:forEach var="message" items="${userReportFirst}">
-									            <tr>
-									                <td>${message.getData()}</td>
-									                <td>${message.getTime()}</td>
-									            </tr>
-									        </c:forEach>
-								    	</tbody>
+								  	<tbody>
+								        <c:forEach var="message" items="${userReportFirst}">
+								            <tr>
+								                <td>${message.getData()}</td>
+								                <td>${message.getTime()}</td>
+								            </tr>
+								        </c:forEach>
+							    	</tbody>
 								</table>
 							</div>
 						</div>
