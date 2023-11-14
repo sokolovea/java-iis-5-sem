@@ -39,43 +39,24 @@ public class DatabaseCommand implements ActionCommand {
 					System.out.println(login + "; " + password + "; " + teamCapacity + "; " + expertCapacity
 							+ "; activity=" + activity);
 					DatabaseLogic.updateSetting(teamCapacity, expertCapacity);
+					// TODO
 					DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
 					SettingDAO settingDAO = factory.getSettingDAO();
 					List<Setting> settingList = settingDAO.getSetting();
 					request.setAttribute("setting_list", settingList);
 					factory.returnConnectionToPool();
+					// TODO - end
 					return ConfigurationManager.getProperty("path.page.admin_settings");
 				}
 			} else if (loginResult == EnumLogin.USER) {
 				if (activity.equals("send_message")) {
-					DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
-					MessageDAO messageDAO = factory.getMessageDAO();
-					UserDAO userDAO = factory.getUserDAO();
-					TeamDAO teamDAO = factory.getTeamDAO();
-					MessageAttachingDAO messageAttachingDAO = factory.getMessageAttachingDAO();
-					User user = userDAO.getUserByLogin(login);
-					List<Team> teamList = teamDAO.getTeamsForUser(user);
-					if (teamList.size() == 0) {
-						System.out.println("Null team list for user!!!");
-					}
-					String messageString = request.getParameter("message");
-					if (messageString == null) {
-						System.out.println("Null message!!!"); //Message(id, data, author, time)
-					}
-					Message message = new Message();
-					message.setAuthor(user);
-					message.setData(messageString);
-					MessageAttaching messageAttaching = new MessageAttaching();
-					messageAttaching.setMessage(message);
-					messageAttaching.setTeam(teamList.get(0));
-					messageAttachingDAO.addMessage(messageAttaching);
-					factory.returnConnectionToPool();
+					String message = request.getParameter("message");
+					DatabaseLogic.sendMessage(login, message);
 					return MenuCommand.getPage(loginResult, "team", request);
 //					return ConfigurationManager.getProperty("path.page.team");
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -98,5 +79,4 @@ public class DatabaseCommand implements ActionCommand {
 		}
 		return ConfigurationManager.getProperty("path.page.login");
 	}
-
 }
