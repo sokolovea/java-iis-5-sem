@@ -84,6 +84,7 @@
 												<div class="delete_message_button" onclick='deleteMessage(${message.getId()}, this)'>✖</div>
 											</c:if>
 										</div>
+
 								</div>
 							</div>
 						</c:if>

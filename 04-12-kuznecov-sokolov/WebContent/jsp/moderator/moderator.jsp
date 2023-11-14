@@ -50,6 +50,30 @@
 			    }
 			  }
 			}
+		
+		function chatMessageFilter(element) {
+			var messages = document.getElementsByClassName("message");
+			for (var i = 0; i < teams.length; i++) {
+				messages[i].style.display = "flex"; 
+			}
+		}
+		
+		function chatMessageFilter(element) {
+			  var filter = element.value.toLowerCase();
+
+			  // Получите все элементы с классом "team" из списка чатов
+			  var messages = document.getElementsByClassName("message");
+
+			  // Переберите все элементы и скройте те, которые не соответствуют фильтру
+			  for (var i = 0; i < teams.length; i++) {
+			    var messageTeamName = messages[i].textContent.toLowerCase();
+			    if (messageTeamName.indexOf(filter) > -1) {
+			    	messages[i].style.display = "flex"; // Отобразите элемент, если он соответствует фильтру
+			    } else {
+			    	messages[i].style.display = "none"; // Спрячьте элемент, если он не соответствует фильтру
+			    }
+			  }
+			}
 	</script>
 </head>
 <body>
@@ -112,15 +136,9 @@
 						</div>
 						<div id="full_chats_list">
 							<div id="general_chat" class="team">Общий чат</div>
-							<div class="team">Команда 1</div>
-							<div class="team">Команда 2</div>
-							<div class="team">Команда 3</div>
-							<div class="team">Команда 1</div>
-							<div class="team">Команда 2</div>
-							<div class="team">Команда 3</div>
-							<div class="team">Команда 1</div>
-							<div class="team">Команда 2</div>
-							<div class="team">Команда 3</div>
+							<c:forEach var="teamMap" items="${fullTeamMap}">
+								<div class="team">${teamMap.getKey().getName()}</div>
+							</c:forEach>
 						</div>
 					</div>
 					<div id="user_list">

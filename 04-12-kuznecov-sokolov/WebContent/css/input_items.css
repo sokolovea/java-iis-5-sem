@@ -1,4 +1,3 @@
-@import url("vars.css");
 
 input[type=button], input[type=submit] {
     background: var(--third_color);
