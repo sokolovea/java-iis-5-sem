@@ -2,6 +2,7 @@ package ru.rsreu.kuznecovsokolov12.servlet;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -93,22 +94,28 @@ public class DatabaseCommand implements ActionCommand {
 					TeamInteractDAO teamInteractDAO = factory.getTeamInteractDAO();
 					UserDAO userDAO = factory.getUserDAO();
 					String teamFormName = request.getParameter("teamFormName");
-					if (teamFormName != null) {
+					Map<Team, Map<String, Integer>> allTeams = teamDAO.getAllTeam();
+					boolean teamExists = false;
+					for (Team tempTeam: allTeams.keySet()) {
+						if (tempTeam.getName().equals(teamFormName)) {
+							teamExists = true;
+							break;
+						}
+					}
+					if (teamFormName != null && !teamFormName.isEmpty() && (!teamExists)) {
 						Team team = new Team();
 						team.setName(teamFormName);
 						teamDAO.addTeam(team);
-						User user = userDAO.getUserByLogin(login)
-						TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.)
+						User user = userDAO.getUserByLogin(login);
+						team = teamDAO.getTeamByName(teamFormName);
+						TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Join"), team, null);
 						teamInteractDAO.addTeamInteract(teamInteract);
-						
-						String message = request.getParameter("messageId");
-						DeletedMessage deletedMessage = new DeletedMessage(0, null, new Message(Integer.parseInt(message)), null);
-						deletedMessageDAO.removeFromDeletedMessage(deletedMessage);
 					}
 					factory.returnConnectionToPool();
-					return MenuCommand.getPage(loginResult, "team", request);
+					return MenuCommand.getPage(loginResult, "main", request);
 //					return ConfigurationManager.getProperty("path.page.team");
-			}
+				}
+			}	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
