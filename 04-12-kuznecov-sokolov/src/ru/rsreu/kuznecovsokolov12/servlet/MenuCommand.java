@@ -80,7 +80,8 @@ public class MenuCommand implements ActionCommand {
 					e.printStackTrace();
 				}
 				factory.returnConnectionToPool();
-				return ConfigurationManager.getProperty("path.page.team_select");
+				return MenuCommand.getPage(loginResult, "main", request);
+				// return ConfigurationManager.getProperty("path.page.team_select");
 			}
 		}
 		if (loginResult == EnumLogin.USER || loginResult == EnumLogin.EXPERT || loginResult == EnumLogin.CAPTAIN) {
