@@ -51,29 +51,28 @@
 			  }
 			}
 		
-		function chatMessageFilter(element) {
+		function shoeAll() {
 			var messages = document.getElementsByClassName("message");
-			for (var i = 0; i < teams.length; i++) {
+			for (var i = 0; i < messages.length; i++) {
 				messages[i].style.display = "flex"; 
 			}
 		}
 		
-		function chatMessageFilter(element) {
-			  var filter = element.value.toLowerCase();
-
-			  // Получите все элементы с классом "team" из списка чатов
-			  var messages = document.getElementsByClassName("message");
-
-			  // Переберите все элементы и скройте те, которые не соответствуют фильтру
-			  for (var i = 0; i < teams.length; i++) {
-			    var messageTeamName = messages[i].textContent.toLowerCase();
-			    if (messageTeamName.indexOf(filter) > -1) {
-			    	messages[i].style.display = "flex"; // Отобразите элемент, если он соответствует фильтру
-			    } else {
-			    	messages[i].style.display = "none"; // Спрячьте элемент, если он не соответствует фильтру
-			    }
-			  }
+	function chatMessageFilter(element) {
+		console.log(element.innerHTML);
+		var filter = element.innerHTML.toLowerCase();
+		
+		var messages = document.getElementsByClassName("message");
+		
+		for (var i = 0; i < messages.length; i++) {
+			var messageTeamName = messages[i].getElementsByClassName("message_team")[0].textContent.toLowerCase();
+			if (messageTeamName.indexOf(filter) > -1) {
+				messages[i].style.display = "flex"; 
+			} else {
+				messages[i].style.display = "none";
 			}
+		}
+	}
 	</script>
 </head>
 <body>
@@ -123,8 +122,6 @@
 							</div>
 						</div>
 					</c:forEach>
-					
-					
 				</div>
 			</div>
 			<div id="right_bar" class="container">
@@ -135,9 +132,9 @@
 							<input id="chat_filter_input" class="text_box" type="text" name="chatFilter" placeholder="Фильтр"  onkeyup="chatFilter()"/>
 						</div>
 						<div id="full_chats_list">
-							<div id="general_chat" class="team">Общий чат</div>
+							<div id="general_chat" class="team" onclick="shoeAll()">Общий чат</div>
 							<c:forEach var="teamMap" items="${fullTeamMap}">
-								<div class="team">${teamMap.getKey().getName()}</div>
+								<div class="team" onclick="chatMessageFilter(this)">${teamMap.getKey().getName()}</div>
 							</c:forEach>
 						</div>
 					</div>

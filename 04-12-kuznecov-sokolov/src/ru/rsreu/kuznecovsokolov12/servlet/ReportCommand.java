@@ -2,6 +2,7 @@ package ru.rsreu.kuznecovsokolov12.servlet;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.SanctionDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.Role;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.RoleAssigment;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Sanction;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
@@ -45,11 +47,11 @@ public class ReportCommand implements ActionCommand {
 		SanctionDAO sanctionDAO = factory.getSanctionDAO();
 		TeamDAO teamDAO = factory.getTeamDAO();
 		if (loginResult == EnumLogin.ADMIN) {
-			List<User> adminReportFirst = new ArrayList<User>();
+			Map<User, Role> adminReportFirst = new HashMap<>();
 			List<RoleAssigment> adminReportSecond = new ArrayList<RoleAssigment>();
 			User userForSecondReport = new User();
 			try {
-				adminReportFirst = userDAO.getUsers();
+				adminReportFirst = userDAO.getUsersWithRole();
 				String tempLogin = request.getParameter("adminUserRole");
 				userForSecondReport = userDAO.getUserByLogin(tempLogin);
 				adminReportSecond = roleAssigmentDAO.getRoleAssigmentsForUser(userForSecondReport);

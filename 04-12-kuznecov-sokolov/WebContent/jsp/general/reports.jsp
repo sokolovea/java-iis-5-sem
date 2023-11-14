@@ -277,12 +277,12 @@
 								    <tbody>
 								        <c:forEach var="user" items="${adminReportFirst}">
 								            <tr>
-								                <td>${user.getLogin()}</td>
-								                <td>${user.getPassword()}</td>
-								                <td>${user.getName()}</td>
-								                <td>${user.getEmail()}</td>
-								                <td>???добавить???</td>
-								                <td>${user.isIsAuthorized()}</td>
+								                <td>${user.getKey().getLogin()}</td>
+								                <td>${user.getKey().getPassword()}</td>
+								                <td>${user.getKey().getName()}</td>
+								                <td>${user.getKey().getEmail()}</td>
+								                <td>${user.getValue().getName()}</td>
+								                <td>${user.getKey().isIsAuthorized()}</td>
 								            </tr>
 								        </c:forEach>
 							    	</tbody>
