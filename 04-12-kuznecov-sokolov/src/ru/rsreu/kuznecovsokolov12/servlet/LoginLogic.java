@@ -52,6 +52,8 @@ public class LoginLogic {
 			}
 		}
 		boolean loginResult = user.checkPassword(enterPass);
+		System.out.println(loginResult);
+		System.out.println(enterPass);
 		if (!loginResult) {
 			factory.returnConnectionToPool();
 			return EnumLogin.NOUSER;
