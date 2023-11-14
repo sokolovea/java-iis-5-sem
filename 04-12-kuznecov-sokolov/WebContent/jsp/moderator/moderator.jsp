@@ -47,7 +47,7 @@
 	    };
 	}
 	
-		function showSanctionMenu(event, element, qweqwe) {
+		function showSanctionMenu(event, element, user_id) {
 			const menu = document.getElementById("user_sanction");
 			const item_pos = element.getBoundingClientRect();
 			menu.style.opacity = 1;
@@ -117,6 +117,7 @@
 <body>
 	<div id="user_sanction" onmouseleave='closeSancMenu()'>
 		<div id="sanction_list">
+			<input type="hidden" value="" >
 			<div class="sanction">Block</div>
 			<div class="sanction">Unblock</div>
 		</div>
