@@ -20,7 +20,7 @@
 			</li>
 			<c:if test="${role != 'captain'}">
 				<li id="button_exit_team" class="menu_button">
-					<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu">Покинуть команду</a>
+					<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=exit_team&command=Menu">Покинуть команду</a>
 				</li>
 			</c:if>
 			<li id="button_report" class="menu_button">

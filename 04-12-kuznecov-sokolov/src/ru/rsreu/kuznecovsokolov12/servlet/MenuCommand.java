@@ -16,6 +16,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.RoleDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.TeamInteractDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.DeletedMessage;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
@@ -23,6 +24,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.MessageAttaching;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Role;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Setting;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.TeamInteract;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 import test.RedirectErrorPage;
 
@@ -56,6 +58,31 @@ public class MenuCommand implements ActionCommand {
 //	}
 	
 	public static String getPage(EnumLogin loginResult, String destination, HttpServletRequest request) {
+		if (loginResult == EnumLogin.USER) {
+			if (destination.equals("exit_team")) {
+				String login = request.getParameter(PARAM_NAME_LOGIN);
+				DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+				TeamDAO teamDAO = factory.getTeamDAO();
+				TeamInteractDAO teamInteractDAO = factory.getTeamInteractDAO();
+				UserDAO userDAO = factory.getUserDAO();
+				String teamId = request.getParameter("team_id");
+				User user;
+				try {
+					user = userDAO.getUserByLogin(login);
+					List<Team> teamList = teamDAO.getTeamsForUser(user);
+					if (teamList.size() != 0) {
+						TeamInteract teamInteract = new TeamInteract(0, user,
+								teamInteractDAO.getTeamInteractTypeByName("Exit"), teamList.get(0), null);
+						teamInteractDAO.addTeamInteract(teamInteract);
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				factory.returnConnectionToPool();
+				return ConfigurationManager.getProperty("path.page.team_select");
+			}
+		}
 		if (loginResult == EnumLogin.USER || loginResult == EnumLogin.EXPERT || loginResult == EnumLogin.CAPTAIN) {
 			if (destination.equals("team")) {
 				try {
