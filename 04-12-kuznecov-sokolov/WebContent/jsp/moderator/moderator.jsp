@@ -7,7 +7,46 @@
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/main_win.css">
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/input_items.css">
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/moderator.css">
+	
 	<script>
+	function restoreMessage(messageId, element) {
+	    // Создаем объект XMLHttpRequest
+	    var xhr = new XMLHttpRequest();
+
+	    // Настраиваем запрос
+	    xhr.open('POST', 'controller', true);
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+	    // Отправляем запрос с идентификатором сообщения
+	    xhr.send('command=Database&activity=restore_message&login=${userName}&password=${userPassword}&messageId=' + messageId);
+
+	    // Обрабатываем ответ сервера (если нужно)
+	    xhr.onreadystatechange = function () {
+	        if (xhr.readyState === XMLHttpRequest.DONE) {
+	        	element.parentNode.parentNode.parentNode.classList.remove("deleted_message");
+	        }
+	    };
+	}
+
+	function deleteMessage(messageId, element) {
+	    // Создаем объект XMLHttpRequest
+	    var xhr = new XMLHttpRequest();
+
+	    // Настраиваем запрос
+	    xhr.open('POST', 'controller', true);
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+	    // Отправляем запрос с идентификатором сообщения
+	    xhr.send('command=Database&activity=delete_message&login=${userName}&password=${userPassword}&messageId=' + messageId);
+
+	    // Обрабатываем ответ сервера (если нужно)
+	    xhr.onreadystatechange = function () {
+	        if (xhr.readyState === XMLHttpRequest.DONE) {
+	        	element.parentNode.parentNode.parentNode.classList.add("deleted_message");
+	        }
+	    };
+	}
+	
 		function showSanctionMenu(event, element, qweqwe) {
 			const menu = document.getElementById("user_sanction");
 			const item_pos = element.getBoundingClientRect();
@@ -116,8 +155,8 @@
 							<div class="message_content">
 								<div class="message_data">${message.getMessage().getData()}</div>
 								<div class="message_buttons">
-									<div class="restore_message_button">&#8635</div>
-									<div class="delete_message_button">✖</div>
+									<div class="restore_message_button" onclick='restoreMessage(${message.getMessage().getId()}, this)'>&#8635</div>
+									<div class="delete_message_button" onclick='deleteMessage(${message.getMessage().getId()}, this)'>✖</div>
 								</div>
 							</div>
 						</div>

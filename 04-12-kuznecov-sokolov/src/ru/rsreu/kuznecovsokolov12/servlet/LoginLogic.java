@@ -71,6 +71,9 @@ public class LoginLogic {
 			capitan = userDAO.getTeamCapitan(new Team(team_id));
 			//System.out.println(userLogin + team_id);
 			factory.returnConnectionToPool();
+			if (capitan.getLogin() == null) {
+				return false;
+			}
 			return capitan.getLogin().equals(userLogin);
 		} catch (SQLException e) {
 			e.printStackTrace();
