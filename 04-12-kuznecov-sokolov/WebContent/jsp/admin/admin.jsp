@@ -19,6 +19,10 @@
 			document.getElementById("user_email").value = "";
 			document.getElementById("user_role").options[0].selected = "selected";
 		}
+		
+		function insertLoginToTextBox(element) {
+			document.getElementById("user_login").value = element.textContent;
+		}
 	</script>
 </head>
 <body>
@@ -53,10 +57,9 @@
 					<div class="user_form_item">
 						<div class="user_form_item_caption">Роль</div>
 						<select id="user_role" class="text_box" name="userRole">
-							<option>Пользователь</option>
-							<option>Эксперт</option>
-							<option>Модератор</option>
-							<option>Администратор</option>
+							<c:forEach var="role" items="${roleList}">
+								<option>${role.getName()}</option>
+							</c:forEach>
 						</select>
 					</div>
 					<div class="user_form_buttons">

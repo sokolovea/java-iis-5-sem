@@ -34,22 +34,17 @@
 		<input id="user_filter_input" class="text_box" type="text" name="userFilter" placeholder="Фильтр" onkeyup="userFilter()"/>
 	</div>
 	<div id="full_users_list">
+		<jsp:useBean id="roleChecker" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
+		<c:set var="isAdmin" value="${roleChecker.checkLogin(userName, userPassword).toString() == 'admin'}"></c:set>
+		<c:set var="isModer" value="${roleChecker.checkLogin(userName, userPassword).toString() == 'moderator'}"></c:set>
 		<c:forEach var="user" items="${user_list}">
-                <div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>${user.getLogin()}</div>
-        </c:forEach>
-		<!--<div class="user banned_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User1</div>
-		<div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User2</div>
-		<div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User3</div>
-		<div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User4</div>
-		<div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User5</div>
-		<div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User6</div>
-		<div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User7</div>
-		<div class="user banned_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User8</div>
-		<div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User9</div>
-		<div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User10</div>
-		<div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User11</div>
-		<div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>User12</div> -->
-		
+			<c:if test = "${isAdmin}">
+				<div class="user" onclick="insertLoginToTextBox(this)">${user.getLogin()}</div>
+			</c:if>
+			<c:if test = "${isModer}">
+				<div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>${user.getLogin()}</div>
+			</c:if>
+        </c:forEach>	
 	</div>
 </body>
 </html>

@@ -13,12 +13,14 @@ import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
 import ru.rsreu.kuznecovsokolov12.datalayer.DeletedMessageDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.MessageAttachingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.RoleDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.DeletedMessage;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.MessageAttaching;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.Role;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Setting;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
@@ -101,9 +103,12 @@ public class MenuCommand implements ActionCommand {
 	private static void fillMainPageForAdmin(HttpServletRequest request) {
 		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
 		UserDAO userDAO = factory.getUserDAO();
+		RoleDAO roleDAO = factory.getRoleDAO();
 		try {
 			List<User> userList = userDAO.getUsers();
+			List<Role> roleList = roleDAO.getAllRoles();
 			request.setAttribute("user_list", userList);
+			request.setAttribute("roleList", roleList);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
