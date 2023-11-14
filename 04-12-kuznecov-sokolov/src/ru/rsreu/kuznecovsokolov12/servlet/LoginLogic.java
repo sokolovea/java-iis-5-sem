@@ -8,6 +8,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.*;
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
 import ru.rsreu.kuznecovsokolov12.datalayer.RoleDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.SanctionDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleDataBaseDAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleUserDAO;
@@ -34,11 +35,18 @@ public class LoginLogic {
 		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
 		UserDAO userDAO = factory.getUserDAO();
 		RoleDAO roleDAO = factory.getRoleDAO();
+		SanctionDAO sanctionDAO = factory.getSanctionDAO();
 		
 		User user = userDAO.getUserByLogin(enterLogin);
 		if (user.getLogin() == null) {
 			factory.returnConnectionToPool();
 			return EnumLogin.NOUSER;
+		}
+		Sanction lastSanction = sanctionDAO.getLastUserSanction(user);
+		if (lastSanction.getReceiver() != null) {
+			if (lastSanction.getType().toString().equals("Block")) {
+				return EnumLogin.NOUSER;
+			}
 		}
 		boolean loginResult = user.checkPassword(enterPass);
 		if (!loginResult) {
