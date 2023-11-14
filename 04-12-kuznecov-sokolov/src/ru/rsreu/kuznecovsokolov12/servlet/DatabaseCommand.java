@@ -103,10 +103,15 @@ public class DatabaseCommand implements ActionCommand {
 						}
 					}
 					if (teamFormName != null && !teamFormName.isEmpty() && (!teamExists)) {
+						User user = userDAO.getUserByLogin(login);
+						List<Team> teamList = teamDAO.getTeamsForUser(user);
+						if (teamList.size() != 0) {
+							TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Exit"), teamList.get(0), null);
+							teamInteractDAO.addTeamInteract(teamInteract);
+						}
 						Team team = new Team();
 						team.setName(teamFormName);
 						teamDAO.addTeam(team);
-						User user = userDAO.getUserByLogin(login);
 						team = teamDAO.getTeamByName(teamFormName);
 						TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Join"), team, null);
 						teamInteractDAO.addTeamInteract(teamInteract);
