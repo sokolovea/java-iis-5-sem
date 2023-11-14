@@ -150,7 +150,9 @@ public class MenuCommand implements ActionCommand {
 		try {
 			User user = userDAO.getUserByLogin(login);
 			teamList = teamDAO.getTeamsForUser(user);
-			request.setAttribute("team_id", teamList.get(0).getId());
+			if ((teamList != null) && (teamList.size() != 0)) {
+				request.setAttribute("team_id", teamList.get(0).getId());
+			}
 			fullTeamMap = teamDAO.getAllTeam();
 		} catch (SQLException e) {
 			e.printStackTrace();

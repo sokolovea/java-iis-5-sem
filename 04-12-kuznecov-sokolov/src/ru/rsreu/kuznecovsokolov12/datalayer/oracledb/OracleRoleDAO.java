@@ -73,7 +73,6 @@ public class OracleRoleDAO implements RoleDAO {
 		ResultSet resultSet = ps.executeQuery();
 		if (resultSet.next()) {
 			role = getRoleData(resultSet, ALL_ROLE_COLUMNS);
-			role.setGroup(getRoleGroupData(resultSet, ALL_ROLE_GROUP_COLUMNS));
 		}
 		return role;
 	}

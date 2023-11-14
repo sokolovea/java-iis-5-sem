@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
 import ru.rsreu.kuznecovsokolov12.datalayer.DeletedMessageDAO;
@@ -22,6 +21,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.DeletedMessage;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.MessageAttaching;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.Role;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.RoleAssigment;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Setting;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
@@ -59,7 +59,8 @@ public class DatabaseCommand implements ActionCommand {
 					// TODO - end
 					return ConfigurationManager.getProperty("path.page.admin_settings");
 				} else if (activity.equals("update_user")) {
-					String commandType = request.getParameter("command_type"); //Update user, Modify user, delete user and etc.
+					String commandType = request.getParameter("command_type"); // Update user, Modify user, delete user
+																				// and etc.
 					DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
 					UserDAO userDAO = factory.getUserDAO();
 					RoleDAO roleDAO = factory.getRoleDAO();
@@ -71,30 +72,58 @@ public class DatabaseCommand implements ActionCommand {
 					String userRole = request.getParameter("form_role");
 					if (commandType.equals("save_user")) {
 						User tempUser = userDAO.getUserByLogin(userLogin);
-						if (tempUser.getLogin() != null) {
+						if (tempUser.getLogin() != null && (!userPassword.isEmpty())) {
 							tempUser.setPassword(userPassword);
 							tempUser.setEmail(userEmail);
 							tempUser.setName(userName);
-							//!!! Role do not changed!
+							// !!! Role do not changed!
 							userDAO.updateUser(tempUser);
+							factory.returnConnectionToPool();
 						}
+						factory.returnConnectionToPool();
 					} else if (commandType.equals("create_user")) {
 						User tempUser = userDAO.getUserByLogin(userLogin);
-						if (tempUser.getLogin() != null) {
+						if (tempUser.getLogin() == null && (!userPassword.isEmpty())) {
+							tempUser.setLogin(userLogin);
 							tempUser.setPassword(userPassword);
 							tempUser.setEmail(userEmail);
 							tempUser.setName(userName);
-//							Role role = roleDAO.
-	//						RoleAssigment roleAssigment = new RoleAssigment(0, role, sender, receiver, null)
-		//					roleAssigmentDAO.addRoleAssigment(roleAssigment);
-							
-							//!!! Role do not changed!
+							Role role = roleDAO.getRoleByName(userRole);
+							User sender = userDAO.getUserByLogin(login);
 							userDAO.addUser(tempUser);
+							tempUser = userDAO.getUserByLogin(tempUser.getLogin());
+							RoleAssigment roleAssigment = new RoleAssigment(0, role, sender, tempUser, null);
+							roleAssigmentDAO.addRoleAssigment(roleAssigment);
+							factory.returnConnectionToPool();
 						}
+						factory.returnConnectionToPool();
+					} else if (commandType.equals("remove_user")) {
+						User tempUser = userDAO.getUserByLogin(userLogin);
+						if (tempUser.getLogin() != null) {
+							userDAO.deleteUser(tempUser);
+						}
+						System.out.println("Command Type " + commandType);
+						factory.returnConnectionToPool();
+						return MenuCommand.getPage(loginResult, "main", request);
+					} else if (commandType.equals("find_user")) {
+						User tempUser = userDAO.getUserByLogin(userLogin);
+						if (tempUser.getLogin() != null) {
+							String tempLogin = tempUser.getLogin();
+							String tempPassword = tempUser.getPassword();
+							String tempName = tempUser.getName();
+							String tempEmail = tempUser.getEmail();
+							Role role = roleDAO.getUserRole(tempUser);
+							String tempRole = role.getName();
+							request.setAttribute("form_login", tempLogin);
+							request.setAttribute("form_password", tempPassword);
+							request.setAttribute("form_name", tempName);
+							request.setAttribute("form_email", tempEmail);
+							request.setAttribute("form_role", tempRole);
+						}
+						System.out.println("Command Type " + commandType);
+						factory.returnConnectionToPool();
+						return MenuCommand.getPage(loginResult, "main", request);
 					}
-					System.out.println("Command Type " + commandType);
-					factory.returnConnectionToPool();
-					return MenuCommand.getPage(loginResult, "main", request);
 				}
 			} else if (loginResult == EnumLogin.USER) {
 				if (activity.equals("send_message")) {
@@ -132,54 +161,93 @@ public class DatabaseCommand implements ActionCommand {
 						if (tempTeam.getName().equals(teamFormName)) {
 							teamExists = true;
 							break;
+				
 						}
-					}
-					if (teamFormName != null && !teamFormName.isEmpty() && (!teamExists)) {
+						factory.returnConnectionToPool();
+					} 
+				} else if (loginResult == EnumLogin.USER) {
+					if (activity.equals("send_message")) {
+						String message = request.getParameter("message");
+						DatabaseLogic.sendMessage(login, message);
+						return MenuCommand.getPage(loginResult, "team", request);
+//					return ConfigurationManager.getProperty("path.page.team");
+					} else if (activity.equals("delete_message")) {
+						DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+						UserDAO userDAO = factory.getUserDAO();
+						DeletedMessageDAO deletedMessageDAO = factory.getDeletedMessageDAO();
+						User user = userDAO.getUserByLogin(login);
+						String message = request.getParameter("messageId");
+						DeletedMessage deletedMessage = new DeletedMessage(0, user,
+								new Message(Integer.parseInt(message)), null);
+						deletedMessageDAO.addDeletedMessage(deletedMessage);
+						factory.returnConnectionToPool();
+						return MenuCommand.getPage(loginResult, "team", request);
+//					return ConfigurationManager.getProperty("path.page.team");
+					} else if (activity.equals("restore_message")) {
+						DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+						DeletedMessageDAO deletedMessageDAO = factory.getDeletedMessageDAO();
+						String message = request.getParameter("messageId");
+						DeletedMessage deletedMessage = new DeletedMessage(0, null,
+								new Message(Integer.parseInt(message)), null);
+						deletedMessageDAO.removeFromDeletedMessage(deletedMessage);
+						factory.returnConnectionToPool();
+						return MenuCommand.getPage(loginResult, "team", request);
+//					return ConfigurationManager.getProperty("path.page.team");
+					} else if (activity.equals("create_team")) {
+						DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+						TeamDAO teamDAO = factory.getTeamDAO();
+						TeamInteractDAO teamInteractDAO = factory.getTeamInteractDAO();
+						UserDAO userDAO = factory.getUserDAO();
+						String teamFormName = request.getParameter("teamFormName");
+						Map<Team, Map<String, Integer>> allTeams = teamDAO.getAllTeam();
+						boolean teamExists = false;
+						for (Team tempTeam : allTeams.keySet()) {
+							if (tempTeam.getName().equals(teamFormName)) {
+								teamExists = true;
+								break;
+							}
+						}
+						if (teamFormName != null && !teamFormName.isEmpty() && (!teamExists)) {
+							User user = userDAO.getUserByLogin(login);
+							List<Team> teamList = teamDAO.getTeamsForUser(user);
+							if (teamList.size() != 0) {
+								TeamInteract teamInteract = new TeamInteract(0, user,
+										teamInteractDAO.getTeamInteractTypeByName("Exit"), teamList.get(0), null);
+								teamInteractDAO.addTeamInteract(teamInteract);
+							}
+							Team team = new Team();
+							team.setName(teamFormName);
+							teamDAO.addTeam(team);
+							team = teamDAO.getTeamByName(teamFormName);
+							TeamInteract teamInteract = new TeamInteract(0, user,
+									teamInteractDAO.getTeamInteractTypeByName("Join"), team, null);
+							teamInteractDAO.addTeamInteract(teamInteract);
+						}
+						factory.returnConnectionToPool();
+						return MenuCommand.getPage(loginResult, "main", request);
+//					return ConfigurationManager.getProperty("path.page.team");
+					} else if (activity.equals("join_team")) {
+						int teamId = Integer.parseInt(request.getParameter("team_id"));
+						DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+						TeamDAO teamDAO = factory.getTeamDAO();
+						TeamInteractDAO teamInteractDAO = factory.getTeamInteractDAO();
+						UserDAO userDAO = factory.getUserDAO();
 						User user = userDAO.getUserByLogin(login);
 						List<Team> teamList = teamDAO.getTeamsForUser(user);
-						if (LoginLogic.isCapitan(login, teamList.get(0).getId())) {
-							factory.returnConnectionToPool();
-							return MenuCommand.getPage(loginResult, "main", request);
-						}
 						if (teamList.size() != 0) {
+							if (LoginLogic.isCapitan(login, teamList.get(0).getId()) || (teamList.get(0).getId() == teamId)) {
+								factory.returnConnectionToPool();
+								return MenuCommand.getPage(loginResult, "main", request);
+							}
 							TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Exit"), teamList.get(0), null);
 							teamInteractDAO.addTeamInteract(teamInteract);
 						}
-						Team team = new Team();
-						team.setName(teamFormName);
-						teamDAO.addTeam(team);
-						team = teamDAO.getTeamByName(teamFormName);
+						Team team = teamDAO.getTeamById(teamId);
 						TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Join"), team, null);
 						teamInteractDAO.addTeamInteract(teamInteract);
+						factory.returnConnectionToPool();
+						return MenuCommand.getPage(loginResult, "main", request);
 					}
-					factory.returnConnectionToPool();
-					return MenuCommand.getPage(loginResult, "main", request);
-//					return ConfigurationManager.getProperty("path.page.team");
-				} else if (activity.equals("join_team")) {
-					int teamId = Integer.parseInt(request.getParameter("team_id"));
-					DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
-					TeamDAO teamDAO = factory.getTeamDAO();
-					TeamInteractDAO teamInteractDAO = factory.getTeamInteractDAO();
-					UserDAO userDAO = factory.getUserDAO();
-					User user = userDAO.getUserByLogin(login);
-					List<Team> teamList = teamDAO.getTeamsForUser(user);
-					if (teamList.size() != 0) {
-						if (LoginLogic.isCapitan(login, teamList.get(0).getId()) || (teamList.get(0).getId() == teamId)) {
-							factory.returnConnectionToPool();
-							return MenuCommand.getPage(loginResult, "main", request);
-						}
-						TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Exit"), teamList.get(0), null);
-						teamInteractDAO.addTeamInteract(teamInteract);
-					}
-					Team team = teamDAO.getTeamById(teamId);
-					TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Join"), team, null);
-					teamInteractDAO.addTeamInteract(teamInteract);
-					factory.returnConnectionToPool();
-					return MenuCommand.getPage(loginResult, "main", request);
-				}
-			}
-			
-			
 			else if (loginResult == EnumLogin.MODERATOR) {
 				if (activity.equals("delete_message")) {
 					int messageId = Integer.parseInt(request.getParameter("messageId"));
@@ -195,7 +263,9 @@ public class DatabaseCommand implements ActionCommand {
 				
 				}
 			}
-		} catch (SQLException e) {
+ 
+			}
+			catch (SQLException e) {
 			e.printStackTrace();
 		}
 
