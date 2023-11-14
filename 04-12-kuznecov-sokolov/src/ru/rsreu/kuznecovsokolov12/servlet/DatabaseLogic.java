@@ -46,7 +46,6 @@ public class DatabaseLogic {
 			settingDAO.setSetting(settingExpertCapacity);
 		} finally {
 			factory.returnConnectionToPool();
-//			System.out.println("������� ���������� � ���!");
 		}
 		
 	}

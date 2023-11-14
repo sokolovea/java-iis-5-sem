@@ -103,10 +103,15 @@ public class DatabaseCommand implements ActionCommand {
 						}
 					}
 					if (teamFormName != null && !teamFormName.isEmpty() && (!teamExists)) {
+						User user = userDAO.getUserByLogin(login);
+						List<Team> teamList = teamDAO.getTeamsForUser(user);
+						if (teamList.size() != 0) {
+							TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Exit"), teamList.get(0), null);
+							teamInteractDAO.addTeamInteract(teamInteract);
+						}
 						Team team = new Team();
 						team.setName(teamFormName);
 						teamDAO.addTeam(team);
-						User user = userDAO.getUserByLogin(login);
 						team = teamDAO.getTeamByName(teamFormName);
 						TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Join"), team, null);
 						teamInteractDAO.addTeamInteract(teamInteract);
@@ -114,8 +119,25 @@ public class DatabaseCommand implements ActionCommand {
 					factory.returnConnectionToPool();
 					return MenuCommand.getPage(loginResult, "main", request);
 //					return ConfigurationManager.getProperty("path.page.team");
+				} else if (activity.equals("join_team")) {
+					DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+					TeamDAO teamDAO = factory.getTeamDAO();
+					TeamInteractDAO teamInteractDAO = factory.getTeamInteractDAO();
+					UserDAO userDAO = factory.getUserDAO();
+					User user = userDAO.getUserByLogin(login);
+					List<Team> teamList = teamDAO.getTeamsForUser(user);
+					if (teamList.size() != 0) {
+						TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Exit"), teamList.get(0), null);
+						teamInteractDAO.addTeamInteract(teamInteract);
+					}
+					int teamId = Integer.parseInt(request.getParameter("team_id"));
+					Team team = teamDAO.getTeamById(teamId);
+					TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Join"), team, null);
+					teamInteractDAO.addTeamInteract(teamInteract);
+					factory.returnConnectionToPool();
+					return MenuCommand.getPage(loginResult, "main", request);
 				}
-			}	
+			}	 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

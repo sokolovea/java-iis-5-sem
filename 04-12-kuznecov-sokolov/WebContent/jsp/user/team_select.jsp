@@ -73,7 +73,14 @@
 											${team.getValue().keySet().iterator().next()}
 										</div>
 										<div class="team_join_button">
-											<input type="button" value="Вступить"/>
+											<form class="display_contents_form" id="join_form_team" action="controller" method="POST">
+												<input type="hidden" name="team_id" value="${team.getKey().getId()}"/>
+												<input type="hidden" name="command" value="Database"/>
+												<input type="hidden" name="activity" value="join_team"/>
+												<input type="hidden" name="login" value="<%= loginValue %>"/>
+											    <input type="hidden" name="password" value="<%= passwordValue %>"/>
+												<input type="submit" value="Вступить"/>
+											</form>
 										</div>
 									</div>
 								</div>
