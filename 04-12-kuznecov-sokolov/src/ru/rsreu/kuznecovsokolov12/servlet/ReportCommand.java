@@ -76,6 +76,13 @@ public class ReportCommand implements ActionCommand {
 				int countDeletedMessages = messageDAO.getCountDeletedMessagesSendedByUser(user);
 				request.setAttribute("countSendedMessages", countSendedMessages);
 				request.setAttribute("countDeletedMessages", countDeletedMessages);
+				int commandNumber = -1;
+				List<Team> teamList = teamDAO.getTeamsForUser(user);
+				if (teamList.size() != 0) {
+					commandNumber = teamList.get(0).getId();
+					request.setAttribute("team_id", commandNumber);
+					request.setAttribute("teamList", teamList);
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
