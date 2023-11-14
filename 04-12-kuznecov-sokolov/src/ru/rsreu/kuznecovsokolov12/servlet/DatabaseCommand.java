@@ -43,6 +43,9 @@ public class DatabaseCommand implements ActionCommand {
 		EnumLogin loginResult = null;
 		try {
 			loginResult = LoginLogic.checkLogin(login, password);
+			
+			
+			
 			if (loginResult == EnumLogin.ADMIN) {
 				if (activity.equals("update_setting")) {
 					String teamCapacity = request.getParameter("teamCapacity");
@@ -125,6 +128,10 @@ public class DatabaseCommand implements ActionCommand {
 						return MenuCommand.getPage(loginResult, "main", request);
 					}
 				}
+				
+				
+				
+				
 			} else if (loginResult == EnumLogin.USER) {
 				if (activity.equals("send_message")) {
 					String message = request.getParameter("message");
@@ -146,51 +153,6 @@ public class DatabaseCommand implements ActionCommand {
 					return MenuCommand.getPage(loginResult, "team", request);
 //					return ConfigurationManager.getProperty("path.page.team");
 
-				} else if (activity.equals("create_team")) {
-					DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
-					TeamDAO teamDAO = factory.getTeamDAO();
-					TeamInteractDAO teamInteractDAO = factory.getTeamInteractDAO();
-					UserDAO userDAO = factory.getUserDAO();
-					String teamFormName = request.getParameter("teamFormName");
-					Map<Team, Map<String, Integer>> allTeams = teamDAO.getAllTeam();
-					boolean teamExists = false;
-					for (Team tempTeam : allTeams.keySet()) {
-						if (tempTeam.getName().equals(teamFormName)) {
-							teamExists = true;
-							break;
-
-						}
-						factory.returnConnectionToPool();
-					}
-				}
-			} else if (loginResult == EnumLogin.USER) {
-				if (activity.equals("send_message")) {
-					String message = request.getParameter("message");
-					DatabaseLogic.sendMessage(login, message);
-					return MenuCommand.getPage(loginResult, "team", request);
-//					return ConfigurationManager.getProperty("path.page.team");
-				} else if (activity.equals("delete_message")) {
-					DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
-					UserDAO userDAO = factory.getUserDAO();
-					DeletedMessageDAO deletedMessageDAO = factory.getDeletedMessageDAO();
-					User user = userDAO.getUserByLogin(login);
-					String message = request.getParameter("messageId");
-					DeletedMessage deletedMessage = new DeletedMessage(0, user, new Message(Integer.parseInt(message)),
-							null);
-					deletedMessageDAO.addDeletedMessage(deletedMessage);
-					factory.returnConnectionToPool();
-					return MenuCommand.getPage(loginResult, "team", request);
-//					return ConfigurationManager.getProperty("path.page.team");
-				} else if (activity.equals("restore_message")) {
-					DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
-					DeletedMessageDAO deletedMessageDAO = factory.getDeletedMessageDAO();
-					String message = request.getParameter("messageId");
-					DeletedMessage deletedMessage = new DeletedMessage(0, null, new Message(Integer.parseInt(message)),
-							null);
-					deletedMessageDAO.removeFromDeletedMessage(deletedMessage);
-					factory.returnConnectionToPool();
-					return MenuCommand.getPage(loginResult, "team", request);
-//					return ConfigurationManager.getProperty("path.page.team");
 				} else if (activity.equals("create_team")) {
 					DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
 					TeamDAO teamDAO = factory.getTeamDAO();
@@ -249,7 +211,11 @@ public class DatabaseCommand implements ActionCommand {
 					factory.returnConnectionToPool();
 					return MenuCommand.getPage(loginResult, "main", request);
 				}
-			} else if (loginResult == EnumLogin.MODERATOR) {
+			} 
+			
+			
+			
+			else if (loginResult == EnumLogin.MODERATOR) {
 				if (activity.equals("delete_message")) {
 					int messageId = Integer.parseInt(request.getParameter("messageId"));
 					DatabaseCommand.deleteMessage(login, messageId);
@@ -259,7 +225,11 @@ public class DatabaseCommand implements ActionCommand {
 					int messageId = Integer.parseInt(request.getParameter("messageId"));
 					DatabaseCommand.restoreMessage(messageId);
 					return MenuCommand.getPage(loginResult, "main", request);
-
+				} else if (activity.equals("add_sanction")) {
+					int userIdForSanction = Integer.parseInt(request.getParameter("user_id"));
+					String sanction = request.getParameter("sanction");
+					//DatabaseCommand.restoreMessage(messageId);
+					return MenuCommand.getPage(loginResult, "main", request);
 				}
 			}
 

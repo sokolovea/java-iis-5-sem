@@ -47,7 +47,28 @@
 	    };
 	}
 	
+		function sendSanctionForUser(sanction) {
+			// Создаем объект XMLHttpRequest
+		    var xhr = new XMLHttpRequest();
+
+		    // Настраиваем запрос
+		    xhr.open('POST', 'controller', true);
+		    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+		    // Отправляем запрос с идентификатором сообщения
+		    var user_id = document.getElementById("user_id_for_sanction").value;
+		    xhr.send('command=Database&activity=add_sanction&login=${userName}&password=${userPassword}&sanction=' + sanction + '&user_id=' + user_id);
+
+		    // Обрабатываем ответ сервера (если нужно)
+		    xhr.onreadystatechange = function () {
+		        if (xhr.readyState === XMLHttpRequest.DONE) {
+		        	location.reload();
+		        }
+		    };
+		}
+	
 		function showSanctionMenu(event, element, user_id) {
+			document.getElementById("user_id_for_sanction").value = user_id;
 			const menu = document.getElementById("user_sanction");
 			const item_pos = element.getBoundingClientRect();
 			menu.style.opacity = 1;
@@ -117,9 +138,9 @@
 <body>
 	<div id="user_sanction" onmouseleave='closeSancMenu()'>
 		<div id="sanction_list">
-			<input type="hidden" value="" >
-			<div class="sanction">Block</div>
-			<div class="sanction">Unblock</div>
+			<input id="user_id_for_sanction" type="hidden" value="" >
+			<div class="sanction" onclick='sendSanctionForUser("Block")'>Block</div>
+			<div class="sanction" onclick='sendSanctionForUser("Unblock")'>Unblock</div>
 		</div>
 		<div id="sanc_triangle"></div>
 	</div>

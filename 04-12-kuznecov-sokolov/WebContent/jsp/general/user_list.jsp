@@ -42,7 +42,7 @@
 				<div class="user" onclick="insertLoginToTextBox(this)">${user.getLogin()}</div>
 			</c:if>
 			<c:if test = "${isModer}">
-				<div class="user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>${user.getLogin()}</div>
+				<div class="user" onmouseenter='showSanctionMenu(event, this, ${user.getId()})' onmouseleave='closeSanctionMenu(event, this)'>${user.getLogin()}</div>
 			</c:if>
         </c:forEach>	
 	</div>
