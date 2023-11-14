@@ -5,17 +5,23 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
+import ru.rsreu.kuznecovsokolov12.datalayer.DeletedMessageDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.MessageAttachingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.TeamInteractDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.DeletedMessage;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.MessageAttaching;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Setting;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.TeamInteract;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.TeamInteractType;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public class DatabaseCommand implements ActionCommand {
@@ -61,7 +67,47 @@ public class DatabaseCommand implements ActionCommand {
 					DatabaseLogic.sendMessage(login, message);
 					return MenuCommand.getPage(loginResult, "team", request);
 //					return ConfigurationManager.getProperty("path.page.team");
-				}
+				} else if (activity.equals("delete_message")) {
+					DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+					UserDAO userDAO = factory.getUserDAO();
+					DeletedMessageDAO deletedMessageDAO = factory.getDeletedMessageDAO();
+					User user = userDAO.getUserByLogin(login);
+					String message = request.getParameter("messageId");
+					DeletedMessage deletedMessage = new DeletedMessage(0, user, new Message(Integer.parseInt(message)), null);
+					deletedMessageDAO.addDeletedMessage(deletedMessage);
+					factory.returnConnectionToPool();
+					return MenuCommand.getPage(loginResult, "team", request);
+//					return ConfigurationManager.getProperty("path.page.team");
+				} else if (activity.equals("restore_message")) {
+					DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+					DeletedMessageDAO deletedMessageDAO = factory.getDeletedMessageDAO();
+					String message = request.getParameter("messageId");
+					DeletedMessage deletedMessage = new DeletedMessage(0, null, new Message(Integer.parseInt(message)), null);
+					deletedMessageDAO.removeFromDeletedMessage(deletedMessage);
+					factory.returnConnectionToPool();
+					return MenuCommand.getPage(loginResult, "team", request);
+//					return ConfigurationManager.getProperty("path.page.team");
+				} else if (activity.equals("create_team")) {
+					DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+					TeamDAO teamDAO = factory.getTeamDAO();
+					TeamInteractDAO teamInteractDAO = factory.getTeamInteractDAO();
+					UserDAO userDAO = factory.getUserDAO();
+					String teamFormName = request.getParameter("teamFormName");
+					if (teamFormName != null) {
+						Team team = new Team();
+						team.setName(teamFormName);
+						teamDAO.addTeam(team);
+						User user = userDAO.getUserByLogin(login)
+						TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.)
+						teamInteractDAO.addTeamInteract(teamInteract);
+						
+						String message = request.getParameter("messageId");
+						DeletedMessage deletedMessage = new DeletedMessage(0, null, new Message(Integer.parseInt(message)), null);
+						deletedMessageDAO.removeFromDeletedMessage(deletedMessage);
+					}
+					factory.returnConnectionToPool();
+					return MenuCommand.getPage(loginResult, "team", request);
+//					return ConfigurationManager.getProperty("path.page.team");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

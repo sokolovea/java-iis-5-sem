@@ -138,14 +138,19 @@ public class MenuCommand implements ActionCommand {
 		TeamDAO teamDAO = factory.getTeamDAO();
 		String login = request.getParameter(PARAM_NAME_LOGIN);
 		List<Team> teamList = null;
+		Map<Team, Map<String, Integer>> fullTeamMap = null;
 		try {
 			User user = userDAO.getUserByLogin(login);
 			teamList = teamDAO.getTeamsForUser(user);
+			request.setAttribute("team_id", teamList.get(0).getId());
+			fullTeamMap = teamDAO.getAllTeam();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		request.setAttribute("fullTeamMap", fullTeamMap);
 		factory.returnConnectionToPool();
 		request.setAttribute("teamList", teamList);
+
 	}
 	
 	private static void fillTeamPageForUser(HttpServletRequest request) throws RedirectErrorPage {
@@ -162,7 +167,9 @@ public class MenuCommand implements ActionCommand {
 		try {
 			User user = userDAO.getUserByLogin(login);
 			List<Team> teamList = teamDAO.getTeamsForUser(user);
+			
 			team = teamDAO.getTeamById(Integer.parseInt(request.getParameter("team_id")));
+//			request.setAttribute("team_id", request.getParameter("team_id"));
 			if (!teamList.contains(team)) {
 				factory.returnConnectionToPool();
 				throw new RedirectErrorPage();
@@ -181,6 +188,7 @@ public class MenuCommand implements ActionCommand {
 		request.setAttribute("team", team);
 		request.setAttribute("teamMembers", teamMembers);
 		request.setAttribute("teamExpert", teamExpert);
+		request.setAttribute("team_id", team.getId());
 	}
 
 }

@@ -12,7 +12,7 @@
 		<c:if test="${role == 'user' or role == 'captain'}">
 			<c:if test="${!teamList.isEmpty()}">
 				<li id="button_to_team" class="menu_button">
-					<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Menu&destination=team&team_id=${teamList.get(0).getId()}">Моя команда</a>
+					<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Menu&destination=team&team_id=${team_id}">Моя команда</a>
 				</li>
 			</c:if>
 			<li id="button_to_team" class="menu_button">

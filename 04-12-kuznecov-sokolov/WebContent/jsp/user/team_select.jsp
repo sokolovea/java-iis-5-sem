@@ -8,6 +8,11 @@
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/main_win.css">
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/input_items.css">
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/team_select.css">
+	<%
+		String loginValue = request.getParameter("login");
+		String passwordValue = request.getParameter("password");
+		String teamId = request.getParameter("team_id");
+	%>
 </head>
 <body>
 	<div class="window"> 
@@ -24,21 +29,25 @@
 						<div id="create_team_caption" class="header_name">
 							Создание команды
 						</div>
-						<div id="create_team_input">
-							<div id="create_team_text_box">
-								<input class="text_box" type="text" placeholder="Название команды"/>
+							<form class="display_contents_form" id="create_form_team" action="controller" method="POST">
+							<div id="create_team_input">
+								<div id="create_team_text_box">
+									<input type="hidden" name="team_id" value="<%= teamId %>"/>
+									<input type="hidden" name="command" value="Database"/>
+									<input type="hidden" name="activity" value="create_team"/>
+									<input type="hidden" name="login" value="<%= loginValue %>"/>
+								    <input type="hidden" name="password" value="<%= passwordValue %>"/>
+									<input class="text_box" type="text" name="teamFormName" placeholder="Название команды"/>
+								</div>
+								<div id="create_team_send">
+									<input type="submit" value="Создать"/>
+								</div>
 							</div>
-							<div id="create_team_send">
-								<input type="button" value="Создать"/>
-							</div>
-						</div>
+						</form>
 					</div>
 					<div class="center_bar_boxes" id="teams_info">
 						<div id="team_count">
-							Всего команд: 0
-						</div>
-						<div id="online">
-							Онлайн: 0
+							Всего команд: ${fullTeamMap.size()}
 						</div>
 					</div>
 				</div>
@@ -48,132 +57,27 @@
 							Список команд
 						</div>
 						<div id="teams">
-							<div class="team_box">
-								<div class="team_box_top">
-									<div class="team_name">
-										Команда 1
+							<c:forEach var="team" items="${fullTeamMap}">
+								<div class="team_box">
+									<div class="team_box_top">
+										<div class="team_name">
+											${team.getKey().getName()}
+										</div>
+										<div class="team_fullness">
+										${team.getValue().values().iterator().next()}
+											/10
+										</div>
 									</div>
-									<div class="team_fullness">
-										3/10
-									</div>
-								</div>
-								<div class="team_box_bottom">
-									<div class="team_captain">
-										captain
-									</div>
-									<div class="team_join_button">
-										<input type="button" value="Вступить"/>
-									</div>
-								</div>
-							</div>
-							<div class="team_box">
-								<div class="team_box_top">
-									<div class="team_name">
-										Команда 2
-									</div>
-									<div class="team_fullness">
-										0/10
+									<div class="team_box_bottom">
+										<div class="team_captain">
+											${team.getValue().keySet().iterator().next()}
+										</div>
+										<div class="team_join_button">
+											<input type="button" value="Вступить"/>
+										</div>
 									</div>
 								</div>
-								<div class="team_box_bottom">
-									<div class="team_captain">
-										captain1
-									</div>
-									<div class="team_join_button">
-										<input type="button" value="Вступить"/>
-									</div>
-								</div>
-							</div>
-							<div class="team_box">
-								<div class="team_box_top">
-									<div class="team_name">
-										Команда 3
-									</div>
-									<div class="team_fullness">
-										0/10
-									</div>
-								</div>
-								<div class="team_box_bottom">
-									<div class="team_captain">
-										captain1
-									</div>
-									<div class="team_join_button">
-										<input type="button" value="Вступить"/>
-									</div>
-								</div>
-							</div>
-							<div class="team_box">
-								<div class="team_box_top">
-									<div class="team_name">
-										Команда 4
-									</div>
-									<div class="team_fullness">
-										0/10
-									</div>
-								</div>
-								<div class="team_box_bottom">
-									<div class="team_captain">
-										captain1
-									</div>
-									<div class="team_join_button">
-										<input type="button" value="Вступить"/>
-									</div>
-								</div>
-							</div>
-							<div class="team_box">
-								<div class="team_box_top">
-									<div class="team_name">
-										Команда 5
-									</div>
-									<div class="team_fullness">
-										0/10
-									</div>
-								</div>
-								<div class="team_box_bottom">
-									<div class="team_captain">
-										captain1
-									</div>
-									<div class="team_join_button">
-										<input type="button" value="Вступить"/>
-									</div>
-								</div>
-							</div>
-							<div class="team_box">
-								<div class="team_box_top">
-									<div class="team_name">
-										Команда 6
-									</div>
-									<div class="team_fullness">
-										0/10
-									</div>
-								</div>
-								<div class="team_box_bottom">
-									<div class="team_captain">
-										captain1
-									</div>
-									<div class="team_join_button">
-										<input type="button" value="Вступить"/>
-									</div>
-								</div>
-							</div>
-							<div class="team_box">
-								<div class="team_box_top">
-									<div class="team_name">
-										Команда 7
-									</div>
-									<div class="team_fullness">
-										0/10
-									</div>
-								</div>
-								<div class="team_box_bottom">
-									<div class="team_captain">
-										captain1
-									</div>
-									<div class="team_join_button">
-										<input type="button" value="Вступить"/>
-									</div>
-								</div>
-							</div>
+							</c:forEach>
 						</div>
 					</div>
 				</div>		

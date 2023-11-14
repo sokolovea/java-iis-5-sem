@@ -13,6 +13,47 @@
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/main_win.css">
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/input_items.css">
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/user.css">
+	
+<script>
+    function restoreMessage(messageId, element) {
+        // Создаем объект XMLHttpRequest
+        var xhr = new XMLHttpRequest();
+
+        // Настраиваем запрос
+        xhr.open('POST', 'controller', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        // Отправляем запрос с идентификатором сообщения
+        xhr.send('command=Database&activity=restore_message&login=<%= loginValue %>&password=<%= passwordValue %>&team_id=<%= teamId %>&messageId=' + messageId);
+
+        // Обрабатываем ответ сервера (если нужно)
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+            	element.parentNode.parentNode.parentNode.classList.remove("deleted_message");
+            }
+        };
+    }
+    
+    function deleteMessage(messageId, element) {
+        // Создаем объект XMLHttpRequest
+        var xhr = new XMLHttpRequest();
+
+        // Настраиваем запрос
+        xhr.open('POST', 'controller', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        // Отправляем запрос с идентификатором сообщения
+	    xhr.send('command=Database&activity=delete_message&login=<%= loginValue %>&password=<%= passwordValue %>&team_id=<%= teamId %>&messageId=' + messageId);
+
+        // Обрабатываем ответ сервера (если нужно)
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+            	element.parentNode.parentNode.parentNode.classList.add("deleted_message");
+            }
+        };
+    }
+</script>
+
 </head>
 <body>
 	<div class="window">
@@ -39,8 +80,8 @@
 									<div class="message_data">${message.getData()}</div>
 										<div class="message_buttons">
 											<c:if test="${!messageIsDeleted && message.getAuthor().getLogin().equals(userName) || messageIsDeleted && message.getAuthor().getId().equals(deletedMessageSet.get(message))}"> 
-												<div class="restore_message_button">&#8635</div>
-												<div class="delete_message_button">✖</div>
+												<div class="restore_message_button" onclick='restoreMessage(${message.getId()}, this)'>&#8635</div>
+												<div class="delete_message_button" onclick='deleteMessage(${message.getId()}, this)'>✖</div>
 											</c:if>
 										</div>
 								</div>

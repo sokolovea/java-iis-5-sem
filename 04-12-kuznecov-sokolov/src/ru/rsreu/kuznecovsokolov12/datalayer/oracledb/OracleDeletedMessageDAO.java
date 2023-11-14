@@ -10,7 +10,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.DeletedMessage;
 
 public class OracleDeletedMessageDAO implements DeletedMessageDAO {
 
-	private static final String SQL_ADD_DELETED_MESSAGE_CREATE = "INSERT INTO \"DELETED_MESSAGE\" (\"sender\", \"message\", \"del_message_time\") VALUES (?, ?, (select sysdate from dual));";
+	private static final String SQL_ADD_DELETED_MESSAGE_CREATE = "INSERT INTO \"DELETED_MESSAGE\" (\"sender\", \"message\", \"del_message_time\") VALUES (?, ?, (select sysdate from dual))";
 	private static final String SQL_DELETED_MESSAGE_DELETE = "delete from \"DELETED_MESSAGE\" where \"message\" = ?";
 
 	public final static String COLUMN_DEL_MESSAGE_ID 	  = "del_message_id";
