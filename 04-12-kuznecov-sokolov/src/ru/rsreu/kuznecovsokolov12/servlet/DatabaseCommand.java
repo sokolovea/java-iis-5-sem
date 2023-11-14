@@ -47,6 +47,13 @@ public class DatabaseCommand implements ActionCommand {
 					factory.returnConnectionToPool();
 					// TODO - end
 					return ConfigurationManager.getProperty("path.page.admin_settings");
+				} else if (activity.equals("update_user")) {
+					String commandType = request.getParameter("command_type"); //Update user, Modify user, delete user and etc.
+					System.out.println("Command Type " + commandType);
+					DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+					UserDAO userDAO = factory.getUserDAO();
+					factory.returnConnectionToPool();
+					return MenuCommand.getPage(loginResult, "main", request);
 				}
 			} else if (loginResult == EnumLogin.USER) {
 				if (activity.equals("send_message")) {

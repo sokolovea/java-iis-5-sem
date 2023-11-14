@@ -2,6 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="ru-RU">
 <head>
+	<%
+		String loginValue = request.getParameter("login");
+		String passwordValue = request.getParameter("password");
+	%>
 	<meta http-equiv="Cache-Control" content="no-cache">
 	<title>Кабинет администратора</title>
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/main_win.css">
@@ -56,10 +60,39 @@
 						</select>
 					</div>
 					<div class="user_form_buttons">
-						<input id="save_changes" type="button" name="saveChanges" value="Сохранить"/>
-						<input id="create_user" type="button" name="creatUser" value="Создать пользователя"/>
-						<input id="remove_user" type="button" name="removeUser" value="Удалить пользователя"/>
-						<input id="find_user" type="button" name="findUser" value="Поиск пользователя по логину"/>
+						<form class="display_contents_form" id="unknown" action="controller" method="POST">
+							<input type="hidden" name="command" value="Database"/>
+							<input type="hidden" name="activity" value="update_user"/>
+							<input type="hidden" name="login" value="<%= loginValue %>"/>
+						    <input type="hidden" name="password" value="<%= passwordValue %>"/>
+						    <input type="hidden" name="command_type" value="save_changes"/>
+						    <input type="hidden" name="command_type" value="unknown"/>
+						    <input id="save_changes" type="submit" name="saveChanges" value="Сохранить"/>
+						</form>
+						<form class="display_contents_form" id="unknown" action="controller" method="POST">
+							<input type="hidden" name="command" value="Database"/>
+							<input type="hidden" name="activity" value="update_user"/>
+							<input type="hidden" name="login" value="<%= loginValue %>"/>
+						    <input type="hidden" name="password" value="<%= passwordValue %>"/>
+						    <input type="hidden" name="command_type" value="create_user"/>
+						    <input id="create_user" type="submit" name="creatUser" value="Создать пользователя"/>
+						</form>
+						<form class="display_contents_form" id="unknown" action="controller" method="POST">
+							<input type="hidden" name="command" value="Database"/>
+							<input type="hidden" name="activity" value="update_user"/>
+							<input type="hidden" name="login" value="<%= loginValue %>"/>
+						    <input type="hidden" name="password" value="<%= passwordValue %>"/>
+						    <input type="hidden" name="command_type" value="remove_user"/>
+						    <input id="remove_user" type="submit" name="removeUser" value="Удалить пользователя"/>
+						</form>
+						<form class="display_contents_form" id="unknown" action="controller" method="POST">
+							<input type="hidden" name="command" value="Database"/>
+							<input type="hidden" name="activity" value="update_user"/>
+							<input type="hidden" name="login" value="<%= loginValue %>"/>
+						    <input type="hidden" name="password" value="<%= passwordValue %>"/>
+						    <input type="hidden" name="command_type" value="find_user"/>
+						    <input id="find_user" type="submit" name="findUser" value="Поиск пользователя по логину"/>												
+						</form>		
 						<input id="clear_form" type="button" name="clearForm" value="Очистить форму" onclick='clearFormData()'/>
 					</div>
 		        </div>
