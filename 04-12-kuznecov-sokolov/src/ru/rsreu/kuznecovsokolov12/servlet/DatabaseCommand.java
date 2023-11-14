@@ -14,6 +14,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.MessageAttachingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.RoleAssigmentDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.RoleDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.SanctionDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.TeamInteractDAO;
@@ -23,11 +24,14 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.MessageAttaching;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Role;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.RoleAssigment;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.Sanction;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.SanctionType;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Setting;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.TeamInteract;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.TeamInteractType;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
+import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleSanctionDAO;
 
 public class DatabaseCommand implements ActionCommand {
 	private static final String PARAM_NAME_LOGIN = "login";
@@ -228,7 +232,7 @@ public class DatabaseCommand implements ActionCommand {
 				} else if (activity.equals("add_sanction")) {
 					int userIdForSanction = Integer.parseInt(request.getParameter("user_id"));
 					String sanction = request.getParameter("sanction");
-					//DatabaseCommand.restoreMessage(messageId);
+					DatabaseCommand.createSanction(login, userIdForSanction, sanction);
 					return MenuCommand.getPage(loginResult, "main", request);
 				}
 			}
@@ -272,6 +276,17 @@ public class DatabaseCommand implements ActionCommand {
 		DeletedMessageDAO deletedMessageDAO = factory.getDeletedMessageDAO();
 		DeletedMessage deletedMessage = new DeletedMessage(0, null, new Message(messageId), null);
 		deletedMessageDAO.removeFromDeletedMessage(deletedMessage);
+		factory.returnConnectionToPool();
+	}
+	
+	private static void createSanction(String senderLogin, int userId, String sanctionName) throws SQLException {
+		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+		UserDAO userDAO = factory.getUserDAO();
+		SanctionDAO sanctionDAO = factory.getSanctionDAO();
+		SanctionType sanctionType = sanctionDAO.getSanctionTypeByName(sanctionName);
+		User sender = userDAO.getUserByLogin(senderLogin);
+		Sanction sanction = new Sanction(0, sanctionType, sender, new User(userId), null, null);
+		sanctionDAO.addSanction(sanction);
 		factory.returnConnectionToPool();
 	}
 }

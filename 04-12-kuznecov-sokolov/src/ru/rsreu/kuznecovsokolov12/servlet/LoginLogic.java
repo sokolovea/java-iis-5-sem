@@ -42,9 +42,12 @@ public class LoginLogic {
 			factory.returnConnectionToPool();
 			return EnumLogin.NOUSER;
 		}
+		
 		Sanction lastSanction = sanctionDAO.getLastUserSanction(user);
+		System.out.println(lastSanction.getType().getName());
 		if (lastSanction.getReceiver() != null) {
 			if (lastSanction.getType().toString().equals("Block")) {
+				System.out.println("user is blocked");
 				return EnumLogin.NOUSER;
 			}
 		}

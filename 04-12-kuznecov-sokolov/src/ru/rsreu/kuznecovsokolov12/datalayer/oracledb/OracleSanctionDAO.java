@@ -18,6 +18,7 @@ public class OracleSanctionDAO implements SanctionDAO {
 	private static final String SQL_SELECT_SANCTIONS_BY_USER = "select \"sanction_id\", \"reason\", \"time\", \"SANCTION_TYPE\".*, \"USER\".*, \"USER_receiver\".* from \"USER\" join \"SANCTION\" on \"USER\".\"user_id\" = \"sender\" join \"USER\" \"USER_receiver\" on \"USER_receiver\".\"user_id\" = \"receiver\" join \"SANCTION_TYPE\" on \"sanction_t_id\" = \"type\" where \"sender\" = ?";
 	private static final String SQL_SELECT_LAST_USER_SANCTION = "select \"sanction_id\", \"reason\", \"time\", \"SANCTION_TYPE\".*, \"USER\".*, \"USER_receiver\".* from \"USER\" join \"SANCTION\" on \"USER\".\"user_id\" = \"sender\" join \"USER\" \"USER_receiver\" on \"USER_receiver\".\"user_id\" = \"receiver\" join \"SANCTION_TYPE\" on \"sanction_t_id\" = \"type\" where \"receiver\" = ? order by \"time\" desc FETCH NEXT 1 ROWS ONLY";
 	private static final String SQL_SANCTION_CREATE = "INSERT INTO \"SANCTION\" (\"type\", \"sender\", \"receiver\", \"reason\", \"time\") VALUES (?, ?, ?, ?, (select sysdate from dual))";
+	private static final String SQL_SELECT_SANCTION_TYPE_BY_NAME = "select * from \"SANCTION_TYPE\" where \"sanction_t_name\" = ?";
 
 	public final static String COLUMN_SANCTION_ID 		= "sanction_id";
 	public final static String COLUMN_SANCTION_REASON 	= "reason";
@@ -98,6 +99,19 @@ public class OracleSanctionDAO implements SanctionDAO {
 		ps.setInt(3, sanction.getReceiver().getId());
 		ps.setString(4, sanction.getReason());
 		ps.executeUpdate();
+	}
+	
+	@Override
+	public SanctionType getSanctionTypeByName(String name) throws SQLException {
+		PreparedStatement ps;
+		SanctionType sanctionType = new SanctionType();
+		ps = this.connection.prepareStatement(SQL_SELECT_SANCTION_TYPE_BY_NAME);
+		ps.setString(1, name);
+		ResultSet resultSet = ps.executeQuery();
+		while (resultSet.next()) {
+			sanctionType = getSanctionTypeData(resultSet, ALL_SANCTION_TYPE_COLUMNS);
+		}
+		return sanctionType;
 	}
 	
 	public static Sanction getSanctionData(ResultSet resultSet, String... columns) throws SQLException {
