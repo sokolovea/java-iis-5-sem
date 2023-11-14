@@ -1,6 +1,7 @@
 package ru.rsreu.kuznecovsokolov12.servlet;
 
 import java.sql.SQLException;
+import java.time.temporal.TemporalUnit;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,8 @@ import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
 import ru.rsreu.kuznecovsokolov12.datalayer.DeletedMessageDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.MessageAttachingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.RoleAssigmentDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.RoleDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.TeamInteractDAO;
@@ -19,6 +22,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.DeletedMessage;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.MessageAttaching;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.RoleAssigment;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Setting;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.TeamInteract;
@@ -56,9 +60,39 @@ public class DatabaseCommand implements ActionCommand {
 					return ConfigurationManager.getProperty("path.page.admin_settings");
 				} else if (activity.equals("update_user")) {
 					String commandType = request.getParameter("command_type"); //Update user, Modify user, delete user and etc.
-					System.out.println("Command Type " + commandType);
 					DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
 					UserDAO userDAO = factory.getUserDAO();
+					RoleDAO roleDAO = factory.getRoleDAO();
+					RoleAssigmentDAO roleAssigmentDAO = factory.getRoleAssigmentDAO();
+					String userLogin = request.getParameter("form_login");
+					String userPassword = request.getParameter("form_password");
+					String userName = request.getParameter("form_name");
+					String userEmail = request.getParameter("form_email");
+					String userRole = request.getParameter("form_role");
+					if (commandType.equals("save_user")) {
+						User tempUser = userDAO.getUserByLogin(userLogin);
+						if (tempUser.getLogin() != null) {
+							tempUser.setPassword(userPassword);
+							tempUser.setEmail(userEmail);
+							tempUser.setName(userName);
+							//!!! Role do not changed!
+							userDAO.updateUser(tempUser);
+						}
+					} else if (commandType.equals("create_user")) {
+						User tempUser = userDAO.getUserByLogin(userLogin);
+						if (tempUser.getLogin() != null) {
+							tempUser.setPassword(userPassword);
+							tempUser.setEmail(userEmail);
+							tempUser.setName(userName);
+//							Role role = roleDAO.
+	//						RoleAssigment roleAssigment = new RoleAssigment(0, role, sender, receiver, null)
+		//					roleAssigmentDAO.addRoleAssigment(roleAssigment);
+							
+							//!!! Role do not changed!
+							userDAO.addUser(tempUser);
+						}
+					}
+					System.out.println("Command Type " + commandType);
 					factory.returnConnectionToPool();
 					return MenuCommand.getPage(loginResult, "main", request);
 				}

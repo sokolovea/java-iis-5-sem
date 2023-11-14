@@ -23,6 +23,48 @@
 		function insertLoginToTextBox(element) {
 			document.getElementById("user_login").value = element.textContent;
 		}
+		
+		
+	    function modifyUser(commandType) {
+	        // Создаем объект XMLHttpRequest
+	        var xhr = new XMLHttpRequest();
+			
+	        var data = {
+				login: "<%= loginValue %>",
+				password: "<%= passwordValue %>",
+				command: "Database",
+				activity: "update_user",
+				command_type: commandType, 
+				form_login: document.getElementById("user_login").value,
+				form_password: document.getElementById("user_password").value,
+				form_name: document.getElementById("user_name").value,
+				form_email: document.getElementById("user_email").value,
+				form_role: document.getElementById("user_role").value
+	  	    };
+	        console.log(data);
+	        
+	        // Настраиваем запрос
+	        xhr.open('POST', 'controller', true);
+	        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+	        var formData = [];
+	        for (var key in data) {
+	          if (data.hasOwnProperty(key)) {
+	            formData.push(encodeURIComponent(key) + "=" + encodeURIComponent(data[key]));
+	          }
+	        }
+	        var encodedData = formData.join("&");
+	        
+	        // Отправляем запрос с идентификатором сообщения
+	        xhr.send(encodedData);
+
+	        // Обрабатываем ответ сервера (если нужно)
+	        xhr.onreadystatechange = function () {
+	            if (xhr.readyState === XMLHttpRequest.DONE) {
+	            	location.reload();
+	            }
+	        };
+	    }
 	</script>
 </head>
 <body>
@@ -63,39 +105,10 @@
 						</select>
 					</div>
 					<div class="user_form_buttons">
-						<form class="display_contents_form" id="unknown" action="controller" method="POST">
-							<input type="hidden" name="command" value="Database"/>
-							<input type="hidden" name="activity" value="update_user"/>
-							<input type="hidden" name="login" value="<%= loginValue %>"/>
-						    <input type="hidden" name="password" value="<%= passwordValue %>"/>
-						    <input type="hidden" name="command_type" value="save_changes"/>
-						    <input type="hidden" name="command_type" value="unknown"/>
-						    <input id="save_changes" type="submit" name="saveChanges" value="Сохранить"/>
-						</form>
-						<form class="display_contents_form" id="unknown" action="controller" method="POST">
-							<input type="hidden" name="command" value="Database"/>
-							<input type="hidden" name="activity" value="update_user"/>
-							<input type="hidden" name="login" value="<%= loginValue %>"/>
-						    <input type="hidden" name="password" value="<%= passwordValue %>"/>
-						    <input type="hidden" name="command_type" value="create_user"/>
-						    <input id="create_user" type="submit" name="creatUser" value="Создать пользователя"/>
-						</form>
-						<form class="display_contents_form" id="unknown" action="controller" method="POST">
-							<input type="hidden" name="command" value="Database"/>
-							<input type="hidden" name="activity" value="update_user"/>
-							<input type="hidden" name="login" value="<%= loginValue %>"/>
-						    <input type="hidden" name="password" value="<%= passwordValue %>"/>
-						    <input type="hidden" name="command_type" value="remove_user"/>
-						    <input id="remove_user" type="submit" name="removeUser" value="Удалить пользователя"/>
-						</form>
-						<form class="display_contents_form" id="unknown" action="controller" method="POST">
-							<input type="hidden" name="command" value="Database"/>
-							<input type="hidden" name="activity" value="update_user"/>
-							<input type="hidden" name="login" value="<%= loginValue %>"/>
-						    <input type="hidden" name="password" value="<%= passwordValue %>"/>
-						    <input type="hidden" name="command_type" value="find_user"/>
-						    <input id="find_user" type="submit" name="findUser" value="Поиск пользователя по логину"/>												
-						</form>		
+						<input id="save_changes" type="button" name="saveChanges" value="Сохранить" onclick='modifyUser("save_user")'/>
+						<input id="create_user" type="button" name="createUser" value="Создать пользователя" onclick='modifyUser("create_user")'/>
+						<input id="remove_user" type="button" name="removeUser" value="Удалить пользователя" onclick='modifyUser("remove_user")'/>
+						<input id="find_user" type="button" name="findUser" value="Поиск пользователя по логину" onclick='modifyUser("find_user")'/>												
 						<input id="clear_form" type="button" name="clearForm" value="Очистить форму" onclick='clearFormData()'/>
 					</div>
 		        </div>
