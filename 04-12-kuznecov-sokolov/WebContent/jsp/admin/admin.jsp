@@ -61,7 +61,21 @@
 	        // Обрабатываем ответ сервера (если нужно)
 	        xhr.onreadystatechange = function () {
 	            if (xhr.readyState === XMLHttpRequest.DONE) {
-	            	location.reload();
+	            	if (commandType == 'find_user') {
+	            		var redirectPage = xhr.responseText; // Предполагается, что сервер вернул имя страницы для перенаправления
+	            		//var redirectUrl = window.location.origin + "/" + redirectPage;
+	            		// Открываем документ для записи
+	            		document.open();
+
+	            		// Записываем новый исходный код страницы
+	            		document.write(redirectPage);
+
+	            		// Закрываем документ
+	            		document.close();
+	            		//location.reload();
+	            	} else {
+	            		location.reload();
+	            	}
 	            }
 	        };
 	    }
@@ -82,25 +96,25 @@
 					<div id="current_user_caption">Текущий пользователь: не выбран</div>
 					<div class="user_form_item">
 						<div class="user_form_item_caption">Логин</div>
-						<input id="user_login" class="text_box" type="text" name="userLogin" placeholder="user1"/>
+						<input id="user_login" class="text_box" type="text" name="userLogin" placeholder="user1" value="${form_login}"/>
 					</div>
 					<div class="user_form_item">
 						<div class="user_form_item_caption">Пароль</div>
-						<input id="user_password" class="text_box" type="text" name="userPassword" placeholder="1234567890"/>
+						<input id="user_password" class="text_box" type="text" name="userPassword" placeholder="1234567890" value="${form_password}"/>
 					</div>
 					<div class="user_form_item">
 						<div class="user_form_item_caption">Имя</div>
-						<input id="user_name" class="text_box" type="text" name="userName" placeholder="Userov User Userovich"/>
+						<input id="user_name" class="text_box" type="text" name="userName" placeholder="Userov User Userovich" value="${form_name}"/>
 					</div>
 					<div class="user_form_item">
 						<div class="user_form_item_caption">Электронная почта</div>
-						<input id="user_email" class="text_box" type="text" name="userEmail" placeholder="123@yandex.ru"/>
+						<input id="user_email" class="text_box" type="text" name="userEmail" placeholder="123@yandex.ru" value="${form_email}"/>
 					</div>
 					<div class="user_form_item">
 						<div class="user_form_item_caption">Роль</div>
 						<select id="user_role" class="text_box" name="userRole">
 							<c:forEach var="role" items="${roleList}">
-								<option>${role.getName()}</option>
+								<option ${role.getName() eq form_role ? 'selected' : ''} >${role.getName()}</option>
 							</c:forEach>
 						</select>
 					</div>
