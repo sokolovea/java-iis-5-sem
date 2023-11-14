@@ -7,7 +7,10 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.Role;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public interface RoleDAO {
+	
 	Role getUserRole(User user) throws SQLException;
+	
+	Role getRoleByName(String name) throws SQLException;
 	
 	List<Role> getAllRoles() throws SQLException;
 }

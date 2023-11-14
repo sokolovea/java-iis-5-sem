@@ -24,6 +24,8 @@ public interface UserDAO {
 	
 	Map<User, Role> getUsersWithRole() throws SQLException;
 	
+	User getTeamCapitan(Team team) throws SQLException;
+	
 	void addUser(User user) throws SQLException;
 	
 	void updateUser(User user) throws SQLException;

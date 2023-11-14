@@ -37,6 +37,7 @@ public class LoginLogic {
 		
 		User user = userDAO.getUserByLogin(enterLogin);
 		if (user.getLogin() == null) {
+			factory.returnConnectionToPool();
 			return EnumLogin.NOUSER;
 		}
 		boolean loginResult = user.checkPassword(enterPass);
@@ -60,5 +61,21 @@ public class LoginLogic {
 			return EnumLogin.USER;
 		}
 		return EnumLogin.NOUSER;
+	}
+	
+	public static boolean isCapitan(String userLogin, int team_id) {
+		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+		UserDAO userDAO = factory.getUserDAO();
+		User capitan = null;
+		try {
+			capitan = userDAO.getTeamCapitan(new Team(team_id));
+			//System.out.println(userLogin + team_id);
+			factory.returnConnectionToPool();
+			return capitan.getLogin().equals(userLogin);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		factory.returnConnectionToPool();
+		return false;
 	}
 }
