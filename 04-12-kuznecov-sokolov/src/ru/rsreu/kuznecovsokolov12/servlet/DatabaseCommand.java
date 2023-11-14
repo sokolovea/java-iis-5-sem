@@ -58,6 +58,7 @@ public class DatabaseCommand implements ActionCommand {
 					if (teamList.size() == 0) {
 						System.out.println("Null team list for user!!!");
 					}
+					request.setAttribute("teamList", teamList);
 					String messageString = request.getParameter("message");
 					if (messageString == null) {
 						System.out.println("Null message!!!"); //Message(id, data, author, time)
