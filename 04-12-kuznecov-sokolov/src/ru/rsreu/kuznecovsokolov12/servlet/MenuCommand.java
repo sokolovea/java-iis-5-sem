@@ -114,12 +114,14 @@ public class MenuCommand implements ActionCommand {
 		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
 		MessageAttachingDAO messageAttachDAO = factory.getMessageAttachingDAO();
 		UserDAO userDAO = factory.getUserDAO();
-//		TeamDAO teamDAO = factory.getTeamDAO();
+		TeamDAO teamDAO = factory.getTeamDAO();
 //		String login = request.getParameter(PARAM_NAME_LOGIN);
 		List<MessageAttaching> messageList = null;
 		Set<MessageAttaching> deletedMessageSet = null;
 		List<User> userList = null;
+		Map<Team, Map<String, Integer>> fullTeamMap = null;
 		try {
+			fullTeamMap = teamDAO.getAllTeam();
 			userList = userDAO.getUnprivilegedUsers();
 			messageList = messageAttachDAO.getAllMessageAttachs();
 			deletedMessageSet = messageAttachDAO.getAllDeletedMessageAttachs();
@@ -129,6 +131,7 @@ public class MenuCommand implements ActionCommand {
 		request.setAttribute("user_list", userList);
 		request.setAttribute("messageList", messageList);
 		request.setAttribute("deletedMessageSet", deletedMessageSet);
+		request.setAttribute("fullTeamMap", fullTeamMap);
 		factory.returnConnectionToPool();
 	}
 	

@@ -17,6 +17,7 @@ public class OracleTeamInteractDAO implements TeamInteractDAO {
 	private final static String SQL_SELECT_TEAM_INTERACTS_BY_USER = "select * from \"USER\" join \"TEAM_INTERACT\" on \"user_id\" = \"user\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"TEAM\" on \"team_id\" = \"team\" where \"user_id\" = ?";
 	private final static String SQL_ALL_TEAM_INTERACTS_SELECT = "select * from \"TEAM_INTERACT\"";
 	private static final String SQL_TEAM_INTERACT_CREATE = "INSERT INTO \"TEAM_INTERACT\" (\"user\", \"type\", \"team\", \"time\") VALUES (?, ?, ?, (select sysdate from dual))";
+	private static final String SQL_TEAM_INTERACT_TYPE_BY_NAME = "select * from \"TEAM_INTERACT_TYPE\" where \"type_name\" = ?";
 	
 	public final static String COLUMN_TEAM_INTERACT_ID 	= "team_interact_id";
 	public final static String COLUMN_TEAM_INTERACT_TIME 	= "time";
@@ -63,6 +64,19 @@ public class OracleTeamInteractDAO implements TeamInteractDAO {
 		while (resultSet.next()) {
 			TeamInteract teamInteract = getTeamInteractData(resultSet, ALL_TEAM_INTERACT_COLUMNS);
 			result.add(teamInteract);
+		}
+		return result;
+	}
+	
+	@Override
+	public TeamInteractType getTeamInteractTypeByName(String name) throws SQLException {
+		PreparedStatement ps;
+		TeamInteractType result = new TeamInteractType();
+		ps = this.connection.prepareStatement(SQL_TEAM_INTERACT_TYPE_BY_NAME);
+		ps.setString(1, name);
+		ResultSet resultSet = ps.executeQuery();
+		if (resultSet.next()) {
+			result = getTeamInteractTypeData(resultSet, ALL_TEAM_INTERACT_TYPE_COLUMNS);
 		}
 		return result;
 	}

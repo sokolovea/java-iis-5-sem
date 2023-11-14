@@ -37,12 +37,12 @@
 								</div>
 								<div class="message_content">
 									<div class="message_data">${message.getData()}</div>
-										<div class="message_buttons">
-											<c:if test="${!messageIsDeleted && message.getAuthor().getLogin().equals(userName) || messageIsDeleted && message.getAuthor().getId().equals(deletedMessageSet.get(message))}"> 
-												<div class="restore_message_button">&#8635</div>
-												<div class="delete_message_button">✖</div>
-											</c:if>
-										</div>
+									<div class="message_buttons">
+										<c:if test="${!messageIsDeleted && message.getAuthor().getLogin().equals(userName) || messageIsDeleted && message.getAuthor().getId().equals(deletedMessageSet.get(message))}"> 
+											<div class="restore_message_button">&#8635</div>
+											<div class="delete_message_button">✖</div>
+										</c:if>
+									</div>
 								</div>
 							</div>
 						</c:if>
