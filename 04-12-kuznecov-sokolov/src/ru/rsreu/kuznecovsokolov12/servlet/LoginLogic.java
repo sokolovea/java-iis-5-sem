@@ -44,7 +44,7 @@ public class LoginLogic {
 		}
 		
 		Sanction lastSanction = sanctionDAO.getLastUserSanction(user);
-		System.out.println(lastSanction.getType().getName());
+		//System.out.println(lastSanction.getType().getName());
 		if (lastSanction.getReceiver() != null) {
 			if (lastSanction.getType().toString().equals("Block")) {
 				System.out.println("user is blocked");
@@ -52,8 +52,8 @@ public class LoginLogic {
 			}
 		}
 		boolean loginResult = user.checkPassword(enterPass);
-		System.out.println(loginResult);
-		System.out.println(enterPass);
+		//System.out.println(loginResult);
+		//System.out.println(enterPass);
 		if (!loginResult) {
 			factory.returnConnectionToPool();
 			return EnumLogin.NOUSER;
