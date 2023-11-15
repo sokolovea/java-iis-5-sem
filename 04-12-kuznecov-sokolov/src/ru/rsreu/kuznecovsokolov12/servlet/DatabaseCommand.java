@@ -215,12 +215,94 @@ public class DatabaseCommand implements ActionCommand {
 					teamInteractDAO.addTeamInteract(teamInteract);
 					factory.returnConnectionToPool();
 					return MenuCommand.getPage(loginResult, "main", request);
+				} else if (activity.equals("captain_pop_expert")) {
+					DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+					TeamDAO teamDAO = factory.getTeamDAO();
+					TeamInteractDAO teamInteractDAO = factory.getTeamInteractDAO();
+					UserDAO userDAO = factory.getUserDAO();
+					String teamId = request.getParameter("team_id");
+					User user;
+					try {
+						user = userDAO.getUserByLogin(login);
+						List<Team> teamList = teamDAO.getTeamsForUser(user);
+						Team team = teamDAO.getTeamById(Integer.parseInt(teamId));
+						if (teamList.size() != 0 && teamList.contains(team)) {
+							User expert = userDAO.getExpertForTeam(team);
+							TeamInteract teamInteract = new TeamInteract(0, expert,
+									teamInteractDAO.getTeamInteractTypeByName("Expert_ejected"), team, null);
+							teamInteractDAO.addTeamInteract(teamInteract);
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					factory.returnConnectionToPool();
+					return MenuCommand.getPage(loginResult, "team", request);
+					// return ConfigurationManager.getProperty("path.page.team_select");
 				}
-			} 
+			}
 			
 			
 			
-			else if (loginResult == EnumLogin.MODERATOR) {
+			
+			else if (loginResult == EnumLogin.EXPERT) {
+				if (activity.equals("join_team")) {
+					int teamId = Integer.parseInt(request.getParameter("team_id"));
+					DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+					TeamDAO teamDAO = factory.getTeamDAO();
+					TeamInteractDAO teamInteractDAO = factory.getTeamInteractDAO();
+					UserDAO userDAO = factory.getUserDAO();
+					User user = userDAO.getUserByLogin(login);
+					Team team = teamDAO.getTeamById(teamId);
+					User expert = userDAO.getExpertForTeam(team);
+					if (expert.getLogin() == null) {
+						TeamInteract teamInteract = new TeamInteract(0, user,
+								teamInteractDAO.getTeamInteractTypeByName("Join"), team, null);
+						teamInteractDAO.addTeamInteract(teamInteract);
+						factory.returnConnectionToPool();
+					}
+					factory.returnConnectionToPool();
+					return MenuCommand.getPage(loginResult, "main", request);
+				} else if (activity.equals("expert_exit_team")) {
+						DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+						TeamDAO teamDAO = factory.getTeamDAO();
+						TeamInteractDAO teamInteractDAO = factory.getTeamInteractDAO();
+						UserDAO userDAO = factory.getUserDAO();
+						String teamId = request.getParameter("team_id");
+						User user;
+						try {
+							user = userDAO.getUserByLogin(login);
+							List<Team> teamList = teamDAO.getTeamsForUser(user);
+							Team team = teamDAO.getTeamById(Integer.parseInt(teamId));
+							if (teamList.size() != 0 && teamList.contains(team)) {
+								TeamInteract teamInteract = new TeamInteract(0, user,
+										teamInteractDAO.getTeamInteractTypeByName("Exit"), team, null);
+								teamInteractDAO.addTeamInteract(teamInteract);
+							}
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						factory.returnConnectionToPool();
+						return MenuCommand.getPage(loginResult, "main", request);
+						// return ConfigurationManager.getProperty("path.page.team_select");
+				
+				
+				
+				
+				
+				}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			} else if (loginResult == EnumLogin.MODERATOR) {
 				if (activity.equals("delete_message")) {
 					int messageId = Integer.parseInt(request.getParameter("messageId"));
 					DatabaseCommand.deleteMessage(login, messageId);
