@@ -291,6 +291,24 @@ public class DatabaseCommand implements ActionCommand {
 				
 				
 				
+				} 	else if (activity.equals("send_message")) {
+					String message = request.getParameter("message");
+					if (message != null && !message.isEmpty()) {
+						DatabaseLogic.sendMessage(login, message);
+					}
+					return MenuCommand.getPage(loginResult, "team", request);
+				} else if (activity.equals("delete_message")) {
+					int messageId = Integer.parseInt(request.getParameter("messageId"));
+					DatabaseCommand.deleteMessage(login, messageId);
+					return MenuCommand.getPage(loginResult, "team", request);
+//					return ConfigurationManager.getProperty("path.page.team");
+
+				} else if (activity.equals("restore_message")) {
+					int messageId = Integer.parseInt(request.getParameter("messageId"));
+					DatabaseCommand.restoreMessage(messageId);
+					return MenuCommand.getPage(loginResult, "team", request);
+//					return ConfigurationManager.getProperty("path.page.team");
+
 				}
 				
 				
