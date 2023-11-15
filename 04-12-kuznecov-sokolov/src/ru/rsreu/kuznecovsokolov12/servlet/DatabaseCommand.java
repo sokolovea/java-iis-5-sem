@@ -175,16 +175,18 @@ public class DatabaseCommand implements ActionCommand {
 						User user = userDAO.getUserByLogin(login);
 						List<Team> teamList = teamDAO.getTeamsForUser(user);
 						if (teamList.size() != 0) {
-							TeamInteract teamInteract = new TeamInteract(0, user,
-									teamInteractDAO.getTeamInteractTypeByName("Exit"), teamList.get(0), null);
+							if (LoginLogic.isCapitan(login, teamList.get(0).getId())) {
+								factory.returnConnectionToPool();
+								return MenuCommand.getPage(loginResult, "main", request);
+							}
+							TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Exit"), teamList.get(0), null);
 							teamInteractDAO.addTeamInteract(teamInteract);
 						}
 						Team team = new Team();
 						team.setName(teamFormName);
 						teamDAO.addTeam(team);
 						team = teamDAO.getTeamByName(teamFormName);
-						TeamInteract teamInteract = new TeamInteract(0, user,
-								teamInteractDAO.getTeamInteractTypeByName("Join"), team, null);
+						TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Join"), team, null);
 						teamInteractDAO.addTeamInteract(teamInteract);
 					}
 					factory.returnConnectionToPool();
@@ -199,8 +201,7 @@ public class DatabaseCommand implements ActionCommand {
 					User user = userDAO.getUserByLogin(login);
 					List<Team> teamList = teamDAO.getTeamsForUser(user);
 					if (teamList.size() != 0) {
-						if (LoginLogic.isCapitan(login, teamList.get(0).getId())
-								|| (teamList.get(0).getId() == teamId)) {
+						if (LoginLogic.isCapitan(login, teamList.get(0).getId()) || (teamList.get(0).getId() == teamId)) {
 							factory.returnConnectionToPool();
 							return MenuCommand.getPage(loginResult, "main", request);
 						}
