@@ -15,6 +15,7 @@
 	%>
 </head>
 <body>
+<jsp:useBean id="myLogic" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
 	<div class="window"> 
 		<div id="top_bar" class="container">
 			<c:import url="/jsp/general/top_bar_content.jsp"/>
@@ -26,9 +27,10 @@
 			<div id="center_bar" class="container">
 				<div id="center_bar_top">
 					<div id="create_team" class="center_bar_boxes"> 
-						<div id="create_team_caption" class="header_name">
-							Создание команды
-						</div>
+						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() != 'expert'}">
+							<div id="create_team_caption" class="header_name">
+								Создание команды
+							</div>
 							<form class="display_contents_form" id="create_form_team" action="controller" method="POST">
 							<div id="create_team_input">
 								<div id="create_team_text_box">
@@ -44,6 +46,7 @@
 								</div>
 							</div>
 						</form>
+						</c:if>
 					</div>
 					<div class="center_bar_boxes" id="teams_info">
 						<div id="team_count">
@@ -89,7 +92,6 @@
 					</div>
 				</div>		
 			</div>
-			<jsp:useBean id="myLogic" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
 			<div id="right_bar" class="container">
 				<div id="list_of_teams">
 					<div id="list_of_teams_caption" class="right_bar_header">

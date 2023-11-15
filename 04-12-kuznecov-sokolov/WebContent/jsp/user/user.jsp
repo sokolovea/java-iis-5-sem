@@ -129,10 +129,24 @@
 					</c:if>
 					<div id="expert_block_buttons">
 						<c:if test = "${myLogic.isCapitan(userName, team.getId())}">
-							<input type="button" value="Отказаться от эксперта"/>
+							<form class="display_contents_form" id="message_chat_form" action="controller" method="POST">
+								<input type="hidden" name="team_id" value="<%= teamId %>"/>
+								<input type="hidden" name="command" value="Database"/>
+								<input type="hidden" name="activity" value="captain_pop_expert"/>
+								<input type="hidden" name="login" value="<%= loginValue %>"/>
+							    <input type="hidden" name="password" value="<%= passwordValue %>"/>
+								<input type="submit" value="Отказаться от эксперта"/>
+							</form>
 						</c:if>
 						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'expert'}">
-							<input type="button" value="Отказаться от команды" href="controller?login=${userName}&password=${userPassword}&destination=team&command=Menu"/>
+							<form class="display_contents_form" id="message_chat_form" action="controller" method="POST">
+								<input type="hidden" name="team_id" value="<%= teamId %>"/>
+								<input type="hidden" name="command" value="Database"/>
+								<input type="hidden" name="activity" value="expert_exit_team"/>
+								<input type="hidden" name="login" value="<%= loginValue %>"/>
+							    <input type="hidden" name="password" value="<%= passwordValue %>"/>
+								<input type="submit" value="Отказаться от команды"/>
+							</form>
 						</c:if>
 					</div>	
 				</div>
