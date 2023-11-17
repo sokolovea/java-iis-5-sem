@@ -13,18 +13,38 @@ import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.TeamInteractDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 
-public interface DAOAcces {
+public class DAOAcces {
 
-	public static final DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
-	public static final SettingDAO settingDAO = factory.getSettingDAO();
-	public static final UserDAO userDAO = factory.getUserDAO();
-	public static final RoleDAO roleDAO = factory.getRoleDAO();
-	public static final DeletedMessageDAO deletedMessageDAO = factory.getDeletedMessageDAO();
-	public static final SanctionDAO sanctionDAO = factory.getSanctionDAO();
-	public static final MessageAttachingDAO messageAttachDAO = factory.getMessageAttachingDAO();
-	public static final MessageDAO messageDAO = factory.getMessageDAO();
-	public static final RoleAssigmentDAO roleAssigmentDAO = factory.getRoleAssigmentDAO();
-	public static final TeamDAO teamDAO = factory.getTeamDAO();
-	public static final TeamInteractDAO teamInteractDAO = factory.getTeamInteractDAO();
+	public static DAOFactory factory;
+	public static SettingDAO settingDAO;
+	public static UserDAO userDAO;
+	public static RoleDAO roleDAO;
+	public static DeletedMessageDAO deletedMessageDAO;
+	public static SanctionDAO sanctionDAO;
+	public static MessageAttachingDAO messageAttachDAO;
+	public static MessageDAO messageDAO;
+	public static RoleAssigmentDAO roleAssigmentDAO;
+	public static TeamDAO teamDAO;
+	public static TeamInteractDAO teamInteractDAO;
+	
+	public static void initDAOitems() {
+		System.out.print("from datalogic: ");
+		factory = DAOFactory.getInstance(DBType.ORACLE);
+		settingDAO = factory.getSettingDAO();
+		userDAO = factory.getUserDAO();
+		roleDAO = factory.getRoleDAO();
+		deletedMessageDAO = factory.getDeletedMessageDAO();
+		sanctionDAO = factory.getSanctionDAO();
+		messageAttachDAO = factory.getMessageAttachingDAO();
+		messageDAO = factory.getMessageDAO();
+		roleAssigmentDAO = factory.getRoleAssigmentDAO();
+		teamDAO = factory.getTeamDAO();
+		teamInteractDAO = factory.getTeamInteractDAO();
+	}
+	
+	public static void closeFactory() {
+		System.out.print("from datalogic: ");
+		factory.returnConnectionToPool();
+	}
 	
 }

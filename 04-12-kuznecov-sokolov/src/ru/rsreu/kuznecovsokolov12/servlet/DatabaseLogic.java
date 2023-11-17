@@ -25,21 +25,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.DAOAcces;
 import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleDataBaseDAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleUserDAO;
 
-public class DatabaseLogic implements DAOAcces {
-	/*
-	public static final DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
-	public static final SettingDAO settingDAO = factory.getSettingDAO();
-	public static final UserDAO userDAO = factory.getUserDAO();
-	public static final RoleDAO roleDAO = factory.getRoleDAO();
-	public static final DeletedMessageDAO deletedMessageDAO = factory.getDeletedMessageDAO();
-	public static final SanctionDAO sanctionDAO = factory.getSanctionDAO();
-	public static final MessageAttachingDAO messageAttachDAO = factory.getMessageAttachingDAO();
-	public static final MessageDAO messageDAO = factory.getMessageDAO();
-	public static final RoleAssigmentDAO roleAssigmentDAO = factory.getRoleAssigmentDAO();
-	public static final TeamDAO teamDAO = factory.getTeamDAO();
-	public static final TeamInteractDAO teamInteractDAO = factory.getTeamInteractDAO();
-	*/
-	
+public class DatabaseLogic extends DAOAcces {
 
 	public static List<Setting> updateSetting(String teamCapacity, String expertCapacity) throws SQLException {
 		Setting settingTeamCapacity = new Setting("max_team_capacity", Integer.parseInt(teamCapacity));
@@ -65,7 +51,7 @@ public class DatabaseLogic implements DAOAcces {
 		messageAttaching.setMessage(message);
 		messageAttaching.setTeam(teamList.get(0));
 		messageAttachDAO.addMessage(messageAttaching);
-		factory.returnConnectionToPool();
+		//factory.returnConnectionToPool();
 
 	}
 	
@@ -84,7 +70,7 @@ public class DatabaseLogic implements DAOAcces {
 			List<Team> teamList = teamDAO.getTeamsForUser(user);
 			if (teamList.size() != 0) {
 				if (LoginLogic.isCapitan(userLogin, teamList.get(0).getId())) {
-					factory.returnConnectionToPool();
+					//factory.returnConnectionToPool();
 					return;
 					//return MenuCommand.getPage(loginResult, "main", request);
 				}
@@ -98,7 +84,7 @@ public class DatabaseLogic implements DAOAcces {
 			TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Join"), team, null);
 			teamInteractDAO.addTeamInteract(teamInteract);
 		}
-		factory.returnConnectionToPool();
+		//factory.returnConnectionToPool();
 
 	}
 	
@@ -107,7 +93,7 @@ public class DatabaseLogic implements DAOAcces {
 		List<Team> teamList = teamDAO.getTeamsForUser(user);
 		if (teamList.size() != 0) {
 			if (LoginLogic.isCapitan(userLogin, teamList.get(0).getId()) || (teamList.get(0).getId() == teamId)) {
-				factory.returnConnectionToPool();
+				//factory.returnConnectionToPool();
 				return;
 			}
 			TeamInteract teamInteract = new TeamInteract(0, user,
@@ -118,7 +104,7 @@ public class DatabaseLogic implements DAOAcces {
 		TeamInteract teamInteract = new TeamInteract(0, user,
 				teamInteractDAO.getTeamInteractTypeByName("Join"), team, null);
 		teamInteractDAO.addTeamInteract(teamInteract);
-		factory.returnConnectionToPool();
+		//factory.returnConnectionToPool();
 	}
 	
 	public static void expertJoinTeam(String expertLogin, int teamId) throws SQLException {
@@ -129,9 +115,9 @@ public class DatabaseLogic implements DAOAcces {
 			TeamInteract teamInteract = new TeamInteract(0, user,
 					teamInteractDAO.getTeamInteractTypeByName("Join"), team, null);
 			teamInteractDAO.addTeamInteract(teamInteract);
-			factory.returnConnectionToPool();
+			//factory.returnConnectionToPool();
 		}
-		factory.returnConnectionToPool();
+		//factory.returnConnectionToPool();
 	}
 	
 	public static void expertExitFromTeam(String expertLogin, int teamId) {
@@ -148,7 +134,7 @@ public class DatabaseLogic implements DAOAcces {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		factory.returnConnectionToPool();
+		//factory.returnConnectionToPool();
 	}
 
 	public static void ejectExpertFromTeam(String capitanLogin, int teamId) throws SQLException {
@@ -162,20 +148,20 @@ public class DatabaseLogic implements DAOAcces {
 					teamInteractDAO.getTeamInteractTypeByName("Expert_ejected"), team, null);
 			teamInteractDAO.addTeamInteract(teamInteract);
 		}
-		factory.returnConnectionToPool();
+		//factory.returnConnectionToPool();
 	}
 	
 	public static void deleteMessage(String senderLogin, int messageId) throws SQLException {
 		User user = userDAO.getUserByLogin(senderLogin);
 		DeletedMessage deletedMessage = new DeletedMessage(0, user, new Message(messageId), null);
 		deletedMessageDAO.addDeletedMessage(deletedMessage);
-		factory.returnConnectionToPool();
+		//factory.returnConnectionToPool();
 	}
 	
 	public static void restoreMessage(int messageId) throws SQLException {
 		DeletedMessage deletedMessage = new DeletedMessage(0, null, new Message(messageId), null);
 		deletedMessageDAO.removeFromDeletedMessage(deletedMessage);
-		factory.returnConnectionToPool();
+		//factory.returnConnectionToPool();
 	}
 	
 	public static void createSanction(String senderLogin, int userId, String sanctionName) throws SQLException {
@@ -183,7 +169,7 @@ public class DatabaseLogic implements DAOAcces {
 		User sender = userDAO.getUserByLogin(senderLogin);
 		Sanction sanction = new Sanction(0, sanctionType, sender, new User(userId), null, null);
 		sanctionDAO.addSanction(sanction);
-		factory.returnConnectionToPool();
+		//factory.returnConnectionToPool();
 	}
 	
 	public static void createUser(User newUser, String roleName, String senderLogin) throws SQLException {
@@ -199,9 +185,9 @@ public class DatabaseLogic implements DAOAcces {
 			tempUser = userDAO.getUserByLogin(tempUser.getLogin());
 			RoleAssigment roleAssigment = new RoleAssigment(0, role, sender, tempUser, null);
 			roleAssigmentDAO.addRoleAssigment(roleAssigment);
-			factory.returnConnectionToPool();
+			//factory.returnConnectionToPool();
 		}
-		factory.returnConnectionToPool();
+		//factory.returnConnectionToPool();
 	}
 	
 	public static void saveUser(User newUserData) throws SQLException {
@@ -212,29 +198,18 @@ public class DatabaseLogic implements DAOAcces {
 			tempUser.setName(newUserData.getName());
 			// !!! Role do not changed!
 			userDAO.updateUser(tempUser);
-			factory.returnConnectionToPool();
+			//factory.returnConnectionToPool();
 		}
-		factory.returnConnectionToPool();
+		//factory.returnConnectionToPool();
 	}
 	
 	public static Map.Entry<User, Role> findUser(String userLogin) throws SQLException {
 		User user = userDAO.getUserByLogin(userLogin);
 		if (user.getLogin() != null) {
-			String tempLogin = user.getLogin();
-			String tempPassword = user.getPassword();
-			String tempName = user.getName();
-			String tempEmail = user.getEmail();
 			Role role = roleDAO.getUserRole(user);
-			String tempRole = role.getName();
-			factory.returnConnectionToPool();
 			return Map.entry(user, role);
-//			request.setAttribute("form_login", tempLogin);
-//			request.setAttribute("form_password", tempPassword);
-//			request.setAttribute("form_name", tempName);
-//			request.setAttribute("form_email", tempEmail);
-//			request.setAttribute("form_role", tempRole);
 		}
-		factory.returnConnectionToPool();
+		//factory.returnConnectionToPool();
 		return null;
 	}
 
@@ -243,7 +218,7 @@ public class DatabaseLogic implements DAOAcces {
 		if (tempUser.getLogin() != null) {
 			userDAO.deleteUser(tempUser);
 		}
-		factory.returnConnectionToPool();
+		//factory.returnConnectionToPool();
 	}
 	
 	

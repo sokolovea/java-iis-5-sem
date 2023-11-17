@@ -57,9 +57,6 @@ public class ReportCommand implements ActionCommand {
 				adminReportSecond = roleAssigmentDAO.getRoleAssigmentsForUser(userForSecondReport);
 			} catch (Exception e) {
 				e.printStackTrace();
-			} finally {
-				// TODO Auto-generated catch block
-				factory.returnConnectionToPool();
 			}
 			request.setAttribute("adminReportFirst", adminReportFirst);
 			request.setAttribute("adminReportSecond", adminReportSecond);
