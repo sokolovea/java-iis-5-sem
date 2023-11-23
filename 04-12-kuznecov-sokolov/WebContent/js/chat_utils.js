@@ -7,7 +7,7 @@ function restoreMessage(messageId, element) {
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
     // Отправляем запрос с идентификатором сообщения
-    xhr.send('command=Database&activity=restore_message&login=<%= loginValue %>&password=<%= passwordValue %>&team_id=<%= teamId %>&messageId=' + messageId);
+    xhr.send('command=Database&activity=restore_message&messageId=' + messageId);
 
     // Обрабатываем ответ сервера (если нужно)
     xhr.onreadystatechange = function () {
@@ -26,7 +26,7 @@ function deleteMessage(messageId, element) {
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
     // Отправляем запрос с идентификатором сообщения
-    xhr.send('command=Database&activity=delete_message&login=<%= loginValue %>&password=<%= passwordValue %>&team_id=<%= teamId %>&messageId=' + messageId);
+    xhr.send('command=Database&activity=delete_message&messageId=' + messageId);
 
     // Обрабатываем ответ сервера (если нужно)
     xhr.onreadystatechange = function () {

@@ -200,7 +200,8 @@ public class DatabaseCommand implements ActionCommand {
 		else if (activity.equals("add_sanction")) {
 			int userIdForSanction = Integer.parseInt(request.getParameter("user_id"));
 			String sanction = request.getParameter("sanction");
-			DatabaseLogic.createSanction(login, userIdForSanction, sanction);
+			String reason = request.getParameter("reason");
+			DatabaseLogic.createSanction(login, userIdForSanction, sanction, reason);
 			return MenuCommand.getPage("main", request);
 		}
 		return null;

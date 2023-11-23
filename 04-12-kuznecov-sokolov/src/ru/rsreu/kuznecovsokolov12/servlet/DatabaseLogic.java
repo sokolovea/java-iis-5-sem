@@ -152,10 +152,10 @@ public class DatabaseLogic extends DAOAcces {
 		deletedMessageDAO.removeFromDeletedMessage(deletedMessage);
 	}
 	
-	public static void createSanction(String senderLogin, int userId, String sanctionName) throws SQLException {
+	public static void createSanction(String senderLogin, int userId, String sanctionName, String reason) throws SQLException {
 		SanctionType sanctionType = sanctionDAO.getSanctionTypeByName(sanctionName);
 		User sender = userDAO.getUserByLogin(senderLogin);
-		Sanction sanction = new Sanction(0, sanctionType, sender, new User(userId), null, null);
+		Sanction sanction = new Sanction(0, sanctionType, sender, new User(userId), reason, null);
 		sanctionDAO.addSanction(sanction);
 	}
 	
