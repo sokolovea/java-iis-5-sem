@@ -35,7 +35,6 @@
 		<input id="user_filter_input" class="text_box" type="text" name="userFilter" placeholder="Фильтр" onkeyup="userFilter()"/>
 	</div>
 	<div id="full_users_list">
-		<jsp:useBean id="roleChecker" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
 		<c:forEach var="user" items="${user_list}">
 			<c:if test = "${role.toString() == 'admin'}">
 				<div class="user" onclick="insertLoginToTextBox(this)">${user.getLogin()}</div>

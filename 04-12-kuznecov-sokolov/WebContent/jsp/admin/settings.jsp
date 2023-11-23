@@ -14,12 +14,10 @@
 				// Пример использования
 				var url = "controller";
 				var data = {
-						login: "${login}",
-						password:"${password}",
 					command: "Database",
 					destination: "settings",
-				  teamCapacity: document.getElementById("team_capacity").value,
-				  expertCapacity: document.getElementById("expert_capacity").value
+					teamCapacity: document.getElementById("team_capacity").value,
+					expertCapacity: document.getElementById("expert_capacity").value
 				};
 				
 				
@@ -76,8 +74,6 @@
 			</div>
 			<div id="center_bar" class="container">
 				<form id="settings_form" action="controller" method="POST">
-					<input type="hidden" name="login" value="${login}"/>
-				    <input type="hidden" name="password" value="${password}"/>
 				    <input type="hidden" name="command" value="Database"/>
 				    <input type="hidden" name="activity" value="update_setting"/>
 					<div id="settings_div">

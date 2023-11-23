@@ -18,7 +18,7 @@
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 	    // Отправляем запрос с идентификатором сообщения
-	    xhr.send('command=Database&activity=restore_message&login=${login}&password=${password}&messageId=' + messageId);
+	    xhr.send('command=Database&activity=restore_message&messageId=' + messageId);
 
 	    // Обрабатываем ответ сервера (если нужно)
 	    xhr.onreadystatechange = function () {
@@ -37,7 +37,7 @@
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 	    // Отправляем запрос с идентификатором сообщения
-	    xhr.send('command=Database&activity=delete_message&login=${login}&password=${password}&messageId=' + messageId);
+	    xhr.send('command=Database&activity=delete_message&messageId=' + messageId);
 
 	    // Обрабатываем ответ сервера (если нужно)
 	    xhr.onreadystatechange = function () {
@@ -57,7 +57,7 @@
 
 		    // Отправляем запрос с идентификатором сообщения
 		    var user_id = document.getElementById("user_id_for_sanction").value;
-		    xhr.send('command=Database&activity=add_sanction&login=${login}&password=${password}&sanction=' + sanction + '&user_id=' + user_id);
+		    xhr.send('command=Database&activity=add_sanction&sanction=' + sanction + '&user_id=' + user_id);
 
 		    // Обрабатываем ответ сервера (если нужно)
 		    xhr.onreadystatechange = function () {

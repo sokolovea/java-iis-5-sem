@@ -22,7 +22,7 @@
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 	    // Отправляем запрос с идентификатором сообщения
-	    xhr.send('command=Database&activity=restore_message&login=${login}&password=${password}&team_id=<%= teamId %>&messageId=' + messageId);
+	    xhr.send('command=Database&activity=restore_message&team_id=<%= teamId %>&messageId=' + messageId);
 
 	    // Обрабатываем ответ сервера (если нужно)
 	    xhr.onreadystatechange = function () {
@@ -41,7 +41,7 @@
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 	    // Отправляем запрос с идентификатором сообщения
-	    xhr.send('command=Database&activity=delete_message&login=${login}&password=${password}&team_id=<%= teamId %>&messageId=' + messageId);
+	    xhr.send('command=Database&activity=delete_message&team_id=<%= teamId %>&messageId=' + messageId);
 
 	    // Обрабатываем ответ сервера (если нужно)
 	    xhr.onreadystatechange = function () {
@@ -91,8 +91,6 @@
 					<input type="hidden" name="team_id" value="<%= teamId %>"/>
 					<input type="hidden" name="command" value="Database"/>
 					<input type="hidden" name="activity" value="send_message"/>
-					<input type="hidden" name="login" value="${login}"/>
-				    <input type="hidden" name="password" value="${password}"/>
 					<div id="message_input_box" class="center_bar_boxes">
 						<div id="message_input_box_text_box">	
 							<input id="text_box_message" class="text_box" type="text" name="message" placeholder="Введите сообщение"></input>
@@ -118,8 +116,7 @@
 						</c:forEach>
 					</div>
 				</div>
-				<jsp:useBean id="roleChecker" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
-				<c:set var="role" value="${roleChecker.checkLogin(login, password).toString()}"></c:set>
+				<jsp:useBean id="capitanChecker" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
 				<div id="expert_block">
 					<c:if test = "${role != 'expert'}">
 						<div id="expert_block_caption">
@@ -127,23 +124,19 @@
 						</div>
 					</c:if>
 					<div id="expert_block_buttons">
-						<c:if test = "${roleChecker.isCapitan(login, team.getId())}">
+						<c:if test = "${capitanChecker.isCapitan(login, team.getId())}">
 							<form class="display_contents_form" id="message_chat_form" action="controller" method="POST">
 								<input type="hidden" name="team_id" value="<%= teamId %>"/>
 								<input type="hidden" name="command" value="Database"/>
 								<input type="hidden" name="activity" value="captain_pop_expert"/>
-								<input type="hidden" name="login" value="${login}"/>
-							    <input type="hidden" name="password" value="${passsword}"/>
 								<input type="submit" value="Отказаться от эксперта"/>
 							</form>
 						</c:if>
-						<c:if test = "${role == 'expert'}">
+						<c:if test = "${role.toString() == 'expert'}">
 							<form class="display_contents_form" id="message_chat_form" action="controller" method="POST">
 								<input type="hidden" name="team_id" value="<%= teamId %>"/>
 								<input type="hidden" name="command" value="Database"/>
 								<input type="hidden" name="activity" value="expert_exit_team"/>
-								<input type="hidden" name="login" value="${login}"/>
-							    <input type="hidden" name="password" value="${password}"/>
 								<input type="submit" value="Отказаться от команды"/>
 							</form>
 						</c:if>

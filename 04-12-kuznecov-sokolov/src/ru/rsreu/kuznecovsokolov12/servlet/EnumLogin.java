@@ -14,9 +14,9 @@ public enum EnumLogin {
        this.title = title;
 	}
 	
-   @Override
-   public String toString() {
-       return this.title;
-   }
+    @Override
+    public String toString() {
+        return this.title;
+    }
 
 }

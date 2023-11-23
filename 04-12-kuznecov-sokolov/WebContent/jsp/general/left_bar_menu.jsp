@@ -6,52 +6,50 @@
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/user_list.css">
 </head>
 <body>
-	<jsp:useBean id="myLogic" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
-	<c:set var="role" value="${myLogic.checkLogin(login, password).toString()}"></c:set>
 	<ol>
-		<c:if test="${role == 'user' or role == 'captain'}">
+		<c:if test="${role.toString() == 'user' or role.toString() == 'captain'}">
 			<c:if test="${!teamList.isEmpty()}">
 				<li id="button_to_team" class="menu_button">
-					<a class="menu_button_ref" href="controller?login=${login}&password=${password}&command=Menu&destination=team&team_id=${team_id}">Моя команда</a>
+					<a class="menu_button_ref" href="controller?command=Menu&destination=team&team_id=${team_id}">Моя команда</a>
 				</li>
 			</c:if>
 			<li id="button_to_team" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${login}&password=${password}&destination=main&command=Menu">Команды</a>
+				<a class="menu_button_ref" href="controller?destination=main&command=Menu">Команды</a>
 			</li>
-			<c:if test="${role != 'captain'}">
+			<c:if test="${role.toString() != 'captain'}">
 				<li id="button_exit_team" class="menu_button">
-					<a class="menu_button_ref" href="controller?login=${login}&password=${password}&destination=exit_team&command=Menu">Покинуть команду</a>
+					<a class="menu_button_ref" href="controller?destination=exit_team&command=Menu">Покинуть команду</a>
 				</li>
 			</c:if>
 			<li id="button_report" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${login}&password=${password}&command=Report">Отчеты</a>
+				<a class="menu_button_ref" href="controller?command=Report">Отчеты</a>
 			</li>
 		</c:if>
-		<c:if test="${role == 'expert'}">
+		<c:if test="${role.toString() == 'expert'}">
 			<li id="button_to_team" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${login}&password=${password}&destination=main&command=Menu">Команды</a>
+				<a class="menu_button_ref" href="controller?destination=main&command=Menu">Команды</a>
 			</li>
 			<li id="button_report" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${login}&password=${password}&command=Report">Отчеты</a>
+				<a class="menu_button_ref" href="controller?command=Report">Отчеты</a>
 			</li>
 		</c:if>
-		<c:if test="${role == 'moderator'}">
+		<c:if test="${role.toString() == 'moderator'}">
 			<li id="button_main" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${login}&password=${password}&destination=main&command=Menu">Главное меню</a>
+				<a class="menu_button_ref" href="controller?destination=main&command=Menu">Главное меню</a>
 			</li>
 			<li id="button_report" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${login}&password=${password}&command=Report">Отчеты</a>
+				<a class="menu_button_ref" href="controller?command=Report">Отчеты</a>
 			</li>
 		</c:if>
-		<c:if test="${role == 'admin'}">
+		<c:if test="${role.toString() == 'admin'}">
 			<li id="button_main" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${login}&password=${password}&destination=main&command=Menu">Главное меню</a>
+				<a class="menu_button_ref" href="controller?destination=main&command=Menu">Главное меню</a>
 			</li>
 			<li id="button_settings" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${login}&password=${password}&destination=settings&command=Menu">Настройки СИС</a>
+				<a class="menu_button_ref" href="controller?destination=settings&command=Menu">Настройки СИС</a>
 			</li>
 			<li id="button_report" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${login}&password=${password}&command=Report">Отчеты</a>
+				<a class="menu_button_ref" href="controller?command=Report">Отчеты</a>
 			</li>
 		</c:if>
 	</ol>

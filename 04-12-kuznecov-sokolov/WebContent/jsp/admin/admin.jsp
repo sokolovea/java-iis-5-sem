@@ -26,8 +26,6 @@
 	        var xhr = new XMLHttpRequest();
 			
 	        var data = {
-				login: "${login}",
-				password: "${password}",
 				command: "Database",
 				activity: "update_user",
 				command_type: commandType, 
@@ -110,7 +108,7 @@
 						<div class="user_form_item_caption">Роль</div>
 						<select id="user_role" class="text_box" name="userRole">
 							<c:forEach var="role" items="${roleList}">
-								<option ${role.getName() eq form_role ? 'selected' : ''} >${role.getName()}</option>
+								<option ${role.getName() == form_role ? 'selected' : ''} >${role.getName()}</option>
 							</c:forEach>
 						</select>
 					</div>
