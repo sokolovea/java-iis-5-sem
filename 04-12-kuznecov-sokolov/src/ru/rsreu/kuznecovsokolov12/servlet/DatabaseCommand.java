@@ -40,12 +40,6 @@ public class DatabaseCommand implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request) {
-//		String login = request.getParameter(PARAM_NAME_LOGIN);
-//		String password = request.getParameter(PARAM_NAME_PASSWORD);
-//		
-//		HttpSession session =  request.getSession(true);
-//		session.setAttribute("userName", login);
-//		session.setAttribute("userPassword", password);
 		
 		String activity = request.getParameter("activity");
 		
