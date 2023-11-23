@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
@@ -35,46 +36,51 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleSanctionDAO;
 
 public class DatabaseCommand implements ActionCommand {
-	private static final String PARAM_NAME_LOGIN = "login";
-	private static final String PARAM_NAME_PASSWORD = "password";
 	
 
 	@Override
 	public String execute(HttpServletRequest request) {
-		String login = request.getParameter(PARAM_NAME_LOGIN);
-		request.getSession().setAttribute("userName", login);
-		String password = request.getParameter(PARAM_NAME_PASSWORD);
-		request.getSession().setAttribute("userPassword", password);
+//		String login = request.getParameter(PARAM_NAME_LOGIN);
+//		String password = request.getParameter(PARAM_NAME_PASSWORD);
+//		
+//		HttpSession session =  request.getSession(true);
+//		session.setAttribute("userName", login);
+//		session.setAttribute("userPassword", password);
+		
 		String activity = request.getParameter("activity");
-		EnumLogin loginResult = null;
 		
 		String page = null;
 		DatabaseLogic.initDAOitems();
 		
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return ConfigurationManager.getProperty("path.page.index");
+		}
+		
+		EnumLogin loginResult = (EnumLogin) session.getAttribute(MenuCommand.PARAM_USER_ROLE);
+		
+		
 		try {
-			loginResult = LoginLogic.checkLogin(login, password);
 			
 			if (loginResult == EnumLogin.ADMIN) {
-				page = DatabaseCommand.getPageForAdmin(request, activity, loginResult, login);
+				page = DatabaseCommand.getPageForAdmin(request, activity);
 			} 
 			
 			else if (loginResult == EnumLogin.USER) {
-				page = DatabaseCommand.getPageForUser(request, activity, loginResult, login);
+				page = DatabaseCommand.getPageForUser(request, activity);
 			}
 			
 			else if (loginResult == EnumLogin.EXPERT) {
-				page = DatabaseCommand.getPageForExpert(request, activity, loginResult, login);
+				page = DatabaseCommand.getPageForExpert(request, activity);
 			}
 			
 			else if (loginResult == EnumLogin.MODERATOR) {
-				page = DatabaseCommand.getPageForModerator(request, activity, loginResult, login);
+				page = DatabaseCommand.getPageForModerator(request, activity);
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		request.setAttribute(DatabaseCommand.getRequestAttribute(loginResult), login);
 		
 		DatabaseLogic.closeFactory();
 		
@@ -84,66 +90,75 @@ public class DatabaseCommand implements ActionCommand {
 		return ConfigurationManager.getProperty("path.page.login");
 	}
 
-	private static String getRequestAttribute(EnumLogin loginResult) {
-		if (loginResult != EnumLogin.NOUSER) {
-			return loginResult.toString();
-		}
-		return "errorLoginPassMessage";
-	}
 
 	
-	private static String getPageForUser(HttpServletRequest request, String activity, EnumLogin loginResult, String login) throws SQLException {
+	private static String getPageForUser(HttpServletRequest request, String activity) throws SQLException {
+		
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return ConfigurationManager.getProperty("path.page.index");
+		}
+		String login = (String) session.getAttribute(DatabaseCommand.PARAM_USER_LOGIN);
+		
+		
 		if (activity.equals("send_message")) {
 			String message = request.getParameter("message");
 			if (message != null && !message.isEmpty()) {
 				DatabaseLogic.sendMessage(login, message);
 			}
-			return MenuCommand.getPage(loginResult, "team", request);
+			return MenuCommand.getPage("team", request);
 		} 
 		
 		else if (activity.equals("delete_message")) {
 			int messageId = Integer.parseInt(request.getParameter("messageId"));
 			DatabaseLogic.deleteMessage(login, messageId);
-			return MenuCommand.getPage(loginResult, "team", request);
+			return MenuCommand.getPage("team", request);
 		} 
 		
 		else if (activity.equals("restore_message")) {
 			int messageId = Integer.parseInt(request.getParameter("messageId"));
 			DatabaseLogic.restoreMessage(messageId);
-			return MenuCommand.getPage(loginResult, "team", request);
+			return MenuCommand.getPage("team", request);
 		} 
 		
 		else if (activity.equals("create_team")) {
 			String teamFormName = request.getParameter("teamFormName");
 			DatabaseLogic.createTeam(login, teamFormName);
-			return MenuCommand.getPage(loginResult, "main", request);
+			return MenuCommand.getPage("main", request);
 		} 
 		
 		else if (activity.equals("join_team")) {
 			int teamId = Integer.parseInt(request.getParameter("team_id"));
 			DatabaseLogic.userJoinTeam(login, teamId);
-			return MenuCommand.getPage(loginResult, "main", request);
+			return MenuCommand.getPage("main", request);
 		} 
 		
 		else if (activity.equals("captain_pop_expert")) {
 			int teamId = Integer.parseInt(request.getParameter("team_id"));
 			DatabaseLogic.ejectExpertFromTeam(login, teamId);
-			return MenuCommand.getPage(loginResult, "team", request);
+			return MenuCommand.getPage("team", request);
 		}
 		return null;
 	}
 	
-	private static String getPageForExpert(HttpServletRequest request, String activity, EnumLogin loginResult, String login) throws SQLException {
+	private static String getPageForExpert(HttpServletRequest request, String activity) throws SQLException {
+		
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return ConfigurationManager.getProperty("path.page.index");
+		}
+		String login = (String) session.getAttribute(DatabaseCommand.PARAM_USER_LOGIN);
+		
 		if (activity.equals("join_team")) {
 			int teamId = Integer.parseInt(request.getParameter("team_id"));
 			DatabaseLogic.expertJoinTeam(login, teamId);
-			return MenuCommand.getPage(loginResult, "main", request);
+			return MenuCommand.getPage("main", request);
 		} 
 		
 		else if (activity.equals("expert_exit_team")) {
 			int teamId = Integer.parseInt(request.getParameter("team_id"));
 			DatabaseLogic.expertExitFromTeam(login, teamId);
-			return MenuCommand.getPage(loginResult, "main", request);
+			return MenuCommand.getPage("main", request);
 		} 	
 		
 		else if (activity.equals("send_message")) {
@@ -151,47 +166,61 @@ public class DatabaseCommand implements ActionCommand {
 			if (message != null && !message.isEmpty()) {
 				DatabaseLogic.sendMessage(login, message);
 			}
-			return MenuCommand.getPage(loginResult, "team", request);
+			return MenuCommand.getPage("team", request);
 		} 
 		
 		else if (activity.equals("delete_message")) {
 			int messageId = Integer.parseInt(request.getParameter("messageId"));
 			DatabaseLogic.deleteMessage(login, messageId);
-			return MenuCommand.getPage(loginResult, "team", request);
+			return MenuCommand.getPage("team", request);
 		} 
 		
 		else if (activity.equals("restore_message")) {
 			int messageId = Integer.parseInt(request.getParameter("messageId"));
 			DatabaseLogic.restoreMessage(messageId);
-			return MenuCommand.getPage(loginResult, "team", request);
+			return MenuCommand.getPage("team", request);
 		}
 		return null;
 	}
 	
-	private static String getPageForModerator(HttpServletRequest request, String activity, EnumLogin loginResult, String login) throws SQLException {
+	private static String getPageForModerator(HttpServletRequest request, String activity) throws SQLException {
+		
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return ConfigurationManager.getProperty("path.page.index");
+		}
+		String login = (String) session.getAttribute(DatabaseCommand.PARAM_USER_LOGIN);
+		
 		if (activity.equals("delete_message")) {
 			int messageId = Integer.parseInt(request.getParameter("messageId"));
 			DatabaseLogic.deleteMessage(login, messageId);
-			return MenuCommand.getPage(loginResult, "main", request);
+			return MenuCommand.getPage("main", request);
 
 		} 
 		
 		else if (activity.equals("restore_message")) {
 			int messageId = Integer.parseInt(request.getParameter("messageId"));
 			DatabaseLogic.restoreMessage(messageId);
-			return MenuCommand.getPage(loginResult, "main", request);
+			return MenuCommand.getPage("main", request);
 		} 
 		
 		else if (activity.equals("add_sanction")) {
 			int userIdForSanction = Integer.parseInt(request.getParameter("user_id"));
 			String sanction = request.getParameter("sanction");
 			DatabaseLogic.createSanction(login, userIdForSanction, sanction);
-			return MenuCommand.getPage(loginResult, "main", request);
+			return MenuCommand.getPage("main", request);
 		}
 		return null;
 	}
 	
-	private static String getPageForAdmin(HttpServletRequest request, String activity, EnumLogin loginResult, String login) throws SQLException {
+	private static String getPageForAdmin(HttpServletRequest request, String activity) throws SQLException {
+		
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return ConfigurationManager.getProperty("path.page.index");
+		}
+		String login = (String) session.getAttribute(DatabaseCommand.PARAM_USER_LOGIN);
+		
 		if (activity.equals("update_setting")) {
 			String teamCapacity = request.getParameter("teamCapacity");
 			String expertCapacity = request.getParameter("expertCapacity");
@@ -217,7 +246,7 @@ public class DatabaseCommand implements ActionCommand {
 			
 			else if (commandType.equals("remove_user")) {
 				DatabaseLogic.removeUser(userLogin);
-				return MenuCommand.getPage(loginResult, "main", request);
+				return MenuCommand.getPage("main", request);
 			} 
 			
 			else if (commandType.equals("find_user")) {
@@ -229,7 +258,7 @@ public class DatabaseCommand implements ActionCommand {
 					request.setAttribute("form_email", user.getKey().getEmail());
 					request.setAttribute("form_role", user.getValue().getName());
 				}
-				return MenuCommand.getPage(loginResult, "main", request);
+				return MenuCommand.getPage("main", request);
 			}
 		}
 		return null;

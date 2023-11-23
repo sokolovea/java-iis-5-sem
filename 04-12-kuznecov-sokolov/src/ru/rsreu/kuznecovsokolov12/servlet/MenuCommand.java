@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
@@ -29,25 +30,27 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 import test.RedirectErrorPage;
 
 public class MenuCommand implements ActionCommand {
-	private static final String PARAM_NAME_LOGIN = "login";
-	private static final String PARAM_NAME_PASSWORD = "password";
-	private static final String PARAM_USER_NAME = "userName";
-	private static final String PARAM_USER_PASSWORD = "userPassword";
-	private static final String PARAM_DESTINATION = "destination";
+
 	@Override
 	public String execute(HttpServletRequest request) {
-		String login = request.getParameter(PARAM_NAME_LOGIN);
-		request.getSession().setAttribute(MenuCommand.PARAM_USER_NAME, login);
-		String password = request.getParameter(PARAM_NAME_PASSWORD);
-		request.getSession().setAttribute(MenuCommand.PARAM_USER_PASSWORD, password);
+		
+		HttpSession session = request.getSession(false);
+		
+		if (session == null) {
+			return ConfigurationManager.getProperty("path.page.index");
+		}
+		
+		String login = (String) session.getAttribute(PARAM_USER_LOGIN);
+		String password = (String) session.getAttribute(PARAM_USER_PASSWORD);
 		String destination = request.getParameter(MenuCommand.PARAM_DESTINATION);
 		EnumLogin loginResult = null;
+		
 		try {
 			loginResult = LoginLogic.checkLogin(login, password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return MenuCommand.getPage(loginResult, destination, request);
+		return MenuCommand.getPage(destination, request);
 	}
 	
 //	private static String getRequestAttribute(EnumLogin loginResult) {
@@ -57,10 +60,17 @@ public class MenuCommand implements ActionCommand {
 //		return "errorLoginPassMessage";
 //	}
 	
-	public static String getPage(EnumLogin loginResult, String destination, HttpServletRequest request) {
+	public static String getPage(String destination, HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		
+		if (session == null) {
+			return ConfigurationManager.getProperty("path.page.index");
+		}
+		
+		EnumLogin loginResult = (EnumLogin) session.getAttribute(MenuCommand.PARAM_USER_ROLE);
 		if (loginResult == EnumLogin.USER) {
 			if (destination.equals("exit_team")) {
-				String login = request.getParameter(PARAM_NAME_LOGIN);
+				String login = request.getParameter(MenuCommand.PARAM_USER_LOGIN);
 				DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
 				TeamDAO teamDAO = factory.getTeamDAO();
 				TeamInteractDAO teamInteractDAO = factory.getTeamInteractDAO();
@@ -76,12 +86,10 @@ public class MenuCommand implements ActionCommand {
 						teamInteractDAO.addTeamInteract(teamInteract);
 					}
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				factory.returnConnectionToPool();
-				return MenuCommand.getPage(loginResult, "main", request);
-				// return ConfigurationManager.getProperty("path.page.team_select");
+				return MenuCommand.getPage("main", request);
 			}
 		}
 		if (loginResult == EnumLogin.USER || loginResult == EnumLogin.EXPERT || loginResult == EnumLogin.CAPTAIN) {
@@ -172,7 +180,7 @@ public class MenuCommand implements ActionCommand {
 		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
 		UserDAO userDAO = factory.getUserDAO();
 		TeamDAO teamDAO = factory.getTeamDAO();
-		String login = request.getParameter(PARAM_NAME_LOGIN);
+		String login = request.getParameter(MenuCommand.PARAM_USER_LOGIN);
 		List<Team> teamList = null;
 		Map<Team, Map<String, Integer>> fullTeamMap = null;
 		try {
@@ -196,7 +204,7 @@ public class MenuCommand implements ActionCommand {
 		MessageDAO messageDAO = factory.getMessageDAO();
 		UserDAO userDAO = factory.getUserDAO();
 		TeamDAO teamDAO = factory.getTeamDAO();
-		String login = request.getParameter(PARAM_NAME_LOGIN);
+		String login = request.getParameter(MenuCommand.PARAM_USER_LOGIN);
 		List<Message> messageList = null;
 		Map<Message, Integer> deletedMessageSet = null;
 		List<User> teamMembers = null;
@@ -207,7 +215,6 @@ public class MenuCommand implements ActionCommand {
 			List<Team> teamList = teamDAO.getTeamsForUser(user);
 			
 			team = teamDAO.getTeamById(Integer.parseInt(request.getParameter("team_id")));
-//			request.setAttribute("team_id", request.getParameter("team_id"));
 			if (!teamList.contains(team)) {
 				factory.returnConnectionToPool();
 				throw new RedirectErrorPage();
