@@ -46,7 +46,6 @@
 			<div id="left_bar" class="container">
 				<c:import url="/jsp/general/left_bar_menu.jsp"/>
 			</div>
-			<jsp:useBean id="myLogic" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
 			<div id="center_bar" class="container">
 				<div id="report_container">
 				
