@@ -64,9 +64,6 @@
 			<div class="top_bar_items">
 				<c:import url="/jsp/general/top_bar_content.jsp"/>
 			</div>
-			<div id="logout_button" class="top_bar_items">
-				<a id="logout_button_ref" href="controller?command=logout">Logout</a><br>
-			</div>
 		</div>
 		<div id="main_content_bar">
 			<div id="left_bar" class="container">

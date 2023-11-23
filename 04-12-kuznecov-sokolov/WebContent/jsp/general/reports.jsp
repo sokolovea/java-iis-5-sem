@@ -4,8 +4,6 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <head>
 	<%
-		String loginValue = request.getParameter("login");
-		String passwordValue = request.getParameter("password");
 		String element = request.getParameter("element");
 		String report_id = request.getParameter("report_id");
 	%>
@@ -74,8 +72,6 @@
 							<form id="admin_report_second_form" action="controller" method="POST">
 							<div class="report_inputs">
 								<input type="hidden" name="command" value="Report"/>
-								<input type="hidden" name="login" value="<%= loginValue %>"/>
-				    			<input type="hidden" name="password" value="<%= passwordValue %>"/>
 								<span style="margin-right: 7px;">N =</span> 
 								<input id="n_teams_text_box" class="text_box" type="number" name="countCommands" value="100"/><br/>
 		            			<input id="n_teams_search" type="submit" name="countCommands_submit" value="Найти"/>
@@ -118,7 +114,7 @@
 						</div>
 			        </c:if>
 			        
-					<c:if test = "${role.toString() == 'user' || role.toString() == 'captain'}">
+					<c:if test = "${role.toString() == 'user'}">
 			            <div id="report_messages_deleted_by_no_user" class="report">
 							<div class="report_caption">Вывод сообщений, которые удалил не сам пользователь</div>
 							<div class="report_table">
@@ -230,9 +226,6 @@
 							<form id="admin_report_second_form" action="controller" method="POST">
 								<div class="report_inputs">
 									<input type="hidden" name="command" value="Report"/>
-									<input type="hidden" name="login" value="<%= loginValue %>"/>
-				    				<input type="hidden" name="password" value="<%= passwordValue %>"/>
-									<span style="margin-right: 7px;">login =</span> 
 									<span style="margin-right: 7px;">N =</span> 
 									<input id="n_moderator_blocked_n_text_box" class="text_box" type="number" name="countBlocked"/>
 			            			<input id="n_moderator_blocked_n_search" type="submit" name="countBlocked_submit" value="Найти"/>
@@ -293,8 +286,6 @@
 							<form id="admin_report_second_form" action="controller" method="POST">
 								<div class="report_inputs">
 									<input type="hidden" name="command" value="Report"/>
-									<input type="hidden" name="login" value="<%= loginValue %>"/>
-				    				<input type="hidden" name="password" value="<%= passwordValue %>"/>
 									<span style="margin-right: 7px;">login =</span> 
 									<input id="user_login_text_box" class="text_box" type="text" name="adminUserRole" placeholder="Введите логин пользователя"/>
 			            			<input id="user_search" type="submit" name="adminUserRole_submit" value="Найти"/>
@@ -342,7 +333,7 @@
 								Вывод команд, отказавшихся от консультирования у данного эксперта
 							</div>
 						</c:if>
-						<c:if test = "${role.toString() == 'user' || role.toString() == 'captain'}">
+						<c:if test = "${role.toString() == 'user'}">
 							<div id="deleted_message_button" class="report_button" onclick='reportSelector(this, "report_messages_deleted_by_no_user")'>
 								Удаленные сообщения
 							</div>
