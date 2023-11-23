@@ -7,51 +7,51 @@
 </head>
 <body>
 	<jsp:useBean id="myLogic" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
-	<c:set var="role" value="${myLogic.checkLogin(userName, userPassword).toString()}"></c:set>
+	<c:set var="role" value="${myLogic.checkLogin(login, password).toString()}"></c:set>
 	<ol>
 		<c:if test="${role == 'user' or role == 'captain'}">
 			<c:if test="${!teamList.isEmpty()}">
 				<li id="button_to_team" class="menu_button">
-					<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Menu&destination=team&team_id=${team_id}">Моя команда</a>
+					<a class="menu_button_ref" href="controller?login=${login}&password=${password}&command=Menu&destination=team&team_id=${team_id}">Моя команда</a>
 				</li>
 			</c:if>
 			<li id="button_to_team" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu">Команды</a>
+				<a class="menu_button_ref" href="controller?login=${login}&password=${password}&destination=main&command=Menu">Команды</a>
 			</li>
 			<c:if test="${role != 'captain'}">
 				<li id="button_exit_team" class="menu_button">
-					<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=exit_team&command=Menu">Покинуть команду</a>
+					<a class="menu_button_ref" href="controller?login=${login}&password=${password}&destination=exit_team&command=Menu">Покинуть команду</a>
 				</li>
 			</c:if>
 			<li id="button_report" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Report">Отчеты</a>
+				<a class="menu_button_ref" href="controller?login=${login}&password=${password}&command=Report">Отчеты</a>
 			</li>
 		</c:if>
 		<c:if test="${role == 'expert'}">
 			<li id="button_to_team" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu">Команды</a>
+				<a class="menu_button_ref" href="controller?login=${login}&password=${password}&destination=main&command=Menu">Команды</a>
 			</li>
 			<li id="button_report" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Report">Отчеты</a>
+				<a class="menu_button_ref" href="controller?login=${login}&password=${password}&command=Report">Отчеты</a>
 			</li>
 		</c:if>
 		<c:if test="${role == 'moderator'}">
 			<li id="button_main" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu">Главное меню</a>
+				<a class="menu_button_ref" href="controller?login=${login}&password=${password}&destination=main&command=Menu">Главное меню</a>
 			</li>
 			<li id="button_report" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Report">Отчеты</a>
+				<a class="menu_button_ref" href="controller?login=${login}&password=${password}&command=Report">Отчеты</a>
 			</li>
 		</c:if>
 		<c:if test="${role == 'admin'}">
 			<li id="button_main" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=main&command=Menu">Главное меню</a>
+				<a class="menu_button_ref" href="controller?login=${login}&password=${password}&destination=main&command=Menu">Главное меню</a>
 			</li>
 			<li id="button_settings" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&destination=settings&command=Menu">Настройки СИС</a>
+				<a class="menu_button_ref" href="controller?login=${login}&password=${password}&destination=settings&command=Menu">Настройки СИС</a>
 			</li>
 			<li id="button_report" class="menu_button">
-				<a class="menu_button_ref" href="controller?login=${userName}&password=${userPassword}&command=Report">Отчеты</a>
+				<a class="menu_button_ref" href="controller?login=${login}&password=${password}&command=Report">Отчеты</a>
 			</li>
 		</c:if>
 	</ol>

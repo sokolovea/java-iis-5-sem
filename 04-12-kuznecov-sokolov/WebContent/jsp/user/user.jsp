@@ -5,8 +5,6 @@
 <head>
 <head>
 	<%
-		String loginValue = request.getParameter("login");
-		String passwordValue = request.getParameter("password");
 		String teamId = request.getParameter("team_id");
 	%>
 	<title>Кабинет пользователя/капитана/эксперта</title>
@@ -24,7 +22,7 @@
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 	    // Отправляем запрос с идентификатором сообщения
-	    xhr.send('command=Database&activity=restore_message&login=<%= loginValue %>&password=<%= passwordValue %>&team_id=<%= teamId %>&messageId=' + messageId);
+	    xhr.send('command=Database&activity=restore_message&login=${login}&password=${password}&team_id=<%= teamId %>&messageId=' + messageId);
 
 	    // Обрабатываем ответ сервера (если нужно)
 	    xhr.onreadystatechange = function () {
@@ -43,7 +41,7 @@
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 	    // Отправляем запрос с идентификатором сообщения
-	    xhr.send('command=Database&activity=delete_message&login=<%= loginValue %>&password=<%= passwordValue %>&team_id=<%= teamId %>&messageId=' + messageId);
+	    xhr.send('command=Database&activity=delete_message&login=${login}&password=${password}&team_id=<%= teamId %>&messageId=' + messageId);
 
 	    // Обрабатываем ответ сервера (если нужно)
 	    xhr.onreadystatechange = function () {
@@ -68,7 +66,7 @@
 				<div id="chat" class="center_bar_boxes">
 					<c:forEach var="message" items="${messageList}">
 						<c:set var="messageIsDeleted" value="${deletedMessageSet.containsKey(message)}"></c:set>
-						<c:if test="${!messageIsDeleted || messageIsDeleted && message.getAuthor().getLogin().equals(userName)}">  
+						<c:if test="${!messageIsDeleted || messageIsDeleted && message.getAuthor().getLogin().equals(login)}">  
 							<div class="message<c:if test="${messageIsDeleted}"> deleted_message</c:if>">
 								<div class="message_header">
 									<div class="user_box">
@@ -79,7 +77,7 @@
 								<div class="message_content">
 									<div class="message_data">${message.getData()}</div>
 									<div class="message_buttons">
-										<c:if test="${!messageIsDeleted && message.getAuthor().getLogin().equals(userName) || messageIsDeleted && message.getAuthor().getId().equals(deletedMessageSet.get(message))}"> 
+										<c:if test="${!messageIsDeleted && message.getAuthor().getLogin().equals(login) || messageIsDeleted && message.getAuthor().getId().equals(deletedMessageSet.get(message))}"> 
 											<div class="restore_message_button" onclick='restoreMessage(${message.getId()}, this)'>&#8635</div>
 											<div class="delete_message_button" onclick='deleteMessage(${message.getId()}, this)'>✖</div>
 										</c:if>
@@ -93,8 +91,8 @@
 					<input type="hidden" name="team_id" value="<%= teamId %>"/>
 					<input type="hidden" name="command" value="Database"/>
 					<input type="hidden" name="activity" value="send_message"/>
-					<input type="hidden" name="login" value="<%= loginValue %>"/>
-				    <input type="hidden" name="password" value="<%= passwordValue %>"/>
+					<input type="hidden" name="login" value="${login}"/>
+				    <input type="hidden" name="password" value="${password}"/>
 					<div id="message_input_box" class="center_bar_boxes">
 						<div id="message_input_box_text_box">	
 							<input id="text_box_message" class="text_box" type="text" name="message" placeholder="Введите сообщение"></input>
@@ -120,31 +118,32 @@
 						</c:forEach>
 					</div>
 				</div>
-				<jsp:useBean id="myLogic" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
+				<jsp:useBean id="roleChecker" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
+				<c:set var="role" value="${roleChecker.checkLogin(login, password).toString()}"></c:set>
 				<div id="expert_block">
-					<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() != 'expert'}">
+					<c:if test = "${role != 'expert'}">
 						<div id="expert_block_caption">
 							Эксперт: ${teamExpert.getLogin()}
 						</div>
 					</c:if>
 					<div id="expert_block_buttons">
-						<c:if test = "${myLogic.isCapitan(userName, team.getId())}">
+						<c:if test = "${roleChecker.isCapitan(login, team.getId())}">
 							<form class="display_contents_form" id="message_chat_form" action="controller" method="POST">
 								<input type="hidden" name="team_id" value="<%= teamId %>"/>
 								<input type="hidden" name="command" value="Database"/>
 								<input type="hidden" name="activity" value="captain_pop_expert"/>
-								<input type="hidden" name="login" value="<%= loginValue %>"/>
-							    <input type="hidden" name="password" value="<%= passwordValue %>"/>
+								<input type="hidden" name="login" value="${login}"/>
+							    <input type="hidden" name="password" value="${passsword}"/>
 								<input type="submit" value="Отказаться от эксперта"/>
 							</form>
 						</c:if>
-						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'expert'}">
+						<c:if test = "${role == 'expert'}">
 							<form class="display_contents_form" id="message_chat_form" action="controller" method="POST">
 								<input type="hidden" name="team_id" value="<%= teamId %>"/>
 								<input type="hidden" name="command" value="Database"/>
 								<input type="hidden" name="activity" value="expert_exit_team"/>
-								<input type="hidden" name="login" value="<%= loginValue %>"/>
-							    <input type="hidden" name="password" value="<%= passwordValue %>"/>
+								<input type="hidden" name="login" value="${login}"/>
+							    <input type="hidden" name="password" value="${password}"/>
 								<input type="submit" value="Отказаться от команды"/>
 							</form>
 						</c:if>

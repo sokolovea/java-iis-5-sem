@@ -2,10 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="ru-RU">
 <head>
-	<%
-		String loginValue = request.getParameter("login");
-		String passwordValue = request.getParameter("password");
-	%>
 	<meta http-equiv="Cache-Control" content="no-cache">
 	<title>Кабинет администратора</title>
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/main_win.css">
@@ -30,8 +26,8 @@
 	        var xhr = new XMLHttpRequest();
 			
 	        var data = {
-				login: "<%= loginValue %>",
-				password: "<%= passwordValue %>",
+				login: "${login}",
+				password: "${password}",
 				command: "Database",
 				activity: "update_user",
 				command_type: commandType, 

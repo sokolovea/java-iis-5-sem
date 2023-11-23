@@ -35,13 +35,12 @@
 	</div>
 	<div id="full_users_list">
 		<jsp:useBean id="roleChecker" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
-		<c:set var="isAdmin" value="${roleChecker.checkLogin(userName, userPassword).toString() == 'admin'}"></c:set>
-		<c:set var="isModer" value="${roleChecker.checkLogin(userName, userPassword).toString() == 'moderator'}"></c:set>
+		<c:set var="role" value="${roleChecker.checkLogin(login, password).toString()}"></c:set>
 		<c:forEach var="user" items="${user_list}">
-			<c:if test = "${isAdmin}">
+			<c:if test = "${role = 'admin'}">
 				<div class="user" onclick="insertLoginToTextBox(this)">${user.getLogin()}</div>
 			</c:if>
-			<c:if test = "${isModer}">
+			<c:if test = "${role = 'moderator'}">
 				<div class="user" onmouseenter='showSanctionMenu(event, this, ${user.getId()})' onmouseleave='closeSanctionMenu(event, this)'>${user.getLogin()}</div>
 			</c:if>
         </c:forEach>	

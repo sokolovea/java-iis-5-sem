@@ -50,7 +50,7 @@
 			<div id="center_bar" class="container">
 				<div id="report_container">
 				
-					<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'expert'}">
+					<c:if test = "${myLogic.checkLogin(login, password).toString() == 'expert'}">
 						<div id="report_consult_with_expert" class="report">
 							<div class="report_caption">Вывод команд, консультирующихся у данного эксперта</div>
 							<div class="report_table">
@@ -119,7 +119,7 @@
 						</div>
 			        </c:if>
 			        
-					<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'user' || myLogic.checkLogin(userName, userPassword).toString() == 'captain'}">
+					<c:if test = "${myLogic.checkLogin(login, password).toString() == 'user' || myLogic.checkLogin(login, password).toString() == 'captain'}">
 			            <div id="report_messages_deleted_by_no_user" class="report">
 							<div class="report_caption">Вывод сообщений, которые удалил не сам пользователь</div>
 							<div class="report_table">
@@ -175,7 +175,7 @@
 						</div>
 		            </c:if>
 		            
-		            <c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'moderator'}">
+		            <c:if test = "${myLogic.checkLogin(login, password).toString() == 'moderator'}">
 			            <div id="report_moderator_users" class="report">
 							<div class="report_caption">Вывод учетных записей, являющихся пользователями</div>
 							<div class="report_table">
@@ -258,7 +258,7 @@
 						</div>
 		            </c:if>
 		            
-		            <c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'admin'}">
+		            <c:if test = "${myLogic.checkLogin(login, password).toString() == 'admin'}">
 
 			            <div id="report_admin_users" class="report">
 							<div class="report_caption">Вывод информации о всех учетных записях</div>
@@ -332,7 +332,7 @@
 						Доступные отчеты
 					</div>
 					<div id="reports_buttons">
-						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'expert'}">
+						<c:if test = "${myLogic.checkLogin(login, password).toString() == 'expert'}">
 							<div id="consulted_teams_button" class="report_button" onclick='reportSelector(this, "report_consult_with_expert")'>
 								Консультирующиеся команды
 							</div>
@@ -343,7 +343,7 @@
 								Вывод команд, отказавшихся от консультирования у данного эксперта
 							</div>
 						</c:if>
-						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'user' || myLogic.checkLogin(userName, userPassword).toString() == 'captain'}">
+						<c:if test = "${myLogic.checkLogin(login, password).toString() == 'user' || myLogic.checkLogin(login, password).toString() == 'captain'}">
 							<div id="deleted_message_button" class="report_button" onclick='reportSelector(this, "report_messages_deleted_by_no_user")'>
 								Удаленные сообщения
 							</div>
@@ -354,7 +354,7 @@
 								Статистика сообщений
 							</div>
 						</c:if>
-						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'moderator'}">
+						<c:if test = "${myLogic.checkLogin(login, password).toString() == 'moderator'}">
 							<div id="user_list_button" class="report_button" onclick='reportSelector(this, "report_moderator_users")'>
 								Вывод учетных записей, являющихся пользователями
 							</div>
@@ -365,7 +365,7 @@
 								Вывод пользователей, заблокированных N или более раз
 							</div>
 						</c:if>
-						<c:if test = "${myLogic.checkLogin(userName, userPassword).toString() == 'admin'}">
+						<c:if test = "${myLogic.checkLogin(login, password).toString() == 'admin'}">
 							<div id="users_info_list_button" class="report_button" onclick='reportSelector(this, "report_admin_users")'>
 								Вывод информации о всех учетных записях
 							</div>

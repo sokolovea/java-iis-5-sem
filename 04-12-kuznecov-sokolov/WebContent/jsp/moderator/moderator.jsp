@@ -18,7 +18,7 @@
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 	    // Отправляем запрос с идентификатором сообщения
-	    xhr.send('command=Database&activity=restore_message&login=${userName}&password=${userPassword}&messageId=' + messageId);
+	    xhr.send('command=Database&activity=restore_message&login=${login}&password=${password}&messageId=' + messageId);
 
 	    // Обрабатываем ответ сервера (если нужно)
 	    xhr.onreadystatechange = function () {
@@ -37,7 +37,7 @@
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 	    // Отправляем запрос с идентификатором сообщения
-	    xhr.send('command=Database&activity=delete_message&login=${userName}&password=${userPassword}&messageId=' + messageId);
+	    xhr.send('command=Database&activity=delete_message&login=${login}&password=${password}&messageId=' + messageId);
 
 	    // Обрабатываем ответ сервера (если нужно)
 	    xhr.onreadystatechange = function () {
@@ -57,7 +57,7 @@
 
 		    // Отправляем запрос с идентификатором сообщения
 		    var user_id = document.getElementById("user_id_for_sanction").value;
-		    xhr.send('command=Database&activity=add_sanction&login=${userName}&password=${userPassword}&sanction=' + sanction + '&user_id=' + user_id);
+		    xhr.send('command=Database&activity=add_sanction&login=${login}&password=${password}&sanction=' + sanction + '&user_id=' + user_id);
 
 		    // Обрабатываем ответ сервера (если нужно)
 		    xhr.onreadystatechange = function () {
@@ -148,7 +148,7 @@
 	<div class="window">
 		<div id="top_bar" class="container">
 			<div class="top_bar_items">
-				${userName}
+				${login}
 			</div>
 			<div id="logout_button" class="top_bar_items">
 				<a id="logout_button_ref" href="controller?command=logout">Logout</a><br>

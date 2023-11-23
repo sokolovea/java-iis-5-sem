@@ -7,11 +7,6 @@
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/main_win.css">
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/input_items.css">
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/settings.css">
-	<%
-		String loginValue = request.getParameter("login");
-		System.out.println("login = " + loginValue);
-		String passwordValue = request.getParameter("password");
-	%>
 	<script>
 			function sendPostRequest() {
 				var queryParams = new URLSearchParams(window.location.search);
@@ -19,8 +14,8 @@
 				// Пример использования
 				var url = "controller";
 				var data = {
-						login: "<%= loginValue %>",
-						password:"<%= passwordValue %>",
+						login: "${login}",
+						password:"${password}",
 					command: "Database",
 					destination: "settings",
 				  teamCapacity: document.getElementById("team_capacity").value,
@@ -36,7 +31,7 @@
 				  xhr.onload = function () {
 				    if (xhr.status === 200) {
 				      console.log("Пакет отправлен! Мы сейчас в обработчике!");
-				      var redirectUrl = "controller?login=" + "<%= loginValue %>" + "&password=" + "<%= passwordValue %>" + "&destination=settings&command=Menu"; // Предполагается, что сервер вернул URL для перенаправления
+				      var redirectUrl = "controller?login=" + "${login}" + "&password=" + "${password}" + "&destination=settings&command=Menu"; // Предполагается, что сервер вернул URL для перенаправления
 				      console.log(redirectUrl);
 				      location.reload();
 				      //window.location.href = redirectUrl;
@@ -81,8 +76,8 @@
 			</div>
 			<div id="center_bar" class="container">
 				<form id="settings_form" action="controller" method="POST">
-					<input type="hidden" name="login" value="<%= loginValue %>"/>
-				    <input type="hidden" name="password" value="<%= passwordValue %>"/>
+					<input type="hidden" name="login" value="${login}"/>
+				    <input type="hidden" name="password" value="${password}"/>
 				    <input type="hidden" name="command" value="Database"/>
 				    <input type="hidden" name="activity" value="update_setting"/>
 					<div id="settings_div">
