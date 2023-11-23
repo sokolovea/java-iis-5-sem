@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/user_list.css">
 </head>
 <body>
+	
 	<script>
 		function userFilter() {
 			  // Получите значение введенного текста из поля фильтра
@@ -35,12 +36,11 @@
 	</div>
 	<div id="full_users_list">
 		<jsp:useBean id="roleChecker" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
-		<c:set var="role" value="${roleChecker.checkLogin(login, password).toString()}"></c:set>
 		<c:forEach var="user" items="${user_list}">
-			<c:if test = "${role = 'admin'}">
+			<c:if test = "${role.toString() == 'admin'}">
 				<div class="user" onclick="insertLoginToTextBox(this)">${user.getLogin()}</div>
 			</c:if>
-			<c:if test = "${role = 'moderator'}">
+			<c:if test = "${role.toString() == 'moderator'}">
 				<div class="user" onmouseenter='showSanctionMenu(event, this, ${user.getId()})' onmouseleave='closeSanctionMenu(event, this)'>${user.getLogin()}</div>
 			</c:if>
         </c:forEach>	
