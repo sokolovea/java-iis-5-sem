@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
@@ -11,46 +12,47 @@ import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public class LoginCommand implements ActionCommand {
-	private static final String PARAM_NAME_LOGIN = "login";
-	private static final String PARAM_NAME_PASSWORD = "password";
-	private static final String PARAM_USER_NAME = "userName";
-	private static final String PARAM_USER_PASSWORD = "userPassword";
 
 	@Override
 	public String execute(HttpServletRequest request) {
 		String page = null;
-		String login = request.getParameter(LoginCommand.PARAM_NAME_LOGIN);
-		String pass = request.getParameter(LoginCommand.PARAM_NAME_PASSWORD);
+		String login = request.getParameter(LoginCommand.PARAM_USER_LOGIN);
+		String password = request.getParameter(LoginCommand.PARAM_USER_PASSWORD);
 		
 		EnumLogin loginResult = null;
 		try {
-			loginResult = LoginLogic.checkLogin(login, pass);
+			loginResult = LoginLogic.checkLogin(login, password);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		request.setAttribute(LoginCommand.PARAM_USER_NAME, login);
-		request.setAttribute(LoginCommand.PARAM_USER_PASSWORD, pass);
-		if (!LoginCommand.isLogined(loginResult)) {
+		
+		if (!LoginCommand.isRoleExist(loginResult)) {
 			request.setAttribute("errorLoginPassMessage", "Login or password incorrect");
+			page = LoginCommand.getPage(loginResult);
+			return page;
 		}
 		
+		HttpSession session = request.getSession(true);
+		session.setAttribute(LoginCommand.PARAM_USER_LOGIN, login);
+		session.setAttribute(LoginCommand.PARAM_USER_PASSWORD, password);
+		session.setAttribute(LoginCommand.PARAM_USER_ROLE, loginResult);
+		
 		if (loginResult == EnumLogin.ADMIN) {
-			return MenuCommand.getPage(loginResult, "main", request);
+			return MenuCommand.getPage("main", request);
 		}
 		if (loginResult == EnumLogin.USER || loginResult == EnumLogin.EXPERT) {
-			return MenuCommand.getPage(loginResult, "main", request);
+			return MenuCommand.getPage("main", request);
 		}
 		
 		if (loginResult == EnumLogin.MODERATOR) {
-			return MenuCommand.getPage(loginResult, "main", request);
+			return MenuCommand.getPage("main", request);
 		}
 //		request.setAttribute("destination", "main");
 		page = LoginCommand.getPage(loginResult);
 		return page;
 	}
 	
-	private static boolean isLogined(EnumLogin loginResult) {
+	private static boolean isRoleExist(EnumLogin loginResult) {
 		return (loginResult != EnumLogin.NOUSER);
 	}
 	
