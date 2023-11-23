@@ -68,9 +68,9 @@ public class MenuCommand implements ActionCommand {
 		}
 		
 		EnumLogin loginResult = (EnumLogin) session.getAttribute(MenuCommand.PARAM_USER_ROLE);
+		String login = (String) session.getAttribute(MenuCommand.PARAM_USER_LOGIN);
 		if (loginResult == EnumLogin.USER) {
 			if (destination.equals("exit_team")) {
-				String login = request.getParameter(MenuCommand.PARAM_USER_LOGIN);
 				DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
 				TeamDAO teamDAO = factory.getTeamDAO();
 				TeamInteractDAO teamInteractDAO = factory.getTeamInteractDAO();
@@ -95,14 +95,14 @@ public class MenuCommand implements ActionCommand {
 		if (loginResult == EnumLogin.USER || loginResult == EnumLogin.EXPERT || loginResult == EnumLogin.CAPTAIN) {
 			if (destination.equals("team")) {
 				try {
-					MenuCommand.fillTeamPageForUser(request);
+					MenuCommand.fillTeamPageForUser(request, login);
 				}
 				catch (RedirectErrorPage e) {
 					return ConfigurationManager.getProperty("path.page.error");
 				}
 				return ConfigurationManager.getProperty("path.page.team");
 			} else if (destination.equals("main")) {
-				MenuCommand.fillTeamSelectPageForUser(request);
+				MenuCommand.fillTeamSelectPageForUser(request, login);
 				return ConfigurationManager.getProperty("path.page.team_select");
 			}
 		}
@@ -156,7 +156,6 @@ public class MenuCommand implements ActionCommand {
 		MessageAttachingDAO messageAttachDAO = factory.getMessageAttachingDAO();
 		UserDAO userDAO = factory.getUserDAO();
 		TeamDAO teamDAO = factory.getTeamDAO();
-//		String login = request.getParameter(PARAM_NAME_LOGIN);
 		List<MessageAttaching> messageList = null;
 		Set<MessageAttaching> deletedMessageSet = null;
 		List<User> userList = null;
@@ -176,11 +175,10 @@ public class MenuCommand implements ActionCommand {
 		factory.returnConnectionToPool();
 	}
 	
-	private static void fillTeamSelectPageForUser(HttpServletRequest request) {
+	private static void fillTeamSelectPageForUser(HttpServletRequest request, String login) {
 		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
 		UserDAO userDAO = factory.getUserDAO();
 		TeamDAO teamDAO = factory.getTeamDAO();
-		String login = request.getParameter(MenuCommand.PARAM_USER_LOGIN);
 		List<Team> teamList = null;
 		Map<Team, Map<String, Integer>> fullTeamMap = null;
 		try {
@@ -199,12 +197,11 @@ public class MenuCommand implements ActionCommand {
 
 	}
 	
-	private static void fillTeamPageForUser(HttpServletRequest request) throws RedirectErrorPage {
+	private static void fillTeamPageForUser(HttpServletRequest request, String login) throws RedirectErrorPage {
 		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
 		MessageDAO messageDAO = factory.getMessageDAO();
 		UserDAO userDAO = factory.getUserDAO();
 		TeamDAO teamDAO = factory.getTeamDAO();
-		String login = request.getParameter(MenuCommand.PARAM_USER_LOGIN);
 		List<Message> messageList = null;
 		Map<Message, Integer> deletedMessageSet = null;
 		List<User> teamMembers = null;

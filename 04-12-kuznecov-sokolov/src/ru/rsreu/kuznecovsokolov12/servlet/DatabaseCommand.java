@@ -53,7 +53,6 @@ public class DatabaseCommand implements ActionCommand {
 		
 		EnumLogin loginResult = (EnumLogin) session.getAttribute(MenuCommand.PARAM_USER_ROLE);
 		
-		
 		try {
 			
 			if (loginResult == EnumLogin.ADMIN) {
