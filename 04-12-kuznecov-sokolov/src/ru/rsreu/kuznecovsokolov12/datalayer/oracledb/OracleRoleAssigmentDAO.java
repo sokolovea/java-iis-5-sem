@@ -14,7 +14,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 public class OracleRoleAssigmentDAO implements RoleAssigmentDAO {
 
 	private static final String SQL_ALL_ROLE_ASSIGMENT_SELECT = "select \"role_assigment_id\", \"time\", \"role_id\", \"role_name\", \"USER\".*, \"USER_receiver\".* from \"USER\" join \"ROLE_ASSIGMENT\" on \"user_id\" = \"sender\" join \"ROLE\" on \"role_id\" = \"role\" join \"USER\" \"USER_receiver\" on \"USER_receiver\".\"user_id\" = \"receiver\"";
-	private static final String SQL_SELECT_ROLE_ASSIGMENT_FOR_USER = "select \"role_assigment_id\", \"time\", \"role_id\", \"role_name\", \"USER\".*, \"USER_receiver\".* from \"USER\" join \"ROLE_ASSIGMENT\" on \"user_id\" = \"sender\" join \"ROLE\" on \"role_id\" = \"role\" join \"USER\" \"USER_receiver\" on \"USER_receiver\".\"user_id\" = \"receiver\" where \"receiver\" = ?";
+	private static final String SQL_SELECT_ROLE_ASSIGMENT_FOR_USER = "select \"role_assigment_id\", \"time\", \"role_id\", \"role_name\", \"USER\".*, \"USER_receiver\".* from \"USER\" right join \"ROLE_ASSIGMENT\" on \"user_id\" = \"sender\" join \"ROLE\" on \"role_id\" = \"role\" join \"USER\" \"USER_receiver\" on \"USER_receiver\".\"user_id\" = \"receiver\" where \"receiver\" = ?";
 	
 	public final static String COLUMN_ROLE_ASSIGMENT_ID 	= "role_assigment_id";
 	public final static String COLUMN_ROLE_ASSIGMENT_TIME 	= "time";

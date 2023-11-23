@@ -61,9 +61,7 @@
 <body>
 	<div class="window">
 		<div id="top_bar" class="container">
-			<div class="top_bar_items">
-				<c:import url="/jsp/general/top_bar_content.jsp"/>
-			</div>
+			<c:import url="/jsp/general/top_bar_content.jsp"/>
 		</div>
 		<div id="main_content_bar">
 			<div id="left_bar" class="container">

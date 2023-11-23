@@ -236,7 +236,11 @@ public class OracleUserDAO implements UserDAO {
 			}
 			
 			if (column.equals(COLUMN_USER_IS_AUTHORIZED)) {
-				user.setIsAuthorized(resultSet.getString(column).equals("1"));
+				String auth = resultSet.getString(column);
+				if (auth != null) {
+					user.setIsAuthorized(auth.equals("1"));	
+				}
+				user.setIsAuthorized(false);
 				continue;
 			}
 		}
