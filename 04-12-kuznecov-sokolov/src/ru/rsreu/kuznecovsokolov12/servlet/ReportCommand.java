@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
@@ -28,10 +29,13 @@ public class ReportCommand implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request) {
-		String login = request.getParameter(PARAM_NAME_LOGIN);
-		request.getSession().setAttribute("userName", login);
-		String password = request.getParameter(PARAM_NAME_PASSWORD);
-		request.getSession().setAttribute("userPassword", password);
+		HttpSession session = request.getSession(false);
+		
+		if (session == null) {
+			return ConfigurationManager.getProperty("path.page.index");
+		}
+		String login = (String) session.getAttribute(DatabaseCommand.PARAM_USER_LOGIN);
+		String password = (String) session.getAttribute(DatabaseCommand.PARAM_USER_PASSWORD);
 		EnumLogin loginResult = null;
 		try {
 			loginResult = LoginLogic.checkLogin(login, password);
