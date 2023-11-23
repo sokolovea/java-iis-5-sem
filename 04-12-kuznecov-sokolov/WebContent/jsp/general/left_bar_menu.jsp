@@ -6,8 +6,9 @@
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/user_list.css">
 </head>
 <body>
+	<jsp:useBean id="capitanChecker" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
 	<ol>
-		<c:if test="${role.toString() == 'user' or role.toString() == 'captain'}">
+		<c:if test="${role.toString() == 'user'}">
 			<c:if test="${!teamList.isEmpty()}">
 				<li id="button_to_team" class="menu_button">
 					<a class="menu_button_ref" href="controller?command=Menu&destination=team&team_id=${team_id}">Моя команда</a>
@@ -16,7 +17,7 @@
 			<li id="button_to_team" class="menu_button">
 				<a class="menu_button_ref" href="controller?destination=main&command=Menu">Команды</a>
 			</li>
-			<c:if test="${role.toString() != 'captain'}">
+			<c:if test="${!capitanChecker.isCapitan(login, team_id)}">
 				<li id="button_exit_team" class="menu_button">
 					<a class="menu_button_ref" href="controller?destination=exit_team&command=Menu">Покинуть команду</a>
 				</li>
