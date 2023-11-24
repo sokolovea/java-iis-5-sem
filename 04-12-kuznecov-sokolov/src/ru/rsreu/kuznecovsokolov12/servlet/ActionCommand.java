@@ -10,6 +10,7 @@ public interface ActionCommand {
 		public static final String PARAM_USER_ROLE = "role";
 		public static final String PARAM_DESTINATION = "destination";
 		public static final String PARAM_ACTIVITY = "activity";
+		public static final String PARAM_TEAM_ID = "team_id";
 		
 	String execute(HttpServletRequest request);
 }

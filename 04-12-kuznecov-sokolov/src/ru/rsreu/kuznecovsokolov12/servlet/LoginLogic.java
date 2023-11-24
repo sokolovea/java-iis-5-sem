@@ -67,7 +67,6 @@ public class LoginLogic {
 		User capitan = null;
 		try {
 			capitan = userDAO.getTeamCapitan(new Team(team_id));
-			//System.out.println(userLogin + team_id);
 			factory.returnConnectionToPool();
 			if (capitan.getLogin() == null) {
 				return false;

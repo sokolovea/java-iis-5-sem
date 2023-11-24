@@ -8,7 +8,9 @@ import javax.servlet.http.HttpSession;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
+import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
+import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public class LoginCommand implements ActionCommand {
@@ -39,6 +41,24 @@ public class LoginCommand implements ActionCommand {
 		session.setAttribute(LoginCommand.PARAM_USER_LOGIN, login);
 		session.setAttribute(LoginCommand.PARAM_USER_PASSWORD, password);
 		session.setAttribute(LoginCommand.PARAM_USER_ROLE, loginResult);
+		
+		
+		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+		TeamDAO teamDAO = factory.getTeamDAO();
+		UserDAO userDAO = factory.getUserDAO();
+		User user = null;
+		List<Team> teamList = null;
+		try {
+			user = userDAO.getUserByLogin(login);
+			teamList = teamDAO.getTeamsForUser(user);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		factory.returnConnectionToPool();
+		if ((teamList != null) && (teamList.size() != 0)) {
+			session.setAttribute(LoginCommand.PARAM_TEAM_ID, teamList.get(0).getId());
+		}
+//		session.setAttribute(LoginCommand.PARAM_TEAM_ID, value);
 		
 		if (loginResult == EnumLogin.ADMIN) {
 			return MenuCommand.getPage("main", request);
