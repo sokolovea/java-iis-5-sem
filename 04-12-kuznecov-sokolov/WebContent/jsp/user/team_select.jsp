@@ -63,7 +63,7 @@
 										</div>
 										<div class="team_fullness">
 										${team.getValue().values().iterator().next()}
-											/10
+											/ ${team_capacity}
 										</div>
 									</div>
 									<div class="team_box_bottom">
