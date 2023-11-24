@@ -3,10 +3,6 @@
 <html lang="ru-RU">
 <meta http-equiv="Cache-Control" content="no-cache">
 <head>
-	<%
-		String element = request.getParameter("element");
-		String report_id = request.getParameter("report_id");
-	%>
 	<title>Отчеты</title>
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/main_win.css">
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/input_items.css">
@@ -28,11 +24,24 @@
 				reports_button[i].style.textDecoration = "auto";
 			}
 			element.style.textDecoration = "underline black";
+			
+			localStorage.setItem('element_id', element.id);
+			localStorage.setItem('report_id', report_id);
 		}
+
 		
 		window.onload = function() {
-			reportSelector(document.getElementById('${element}'), '${report_id}');
+			var element_id = localStorage.getItem("element_id");
+			var report_id = localStorage.getItem("report_id");
+			element = document.getElementById(element_id);
+			if (element != null) {
+				reportSelector(element, report_id);
+			}
+			console.log(element_id);
+			console.log(report_id);
 		};
+		
+
 	</script>
 </head>
 <body>
@@ -69,13 +78,14 @@
 						</div>
 			            <div id="report_more_messages" class="report">
 							<div class="report_caption">Вывод N команд, которым данный эксперт писал больше всего сообщений</div>
-							<form id="admin_report_second_form" action="controller" method="POST">
-							<div class="report_inputs">
-								<input type="hidden" name="command" value="Report"/>
-								<span style="margin-right: 7px;">N =</span> 
-								<input id="n_teams_text_box" class="text_box" type="number" name="countCommands" value="100"/><br/>
-		            			<input id="n_teams_search" type="submit" name="countCommands_submit" value="Найти"/>
-							</div>
+ 							<form id="admin_report_second_form" action="controller" method="POST"> 
+								<div class="report_inputs">
+									<input type="hidden" name="command" value="Report"/>
+									<span style="margin-right: 7px;">N =</span> 
+									<input id="n_teams_text_box" class="text_box" type="number" name="countCommands"/><br/>
+			            			<input id="n_teams_search" type="submit" name="countCommands_submit" value="Найти"/>
+								</div>
+							</form>
 							<div class="report_table">
 								<table>
 									<thead>

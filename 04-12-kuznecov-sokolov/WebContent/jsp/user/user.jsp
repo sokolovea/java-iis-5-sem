@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/input_items.css">
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/user.css">
 	
+	
 	<script>
 	function restoreMessage(messageId, element) {
 	    var xhr = new XMLHttpRequest();
@@ -42,6 +43,16 @@
 	        }
 	    };
 	}
+
+	function scrollToBottom() {
+	    var scrollElement = document.getElementById("chat");
+
+	    scrollElement.scrollTop = scrollElement.scrollHeight;
+	}
+	
+	window.onload = function() {
+		scrollToBottom();
+	};
 	</script>
 
 </head>

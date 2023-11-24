@@ -23,9 +23,9 @@
 		<div id="sanc_triangle"></div>
 	</div>
 	 
-	<dialog id="sanctionReasonDialog">
+	<dialog id="sanctionReasonDialog" onkeydown="inputKeyPressHandler(event)">
 		<div id="reasonDialogHeader" class="right_bar_header">Блокировка</div>
-		<input type="text" class="text_box" id="reasonValue"/>
+		<input type="text" class="text_box" id="reasonValue" placeholder="Причина" />
 	    <div id="dialogButtons">
 	        <input type="button" onclick="sendSanctionRequest()" id="ok" value="Ок"/>
 	    	<input type="button" onclick="closeDialog()" id="cancel" value="Отмена"/>

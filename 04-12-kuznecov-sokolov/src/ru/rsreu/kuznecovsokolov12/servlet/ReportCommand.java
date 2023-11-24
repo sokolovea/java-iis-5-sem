@@ -64,8 +64,6 @@ public class ReportCommand implements ActionCommand {
 			}
 			request.setAttribute("adminReportFirst", adminReportFirst);
 			request.setAttribute("adminReportSecond", adminReportSecond);
-			request.setAttribute("element", "role_assigment_history_button");
-			request.setAttribute("report_id", "report_admin_user_role_history");
 			factory.returnConnectionToPool();
 		} else if (loginResult == EnumLogin.USER) {
 			User user = new User();
@@ -89,8 +87,6 @@ public class ReportCommand implements ActionCommand {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			request.setAttribute("element", "deleted_message_button");
-			request.setAttribute("report_id", "report_messages_deleted_by_no_user");
 			factory.returnConnectionToPool();
 		} else if (loginResult == EnumLogin.EXPERT) {
 			User expert = new User();
@@ -99,11 +95,12 @@ public class ReportCommand implements ActionCommand {
 				List<Team> firstReportList = teamDAO.getTeamsConsultedByExpert(expert);
 				request.setAttribute("expertReportFirst", firstReportList);
 				
-				
 				if (request.getParameter("countCommands") != null) {
 					int n = Integer.parseInt(request.getParameter("countCommands"));
 					Map<Team, Integer> secondReportList = teamDAO.getNTeamsBestCooperatedExpert(expert, n);
 					request.setAttribute("expertReportSecond", secondReportList);
+				}
+				else {
 				}
 				List<Team> thirdReportList = teamDAO.getTeamsEjectedExpert(expert);
 				request.setAttribute("expertReportThird", thirdReportList);
@@ -111,8 +108,7 @@ public class ReportCommand implements ActionCommand {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			request.setAttribute("element", "usefull_cooperate_button");
-			request.setAttribute("report_id", "report_more_messages");
+			
 			factory.returnConnectionToPool();
 		} else if (loginResult == EnumLogin.MODERATOR) {
 			User moderator = new User();
@@ -134,8 +130,6 @@ public class ReportCommand implements ActionCommand {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			request.setAttribute("element", "users_blocked_more_N_times_button");
-			request.setAttribute("report_id", "report_moderator_blocked_n");
 			factory.returnConnectionToPool();
 		}
 		return ReportCommand.getPage(loginResult);
