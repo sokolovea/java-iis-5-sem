@@ -92,4 +92,7 @@ body {
 	margin-bottom: 20px;
 }
 
-
+.error_box {
+	color: var(--focus_input_color);
+	text-align: center;
+}
