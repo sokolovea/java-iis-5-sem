@@ -9,6 +9,8 @@ import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.Session;
+
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
 import ru.rsreu.kuznecovsokolov12.datalayer.DeletedMessageDAO;
@@ -75,7 +77,6 @@ public class MenuCommand implements ActionCommand {
 				TeamDAO teamDAO = factory.getTeamDAO();
 				TeamInteractDAO teamInteractDAO = factory.getTeamInteractDAO();
 				UserDAO userDAO = factory.getUserDAO();
-				String teamId = request.getParameter("team_id");
 				User user;
 				try {
 					user = userDAO.getUserByLogin(login);
@@ -95,7 +96,11 @@ public class MenuCommand implements ActionCommand {
 		if (loginResult == EnumLogin.USER || loginResult == EnumLogin.EXPERT || loginResult == EnumLogin.CAPTAIN) {
 			if (destination.equals("team")) {
 				try {
-					MenuCommand.fillTeamPageForUser(request, login);
+					int teamId = (int) request.getSession().getAttribute(MenuCommand.PARAM_TEAM_ID);
+					if (loginResult == EnumLogin.EXPERT) {
+						teamId = Integer.parseInt(request.getParameter("team_id"));
+					}
+					MenuCommand.fillTeamPageForUser(request, login, teamId);
 				}
 				catch (RedirectErrorPage e) {
 					return ConfigurationManager.getProperty("path.page.error");
@@ -179,14 +184,21 @@ public class MenuCommand implements ActionCommand {
 		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
 		UserDAO userDAO = factory.getUserDAO();
 		TeamDAO teamDAO = factory.getTeamDAO();
+		
+		HttpSession session = request.getSession(false);
 		List<Team> teamList = null;
 		Map<Team, Map<String, Integer>> fullTeamMap = null;
 		try {
 			User user = userDAO.getUserByLogin(login);
 			teamList = teamDAO.getTeamsForUser(user);
 			if ((teamList != null) && (teamList.size() != 0)) {
-				request.setAttribute("team_id", teamList.get(0).getId());
+				session.setAttribute(MenuCommand.PARAM_TEAM_ID, teamList.get(0).getId());
+//				request.setAttribute("team_id", teamList.get(0).getId());
 			}
+//			else {
+//				int teamId = Integer.getInteger(request.getParameter(MenuCommand.PARAM_TEAM_ID));
+//				session.setAttribute(MenuCommand.PARAM_TEAM_ID, teamId);
+//			}
 			fullTeamMap = teamDAO.getAllTeam();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -197,7 +209,7 @@ public class MenuCommand implements ActionCommand {
 
 	}
 	
-	private static void fillTeamPageForUser(HttpServletRequest request, String login) throws RedirectErrorPage {
+	private static void fillTeamPageForUser(HttpServletRequest request, String login, int teamId) throws RedirectErrorPage {
 		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
 		MessageDAO messageDAO = factory.getMessageDAO();
 		UserDAO userDAO = factory.getUserDAO();
@@ -211,7 +223,7 @@ public class MenuCommand implements ActionCommand {
 			User user = userDAO.getUserByLogin(login);
 			List<Team> teamList = teamDAO.getTeamsForUser(user);
 			
-			team = teamDAO.getTeamById(Integer.parseInt(request.getParameter("team_id")));
+			team = teamDAO.getTeamById(teamId);
 			if (!teamList.contains(team)) {
 				factory.returnConnectionToPool();
 				throw new RedirectErrorPage();
@@ -230,7 +242,7 @@ public class MenuCommand implements ActionCommand {
 		request.setAttribute("team", team);
 		request.setAttribute("teamMembers", teamMembers);
 		request.setAttribute("teamExpert", teamExpert);
-		request.setAttribute("team_id", team.getId());
+//		request.setAttribute("team_id", team.getId());
 	}
 
 }

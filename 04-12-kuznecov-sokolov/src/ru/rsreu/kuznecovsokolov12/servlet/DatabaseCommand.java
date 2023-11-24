@@ -1,5 +1,6 @@
 package ru.rsreu.kuznecovsokolov12.servlet;
 
+import java.awt.image.DataBuffer;
 import java.net.http.HttpRequest;
 import java.sql.SQLException;
 import java.time.temporal.TemporalUnit;
@@ -121,13 +122,13 @@ public class DatabaseCommand implements ActionCommand {
 		} 
 		
 		else if (activity.equals("join_team")) {
-			int teamId = Integer.parseInt(request.getParameter("team_id"));
-			DatabaseLogic.userJoinTeam(login, teamId);
+			String teamId = request.getParameter(DatabaseCommand.PARAM_TEAM_ID);
+			DatabaseLogic.userJoinTeam(login, Integer.parseInt(teamId));
 			return MenuCommand.getPage("main", request);
 		} 
 		
 		else if (activity.equals("captain_pop_expert")) {
-			int teamId = Integer.parseInt(request.getParameter("team_id"));
+			int teamId = (int) session.getAttribute(DatabaseCommand.PARAM_TEAM_ID);
 			DatabaseLogic.ejectExpertFromTeam(login, teamId);
 			return MenuCommand.getPage("team", request);
 		}
@@ -143,13 +144,13 @@ public class DatabaseCommand implements ActionCommand {
 		String login = (String) session.getAttribute(DatabaseCommand.PARAM_USER_LOGIN);
 		
 		if (activity.equals("join_team")) {
-			int teamId = Integer.parseInt(request.getParameter("team_id"));
+			int teamId = Integer.parseInt(request.getParameter(DatabaseCommand.PARAM_TEAM_ID));
 			DatabaseLogic.expertJoinTeam(login, teamId);
 			return MenuCommand.getPage("main", request);
 		} 
 		
 		else if (activity.equals("expert_exit_team")) {
-			int teamId = Integer.parseInt(request.getParameter("team_id"));
+			int teamId = (int) session.getAttribute(DatabaseCommand.PARAM_TEAM_ID);
 			DatabaseLogic.expertExitFromTeam(login, teamId);
 			return MenuCommand.getPage("main", request);
 		} 	
