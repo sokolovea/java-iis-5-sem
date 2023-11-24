@@ -169,3 +169,38 @@
 .sanction:hover {
 	background: var(--fifth_color);
 }
+
+#sanctionReasonDialog {
+	min-width: 200px;
+	width: 10%;
+	height: 15%;
+    display: none;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-evenly;
+    position: fixed;
+    z-index: 1;
+    border-radius: 20px;
+    border: 20px solid var(--fifth_color);
+    background-color: var(--fourth_color);
+    padding: 6px;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#reasonDialogHeader{
+	margin-bottom: 0;
+}
+
+#dialogButtons {
+	width: 100%;
+	display: flex;
+    justify-content: space-between;
+}
+
+#ok, #cancel {
+	width: max-content;
+	min-width: 80px;
+}

@@ -8,142 +8,29 @@
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/input_items.css">
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/moderator.css">
 	
-	<script>
-	function restoreMessage(messageId, element) {
-	    // Создаем объект XMLHttpRequest
-	    var xhr = new XMLHttpRequest();
-
-	    // Настраиваем запрос
-	    xhr.open('POST', 'controller', true);
-	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-	    // Отправляем запрос с идентификатором сообщения
-	    xhr.send('command=Database&activity=restore_message&messageId=' + messageId);
-
-	    // Обрабатываем ответ сервера (если нужно)
-	    xhr.onreadystatechange = function () {
-	        if (xhr.readyState === XMLHttpRequest.DONE) {
-	        	element.parentNode.parentNode.parentNode.classList.remove("deleted_message");
-	        }
-	    };
-	}
-
-	function deleteMessage(messageId, element) {
-	    // Создаем объект XMLHttpRequest
-	    var xhr = new XMLHttpRequest();
-
-	    // Настраиваем запрос
-	    xhr.open('POST', 'controller', true);
-	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-	    // Отправляем запрос с идентификатором сообщения
-	    xhr.send('command=Database&activity=delete_message&messageId=' + messageId);
-
-	    // Обрабатываем ответ сервера (если нужно)
-	    xhr.onreadystatechange = function () {
-	        if (xhr.readyState === XMLHttpRequest.DONE) {
-	        	element.parentNode.parentNode.parentNode.classList.add("deleted_message");
-	        }
-	    };
-	}
-	
-		function sendSanctionForUser(sanction) {
-			// Создаем объект XMLHttpRequest
-		    var xhr = new XMLHttpRequest();
-
-		    // Настраиваем запрос
-		    xhr.open('POST', 'controller', true);
-		    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-		    // Отправляем запрос с идентификатором сообщения
-		    var user_id = document.getElementById("user_id_for_sanction").value;
-		    xhr.send('command=Database&activity=add_sanction&sanction=' + sanction + '&user_id=' + user_id);
-
-		    // Обрабатываем ответ сервера (если нужно)
-		    xhr.onreadystatechange = function () {
-		        if (xhr.readyState === XMLHttpRequest.DONE) {
-		        	location.reload();
-		        }
-		    };
-		}
-	
-		function showSanctionMenu(event, element, user_id) {
-			document.getElementById("user_id_for_sanction").value = user_id;
-			const menu = document.getElementById("user_sanction");
-			const item_pos = element.getBoundingClientRect();
-			menu.style.opacity = 1;
-			menu.style.pointerEvents = "auto";
-			menu.style.top = document.body.scrollTop + item_pos.top - menu.offsetHeight / 2 + element.offsetHeight / 2;
-			menu.style.left = item_pos.left - menu.offsetWidth + 10;
-		}
-		
-		function closeSanctionMenu(event, element) {
-			const menu = document.getElementById("sanc_triangle");
-			const item_pos = element.getBoundingClientRect();
-			if (event.relatedTarget != menu) {
-				document.getElementById("user_sanction").style.opacity = 0;
-				document.getElementById("user_sanction").style.pointerEvents = "none";
-			}
-		}
-		
-		function closeSancMenu() {
-			const menu = document.getElementById("user_sanction");
-			menu.style.opacity = 0;
-			menu.style.pointerEvents = "none";
-		}
-		
-		function chatFilter() {
-			  // Получите значение введенного текста из поля фильтра
-			  var input = document.getElementById("chat_filter_input");
-			  var filter = input.value.toLowerCase();
-
-			  // Получите все элементы с классом "team" из списка чатов
-			  var teams = document.getElementsByClassName("team");
-
-			  // Переберите все элементы и скройте те, которые не соответствуют фильтру
-			  for (var i = 0; i < teams.length; i++) {
-			    var teamName = teams[i].textContent.toLowerCase();
-			    if (teamName.indexOf(filter) > -1) {
-			      teams[i].style.display = "block"; // Отобразите элемент, если он соответствует фильтру
-			    } else {
-			      teams[i].style.display = "none"; // Спрячьте элемент, если он не соответствует фильтру
-			    }
-			  }
-			}
-		
-		function shoeAll() {
-			var messages = document.getElementsByClassName("message");
-			for (var i = 0; i < messages.length; i++) {
-				messages[i].style.display = "flex"; 
-			}
-		}
-		
-	function chatMessageFilter(element) {
-		console.log(element.innerHTML);
-		var filter = element.innerHTML.toLowerCase();
-		
-		var messages = document.getElementsByClassName("message");
-		
-		for (var i = 0; i < messages.length; i++) {
-			var messageTeamName = messages[i].getElementsByClassName("message_team")[0].textContent.toLowerCase();
-			if (messageTeamName.indexOf(filter) > -1) {
-				messages[i].style.display = "flex"; 
-			} else {
-				messages[i].style.display = "none";
-			}
-		}
-	}
-	</script>
+	<script src="/04-12-kuznecov-sokolov/js/chat_utils.js"></script>
+	<script src="/04-12-kuznecov-sokolov/js/moderator.js"></script>
 </head>
 <body>
 	<div id="user_sanction" onmouseleave='closeSancMenu()'>
 		<div id="sanction_list">
+			<!-- <div class="sanction" onclick='sendSanctionForUser("Block")'>Block</div>
+			<div class="sanction" onclick='sendSanctionForUser("Unblock")'>Unblock</div> -->
+			<div class="sanction" onclick='openDialog("Block")'>Block</div>
 			<input id="user_id_for_sanction" type="hidden" value="" >
-			<div class="sanction" onclick='sendSanctionForUser("Block")'>Block</div>
-			<div class="sanction" onclick='sendSanctionForUser("Unblock")'>Unblock</div>
+			<div class="sanction" onclick='openDialog("Unblock")'>Unblock</div>
 		</div>
 		<div id="sanc_triangle"></div>
 	</div>
+	 
+	<dialog id="sanctionReasonDialog">
+		<div id="reasonDialogHeader" class="right_bar_header">Блокировка</div>
+		<input type="text" class="text_box" id="reasonValue"/>
+	    <div id="dialogButtons">
+	        <input type="button" onclick="sendSanctionRequest()" id="ok" value="Ок"/>
+	    	<input type="button" onclick="closeDialog()" id="cancel" value="Отмена"/>
+	    </div>
+	</dialog>
 	
 	<div class="window">
 		<div id="top_bar" class="container">
@@ -193,7 +80,7 @@
 							<input id="chat_filter_input" class="text_box" type="text" name="chatFilter" placeholder="Фильтр"  onkeyup="chatFilter()"/>
 						</div>
 						<div id="full_chats_list">
-							<div id="general_chat" class="team" onclick="shoeAll()">Общий чат</div>
+							<div id="general_chat" class="team" onclick="showAll()">Общий чат</div>
 							<c:forEach var="teamMap" items="${fullTeamMap}">
 								<div class="team" onclick="chatMessageFilter(this)">${teamMap.getKey().getName()}</div>
 							</c:forEach>

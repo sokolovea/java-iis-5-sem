@@ -7,73 +7,7 @@
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/main_win.css">
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/input_items.css">
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/admin.css">
-	<script type="text/javascript">
-		function clearFormData() {
-			document.getElementById("user_login").value = "";
-			document.getElementById("user_password").value = "";
-			document.getElementById("user_name").value = "";
-			document.getElementById("user_email").value = "";
-			document.getElementById("user_role").options[0].selected = "selected";
-		}
-		
-		function insertLoginToTextBox(element) {
-			document.getElementById("user_login").value = element.textContent;
-		}
-		
-		
-	    function modifyUser(commandType) {
-	        // Создаем объект XMLHttpRequest
-	        var xhr = new XMLHttpRequest();
-			
-	        var data = {
-				command: "Database",
-				activity: "update_user",
-				command_type: commandType, 
-				form_login: document.getElementById("user_login").value,
-				form_password: document.getElementById("user_password").value,
-				form_name: document.getElementById("user_name").value,
-				form_email: document.getElementById("user_email").value,
-				form_role: document.getElementById("user_role").value
-	  	    };
-	        console.log(data);
-	        
-	        // Настраиваем запрос
-	        xhr.open('POST', 'controller', true);
-	        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-	        var formData = [];
-	        for (var key in data) {
-	          if (data.hasOwnProperty(key)) {
-	            formData.push(encodeURIComponent(key) + "=" + encodeURIComponent(data[key]));
-	          }
-	        }
-	        var encodedData = formData.join("&");
-	        
-	        // Отправляем запрос с идентификатором сообщения
-	        xhr.send(encodedData);
-
-	        // Обрабатываем ответ сервера (если нужно)
-	        xhr.onreadystatechange = function () {
-	            if (xhr.readyState === XMLHttpRequest.DONE) {
-	            	if (commandType == 'find_user') {
-	            		var redirectPage = xhr.responseText; // Предполагается, что сервер вернул имя страницы для перенаправления
-	            		//var redirectUrl = window.location.origin + "/" + redirectPage;
-	            		// Открываем документ для записи
-	            		document.open();
-
-	            		// Записываем новый исходный код страницы
-	            		document.write(redirectPage);
-
-	            		// Закрываем документ
-	            		document.close();
-	            		//location.reload();
-	            	} else {
-	            		location.reload();
-	            	}
-	            }
-	        };
-	    }
-	</script>
+	<script src="/04-12-kuznecov-sokolov/js/admin.js"></script>
 </head>
 <body>
 	<div class="window">
