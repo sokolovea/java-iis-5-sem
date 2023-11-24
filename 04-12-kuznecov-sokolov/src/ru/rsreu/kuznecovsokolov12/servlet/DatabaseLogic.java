@@ -74,9 +74,9 @@ public class DatabaseLogic extends DAOAcces {
 				teamInteractDAO.addTeamInteract(teamInteract);
 			}
 			Team team = new Team();
-			team.setName(userLogin);
+			team.setName(teamName);
 			teamDAO.addTeam(team);
-			team = teamDAO.getTeamByName(userLogin);
+			team = teamDAO.getTeamByName(teamName);
 			TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Join"), team, null);
 			teamInteractDAO.addTeamInteract(teamInteract);
 		}
