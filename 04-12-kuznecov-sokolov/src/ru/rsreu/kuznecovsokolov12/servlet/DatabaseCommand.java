@@ -237,7 +237,7 @@ public class DatabaseCommand implements ActionCommand {
 			String userEmail = request.getParameter("form_email");
 			String userRole = request.getParameter("form_role");
 			if (commandType.equals("save_user")) {
-				DatabaseLogic.saveUser(new User(-1, userLogin, userPassword, userName, userEmail));
+				DatabaseLogic.saveUser(new User(-1, userLogin, userPassword, userName, userEmail), userRole, login);
 			} 
 			
 			else if (commandType.equals("create_user")) {

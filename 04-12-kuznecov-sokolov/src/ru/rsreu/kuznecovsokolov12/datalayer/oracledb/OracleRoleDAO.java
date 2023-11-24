@@ -15,7 +15,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 
 public class OracleRoleDAO implements RoleDAO {
 
-	private final static String SQL_SELECT_ROLE_BY_USER = "select \"ROLE\".*, \"ROLE_GROUP\".* from (\"USER\" join \"ROLE_ASSIGMENT\" on \"USER\".\"user_id\" = \"ROLE_ASSIGMENT\".\"receiver\") join \"ROLE\" on \"ROLE_ASSIGMENT\".\"role\" = \"ROLE\".\"role_id\" join \"ROLE_GROUP\" on \"ROLE_GROUP\".\"role_group_id\" = \"ROLE\".\"group\" where \"USER\".\"user_id\" = ?";
+	private final static String SQL_SELECT_ROLE_BY_USER = "select \"ROLE\".*, \"ROLE_GROUP\".* from (\"USER\" join \"ROLE_ASSIGMENT\" on \"USER\".\"user_id\" = \"ROLE_ASSIGMENT\".\"receiver\") join \"ROLE\" on \"ROLE_ASSIGMENT\".\"role\" = \"ROLE\".\"role_id\" join \"ROLE_GROUP\" on \"ROLE_GROUP\".\"role_group_id\" = \"ROLE\".\"group\" where \"USER\".\"user_id\" = ? order by \"time\" desc fetch FIRST 1 rows only";
 	private final static String SQL_ALL_ROLES_SELECT = "select * from \"ROLE\"";
 	private static final String SQL_SELECT_ROLE_BY_NAME = "select * from \"ROLE\" where \"role_name\" = ?";
 	

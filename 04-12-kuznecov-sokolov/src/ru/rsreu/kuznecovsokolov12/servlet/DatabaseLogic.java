@@ -172,14 +172,22 @@ public class DatabaseLogic extends DAOAcces {
 		}
 	}
 	
-	public static void saveUser(User newUserData) throws SQLException {
+	public static void saveUser(User newUserData, String role, String adminLogin) throws SQLException {
 		User tempUser = userDAO.getUserByLogin(newUserData.getLogin());
 		if (tempUser.getLogin() != null && (!newUserData.getPassword().isEmpty())) {
 			tempUser.setPassword(newUserData.getPassword());
 			tempUser.setEmail(newUserData.getEmail());
 			tempUser.setName(newUserData.getName());
-			// !!! Role do not changed!
 			userDAO.updateUser(tempUser);
+			newUserData = userDAO.getUserByLogin(tempUser.getLogin());
+			Role newRole = roleDAO.getRoleByName(role);
+			User admin = userDAO.getUserByLogin(adminLogin);
+			RoleAssigment roleAssigment = new RoleAssigment(-1, newRole, admin, newUserData, null);
+			roleAssigmentDAO.addRoleAssigment(roleAssigment);
+			// TODO:
+			// Если пользователь был экспертом выйти из всех команд
+			// Если пользователь был в команде, то покинуть команду
+			// Если пользователь был капитаном, то удалить все связанные с ним teamInteract
 		}
 	}
 	
