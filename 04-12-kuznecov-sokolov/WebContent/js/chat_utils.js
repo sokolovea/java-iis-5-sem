@@ -35,3 +35,9 @@ function deleteMessage(messageId, element) {
         }
     };
 }
+
+function scrollToBottom() {
+    var scrollElement = document.getElementById("chat");
+
+    scrollElement.scrollTop = scrollElement.scrollHeight;
+}

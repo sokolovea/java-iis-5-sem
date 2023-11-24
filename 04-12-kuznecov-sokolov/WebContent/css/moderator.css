@@ -177,7 +177,7 @@
     display: none;
     flex-flow: column;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
     position: fixed;
     z-index: 1;
     border-radius: 20px;

@@ -1,4 +1,11 @@
 
+
+window.onload = function() {
+	scrollToBottom();
+};
+
+
+
 function sendSanctionForUser(sanction, reason) {
     var xhr = new XMLHttpRequest();
 
@@ -12,7 +19,7 @@ function sendSanctionForUser(sanction, reason) {
     // Обрабатываем ответ сервера
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
-        	location.reload();
+        	//location.reload();
         }
     };
 }
@@ -67,6 +74,7 @@ function showAll() {
 	for (var i = 0; i < messages.length; i++) {
 		messages[i].style.display = "flex"; 
 	}
+	scrollToBottom();
 }
 	
 
@@ -84,6 +92,7 @@ function chatMessageFilter(element) {
 			messages[i].style.display = "none";
 		}
 	}
+	scrollToBottom();
 }
 
 
@@ -109,4 +118,14 @@ function closeDialog() {
 	const favDialog = document.getElementById('sanctionReasonDialog');
 	favDialog.style.display = 'none';
 	favDialog.close();
+}
+
+
+function inputKeyPressHandler(event) {
+    if (event.key === 'Enter') {
+    	sendSanctionRequest();
+    }
+    if (event.key === 'Escape') {
+    	closeDialog();
+    }
 }
