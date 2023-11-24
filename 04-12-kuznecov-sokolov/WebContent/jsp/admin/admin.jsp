@@ -50,7 +50,7 @@
 						<input id="save_changes" type="button" name="saveChanges" value="Сохранить" onclick='modifyUser("save_user")'/>
 						<input id="create_user" type="button" name="createUser" value="Создать пользователя" onclick='modifyUser("create_user")'/>
 						<input id="remove_user" type="button" name="removeUser" value="Удалить пользователя" onclick='modifyUser("remove_user")'/>
-						<input id="find_user" type="button" name="findUser" value="Поиск пользователя по логину" onclick='modifyUser("find_user")'/>												
+						<input id="find_user" type="button" name="findUser" value="Поиск пользователя по логину" onclick='findUserData("find_user")'/>												
 						<input id="clear_form" type="button" name="clearForm" value="Очистить форму" onclick='clearFormData()'/>
 					</div>
 		        </div>

@@ -96,7 +96,8 @@ public class MenuCommand implements ActionCommand {
 					e.printStackTrace();
 				}
 				factory.returnConnectionToPool();
-				return MenuCommand.getPage("main", request);
+				return "/controller?command=menu&destination=main";
+//				return MenuCommand.getPage("main", request);
 			}
 		}
 		if (loginResult == EnumLogin.USER || loginResult == EnumLogin.EXPERT || loginResult == EnumLogin.CAPTAIN) {

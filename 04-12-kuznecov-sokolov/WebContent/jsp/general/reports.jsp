@@ -78,7 +78,7 @@
 						</div>
 			            <div id="report_more_messages" class="report">
 							<div class="report_caption">Вывод N команд, которым данный эксперт писал больше всего сообщений</div>
- 							<form id="admin_report_second_form" action="controller" method="POST"> 
+ 							<form id="admin_report_second_form" action="controller" method="GET"> 
 								<div class="report_inputs">
 									<input type="hidden" name="command" value="Report"/>
 									<span style="margin-right: 7px;">N =</span> 
@@ -233,7 +233,7 @@
 						</div>
 			            <div id="report_moderator_blocked_n" class="report">
 							<div class="report_caption">Вывод пользователей, заблокированных N или более раз</div>
-							<form id="admin_report_second_form" action="controller" method="POST">
+							<form id="admin_report_second_form" action="controller" method="GET">
 								<div class="report_inputs">
 									<input type="hidden" name="command" value="Report"/>
 									<span style="margin-right: 7px;">N =</span> 
@@ -293,7 +293,7 @@
 						</div>
 						<div id="report_admin_user_role_history" class="report">
 							<div class="report_caption">Вывод информации о истории назначения на роль по конкретной учетной записи</div>
-							<form id="admin_report_second_form" action="controller" method="POST">
+							<form id="admin_report_second_form" action="controller" method="GET">
 								<div class="report_inputs">
 									<input type="hidden" name="command" value="Report"/>
 									<span style="margin-right: 7px;">login =</span> 

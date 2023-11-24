@@ -29,7 +29,7 @@ public class LoginCommand implements ActionCommand {
 		}
 		
 		if (!LoginCommand.isRoleExist(loginResult)) {
-			request.setAttribute("errorLoginPassMessage", "Login or password incorrect");
+			request.getSession().setAttribute("errorLoginPassMessage", "Login or password incorrect");
 			page = LoginCommand.getPage(loginResult);
 			return page;
 		}
@@ -61,17 +61,20 @@ public class LoginCommand implements ActionCommand {
 //		session.setAttribute(LoginCommand.PARAM_TEAM_ID, value);
 		
 		if (loginResult == EnumLogin.ADMIN) {
-			return MenuCommand.getPage("main", request);
+			return "/controller?command=menu&destination=main";
+//			return MenuCommand.getPage("main", request);
 		}
 		if (loginResult == EnumLogin.USER || loginResult == EnumLogin.EXPERT) {
-			return MenuCommand.getPage("main", request);
+			return "/controller?command=menu&destination=main";
+//			return MenuCommand.getPage("main", request);
 		}
 		
 		if (loginResult == EnumLogin.MODERATOR) {
-			return MenuCommand.getPage("main", request);
+			return "/controller?command=menu&destination=main";
+//			return MenuCommand.getPage("main", request);
 		}
 //		request.setAttribute("destination", "main");
-		page = LoginCommand.getPage(loginResult);
+//		page = LoginCommand.getPage(loginResult);
 		return page;
 	}
 	
@@ -91,6 +94,6 @@ public class LoginCommand implements ActionCommand {
 			String destination = "main";
 			return ConfigurationManager.getProperty("path.page.admin");
 		}
-		return ConfigurationManager.getProperty("path.page.login");
+		return "/controller";//ConfigurationManager.getProperty("path.page.index");
 	}
 }

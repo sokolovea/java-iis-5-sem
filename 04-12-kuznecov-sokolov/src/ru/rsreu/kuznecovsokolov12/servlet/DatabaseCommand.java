@@ -50,7 +50,8 @@ public class DatabaseCommand implements ActionCommand {
 		
 		HttpSession session = request.getSession(false);
 		if (session == null) {
-			return ConfigurationManager.getProperty("path.page.index");
+			return "/controller";
+//			return ConfigurationManager.getProperty("path.page.index");
 		}
 		
 		EnumLogin loginResult = (EnumLogin) session.getAttribute(MenuCommand.PARAM_USER_ROLE);
@@ -82,7 +83,8 @@ public class DatabaseCommand implements ActionCommand {
 		if (page != null) {
 			return page;
 		}
-		return ConfigurationManager.getProperty("path.page.login");
+		return "/controller";
+//		return ConfigurationManager.getProperty("path.page.login");
 	}
 
 
@@ -91,7 +93,8 @@ public class DatabaseCommand implements ActionCommand {
 		
 		HttpSession session = request.getSession(false);
 		if (session == null) {
-			return ConfigurationManager.getProperty("path.page.index");
+			return "/controller";
+//			return ConfigurationManager.getProperty("path.page.index");
 		}
 		String login = (String) session.getAttribute(DatabaseCommand.PARAM_USER_LOGIN);
 		
@@ -101,19 +104,22 @@ public class DatabaseCommand implements ActionCommand {
 			if (message != null && !message.isEmpty()) {
 				DatabaseLogic.sendMessage(login, message);
 			}
-			return MenuCommand.getPage("team", request);
+			return "/controller?command=menu&destination=team";
+//			return MenuCommand.getPage("team", request);
 		} 
 		
 		else if (activity.equals("delete_message")) {
 			int messageId = Integer.parseInt(request.getParameter("messageId"));
 			DatabaseLogic.deleteMessage(login, messageId);
-			return MenuCommand.getPage("team", request);
+			return "/controller?command=menu&destination=team";
+//			return MenuCommand.getPage("team", request);
 		} 
 		
 		else if (activity.equals("restore_message")) {
 			int messageId = Integer.parseInt(request.getParameter("messageId"));
 			DatabaseLogic.restoreMessage(messageId);
-			return MenuCommand.getPage("team", request);
+			return "/controller?command=menu&destination=team";
+//			return MenuCommand.getPage("team", request);
 		} 
 		
 		else if (activity.equals("create_team")) {
@@ -121,21 +127,24 @@ public class DatabaseCommand implements ActionCommand {
 			try {
 				DatabaseLogic.createTeam(login, teamFormName);
 			} catch (RedirectErrorPage e) {
-				request.setAttribute("errorTeamCreate", e.getMessage());
+				session.setAttribute("errorTeamCreate", e.getMessage());
 			}
-			return MenuCommand.getPage("main", request);
+			return "/controller?command=menu&destination=main";
+//			return MenuCommand.getPage("main", request);
 		} 
 		
 		else if (activity.equals("join_team")) {
 			String teamId = request.getParameter(DatabaseCommand.PARAM_TEAM_ID);
 			DatabaseLogic.userJoinTeam(login, Integer.parseInt(teamId));
-			return MenuCommand.getPage("main", request);
+			return "/controller?command=menu&destination=main";
+//			return MenuCommand.getPage("main", request);
 		} 
 		
 		else if (activity.equals("captain_pop_expert")) {
 			int teamId = (int) session.getAttribute(DatabaseCommand.PARAM_TEAM_ID);
 			DatabaseLogic.ejectExpertFromTeam(login, teamId);
-			return MenuCommand.getPage("team", request);
+			return "/controller?command=menu&destination=team";
+//			return MenuCommand.getPage("team", request);
 		}
 		return null;
 	}
@@ -151,13 +160,15 @@ public class DatabaseCommand implements ActionCommand {
 		if (activity.equals("join_team")) {
 			int teamId = Integer.parseInt(request.getParameter(DatabaseCommand.PARAM_TEAM_ID));
 			DatabaseLogic.expertJoinTeam(login, teamId);
-			return MenuCommand.getPage("main", request);
+			return "/controller?command=menu&destination=main";
+//			return MenuCommand.getPage("main", request);
 		} 
 		
 		else if (activity.equals("expert_exit_team")) {
 			int teamId = (int) session.getAttribute(DatabaseCommand.PARAM_TEAM_ID);
 			DatabaseLogic.expertExitFromTeam(login, teamId);
-			return MenuCommand.getPage("main", request);
+			return "/controller?command=menu&destination=main";
+//			return MenuCommand.getPage("main", request);
 		} 	
 		
 		else if (activity.equals("send_message")) {
@@ -165,19 +176,22 @@ public class DatabaseCommand implements ActionCommand {
 			if (message != null && !message.isEmpty()) {
 				DatabaseLogic.sendMessage(login, message);
 			}
-			return MenuCommand.getPage("team", request);
+			return "/controller?command=menu&destination=team";
+//			return MenuCommand.getPage("team", request);
 		} 
 		
 		else if (activity.equals("delete_message")) {
 			int messageId = Integer.parseInt(request.getParameter("messageId"));
 			DatabaseLogic.deleteMessage(login, messageId);
-			return MenuCommand.getPage("team", request);
+			return "/controller?command=menu&destination=team";
+//			return MenuCommand.getPage("team", request);
 		} 
 		
 		else if (activity.equals("restore_message")) {
 			int messageId = Integer.parseInt(request.getParameter("messageId"));
 			DatabaseLogic.restoreMessage(messageId);
-			return MenuCommand.getPage("team", request);
+			return "/controller?command=menu&destination=team";
+//			return MenuCommand.getPage("team", request);
 		}
 		return null;
 	}
@@ -193,14 +207,16 @@ public class DatabaseCommand implements ActionCommand {
 		if (activity.equals("delete_message")) {
 			int messageId = Integer.parseInt(request.getParameter("messageId"));
 			DatabaseLogic.deleteMessage(login, messageId);
-			return MenuCommand.getPage("main", request);
+			return "/controller?command=menu&destination=main";
+//			return MenuCommand.getPage("main", request);
 
 		} 
 		
 		else if (activity.equals("restore_message")) {
 			int messageId = Integer.parseInt(request.getParameter("messageId"));
 			DatabaseLogic.restoreMessage(messageId);
-			return MenuCommand.getPage("main", request);
+			return "/controller?command=menu&destination=main";
+//			return MenuCommand.getPage("main", request);
 		} 
 		
 		else if (activity.equals("add_sanction")) {
@@ -208,7 +224,8 @@ public class DatabaseCommand implements ActionCommand {
 			String sanction = request.getParameter("sanction");
 			String reason = request.getParameter("reason");
 			DatabaseLogic.createSanction(login, userIdForSanction, sanction, reason);
-			return MenuCommand.getPage("main", request);
+			return "/controller?command=menu&destination=main";
+//			return MenuCommand.getPage("main", request);
 		}
 		return null;
 	}
@@ -226,7 +243,8 @@ public class DatabaseCommand implements ActionCommand {
 			String expertCapacity = request.getParameter("expertCapacity");
 			List<Setting> settingList = DatabaseLogic.updateSetting(teamCapacity, expertCapacity);
 			request.setAttribute("setting_list", settingList);
-			return ConfigurationManager.getProperty("path.page.admin_settings");
+			return "/controller?command=menu&destination=settings";
+//			return ConfigurationManager.getProperty("path.page.admin_settings");
 		} 
 		
 		else if (activity.equals("update_user")) {
@@ -258,6 +276,7 @@ public class DatabaseCommand implements ActionCommand {
 					request.setAttribute("form_email", user.getKey().getEmail());
 					request.setAttribute("form_role", user.getValue().getName());
 				}
+//				return "/controller?command=menu&destination=main";
 				return MenuCommand.getPage("main", request);
 			}
 		}
