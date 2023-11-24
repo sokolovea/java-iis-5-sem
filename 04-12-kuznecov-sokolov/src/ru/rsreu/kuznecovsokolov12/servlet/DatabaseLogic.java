@@ -34,7 +34,7 @@ public class DatabaseLogic extends DAOAcces {
 		settingDAO.setSetting(settingExpertCapacity);
 		return settingDAO.getSetting();
 	}
-	
+
 	public static void sendMessage(String login, String messageData) throws SQLException {
 		User user = userDAO.getUserByLogin(login);
 		List<Team> teamList = teamDAO.getTeamsForUser(user);
@@ -42,7 +42,7 @@ public class DatabaseLogic extends DAOAcces {
 			System.out.println("Null team list for user!!!");
 		}
 		if (messageData == null) {
-			System.out.println("Null message!!!"); //Message(id, data, author, time)
+			System.out.println("Null message!!!"); // Message(id, data, author, time)
 		}
 		Message message = new Message();
 		message.setAuthor(user);
@@ -52,8 +52,7 @@ public class DatabaseLogic extends DAOAcces {
 		messageAttaching.setTeam(teamList.get(0));
 		messageAttachDAO.addMessage(messageAttaching);
 	}
-	
-	
+
 	public static void createTeam(String userLogin, String teamName) throws SQLException {
 		Map<Team, Map<String, Integer>> allTeams = teamDAO.getAllTeam();
 		boolean teamExists = false;
@@ -70,18 +69,20 @@ public class DatabaseLogic extends DAOAcces {
 				if (LoginLogic.isCapitan(userLogin, teamList.get(0).getId())) {
 					return;
 				}
-				TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Exit"), teamList.get(0), null);
+				TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Exit"),
+						teamList.get(0), null);
 				teamInteractDAO.addTeamInteract(teamInteract);
 			}
 			Team team = new Team();
 			team.setName(teamName);
 			teamDAO.addTeam(team);
 			team = teamDAO.getTeamByName(teamName);
-			TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Join"), team, null);
+			TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Join"),
+					team, null);
 			teamInteractDAO.addTeamInteract(teamInteract);
 		}
 	}
-	
+
 	public static void userJoinTeam(String userLogin, int teamId) throws SQLException {
 		User user = userDAO.getUserByLogin(userLogin);
 		List<Team> teamList = teamDAO.getTeamsForUser(user);
@@ -89,27 +90,33 @@ public class DatabaseLogic extends DAOAcces {
 			if (LoginLogic.isCapitan(userLogin, teamList.get(0).getId()) || (teamList.get(0).getId() == teamId)) {
 				return;
 			}
-			TeamInteract teamInteract = new TeamInteract(0, user,
-					teamInteractDAO.getTeamInteractTypeByName("Exit"), teamList.get(0), null);
+			TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Exit"),
+					teamList.get(0), null);
 			teamInteractDAO.addTeamInteract(teamInteract);
 		}
 		Team team = teamDAO.getTeamById(teamId);
-		TeamInteract teamInteract = new TeamInteract(0, user,
-				teamInteractDAO.getTeamInteractTypeByName("Join"), team, null);
-		teamInteractDAO.addTeamInteract(teamInteract);
+		
+		SettingDAO settingDAO = factory.getSettingDAO();
+		int team_capacity = settingDAO.getSetting().get(0).getValue();
+		int joinTeamMembers = teamDAO.getCountTeamMembers(team);
+		if (joinTeamMembers < team_capacity) {
+			TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Join"), team,
+					null);
+			teamInteractDAO.addTeamInteract(teamInteract);
+		}
 	}
-	
+
 	public static void expertJoinTeam(String expertLogin, int teamId) throws SQLException {
 		User user = userDAO.getUserByLogin(expertLogin);
 		Team team = teamDAO.getTeamById(teamId);
 		User expert = userDAO.getExpertForTeam(team);
 		if (expert.getLogin() == null) {
-			TeamInteract teamInteract = new TeamInteract(0, user,
-					teamInteractDAO.getTeamInteractTypeByName("Join"), team, null);
+			TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Join"),
+					team, null);
 			teamInteractDAO.addTeamInteract(teamInteract);
 		}
 	}
-	
+
 	public static void expertExitFromTeam(String expertLogin, int teamId) {
 		User user;
 		try {
@@ -117,8 +124,8 @@ public class DatabaseLogic extends DAOAcces {
 			List<Team> teamList = teamDAO.getTeamsForUser(user);
 			Team team = teamDAO.getTeamById(teamId);
 			if (teamList.size() != 0 && teamList.contains(team)) {
-				TeamInteract teamInteract = new TeamInteract(0, user,
-						teamInteractDAO.getTeamInteractTypeByName("Exit"), team, null);
+				TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Exit"),
+						team, null);
 				teamInteractDAO.addTeamInteract(teamInteract);
 			}
 		} catch (SQLException e) {
@@ -140,25 +147,26 @@ public class DatabaseLogic extends DAOAcces {
 			}
 		}
 	}
-	
+
 	public static void deleteMessage(String senderLogin, int messageId) throws SQLException {
 		User user = userDAO.getUserByLogin(senderLogin);
 		DeletedMessage deletedMessage = new DeletedMessage(0, user, new Message(messageId), null);
 		deletedMessageDAO.addDeletedMessage(deletedMessage);
 	}
-	
+
 	public static void restoreMessage(int messageId) throws SQLException {
 		DeletedMessage deletedMessage = new DeletedMessage(0, null, new Message(messageId), null);
 		deletedMessageDAO.removeFromDeletedMessage(deletedMessage);
 	}
-	
-	public static void createSanction(String senderLogin, int userId, String sanctionName, String reason) throws SQLException {
+
+	public static void createSanction(String senderLogin, int userId, String sanctionName, String reason)
+			throws SQLException {
 		SanctionType sanctionType = sanctionDAO.getSanctionTypeByName(sanctionName);
 		User sender = userDAO.getUserByLogin(senderLogin);
 		Sanction sanction = new Sanction(0, sanctionType, sender, new User(userId), reason, null);
 		sanctionDAO.addSanction(sanction);
 	}
-	
+
 	public static void createUser(User newUser, String roleName, String senderLogin) throws SQLException {
 		User tempUser = userDAO.getUserByLogin(newUser.getLogin());
 		if (tempUser.getLogin() == null && (!newUser.getPassword().isEmpty())) {
@@ -174,7 +182,7 @@ public class DatabaseLogic extends DAOAcces {
 			roleAssigmentDAO.addRoleAssigment(roleAssigment);
 		}
 	}
-	
+
 	public static void saveUser(User newUserData) throws SQLException {
 		User tempUser = userDAO.getUserByLogin(newUserData.getLogin());
 		if (tempUser.getLogin() != null && (!newUserData.getPassword().isEmpty())) {
@@ -185,7 +193,7 @@ public class DatabaseLogic extends DAOAcces {
 			userDAO.updateUser(tempUser);
 		}
 	}
-	
+
 	public static Map.Entry<User, Role> findUser(String userLogin) throws SQLException {
 		User user = userDAO.getUserByLogin(userLogin);
 		if (user.getLogin() != null) {
@@ -201,6 +209,5 @@ public class DatabaseLogic extends DAOAcces {
 			userDAO.deleteUser(tempUser);
 		}
 	}
-	
-	
+
 }
