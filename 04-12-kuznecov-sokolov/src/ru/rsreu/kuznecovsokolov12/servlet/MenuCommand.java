@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.Session;
 
+
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
 import ru.rsreu.kuznecovsokolov12.datalayer.DeletedMessageDAO;
@@ -65,6 +66,7 @@ public class MenuCommand implements ActionCommand {
 	public static String getPage(String destination, HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		
+		
 		if (session == null) {
 			return ConfigurationManager.getProperty("path.page.index");
 		}
@@ -111,6 +113,15 @@ public class MenuCommand implements ActionCommand {
 				}
 				return ConfigurationManager.getProperty("path.page.team");
 			} else if (destination.equals("main")) {
+				DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+				SettingDAO settingDAO = factory.getSettingDAO();
+				try {
+					List<Setting> settingList = settingDAO.getSetting();
+					request.setAttribute("team_capacity", settingList.get(0).getValue());
+				}
+				catch (Exception e) {
+				}
+				factory.returnConnectionToPool();
 				MenuCommand.fillTeamSelectPageForUser(request, login);
 				return ConfigurationManager.getProperty("path.page.team_select");
 			}
