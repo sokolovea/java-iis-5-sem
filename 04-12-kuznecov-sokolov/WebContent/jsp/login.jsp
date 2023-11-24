@@ -20,7 +20,7 @@
 				<div id="password_box_caption">Пароль</div>
 				<input class="text_box" type="password" name="password" value=""/>
 			</div>
-			<div id="error_box">
+			<div class="error_box">
 				${errorLoginPassMessage}
 				${wrongAction}
 				${nullPage}

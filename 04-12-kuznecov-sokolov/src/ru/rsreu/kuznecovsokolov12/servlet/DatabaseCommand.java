@@ -35,6 +35,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.TeamInteract;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.TeamInteractType;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleSanctionDAO;
+import test.RedirectErrorPage;
 
 public class DatabaseCommand implements ActionCommand {
 	
@@ -117,7 +118,11 @@ public class DatabaseCommand implements ActionCommand {
 		
 		else if (activity.equals("create_team")) {
 			String teamFormName = request.getParameter("teamFormName");
-			DatabaseLogic.createTeam(login, teamFormName);
+			try {
+				DatabaseLogic.createTeam(login, teamFormName);
+			} catch (RedirectErrorPage e) {
+				request.setAttribute("errorTeamCreate", e.getMessage());
+			}
 			return MenuCommand.getPage("main", request);
 		} 
 		

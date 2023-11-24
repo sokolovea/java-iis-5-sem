@@ -29,18 +29,21 @@
 								Создание команды
 							</div>
 							<form class="display_contents_form" id="create_form_team" action="controller" method="POST">
-							<div id="create_team_input">
-								<div id="create_team_text_box">
-									<input type="hidden" name="team_id" value="<%= teamId %>"/>
-									<input type="hidden" name="command" value="Database"/>
-									<input type="hidden" name="activity" value="create_team"/>
-									<input class="text_box" type="text" name="teamFormName" placeholder="Название команды"/>
+								<div id="create_team_input">
+									<div id="create_team_text_box">
+										<input type="hidden" name="team_id" value="<%= teamId %>"/>
+										<input type="hidden" name="command" value="Database"/>
+										<input type="hidden" name="activity" value="create_team"/>
+										<input class="text_box" type="text" name="teamFormName" placeholder="Название команды"/>
+										<div class="error_box">
+											${errorTeamCreate}
+										</div>
+									</div>
+									<div id="create_team_send">
+										<input type="submit" value="Создать"/>
+									</div>
 								</div>
-								<div id="create_team_send">
-									<input type="submit" value="Создать"/>
-								</div>
-							</div>
-						</form>
+							</form>
 						</c:if>
 					</div>
 					<div class="center_bar_boxes" id="teams_info">

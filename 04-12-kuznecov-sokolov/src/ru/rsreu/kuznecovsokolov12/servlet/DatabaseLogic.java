@@ -24,6 +24,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.DAOAcces;
 import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleDataBaseDAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleUserDAO;
+import test.RedirectErrorPage;
 
 public class DatabaseLogic extends DAOAcces {
 
@@ -52,26 +53,22 @@ public class DatabaseLogic extends DAOAcces {
 		messageAttaching.setTeam(teamList.get(0));
 		messageAttachDAO.addMessage(messageAttaching);
 	}
-
-	public static void createTeam(String userLogin, String teamName) throws SQLException {
-		Map<Team, Map<String, Integer>> allTeams = teamDAO.getAllTeam();
-		boolean teamExists = false;
-		for (Team tempTeam : allTeams.keySet()) {
-			if (tempTeam.getName().equals(teamName)) {
-				teamExists = true;
-				break;
-			}
-		}
-		if (teamName != null && !teamName.isEmpty() && (!teamExists)) {
+		
+	public static void createTeam(String userLogin, String teamName) throws SQLException, RedirectErrorPage {
+		if (teamName != null && !teamName.isEmpty()) {
 			User user = userDAO.getUserByLogin(userLogin);
 			List<Team> teamList = teamDAO.getTeamsForUser(user);
 			if (teamList.size() != 0) {
 				if (LoginLogic.isCapitan(userLogin, teamList.get(0).getId())) {
-					return;
+					throw new RedirectErrorPage("Капитан команды не может создавать команду");
 				}
 				TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Exit"),
 						teamList.get(0), null);
 				teamInteractDAO.addTeamInteract(teamInteract);
+			}
+			Team teamExisted = teamDAO.getTeamByName(teamName);
+			if (teamExisted.getName() != null) {
+				throw new RedirectErrorPage("Команда с таким названием (" + teamName + ") уже существует");
 			}
 			Team team = new Team();
 			team.setName(teamName);
