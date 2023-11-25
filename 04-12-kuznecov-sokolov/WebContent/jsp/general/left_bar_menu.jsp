@@ -9,7 +9,7 @@
 	<jsp:useBean id="capitanChecker" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
 	<ol>
 		<c:if test="${role.toString() == 'user'}">
-			<c:if test="${!teamList.isEmpty()}">
+			<c:if test="${team_id != null}">
 				<li id="button_to_team" class="menu_button">
 					<a class="menu_button_ref" href="controller?command=Menu&destination=team">Моя команда</a>
 				</li>

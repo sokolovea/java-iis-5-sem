@@ -103,6 +103,10 @@ public class MenuCommand implements ActionCommand {
 		if (loginResult == EnumLogin.USER || loginResult == EnumLogin.EXPERT || loginResult == EnumLogin.CAPTAIN) {
 			if (destination.equals("team")) {
 				try {
+					Object tempTeamId = request.getSession().getAttribute(MenuCommand.PARAM_TEAM_ID);
+					if (tempTeamId == null) {
+						return ConfigurationManager.getProperty("path.page.team_select");
+					}
 					int teamId = (int) request.getSession().getAttribute(MenuCommand.PARAM_TEAM_ID);
 					if (loginResult == EnumLogin.EXPERT) {
 						teamId = Integer.parseInt(request.getParameter("team_id"));
