@@ -106,8 +106,11 @@ public class DatabaseLogic extends DAOAcces {
 	public static void expertJoinTeam(String expertLogin, int teamId) throws SQLException {
 		User user = userDAO.getUserByLogin(expertLogin);
 		Team team = teamDAO.getTeamById(teamId);
-		User expert = userDAO.getExpertForTeam(team);
-		if (expert.getLogin() == null) {
+		User expertForTeam = userDAO.getExpertForTeam(team);
+		int expertCapacity = settingDAO.getSetting().get(1).getValue();
+		User expert = userDAO.getUserByLogin(expertLogin);
+		int currentExpertTeamsCount = teamDAO.getTeamsConsultedByExpert(expert).size();
+		if ((expertForTeam.getLogin() == null) && (expertCapacity > currentExpertTeamsCount)) {
 			TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Join"),
 					team, null);
 			teamInteractDAO.addTeamInteract(teamInteract);
