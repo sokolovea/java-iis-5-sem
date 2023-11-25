@@ -10,6 +10,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.taglibs.standard.lang.jstl.test.beans.Factory;
+
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
 import ru.rsreu.kuznecovsokolov12.datalayer.DeletedMessageDAO;
@@ -263,7 +265,10 @@ public class DatabaseCommand implements ActionCommand {
 			} 
 			
 			else if (commandType.equals("remove_user")) {
-				DatabaseLogic.removeUser(userLogin);
+				String currentAdminLogin = (String) session.getAttribute(DatabaseCommand.PARAM_USER_LOGIN);
+				if (!currentAdminLogin.equals(userLogin)) {
+					DatabaseLogic.removeUser(userLogin);
+				}
 				return MenuCommand.getPage("main", request);
 			} 
 			
