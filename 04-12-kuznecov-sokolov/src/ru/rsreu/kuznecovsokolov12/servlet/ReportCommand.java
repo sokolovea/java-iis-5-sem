@@ -40,7 +40,6 @@ public class ReportCommand implements ActionCommand {
 		try {
 			loginResult = LoginLogic.checkLogin(login, password);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		request.setAttribute(ReportCommand.getRequestAttribute(loginResult), login);
