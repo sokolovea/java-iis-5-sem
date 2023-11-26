@@ -3,6 +3,7 @@ package ru.rsreu.kuznecovsokolov12.servlet;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -38,6 +39,7 @@ public class LoginCommand implements ActionCommand {
 //		response.addCookie(cookie);
 		
 		HttpSession session = request.getSession(true);
+		session.setMaxInactiveInterval(30);
 		session.setAttribute(LoginCommand.PARAM_USER_LOGIN, login);
 		session.setAttribute(LoginCommand.PARAM_USER_PASSWORD, password);
 		session.setAttribute(LoginCommand.PARAM_USER_ROLE, loginResult);
