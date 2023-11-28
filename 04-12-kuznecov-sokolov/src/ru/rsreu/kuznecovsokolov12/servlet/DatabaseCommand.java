@@ -99,8 +99,9 @@ public class DatabaseCommand implements ActionCommand {
 
 		if (activity.equals("send_message")) {
 			String message = request.getParameter("message");
+			Integer teamId = (Integer) session.getAttribute(DatabaseCommand.PARAM_TEAM_ID);
 			if (message != null && !message.isEmpty()) {
-				DatabaseLogic.sendMessage(login, message);
+				DatabaseLogic.sendMessage(login, message, teamId);
 			}
 			return "/controller?command=menu&destination=team";
 //			return MenuCommand.getPage("team", request);
@@ -157,14 +158,14 @@ public class DatabaseCommand implements ActionCommand {
 		String team_id = request.getParameter(DatabaseCommand.PARAM_TEAM_ID);
 
 		if (activity.equals("join_team")) {
-			int teamId = Integer.parseInt(request.getParameter(DatabaseCommand.PARAM_TEAM_ID));
+			int teamId = Integer.parseInt(team_id);
 			DatabaseLogic.expertJoinTeam(login, teamId);
 			return "/controller?command=menu&destination=main";
 //			return MenuCommand.getPage("main", request);
 		}
 
 		else if (activity.equals("expert_exit_team")) {
-			int teamId = (int) session.getAttribute(DatabaseCommand.PARAM_TEAM_ID);
+			int teamId = Integer.parseInt(team_id);
 			DatabaseLogic.expertExitFromTeam(login, teamId);
 			return "/controller?command=menu&destination=main";
 //			return MenuCommand.getPage("main", request);
