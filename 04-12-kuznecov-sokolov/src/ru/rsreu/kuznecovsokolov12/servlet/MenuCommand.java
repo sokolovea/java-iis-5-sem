@@ -250,6 +250,9 @@ public class MenuCommand implements ActionCommand {
 			}
 			teamExpert = userDAO.getExpertForTeam(team);
 			teamMembers = userDAO.getTeamUserList(team);
+			User captain = userDAO.getTeamCapitan(team);
+			teamMembers.remove(captain);
+			teamMembers.add(0, captain);
 			messageList = messageDAO.getAllMessagesForTeam(team);
 			deletedMessageSet = messageDAO.getDeletedMessagesForTeam(team);
 
