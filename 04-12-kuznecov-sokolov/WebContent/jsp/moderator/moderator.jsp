@@ -54,7 +54,7 @@
 						<div class="message<c:if test="${messageIsDeleted}"> deleted_message</c:if>">
 							<div class="message_header">
 								<div class="user_box">
-									<div class="message_user" onmouseenter='showSanctionMenu(event, this)' onmouseleave='closeSanctionMenu(event, this)'>${message.getMessage().getAuthor().getLogin()}</div>
+									<div class="message_user" onmouseenter='showSanctionMenu(event, this, ${message.getMessage().getAuthor().getId()})' onmouseleave='closeSanctionMenu(event, this)'>${message.getMessage().getAuthor().getLogin()}</div>
 								</div>
 								<div class="time_and_team_box">
 									<div class="message_team">${message.getTeam().getName()} -&nbsp</div>
