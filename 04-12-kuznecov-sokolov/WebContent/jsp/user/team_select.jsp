@@ -102,10 +102,10 @@
 						<c:forEach var="team" items="${teamList}">
 							<div class="rb_user_team_name">
 							<c:if test = "${role.toString() == 'expert'}">
-								<a class="menu_button_ref" href="controller?command=Menu&destination=team&team_id=${team.getId()}">${team.getName()}</a>
+								<a class="team_button_ref" href="controller?command=Menu&destination=team&team_id=${team.getId()}">${team.getName()}</a>
 							</c:if>
 							<c:if test = "${role.toString() == 'user'}">
-								<a class="menu_button_ref" href="controller?command=Menu&destination=team">${team.getName()}</a>
+								<a class="team_button_ref" href="controller?command=Menu&destination=team">${team.getName()}</a>
 							</c:if>
 							</div>
         				</c:forEach>

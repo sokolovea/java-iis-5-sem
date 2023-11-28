@@ -78,4 +78,12 @@ public class LoginLogic {
 		factory.returnConnectionToPool();
 		return false;
 	}
+	
+	public static void setUserAuth(String login, boolean auth) throws SQLException {
+		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
+		UserDAO userDAO = factory.getUserDAO();
+		User user = userDAO.getUserByLogin(login);
+		user.setIsAuthorized(auth);
+		userDAO.updateUser(user);
+	}
 }
