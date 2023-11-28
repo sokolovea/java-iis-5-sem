@@ -107,9 +107,11 @@ public class MenuCommand implements ActionCommand {
 					if (tempTeamId == null) {
 						return ConfigurationManager.getProperty("path.page.team_select");
 					}
-					int teamId = (int) request.getSession().getAttribute(MenuCommand.PARAM_TEAM_ID);
+					int teamId = 0;
 					if (loginResult == EnumLogin.EXPERT) {
 						teamId = Integer.parseInt(request.getParameter("team_id"));
+					} else {
+						teamId = (int) request.getSession().getAttribute(MenuCommand.PARAM_TEAM_ID);
 					}
 					MenuCommand.fillTeamPageForUser(request, login, teamId);
 				}
