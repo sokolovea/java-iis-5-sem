@@ -23,6 +23,13 @@ public class ServletAuthorizeFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
+		
+//		System.out.println(req.getServletPath() + " ; " + req.getRequestURI());
+	    if (req.getServletPath().equals("/login")) {
+	        chain.doFilter(request, response);
+	        return;
+	    }
+	    
 		HttpSession session = req.getSession();
 		EnumLogin type = (EnumLogin) session.getAttribute(ActionCommand.PARAM_USER_ROLE);
 		System.out.println("Сейчас мы в фильтре на NOUSER");
@@ -30,7 +37,7 @@ public class ServletAuthorizeFilter implements Filter {
 			System.out.println("Фильтр на NOUSER сработал");
 			type = EnumLogin.NOUSER;
 			session.setAttribute(ActionCommand.PARAM_USER_ROLE, type);
-			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/jsp/index.jsp");
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/login");
 			dispatcher.forward(req, resp);
 			return;
 		}
