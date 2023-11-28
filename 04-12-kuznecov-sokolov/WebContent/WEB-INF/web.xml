@@ -36,4 +36,7 @@ id="WebApp_ID" version="3.0">
 		<filter-name>ServletSecurityFilter</filter-name>
 		<url-pattern>/jsp/*</url-pattern>
 	</filter-mapping>
+	<listener>
+		<listener-class>ru.rsreu.kuznecovsokolov12.servlet.SessionListener</listener-class>
+	</listener>
 </web-app>

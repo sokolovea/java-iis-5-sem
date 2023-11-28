@@ -55,10 +55,17 @@ public class DatabaseCommand implements ActionCommand {
 //			return ConfigurationManager.getProperty("path.page.index");
 		}
 
+		String login = (String) session.getAttribute(DatabaseCommand.PARAM_USER_LOGIN);
+		String password = (String) session.getAttribute(DatabaseCommand.PARAM_USER_PASSWORD);
+		
 		EnumLogin loginResult = (EnumLogin) session.getAttribute(MenuCommand.PARAM_USER_ROLE);
 
 		try {
 
+			if (LoginLogic.checkLogin(login, password) == EnumLogin.NOUSER) {
+				return "/controller";
+			}
+			
 			if (loginResult == EnumLogin.ADMIN) {
 				page = DatabaseCommand.getPageForAdmin(request, activity);
 			}
