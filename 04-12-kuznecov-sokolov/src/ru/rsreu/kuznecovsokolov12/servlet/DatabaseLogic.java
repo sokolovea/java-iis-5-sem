@@ -36,7 +36,7 @@ public class DatabaseLogic extends DAOAcces {
 		return settingDAO.getSetting();
 	}
 
-	public static void sendMessage(String login, String messageData) throws SQLException {
+	public static void sendMessage(String login, String messageData, int teamId) throws SQLException {
 		User user = userDAO.getUserByLogin(login);
 		List<Team> teamList = teamDAO.getTeamsForUser(user);
 		if (teamList.size() == 0) {
@@ -45,13 +45,16 @@ public class DatabaseLogic extends DAOAcces {
 		if (messageData == null) {
 			System.out.println("Null message!!!"); // Message(id, data, author, time)
 		}
-		Message message = new Message();
-		message.setAuthor(user);
-		message.setData(messageData);
-		MessageAttaching messageAttaching = new MessageAttaching();
-		messageAttaching.setMessage(message);
-		messageAttaching.setTeam(teamList.get(0));
-		messageAttachDAO.addMessage(messageAttaching);
+		Team userTeam = teamDAO.getTeamById(teamId);
+		if (teamList.contains(userTeam)) {
+			Message message = new Message();
+			message.setAuthor(user);
+			message.setData(messageData);
+			MessageAttaching messageAttaching = new MessageAttaching();
+			messageAttaching.setMessage(message);
+			messageAttaching.setTeam(userTeam);
+			messageAttachDAO.addMessage(messageAttaching);
+		}
 	}
 		
 	public static void createTeam(String userLogin, String teamName) throws SQLException, RedirectErrorPage {
