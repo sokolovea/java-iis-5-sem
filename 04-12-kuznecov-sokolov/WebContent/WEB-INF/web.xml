@@ -36,6 +36,30 @@ id="WebApp_ID" version="3.0">
 		<filter-name>ServletSecurityFilter</filter-name>
 		<url-pattern>/jsp/*</url-pattern>
 	</filter-mapping>
+		<filter>
+		<filter-name>ServletAuthorizeFilter</filter-name>
+		<filter-class>ru.rsreu.kuznecovsokolov12.servlet.ServletAuthorizeFilter</filter-class>
+		<init-param>
+ 			<param-name>INDEX_PATH</param-name>
+ 			<param-value>/controller</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>ServletAuthorizeFilter</filter-name>
+    	<url-pattern>/controller</url-pattern>
+	</filter-mapping>
+	
+	<servlet>
+		<servlet-name>FrontControllerLogin</servlet-name>
+		<jsp-file>/jsp/login.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FrontControllerLogin</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+	
+	
+	
 	<listener>
 		<listener-class>ru.rsreu.kuznecovsokolov12.servlet.SessionListener</listener-class>
 	</listener>

@@ -51,7 +51,7 @@ public class DatabaseCommand implements ActionCommand {
 
 		HttpSession session = request.getSession(false);
 		if (session == null) {
-			return "/controller";
+			return "/login";
 //			return ConfigurationManager.getProperty("path.page.index");
 		}
 
@@ -63,7 +63,7 @@ public class DatabaseCommand implements ActionCommand {
 		try {
 
 			if (LoginLogic.checkLogin(login, password) == EnumLogin.NOUSER) {
-				return "/controller";
+				return "/login";
 			}
 			
 			if (loginResult == EnumLogin.ADMIN) {
@@ -91,7 +91,7 @@ public class DatabaseCommand implements ActionCommand {
 		if (page != null) {
 			return page;
 		}
-		return "/controller";
+		return "/login";
 //		return ConfigurationManager.getProperty("path.page.login");
 	}
 
@@ -99,7 +99,7 @@ public class DatabaseCommand implements ActionCommand {
 
 		HttpSession session = request.getSession(false);
 		if (session == null) {
-			return "/controller";
+			return "/login";
 //			return ConfigurationManager.getProperty("path.page.index");
 		}
 		String login = (String) session.getAttribute(DatabaseCommand.PARAM_USER_LOGIN);

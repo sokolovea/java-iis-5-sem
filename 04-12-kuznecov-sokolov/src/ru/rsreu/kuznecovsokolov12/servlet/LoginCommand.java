@@ -102,6 +102,6 @@ public class LoginCommand implements ActionCommand {
 			String destination = "main";
 			return ConfigurationManager.getProperty("path.page.admin");
 		}
-		return "/controller";//ConfigurationManager.getProperty("path.page.index");
+		return "/login";//ConfigurationManager.getProperty("path.page.index");
 	}
 }
