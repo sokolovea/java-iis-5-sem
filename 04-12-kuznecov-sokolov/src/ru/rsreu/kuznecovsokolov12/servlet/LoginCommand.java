@@ -39,7 +39,7 @@ public class LoginCommand implements ActionCommand {
 //		response.addCookie(cookie);
 		
 		HttpSession session = request.getSession(true);
-		session.setMaxInactiveInterval(60);
+		session.setMaxInactiveInterval(60 * 60);
 		session.setAttribute(LoginCommand.PARAM_USER_LOGIN, login);
 		session.setAttribute(LoginCommand.PARAM_USER_PASSWORD, password);
 		session.setAttribute(LoginCommand.PARAM_USER_ROLE, loginResult);
