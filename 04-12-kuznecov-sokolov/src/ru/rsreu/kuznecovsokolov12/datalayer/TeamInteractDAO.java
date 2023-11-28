@@ -16,4 +16,6 @@ public interface TeamInteractDAO {
 	TeamInteractType getTeamInteractTypeByName(String name) throws SQLException;
 
 	void addTeamInteract(TeamInteract teamInteract) throws SQLException;
+	
+	void deleteTeamInteractsForUser(User user) throws SQLException;
 }

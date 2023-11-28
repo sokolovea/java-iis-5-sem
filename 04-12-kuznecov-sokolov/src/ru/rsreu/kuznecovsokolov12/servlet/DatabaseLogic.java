@@ -191,14 +191,40 @@ public class DatabaseLogic extends DAOAcces {
 			tempUser.setName(newUserData.getName());
 			userDAO.updateUser(tempUser);
 			newUserData = userDAO.getUserByLogin(tempUser.getLogin());
+			
 			Role newRole = roleDAO.getRoleByName(role);
-			User admin = userDAO.getUserByLogin(adminLogin);
-			RoleAssigment roleAssigment = new RoleAssigment(-1, newRole, admin, newUserData, null);
-			roleAssigmentDAO.addRoleAssigment(roleAssigment);
-			// TODO:
-			// Если пользователь был экспертом выйти из всех команд
-			// Если пользователь был в команде, то покинуть команду
-			// Если пользователь был капитаном, то удалить все связанные с ним teamInteract
+			Role currentRole = roleDAO.getUserRole(newUserData);
+			if (newRole != currentRole) {
+				
+				if (currentRole.getName().equals("Expert")) {
+					List<Team> expertTeams = teamDAO.getTeamsConsultedByExpert(newUserData);
+					for (Team consulted_team : expertTeams) {
+						TeamInteract teamInteract = new TeamInteract(0, newUserData, teamInteractDAO.getTeamInteractTypeByName("Exit"),
+								consulted_team, null);
+						teamInteractDAO.addTeamInteract(teamInteract);
+					}
+				}
+				
+				if (currentRole.getName().equals("Common user")) {
+					List<Team> userTeams = teamDAO.getTeamsForUser(newUserData);
+					for (Team userTeam : userTeams) {
+						if (LoginLogic.isCapitan(newUserData.getLogin(), userTeam.getId())) {
+							teamInteractDAO.deleteTeamInteractsForUser(newUserData);
+						}
+						else {
+							TeamInteract teamInteract = new TeamInteract(0, newUserData, teamInteractDAO.getTeamInteractTypeByName("Exit"),
+									userTeam, null);
+							teamInteractDAO.addTeamInteract(teamInteract);
+						}
+						
+					}
+				}
+				
+				User admin = userDAO.getUserByLogin(adminLogin);
+				RoleAssigment roleAssigment = new RoleAssigment(-1, newRole, admin, newUserData, null);
+				roleAssigmentDAO.addRoleAssigment(roleAssigment);
+			}
+		
 		}
 	}
 

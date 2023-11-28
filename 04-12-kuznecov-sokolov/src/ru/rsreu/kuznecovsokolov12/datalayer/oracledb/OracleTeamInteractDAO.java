@@ -18,6 +18,7 @@ public class OracleTeamInteractDAO implements TeamInteractDAO {
 	private final static String SQL_ALL_TEAM_INTERACTS_SELECT = "select * from \"TEAM_INTERACT\"";
 	private static final String SQL_TEAM_INTERACT_CREATE = "INSERT INTO \"TEAM_INTERACT\" (\"user\", \"type\", \"team\", \"time\") VALUES (?, ?, ?, (select sysdate from dual))";
 	private static final String SQL_TEAM_INTERACT_TYPE_BY_NAME = "select * from \"TEAM_INTERACT_TYPE\" where \"type_name\" = ?";
+	private static final String SQL_TEAM_INTERACT_DELETE_FOR_USER = "delete from \"TEAM_INTERACT\" where \"user\" = ?";
 	
 	public final static String COLUMN_TEAM_INTERACT_ID 	= "team_interact_id";
 	public final static String COLUMN_TEAM_INTERACT_TIME 	= "time";
@@ -91,6 +92,14 @@ public class OracleTeamInteractDAO implements TeamInteractDAO {
 		ps.executeUpdate();
 	}
 	
+	@Override
+	public void deleteTeamInteractsForUser(User user) throws SQLException {
+		PreparedStatement ps;
+		ps = this.connection.prepareStatement(SQL_TEAM_INTERACT_DELETE_FOR_USER);
+		ps.setInt(1, user.getId());
+		ps.executeUpdate();
+	}
+
 	public static TeamInteract getTeamInteractData(ResultSet resultSet, String... columns) throws SQLException {
 		TeamInteract teamInteract = new TeamInteract();
 		for (String column : columns) {
@@ -122,5 +131,6 @@ public class OracleTeamInteractDAO implements TeamInteractDAO {
 		}
 		return teamInteractType;
 	}
+
 
 }
