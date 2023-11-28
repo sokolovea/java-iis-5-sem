@@ -85,5 +85,6 @@ public class LoginLogic {
 		User user = userDAO.getUserByLogin(login);
 		user.setIsAuthorized(auth);
 		userDAO.updateUser(user);
+		factory.returnConnectionToPool();
 	}
 }

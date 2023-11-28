@@ -1,5 +1,6 @@
 package ru.rsreu.kuznecovsokolov12.servlet;
 
+import java.sql.SQLException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -18,7 +19,7 @@ public class SessionListener implements HttpSessionListener, HttpSessionBindingL
 //		String login = (String) se.getSession().getAttribute(DatabaseCommand.PARAM_USER_LOGIN);
 //		String password = (String) se.getSession().getAttribute(DatabaseCommand.PARAM_USER_PASSWORD);
 //		System.out.println("DEBUG: login = " + login);
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+//        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 //        scheduler.schedule(() -> {
 //        	// Ваш код для обработки уничтожения сессии
 //        	String login = (String) se.getSession().getAttribute(DatabaseCommand.PARAM_USER_LOGIN);
@@ -30,6 +31,13 @@ public class SessionListener implements HttpSessionListener, HttpSessionBindingL
     public void sessionDestroyed(HttpSessionEvent se) {
     	String login = (String) se.getSession().getAttribute(DatabaseCommand.PARAM_USER_LOGIN);
 		System.out.println("DEBUG DESTROY!!!: login = " + login);
+		if (login != null) {
+			try {
+				LoginLogic.setUserAuth(login, false);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
         System.out.println("Сессия уничтожена. ID сессии: " + se.getSession().getId());
     }
 
