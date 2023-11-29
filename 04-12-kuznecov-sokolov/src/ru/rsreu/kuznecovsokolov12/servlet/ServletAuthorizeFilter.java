@@ -24,7 +24,7 @@ public class ServletAuthorizeFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		
-//		System.out.println(req.getServletPath() + " ; " + req.getRequestURI());
+		System.out.println(req.getServletPath() + " ; " + req.getRequestURI());
 	    if (req.getServletPath().equals("/login")) {
 	        chain.doFilter(request, response);
 	        return;
