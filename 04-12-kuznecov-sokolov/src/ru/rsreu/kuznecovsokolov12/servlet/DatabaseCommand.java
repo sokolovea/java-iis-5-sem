@@ -47,19 +47,20 @@ public class DatabaseCommand implements ActionCommand {
 		String activity = request.getParameter(DatabaseCommand.PARAM_ACTIVITY);
 
 		String page = null;
-		DatabaseLogic.initDAOitems();
 
 		HttpSession session = request.getSession(false);
 		if (session == null) {
 			return DatabaseCommand.URL_LOGIN_PAGE;
 //			return ConfigurationManager.getProperty("path.page.index");
 		}
+		
+		DatabaseLogic.initDAOitems();
 
 		String login = (String) session.getAttribute(DatabaseCommand.PARAM_USER_LOGIN);
 		String password = (String) session.getAttribute(DatabaseCommand.PARAM_USER_PASSWORD);
 		
 		EnumLogin loginResult = (EnumLogin) session.getAttribute(MenuCommand.PARAM_USER_ROLE);
-
+		
 		try {
 
 			if (LoginLogic.checkLogin(login, password) == EnumLogin.NOUSER) {

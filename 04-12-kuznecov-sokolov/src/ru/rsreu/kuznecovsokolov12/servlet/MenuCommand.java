@@ -53,19 +53,17 @@ public class MenuCommand implements ActionCommand {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return MenuCommand.getPage(destination, request);
+		MenuLogic.initDAOitems();
+		
+		String page = MenuCommand.getPage(destination, request);
+		
+		MenuLogic.closeFactory();
+		
+		return page;
 	}
-	
-//	private static String getRequestAttribute(EnumLogin loginResult) {
-//		if (loginResult != EnumLogin.NOUSER) {
-//			return loginResult.toString();
-//		}
-//		return "errorLoginPassMessage";
-//	}
 	
 	public static String getPage(String destination, HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-		
 		
 		if (session == null) {
 			return ConfigurationManager.getProperty("path.page.index");
@@ -75,31 +73,11 @@ public class MenuCommand implements ActionCommand {
 		String login = (String) session.getAttribute(MenuCommand.PARAM_USER_LOGIN);
 		if (loginResult == EnumLogin.USER) {
 			if (destination.equals("exit_team")) {
-				DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
-				TeamDAO teamDAO = factory.getTeamDAO();
-				TeamInteractDAO teamInteractDAO = factory.getTeamInteractDAO();
-				UserDAO userDAO = factory.getUserDAO();
-				User user;
-				try {
-					user = userDAO.getUserByLogin(login);
-					List<Team> teamList = teamDAO.getTeamsForUser(user);
-					if (teamList.size() != 0) {
-						TeamInteract teamInteract = new TeamInteract(0, user,
-								teamInteractDAO.getTeamInteractTypeByName("Exit"), teamList.get(0), null);
-						teamInteractDAO.addTeamInteract(teamInteract);
-						int countMembers = teamDAO.getCountTeamMembers(teamList.get(0));
-						if (countMembers == 1) {
-							teamDAO.deleteTeam(teamList.get(0));
-						}
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				factory.returnConnectionToPool();
+				MenuLogic.userExitFromTeam(login);
 				return MenuCommand.URL_MAIN_PAGE;
-//				return MenuCommand.getPage("main", request);
 			}
 		}
+		
 		if (loginResult == EnumLogin.USER || loginResult == EnumLogin.EXPERT || loginResult == EnumLogin.CAPTAIN) {
 			if (destination.equals("team")) {
 				try {
@@ -113,161 +91,42 @@ public class MenuCommand implements ActionCommand {
 					} else {
 						teamId = (int) request.getSession().getAttribute(MenuCommand.PARAM_TEAM_ID);
 					}
-					MenuCommand.fillTeamPageForUser(request, login, teamId);
+					MenuLogic.fillTeamPageForUser(request, login, teamId);
 				}
 				catch (RedirectErrorPage e) {
 					return ConfigurationManager.getProperty("path.page.error");
+				} 
+				catch (SQLException e) {
+					e.printStackTrace();
 				}
 				return ConfigurationManager.getProperty("path.page.team");
-			} else if (destination.equals("main")) {
-				DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
-				SettingDAO settingDAO = factory.getSettingDAO();
-				try {
-					List<Setting> settingList = settingDAO.getSetting();
-					request.setAttribute("team_capacity", settingList.get(0).getValue());
-				}
-				catch (Exception e) {
-				}
-				factory.returnConnectionToPool();
-				MenuCommand.fillTeamSelectPageForUser(request, login);
+			}
+			
+			if (destination.equals("main")) {
+				MenuLogic.fillTeamSelectPageForUser(request, login);
 				return ConfigurationManager.getProperty("path.page.team_select");
 			}
 		}
+		
 		if (loginResult == EnumLogin.MODERATOR) {
 			if (destination.equals("main")) {
-				MenuCommand.fillMainPageForModerator(request);
+				MenuLogic.fillMainPageForModerator(request);
 				return ConfigurationManager.getProperty("path.page.moderator");
 			}
 		}
+		
 		if (loginResult == EnumLogin.ADMIN ) {
 			if (destination.equals("settings")) {
-				MenuCommand.fillSettingsPageForAdmin(request);
+				MenuLogic.fillSettingsPageForAdmin(request);
 				return ConfigurationManager.getProperty("path.page.admin_settings");
-			} else if (destination.equals("main")) {
-				MenuCommand.fillMainPageForAdmin(request);
+			} 
+			
+			if (destination.equals("main")) {
+				MenuLogic.fillMainPageForAdmin(request);
 				return ConfigurationManager.getProperty("path.page.admin");
 			}
 		}
 		return ConfigurationManager.getProperty("path.page.login");
-	}
-	
-	private static void fillSettingsPageForAdmin(HttpServletRequest request) {
-		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
-		SettingDAO settingDAO = factory.getSettingDAO();
-		try {
-			List<Setting> settingList = settingDAO.getSetting();
-			request.setAttribute("setting_list", settingList);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		factory.returnConnectionToPool();
-	}
-	
-	private static void fillMainPageForAdmin(HttpServletRequest request) {
-		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
-		UserDAO userDAO = factory.getUserDAO();
-		RoleDAO roleDAO = factory.getRoleDAO();
-		try {
-			List<User> userList = userDAO.getUsers();
-			List<Role> roleList = roleDAO.getAllRoles();
-			request.setAttribute("user_list", userList);
-			request.setAttribute("roleList", roleList);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		factory.returnConnectionToPool();
-	}
-	
-	private static void fillMainPageForModerator(HttpServletRequest request) {
-		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
-		MessageAttachingDAO messageAttachDAO = factory.getMessageAttachingDAO();
-		UserDAO userDAO = factory.getUserDAO();
-		TeamDAO teamDAO = factory.getTeamDAO();
-		List<MessageAttaching> messageList = null;
-		Set<MessageAttaching> deletedMessageSet = null;
-		List<User> userList = null;
-		Map<Team, Map<String, Integer>> fullTeamMap = null;
-		try {
-			fullTeamMap = teamDAO.getAllTeam();
-			userList = userDAO.getUnprivilegedUsers();
-			messageList = messageAttachDAO.getAllMessageAttachs();
-			deletedMessageSet = messageAttachDAO.getAllDeletedMessageAttachs();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		request.setAttribute("user_list", userList);
-		request.setAttribute("messageList", messageList);
-		request.setAttribute("deletedMessageSet", deletedMessageSet);
-		request.setAttribute("fullTeamMap", fullTeamMap);
-		factory.returnConnectionToPool();
-	}
-	
-	private static void fillTeamSelectPageForUser(HttpServletRequest request, String login) {
-		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
-		UserDAO userDAO = factory.getUserDAO();
-		TeamDAO teamDAO = factory.getTeamDAO();
-		
-		HttpSession session = request.getSession(false);
-		List<Team> teamList = null;
-		Map<Team, Map<String, Integer>> fullTeamMap = null;
-		try {
-			User user = userDAO.getUserByLogin(login);
-			teamList = teamDAO.getTeamsForUser(user);
-			if ((teamList != null) && (teamList.size() != 0)) {
-				session.setAttribute(MenuCommand.PARAM_TEAM_ID, teamList.get(0).getId());
-//				request.setAttribute("team_id", teamList.get(0).getId());
-			}
-//			else {
-//				int teamId = Integer.getInteger(request.getParameter(MenuCommand.PARAM_TEAM_ID));
-//				session.setAttribute(MenuCommand.PARAM_TEAM_ID, teamId);
-//			}
-			fullTeamMap = teamDAO.getAllTeam();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		request.setAttribute("fullTeamMap", fullTeamMap);
-		factory.returnConnectionToPool();
-		request.setAttribute("teamList", teamList);
-
-	}
-	
-	private static void fillTeamPageForUser(HttpServletRequest request, String login, int teamId) throws RedirectErrorPage {
-		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
-		MessageDAO messageDAO = factory.getMessageDAO();
-		UserDAO userDAO = factory.getUserDAO();
-		TeamDAO teamDAO = factory.getTeamDAO();
-		List<Message> messageList = null;
-		Map<Message, Integer> deletedMessageSet = null;
-		List<User> teamMembers = null;
-		Team team = null;
-		User teamExpert = null;
-		try {
-			User user = userDAO.getUserByLogin(login);
-			List<Team> teamList = teamDAO.getTeamsForUser(user);
-			
-			team = teamDAO.getTeamById(teamId);
-			if (!teamList.contains(team)) {
-				factory.returnConnectionToPool();
-				throw new RedirectErrorPage();
-			}
-			teamExpert = userDAO.getExpertForTeam(team);
-			teamMembers = userDAO.getTeamUserList(team);
-			User captain = userDAO.getTeamCapitan(team);
-			teamMembers.remove(captain);
-			teamMembers.add(0, captain);
-			messageList = messageDAO.getAllMessagesForTeam(team);
-			deletedMessageSet = messageDAO.getDeletedMessagesForTeam(team);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		factory.returnConnectionToPool();
-		request.setAttribute("messageList", messageList);
-		request.setAttribute("deletedMessageSet", deletedMessageSet);
-		request.setAttribute("team", team);
-		request.setAttribute("teamMembers", teamMembers);
-		request.setAttribute("teamExpert", teamExpert);
-//		request.setAttribute("team_id", team.getId());
 	}
 
 }
