@@ -13,29 +13,30 @@ import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Role;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
+import ru.rsreu.kuznecovsokolov12.servlet.ResourcerHolder;
 
-public class OracleUserDAO implements UserDAO {
+public class OracleUserDAO implements UserDAO, ResourcerHolder {
 
-	private final static String SQL_USER_SELECT_BY_ID = "SELECT * FROM \"USER\" WHERE \"user_id\" = ?";
-	private final static String SQL_USER_SELECT_BY_LOGIN = "SELECT * FROM \"USER\" WHERE \"login\" = ?";
-	private static final String SQL_SELECT_EXPERT_FOR_TEAM = "select \"user_id\", \"login\" from (select DISTINCT \"user_id\", \"login\", \"team_id\", first_value(\"type_name\") over (PARTITION BY \"user_id\", \"login\", \"team_id\" order by \"TEAM_INTERACT\".\"time\" desc) \"last_interact\" from \"TEAM\" join \"TEAM_INTERACT\" on \"team_id\" = \"team\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"USER\" on \"user_id\" = \"user\" join \"ROLE_ASSIGMENT\" on \"user\" = \"receiver\" join \"ROLE\" on \"role_id\" = \"role\" where \"ROLE\".\"role_name\" = 'Expert' and \"team_id\" = ?) where \"last_interact\" = 'Join'";
-	private final static String SQL_ALL_USERS_SELECT = "select * FROM \"USER\"";
-	private static final String SQL_ALL_USERS_WITH_ROLE_SELECT = "select \"USER\".*, \"ROLE\".* from \"USER\" join \"ROLE_ASSIGMENT\" on \"user_id\" = \"receiver\" join \"ROLE\" on \"role\" = \"role_id\"";
-	private final static String SQL_UNPRIVILEGED_USERS_SELECT = "select \"USER\".* from ((\"USER\" join \"ROLE_ASSIGMENT\" on \"USER\".\"user_id\" = \"ROLE_ASSIGMENT\".\"receiver\") join \"ROLE\" on \"ROLE_ASSIGMENT\".\"role\" = \"ROLE\".\"role_id\") join \"ROLE_GROUP\" on \"ROLE\".\"group\" = \"ROLE_GROUP\".\"role_group_id\" where \"ROLE_GROUP\".\"role_group_name\" = 'User'";
-	private final static String SQL_BLOCKED_MORE_N_TIMES_USERS_SELECT = "select \"USER\".\"user_id\", \"login\", count(*) count_blocks from (\"USER\" join \"SANCTION\" on \"USER\".\"user_id\" = \"SANCTION\".\"receiver\") join \"SANCTION_TYPE\" ON \"SANCTION_TYPE\".\"sanction_t_id\" = \"SANCTION\".\"type\" where \"SANCTION_TYPE\".\"sanction_t_name\" = 'Block' group by \"USER\".\"user_id\", \"login\" having count(*) >= ?";
-	private static final String SQL_TEAM_USER_LIST_SELECT = "select \"user_id\", \"login\" from (select DISTINCT \"user_id\", \"login\", \"team_id\", first_value(\"type_name\") over (PARTITION BY \"user_id\", \"login\", \"team_id\" order by \"TEAM_INTERACT\".\"time\" desc) \"last_interact\" from \"TEAM\" join \"TEAM_INTERACT\" on \"team_id\" = \"team\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"USER\" on \"user_id\" = \"user\" join \"ROLE_ASSIGMENT\" on \"user\" = \"receiver\" join \"ROLE\" on \"role_id\" = \"role\" where \"ROLE\".\"role_name\" = 'Common user' and \"team_id\" = ?) where \"last_interact\" = 'Join'";
-	private static final String SQL_TEAM_CAPITAN_SELECT = "select \"USER\".* from \"TEAM\" join \"TEAM_INTERACT\" on \"team_id\" = \"team\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"USER\" on \"user_id\" = \"user\" join \"ROLE_ASSIGMENT\" on \"user\" = \"receiver\" join \"ROLE\" on \"role_id\" = \"role\" where \"ROLE\".\"role_name\" = 'Common user' and \"team_id\" = ? order by \"TEAM_INTERACT\".\"time\" fetch FIRST 1 rows only";
+	private final static String SQL_USER_SELECT_BY_ID = resourser.getString("sql.user.select_by_id");
+	private final static String SQL_USER_SELECT_BY_LOGIN = resourser.getString("sql.user.select_by_login");
+	private static final String SQL_SELECT_EXPERT_FOR_TEAM = resourser.getString("sql.user.select_expert_for_team");
+	private final static String SQL_ALL_USERS_SELECT = resourser.getString("sql.user.select_all_users");
+	private static final String SQL_ALL_USERS_WITH_ROLE_SELECT = resourser.getString("sql.user.select_all_users_with_role");
+	private final static String SQL_UNPRIVILEGED_USERS_SELECT = resourser.getString("sql.user.select_unprivileged_users");
+	private final static String SQL_BLOCKED_MORE_N_TIMES_USERS_SELECT = resourser.getString("sql.user.select_blocked_more_n_times_users");
+	private static final String SQL_TEAM_USER_LIST_SELECT = resourser.getString("sql.user.select_team_user_list");
+	private static final String SQL_TEAM_CAPITAN_SELECT = resourser.getString("sql.user.select_team_captain");
 	
-	private final static String SQL_USER_UPDATE = "update \"USER\" set \"login\" = ?, \"password\" = ?, \"user_name\" = ?, \"email\" = ?, \"is_authorized\" = ? where \"USER\".\"user_id\" = ?";
-	private final static String SQL_USER_CREATE = "INSERT INTO \"USER\" (\"login\", \"password\", \"user_name\", \"email\") VALUES (?, ?, ?, ?)";
-	private static final String SQL_USER_DELETE = "delete from \"USER\" where \"user_id\" = ?";
+	private final static String SQL_USER_UPDATE = resourser.getString("sql.user.update_user");
+	private final static String SQL_USER_CREATE = resourser.getString("sql.user.create_user");
+	private static final String SQL_USER_DELETE = resourser.getString("sql.user.delete_user");
 	
-	public final static String COLUMN_USER_ID 			  = "user_id";
-	public final static String COLUMN_USER_LOGIN 		  = "login";
-	public final static String COLUMN_USER_PASSWORD 	  = "password";
-	public final static String COLUMN_USER_NAME 		  = "user_name";
-	public final static String COLUMN_USER_EMAIL 	      = "email";
-	public final static String COLUMN_USER_IS_AUTHORIZED  = "is_authorized";
+	public final static String COLUMN_USER_ID 			  = resourser.getString("sql.user.column.id");
+	public final static String COLUMN_USER_LOGIN 		  = resourser.getString("sql.user.column.login");
+	public final static String COLUMN_USER_PASSWORD 	  = resourser.getString("sql.user.column.password");
+	public final static String COLUMN_USER_NAME 		  = resourser.getString("sql.user.column.name");
+	public final static String COLUMN_USER_EMAIL 	      = resourser.getString("sql.user.column.email");
+	public final static String COLUMN_USER_IS_AUTHORIZED  = resourser.getString("sql.user.column.is_auth");
 	public final static String[] ALL_USER_COLUMNS = {COLUMN_USER_ID, COLUMN_USER_LOGIN, COLUMN_USER_PASSWORD, COLUMN_USER_NAME, COLUMN_USER_EMAIL, COLUMN_USER_IS_AUTHORIZED};
 	
 	

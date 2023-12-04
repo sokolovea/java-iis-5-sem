@@ -30,7 +30,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.Setting;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.TeamInteract;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
-import test.RedirectErrorPage;
+import ru.rsreu.kuznecovsokolov12.exceptions.RedirectErrorPage;
 
 public class MenuCommand implements ActionCommand {
 

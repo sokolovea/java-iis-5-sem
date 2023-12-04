@@ -10,16 +10,17 @@ import java.util.List;
 import ru.rsreu.kuznecovsokolov12.datalayer.RoleAssigmentDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.RoleAssigment;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
+import ru.rsreu.kuznecovsokolov12.servlet.ResourcerHolder;
 
-public class OracleRoleAssigmentDAO implements RoleAssigmentDAO {
+public class OracleRoleAssigmentDAO implements RoleAssigmentDAO, ResourcerHolder {
 
-	private static final String SQL_ALL_ROLE_ASSIGMENT_SELECT = "select \"role_assigment_id\", \"time\", \"role_id\", \"role_name\", \"USER\".*, \"USER_receiver\".* from \"USER\" join \"ROLE_ASSIGMENT\" on \"user_id\" = \"sender\" join \"ROLE\" on \"role_id\" = \"role\" join \"USER\" \"USER_receiver\" on \"USER_receiver\".\"user_id\" = \"receiver\"";
-	private static final String SQL_SELECT_ROLE_ASSIGMENT_FOR_USER = "select \"role_assigment_id\", \"time\", \"role_id\", \"role_name\", \"USER\".*, \"USER_receiver\".* from \"USER\" right join \"ROLE_ASSIGMENT\" on \"user_id\" = \"sender\" join \"ROLE\" on \"role_id\" = \"role\" join \"USER\" \"USER_receiver\" on \"USER_receiver\".\"user_id\" = \"receiver\" where \"receiver\" = ?";
+	private static final String SQL_ALL_ROLE_ASSIGMENT_SELECT = resourser.getString("sql.role_assigment.select_all_role_assigment");
+	private static final String SQL_SELECT_ROLE_ASSIGMENT_FOR_USER = resourser.getString("sql.role_assigment.select_role_assigment_for_user");
+	private static final String SQL_ROLE_ASSIGMENT_CREATE = resourser.getString("sql.role_assigment.create");
 	
-	public final static String COLUMN_ROLE_ASSIGMENT_ID 	= "role_assigment_id";
-	public final static String COLUMN_ROLE_ASSIGMENT_TIME 	= "time";
+	public final static String COLUMN_ROLE_ASSIGMENT_ID 	= resourser.getString("sql.role_assigment.column.id");
+	public final static String COLUMN_ROLE_ASSIGMENT_TIME 	= resourser.getString("sql.role_assigment.column.time");
 	public final static String[] ALL_ROLE_ASSIGMENT_COLUMNS = {COLUMN_ROLE_ASSIGMENT_ID, COLUMN_ROLE_ASSIGMENT_TIME};
-	private static final String SQL_ROLE_ASSIGMENT_CREATE = "INSERT INTO \"ROLE_ASSIGMENT\" (\"role\", \"sender\", \"receiver\", \"time\") VALUES (?, ?, ?, (select sysdate from dual))";
 	
 	private Connection connection;
 

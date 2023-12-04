@@ -11,22 +11,23 @@ import ru.rsreu.kuznecovsokolov12.datalayer.SanctionDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Sanction;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.SanctionType;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
+import ru.rsreu.kuznecovsokolov12.servlet.ResourcerHolder;
 
-public class OracleSanctionDAO implements SanctionDAO {
+public class OracleSanctionDAO implements SanctionDAO, ResourcerHolder {
 	
-	private static final String SQL_SELECT_USER_SANCTIONS = "select \"sanction_id\", \"reason\", \"time\", \"SANCTION_TYPE\".*, \"USER\".*, \"USER_receiver\".* from \"USER\" join \"SANCTION\" on \"USER\".\"user_id\" = \"sender\" join \"USER\" \"USER_receiver\" on \"USER_receiver\".\"user_id\" = \"receiver\" join \"SANCTION_TYPE\" on \"sanction_t_id\" = \"type\" where \"receiver\" = ?";
-	private static final String SQL_SELECT_SANCTIONS_BY_USER = "select \"sanction_id\", \"reason\", \"time\", \"SANCTION_TYPE\".*, \"USER\".*, \"USER_receiver\".* from \"USER\" join \"SANCTION\" on \"USER\".\"user_id\" = \"sender\" join \"USER\" \"USER_receiver\" on \"USER_receiver\".\"user_id\" = \"receiver\" join \"SANCTION_TYPE\" on \"sanction_t_id\" = \"type\" where \"sender\" = ?";
-	private static final String SQL_SELECT_LAST_USER_SANCTION = "select \"sanction_id\", \"reason\", \"time\", \"SANCTION_TYPE\".*, \"USER\".*, \"USER_receiver\".* from \"USER\" join \"SANCTION\" on \"USER\".\"user_id\" = \"sender\" join \"USER\" \"USER_receiver\" on \"USER_receiver\".\"user_id\" = \"receiver\" join \"SANCTION_TYPE\" on \"sanction_t_id\" = \"type\" where \"receiver\" = ? order by \"time\" desc FETCH NEXT 1 ROWS ONLY";
-	private static final String SQL_SANCTION_CREATE = "INSERT INTO \"SANCTION\" (\"type\", \"sender\", \"receiver\", \"reason\", \"time\") VALUES (?, ?, ?, ?, (select sysdate from dual))";
-	private static final String SQL_SELECT_SANCTION_TYPE_BY_NAME = "select * from \"SANCTION_TYPE\" where \"sanction_t_name\" = ?";
+	private static final String SQL_SELECT_USER_SANCTIONS = resourser.getString("sql.sanction.select_all_user_sanctions");
+	private static final String SQL_SELECT_SANCTIONS_BY_USER = resourser.getString("sql.sanction.select_sanctions_by_user");
+	private static final String SQL_SELECT_LAST_USER_SANCTION = resourser.getString("sql.sanction.select_last_user_sanction");
+	private static final String SQL_SELECT_SANCTION_TYPE_BY_NAME = resourser.getString("sql.sanction.select_sanction_type_by_name");
+	private static final String SQL_SANCTION_CREATE = resourser.getString("sql.sanction.create");
 
-	public final static String COLUMN_SANCTION_ID 		= "sanction_id";
-	public final static String COLUMN_SANCTION_REASON 	= "reason";
-	public final static String COLUMN_SANCTION_TIME 	= "time";
+	public final static String COLUMN_SANCTION_ID 		= resourser.getString("sql.sanction.column.id");
+	public final static String COLUMN_SANCTION_REASON 	= resourser.getString("sql.sanction.column.reason");
+	public final static String COLUMN_SANCTION_TIME 	= resourser.getString("sql.sanction.column.time");
 	public final static String[] ALL_SANCTION_COLUMNS = {COLUMN_SANCTION_ID, COLUMN_SANCTION_REASON, COLUMN_SANCTION_TIME};
 	
-	public final static String COLUMN_SANCTION_TYPE_ID 	= "sanction_t_id";
-	public final static String COLUMN_SANCTION_TYPE_NAME 	= "sanction_t_name";
+	public final static String COLUMN_SANCTION_TYPE_ID 	= resourser.getString("sql.sanction_type.column.id");
+	public final static String COLUMN_SANCTION_TYPE_NAME 	= resourser.getString("sql.sanction_type.column.name");
 	public final static String[] ALL_SANCTION_TYPE_COLUMNS = {COLUMN_SANCTION_TYPE_ID, COLUMN_SANCTION_TYPE_NAME};
 	
 	

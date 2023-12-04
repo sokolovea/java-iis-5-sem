@@ -1,4 +1,4 @@
-package test;
+package ru.rsreu.kuznecovsokolov12.exceptions;
 
 public class RedirectErrorPage extends Exception {
 

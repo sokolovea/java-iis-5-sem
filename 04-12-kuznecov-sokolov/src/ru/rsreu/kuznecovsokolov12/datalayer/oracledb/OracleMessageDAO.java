@@ -13,21 +13,22 @@ import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
+import ru.rsreu.kuznecovsokolov12.servlet.ResourcerHolder;
 
-public class OracleMessageDAO implements MessageDAO {
+public class OracleMessageDAO implements MessageDAO, ResourcerHolder {
 
-	private final static String SQL_ALL_MESSAGES_SELECT = "select * FROM \"MESSAGE\" join \"USER\" on \"user_id\" = \"author\"";
-	private final static String SQL_SELECT_UNDELETED_MESSAGES_FOR_TEAM = "select \"MESSAGE\".*, \"USER\".* FROM \"MESSAGE\" join \"USER\" on \"user_id\" = \"author\" join \"MESSAGE_ATTACHING\" on \"message_id\" = \"message\" left join \"DELETED_MESSAGE\" on \"message_id\" = \"DELETED_MESSAGE\".\"message\" where \"team\" = ? and \"del_message_id\" is null";
-	private final static String SQL_SELECT_DELETED_MESSAGES_FOR_TEAM = "select \"MESSAGE\".*, \"USER\".*, \"DELETED_MESSAGE\".\"sender\" FROM \"MESSAGE\" join \"USER\" on \"user_id\" = \"author\" join \"MESSAGE_ATTACHING\" on \"message_id\" = \"message\" join \"DELETED_MESSAGE\" on \"message_id\" = \"DELETED_MESSAGE\".\"message\" where \"team\" = ?";
-	private final static String SQL_SELECT_ALL_MESSAGES_FOR_TEAM = "select \"MESSAGE\".*, \"USER\".* FROM \"MESSAGE\" join \"USER\" on \"user_id\" = \"author\" join \"MESSAGE_ATTACHING\" on \"message_id\" = \"message\" where \"team\" = ? order by \"message_time\"";
-	private final static String SQL_SELECT_MESSAGES_DEL_BY_NO_SELF_USER = "select \"MESSAGE\".* from \"USER\" join \"MESSAGE\" on \"USER\".\"user_id\" = \"MESSAGE\".\"author\" join \"DELETED_MESSAGE\" on \"MESSAGE\".\"message_id\" = \"DELETED_MESSAGE\".\"message\" where \"DELETED_MESSAGE\".\"sender\" != \"USER\".\"user_id\" and \"USER\".\"user_id\" = ?";
-	private final static String SQL_SELECT_COUNT_MESSAGES_BY_USER = "select count(\"MESSAGE\".\"message_id\") as \"count_messages\" from \"USER\" join \"MESSAGE\" on \"USER\".\"user_id\" = \"MESSAGE\".\"author\" where \"USER\".\"user_id\" = ?";
-	private final static String SQL_SELECT_COUNT_DEL_MESSAGES_BY_USER = "select count(\"MESSAGE\".\"message_id\") as \"count_del_messages\" from \"USER\" join \"MESSAGE\" on \"USER\".\"user_id\" = \"MESSAGE\".\"author\" join \"DELETED_MESSAGE\" on \"message\" = \"message_id\" where \"USER\".\"user_id\" = ?";
+	private final static String SQL_ALL_MESSAGES_SELECT = resourser.getString("sql.message.select_all_message");
+	private final static String SQL_SELECT_UNDELETED_MESSAGES_FOR_TEAM = resourser.getString("sql.message.select_undeleted_for_team");
+	private final static String SQL_SELECT_DELETED_MESSAGES_FOR_TEAM = resourser.getString("sql.message.select_deleted_for_team");
+	private final static String SQL_SELECT_ALL_MESSAGES_FOR_TEAM = resourser.getString("sql.message.select_all_for_team");
+	private final static String SQL_SELECT_MESSAGES_DEL_BY_NO_SELF_USER = resourser.getString("sql.message.select_del_by_no_self_user");
+	private final static String SQL_SELECT_COUNT_MESSAGES_BY_USER = resourser.getString("sql.message.select_count_messages_by_user");
+	private final static String SQL_SELECT_COUNT_DEL_MESSAGES_BY_USER = resourser.getString("sql.message.select_count_del_messages_by_user");
 	
 	
-	public final static String COLUMN_MESSAGE_ID 	  = "message_id";
-	public final static String COLUMN_MESSAGE_DATA 	  = "data";
-	public final static String COLUMN_MESSAGE_TIME 	  = "message_time";
+	public final static String COLUMN_MESSAGE_ID 	  = resourser.getString("sql.message.column.id");
+	public final static String COLUMN_MESSAGE_DATA 	  = resourser.getString("sql.message.column.data");
+	public final static String COLUMN_MESSAGE_TIME 	  = resourser.getString("sql.message.column.time");
 	public final static String[] ALL_MESSAGE_COLUMNS = {COLUMN_MESSAGE_ID, COLUMN_MESSAGE_DATA, COLUMN_MESSAGE_TIME};
 	
 	

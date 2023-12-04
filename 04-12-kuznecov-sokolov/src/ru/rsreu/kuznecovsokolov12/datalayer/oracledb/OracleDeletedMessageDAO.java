@@ -10,15 +10,16 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.DeletedMessage;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Role;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
+import ru.rsreu.kuznecovsokolov12.servlet.ResourcerHolder;
 
-public class OracleDeletedMessageDAO implements DeletedMessageDAO {
+public class OracleDeletedMessageDAO implements DeletedMessageDAO, ResourcerHolder {
 
-	private static final String SQL_ADD_DELETED_MESSAGE_CREATE = "INSERT INTO \"DELETED_MESSAGE\" (\"sender\", \"message\", \"del_message_time\") VALUES (?, ?, (select sysdate from dual))";
-	private static final String SQL_DELETED_MESSAGE_DELETE = "delete from \"DELETED_MESSAGE\" where \"message\" = ?";
-	private static final String SQL_SELECT_DELETED_MESSAGE_BY_MESSAGE = "select \"del_message_id\", \"del_message_time\", \"sender\", \"message_id\", \"author\" from \"DELETED_MESSAGE\" join \"MESSAGE\" on \"message\" = \"message_id\" join \"USER\" on \"user_id\" = \"sender\" join \"USER\" author on author.\"user_id\" = \"author\" where \"message_id\" = ?";
+	private static final String SQL_SELECT_DELETED_MESSAGE_FOR_MESSAGE = resourser.getString("sql.del_message.select_all_role_assigment");
+	private static final String SQL_DELETED_MESSAGE_DELETE = resourser.getString("sql.del_message.delete");
+	private static final String SQL_DELETED_MESSAGE_CREATE = resourser.getString("sql.del_message.create");
 
-	public final static String COLUMN_DEL_MESSAGE_ID 	  = "del_message_id";
-	public final static String COLUMN_DEL_MESSAGE_TIME 	  = "del_message_time";
+	public final static String COLUMN_DEL_MESSAGE_ID 	  = resourser.getString("sql.del_message.column.id");
+	public final static String COLUMN_DEL_MESSAGE_TIME 	  = resourser.getString("sql.del_message.column.time");
 	public final static String[] ALL_DEL_MESSAGE_COLUMNS = {COLUMN_DEL_MESSAGE_ID, COLUMN_DEL_MESSAGE_TIME};
 
 	
@@ -35,7 +36,7 @@ public class OracleDeletedMessageDAO implements DeletedMessageDAO {
 	@Override
 	public void addDeletedMessage(DeletedMessage deletedMessage) throws SQLException {
 		PreparedStatement ps;
-		ps = this.connection.prepareStatement(SQL_ADD_DELETED_MESSAGE_CREATE);
+		ps = this.connection.prepareStatement(SQL_DELETED_MESSAGE_CREATE);
 		ps.setInt(1, deletedMessage.getSender().getId());
 		ps.setInt(2, deletedMessage.getMessage().getId());
 		ps.executeUpdate();
@@ -53,7 +54,7 @@ public class OracleDeletedMessageDAO implements DeletedMessageDAO {
 	public DeletedMessage getDeletedMessage(Message message) throws SQLException {
 		DeletedMessage delMessage = new DeletedMessage();
 		PreparedStatement ps;
-		ps = this.connection.prepareStatement(SQL_SELECT_DELETED_MESSAGE_BY_MESSAGE);
+		ps = this.connection.prepareStatement(SQL_SELECT_DELETED_MESSAGE_FOR_MESSAGE);
 		ps.setInt(1, message.getId());
 		ResultSet resultSet = ps.executeQuery();
 		if (resultSet.next()) {

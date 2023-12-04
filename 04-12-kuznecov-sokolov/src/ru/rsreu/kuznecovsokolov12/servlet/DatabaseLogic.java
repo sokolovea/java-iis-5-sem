@@ -24,7 +24,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.DAOAcces;
 import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleDataBaseDAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleUserDAO;
-import test.RedirectErrorPage;
+import ru.rsreu.kuznecovsokolov12.exceptions.RedirectErrorPage;
 
 public class DatabaseLogic extends DAOAcces {
 

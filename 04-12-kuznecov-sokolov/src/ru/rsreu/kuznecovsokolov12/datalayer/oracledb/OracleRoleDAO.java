@@ -12,19 +12,20 @@ import ru.rsreu.kuznecovsokolov12.datalayer.RoleDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Role;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.RoleGroup;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
+import ru.rsreu.kuznecovsokolov12.servlet.ResourcerHolder;
 
-public class OracleRoleDAO implements RoleDAO {
+public class OracleRoleDAO implements RoleDAO, ResourcerHolder {
 
-	private final static String SQL_SELECT_ROLE_BY_USER = "select \"ROLE\".*, \"ROLE_GROUP\".* from (\"USER\" join \"ROLE_ASSIGMENT\" on \"USER\".\"user_id\" = \"ROLE_ASSIGMENT\".\"receiver\") join \"ROLE\" on \"ROLE_ASSIGMENT\".\"role\" = \"ROLE\".\"role_id\" join \"ROLE_GROUP\" on \"ROLE_GROUP\".\"role_group_id\" = \"ROLE\".\"group\" where \"USER\".\"user_id\" = ? order by \"time\" desc fetch FIRST 1 rows only";
-	private final static String SQL_ALL_ROLES_SELECT = "select * from \"ROLE\"";
-	private static final String SQL_SELECT_ROLE_BY_NAME = "select * from \"ROLE\" where \"role_name\" = ?";
+	private final static String SQL_SELECT_ROLE_BY_USER = resourser.getString("sql.role.select_role_for_user");
+	private final static String SQL_ALL_ROLES_SELECT = resourser.getString("sql.role.select_all_roles");
+	private static final String SQL_SELECT_ROLE_BY_NAME = resourser.getString("sql.role.select_role_by_name");
 	
-	public final static String COLUMN_ROLE_ID 		= "role_id";
-	public final static String COLUMN_ROLE_NAME 	= "role_name";
+	public final static String COLUMN_ROLE_ID 		= resourser.getString("sql.role.column.id");
+	public final static String COLUMN_ROLE_NAME 	= resourser.getString("sql.role.column.name");
 	public final static String[] ALL_ROLE_COLUMNS = {COLUMN_ROLE_ID, COLUMN_ROLE_NAME};
 	
-	public final static String COLUMN_ROLE_GROUP_ID 	= "role_group_id";
-	public final static String COLUMN_ROLE_GROUP_NAME 	= "role_group_name";
+	public final static String COLUMN_ROLE_GROUP_ID 	= resourser.getString("sql.role_type.column.id");
+	public final static String COLUMN_ROLE_GROUP_NAME 	= resourser.getString("sql.role_type.column.name");
 	public final static String[] ALL_ROLE_GROUP_COLUMNS = {COLUMN_ROLE_GROUP_ID, COLUMN_ROLE_GROUP_NAME};
 	
 	private Connection connection;

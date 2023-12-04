@@ -37,7 +37,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.TeamInteract;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.TeamInteractType;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleSanctionDAO;
-import test.RedirectErrorPage;
+import ru.rsreu.kuznecovsokolov12.exceptions.RedirectErrorPage;
 
 public class DatabaseCommand implements ActionCommand {
 

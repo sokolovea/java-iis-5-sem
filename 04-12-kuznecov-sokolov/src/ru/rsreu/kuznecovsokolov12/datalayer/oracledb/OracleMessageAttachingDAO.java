@@ -12,20 +12,21 @@ import java.util.Set;
 import ru.rsreu.kuznecovsokolov12.datalayer.MessageAttachingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.MessageAttaching;
+import ru.rsreu.kuznecovsokolov12.servlet.ResourcerHolder;
 
-public class OracleMessageAttachingDAO implements MessageAttachingDAO {
+public class OracleMessageAttachingDAO implements MessageAttachingDAO, ResourcerHolder {
 
-	private static final String SQL_SELECT_ALL_DELETED_MESSAGES_ATTACH = "select \"MESSAGE_ATTACHING\".*, \"TEAM\".*, \"MESSAGE\".*, \"USER\".* FROM \"MESSAGE\" join \"USER\" on \"user_id\" = \"author\" join \"MESSAGE_ATTACHING\" on \"message_id\" = \"message\" join \"DELETED_MESSAGE\" on \"message_id\" = \"DELETED_MESSAGE\".\"message\" join \"TEAM\" on \"team_id\" = \"team\"";
-	private static final String SQL_SELECT_ALL_UNDELETED_MESSAGES_ATTACH = "select \"MESSAGE_ATTACHING\".*, \"TEAM\".*, \"MESSAGE\".*, \"USER\".* FROM \"MESSAGE\" join \"USER\" on \"user_id\" = \"author\" join \"MESSAGE_ATTACHING\" on \"message_id\" = \"message\" left join \"DELETED_MESSAGE\" on \"message_id\" = \"DELETED_MESSAGE\".\"message\" join \"TEAM\" on \"team_id\" = \"team\" where \"del_message_id\" is null";
-	private static final String SQL_SELECT_ALL_MESSAGES_ATTACH = "select \"MESSAGE_ATTACHING\".*, \"TEAM\".*, \"MESSAGE\".*, \"USER\".* FROM \"MESSAGE\" join \"USER\" on \"user_id\" = \"author\" join \"MESSAGE_ATTACHING\" on \"message_id\" = \"message\" join \"TEAM\" on \"team_id\" = \"team\" order by \"message_time\"";
+	private static final String SQL_SELECT_ALL_DELETED_MESSAGES_ATTACH = resourser.getString("sql.message_attach.select_all_deleted_message_attach");
+	private static final String SQL_SELECT_ALL_UNDELETED_MESSAGES_ATTACH = resourser.getString("sql.message_attach.select_all_undeleted_message_attach");
+	private static final String SQL_SELECT_ALL_MESSAGES_ATTACH = resourser.getString("sql.message_attach.select_all_message_attach");
+	private static final String SQL_LAST_MESSAGE_ID_SELECT = resourser.getString("sql.message_attach.select_last_message_id");
 	
-	private static final String SQL_MESSAGE_CREATE = "INSERT INTO \"MESSAGE\" (\"data\", \"author\", \"message_time\") VALUES (?, ?, (select sysdate from dual))";
-	private static final String SQL_MESSAGE_ATTACHING_CREATE = "INSERT INTO \"MESSAGE_ATTACHING\" (\"team\", \"message\") VALUES (?, ?)";
-	private static final String SQL_LAST_MESSAGE_ID_SELECT = "select \"message_id\" from \"MESSAGE\" where \"message_time\" = (select max(\"message_time\") from \"MESSAGE\")";
+	private static final String SQL_MESSAGE_CREATE = resourser.getString("sql.message_attach.create_message");
+	private static final String SQL_MESSAGE_ATTACHING_CREATE = resourser.getString("sql.message_attach.create");
 	
 	
 	
-	public final static String COLUMN_MESSAGE_ATTACH_ID 	= "message_attach_id";
+	public final static String COLUMN_MESSAGE_ATTACH_ID 	= resourser.getString("sql.message_attach.column.id");
 	public final static String[] ALL_MESSAGE_ATTACH_COLUMNS = {COLUMN_MESSAGE_ATTACH_ID};
 	
 	private Connection connection;

@@ -10,12 +10,17 @@ import java.util.List;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Setting;
+import ru.rsreu.kuznecovsokolov12.servlet.ResourcerHolder;
 
-public class OracleSettingDAO implements SettingDAO {
+public class OracleSettingDAO implements SettingDAO, ResourcerHolder {
 
-	private final static String SQL_SETTING_UPDATE = "update \"SETTING\" set \"value\" = ? where \"SETTING\".\"name\" = ?";
-	private final static String SQL_SETTING_SELECT = "select * FROM \"SETTING\"";
+	private final static String SQL_SETTING_UPDATE = resourser.getString("sql.setting.update");
+	private final static String SQL_SETTING_SELECT = resourser.getString("sql.setting.select_all");
 
+	public final static String COLUMN_SETTING_ID 		= resourser.getString("sql.setting.column.id");
+	public final static String COLUMN_SETTING_NAME 		= resourser.getString("sql.setting.column.name");
+	public final static String COLUMN_SETTING_VALUUE 	= resourser.getString("sql.setting.column.value");
+	
 	private Connection connection;
 	
 	public OracleSettingDAO(Connection connection) {
@@ -33,9 +38,9 @@ public class OracleSettingDAO implements SettingDAO {
 		ResultSet resultSet = statement.executeQuery(SQL_SETTING_SELECT);
 		while (resultSet.next()) {
 			Setting setting = new Setting();
-			setting.setId(resultSet.getInt("ID"));
-			setting.setName(resultSet.getString("NAME"));
-			setting.setValue(resultSet.getInt("VALUE"));
+			setting.setId(resultSet.getInt(COLUMN_SETTING_ID));
+			setting.setName(resultSet.getString(COLUMN_SETTING_NAME));
+			setting.setValue(resultSet.getInt(COLUMN_SETTING_VALUUE));
 			settingList.add(setting);
 		}
 		return settingList;

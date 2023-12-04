@@ -11,21 +11,22 @@ import ru.rsreu.kuznecovsokolov12.datalayer.TeamInteractDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.TeamInteract;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.TeamInteractType;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
+import ru.rsreu.kuznecovsokolov12.servlet.ResourcerHolder;
 
-public class OracleTeamInteractDAO implements TeamInteractDAO {
+public class OracleTeamInteractDAO implements TeamInteractDAO, ResourcerHolder {
 
-	private final static String SQL_SELECT_TEAM_INTERACTS_BY_USER = "select * from \"USER\" join \"TEAM_INTERACT\" on \"user_id\" = \"user\" join \"TEAM_INTERACT_TYPE\" on \"type\" = \"type_id\" join \"TEAM\" on \"team_id\" = \"team\" where \"user_id\" = ?";
-	private final static String SQL_ALL_TEAM_INTERACTS_SELECT = "select * from \"TEAM_INTERACT\"";
-	private static final String SQL_TEAM_INTERACT_CREATE = "INSERT INTO \"TEAM_INTERACT\" (\"user\", \"type\", \"team\", \"time\") VALUES (?, ?, ?, (select sysdate from dual))";
-	private static final String SQL_TEAM_INTERACT_TYPE_BY_NAME = "select * from \"TEAM_INTERACT_TYPE\" where \"type_name\" = ?";
-	private static final String SQL_TEAM_INTERACT_DELETE_FOR_USER = "delete from \"TEAM_INTERACT\" where \"user\" = ?";
+	private final static String SQL_SELECT_TEAM_INTERACTS_BY_USER = resourser.getString("sql.team_interact.select_team_interacts_by_user");
+	private final static String SQL_ALL_TEAM_INTERACTS_SELECT = resourser.getString("sql.team_interact.select_all_team_interacts");
+	private static final String SQL_TEAM_INTERACT_CREATE = resourser.getString("sql.team_interact.create");
+	private static final String SQL_TEAM_INTERACT_TYPE_BY_NAME = resourser.getString("sql.team_interact.select_team_interact_type_by_name");
+	private static final String SQL_TEAM_INTERACT_DELETE_FOR_USER = resourser.getString("sql.team_interact.delete_for_user");
 	
-	public final static String COLUMN_TEAM_INTERACT_ID 	= "team_interact_id";
-	public final static String COLUMN_TEAM_INTERACT_TIME 	= "time";
+	public final static String COLUMN_TEAM_INTERACT_ID 	= resourser.getString("sql.team_interact.column.id");
+	public final static String COLUMN_TEAM_INTERACT_TIME 	= resourser.getString("sql.team_interact.column.time");
 	public final static String[] ALL_TEAM_INTERACT_COLUMNS = {COLUMN_TEAM_INTERACT_ID, COLUMN_TEAM_INTERACT_TIME};
 	
-	public final static String COLUMN_TEAM_INTERACT_TYPE_ID 	= "type_id";
-	public final static String COLUMN_TEAM_INTERACT_TYPE_NAME 	= "type_name";
+	public final static String COLUMN_TEAM_INTERACT_TYPE_ID 	= resourser.getString("sql.team_interact_type.column.id");
+	public final static String COLUMN_TEAM_INTERACT_TYPE_NAME 	= resourser.getString("sql.team_interact_type.column.name");
 	public final static String[] ALL_TEAM_INTERACT_TYPE_COLUMNS = {COLUMN_TEAM_INTERACT_TYPE_ID, COLUMN_TEAM_INTERACT_TYPE_NAME};
 	
 	
