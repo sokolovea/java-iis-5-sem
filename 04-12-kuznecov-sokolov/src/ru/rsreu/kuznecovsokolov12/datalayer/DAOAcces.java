@@ -1,17 +1,4 @@
-package ru.rsreu.kuznecovsokolov12.datalayer.oracledb;
-
-import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
-import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
-import ru.rsreu.kuznecovsokolov12.datalayer.DeletedMessageDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.MessageAttachingDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.RoleAssigmentDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.RoleDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.SanctionDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.TeamInteractDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
+package ru.rsreu.kuznecovsokolov12.datalayer;
 
 public class DAOAcces {
 
@@ -28,7 +15,6 @@ public class DAOAcces {
 	public static TeamInteractDAO teamInteractDAO;
 	
 	public static void initDAOitems() {
-		System.out.print("from datalogic: ");
 		factory = DAOFactory.getInstance(DBType.ORACLE);
 		settingDAO = factory.getSettingDAO();
 		userDAO = factory.getUserDAO();
@@ -43,7 +29,6 @@ public class DAOAcces {
 	}
 	
 	public static void closeFactory() {
-		System.out.print("from datalogic: ");
 		factory.returnConnectionToPool();
 	}
 	

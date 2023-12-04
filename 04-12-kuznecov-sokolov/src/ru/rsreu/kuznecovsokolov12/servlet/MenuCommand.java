@@ -96,7 +96,7 @@ public class MenuCommand implements ActionCommand {
 					e.printStackTrace();
 				}
 				factory.returnConnectionToPool();
-				return "/controller?command=menu&destination=main";
+				return MenuCommand.URL_MAIN_PAGE;
 //				return MenuCommand.getPage("main", request);
 			}
 		}

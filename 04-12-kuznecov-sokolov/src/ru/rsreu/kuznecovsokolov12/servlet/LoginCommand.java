@@ -66,23 +66,18 @@ public class LoginCommand implements ActionCommand {
 		if ((teamList != null) && (teamList.size() != 0)) {
 			session.setAttribute(LoginCommand.PARAM_TEAM_ID, teamList.get(0).getId());
 		}
-//		session.setAttribute(LoginCommand.PARAM_TEAM_ID, value);
 		
 		if (loginResult == EnumLogin.ADMIN) {
-			return "/controller?command=menu&destination=main";
-//			return MenuCommand.getPage("main", request);
+			return LoginCommand.URL_MAIN_PAGE;
 		}
 		if (loginResult == EnumLogin.USER || loginResult == EnumLogin.EXPERT) {
-			return "/controller?command=menu&destination=main";
-//			return MenuCommand.getPage("main", request);
+			return LoginCommand.URL_MAIN_PAGE;
 		}
 		
 		if (loginResult == EnumLogin.MODERATOR) {
-			return "/controller?command=menu&destination=main";
-//			return MenuCommand.getPage("main", request);
+			return LoginCommand.URL_MAIN_PAGE;
 		}
-//		request.setAttribute("destination", "main");
-//		page = LoginCommand.getPage(loginResult);
+		
 		return page;
 	}
 	
@@ -99,9 +94,8 @@ public class LoginCommand implements ActionCommand {
 			return ConfigurationManager.getProperty("path.page.moderator");
 		}
 		if (loginResult == EnumLogin.ADMIN) {
-			String destination = "main";
 			return ConfigurationManager.getProperty("path.page.admin");
 		}
-		return "/login";//ConfigurationManager.getProperty("path.page.index");
+		return LoginCommand.URL_LOGIN_PAGE;
 	}
 }
