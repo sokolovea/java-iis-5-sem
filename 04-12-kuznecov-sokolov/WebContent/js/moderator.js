@@ -19,7 +19,19 @@ function sendSanctionForUser(sanction, reason) {
     // Обрабатываем ответ сервера
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
-        	//location.reload();
+        	var users = document.getElementsByClassName("user");
+        	const filter = ", " + user_id  + ")";
+        	for (var i = 0; i < users.length; i++) {
+        		var userIdStr = users[i].getAttribute('onmouseenter');
+        		if (userIdStr.indexOf(filter) > -1) {
+        			if (sanction === 'Block') {
+        				users[i].classList.add("banned_user");
+        			}
+        			else {
+        				users[i].classList.remove("banned_user");
+        			}
+        		}
+        	}
         }
     };
 }

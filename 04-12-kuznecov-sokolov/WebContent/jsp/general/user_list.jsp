@@ -37,10 +37,10 @@
 	<div id="full_users_list">
 		<c:forEach var="user" items="${user_list}">
 			<c:if test = "${role.toString() == 'admin'}">
-				<div class="user" onclick="insertLoginToTextBox(this)">${user.getLogin()}</div>
+				<div class="user <c:if test="${blockedUsers.contains(user)}">banned_user</c:if>" onclick="insertLoginToTextBox(this)">${user.getLogin()}</div>
 			</c:if>
 			<c:if test = "${role.toString() == 'moderator'}">
-				<div class="user" onmouseenter='showSanctionMenu(event, this, ${user.getId()})' onmouseleave='closeSanctionMenu(event, this)'>${user.getLogin()}</div>
+				<div class="user <c:if test="${blockedUsers.contains(user)}">banned_user</c:if>" onmouseenter='showSanctionMenu(event, this, ${user.getId()})' onmouseleave='closeSanctionMenu(event, this)'>${user.getLogin()}</div>
 			</c:if>
         </c:forEach>	
 	</div>

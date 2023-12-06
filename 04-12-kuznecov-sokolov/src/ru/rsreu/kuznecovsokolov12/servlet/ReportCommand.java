@@ -37,100 +37,29 @@ public class ReportCommand implements ActionCommand {
 		String login = (String) session.getAttribute(DatabaseCommand.PARAM_USER_LOGIN);
 		String password = (String) session.getAttribute(DatabaseCommand.PARAM_USER_PASSWORD);
 		EnumLogin loginResult = null;
+		
+		ReportLogic.initDAOitems();
+		
 		try {
 			loginResult = LoginLogic.checkLogin(login, password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		request.setAttribute(ReportCommand.getRequestAttribute(loginResult), login);
-		DAOFactory factory = DAOFactory.getInstance(DBType.ORACLE);
-		UserDAO userDAO = factory.getUserDAO();
-		RoleAssigmentDAO roleAssigmentDAO = factory.getRoleAssigmentDAO();
-		MessageDAO messageDAO = factory.getMessageDAO();
-		SanctionDAO sanctionDAO = factory.getSanctionDAO();
-		TeamDAO teamDAO = factory.getTeamDAO();
+		
 		if (loginResult == EnumLogin.ADMIN) {
-			Map<User, Role> adminReportFirst = new HashMap<>();
-			List<RoleAssigment> adminReportSecond = new ArrayList<RoleAssigment>();
-			User userForSecondReport = new User();
-			try {
-				adminReportFirst = userDAO.getUsersWithRole();
-				String tempLogin = request.getParameter("adminUserRole");
-				userForSecondReport = userDAO.getUserByLogin(tempLogin);
-				adminReportSecond = roleAssigmentDAO.getRoleAssigmentsForUser(userForSecondReport);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			request.setAttribute("adminReportFirst", adminReportFirst);
-			request.setAttribute("adminReportSecond", adminReportSecond);
-			factory.returnConnectionToPool();
+			ReportLogic.addAdminReports(request);
 		} else if (loginResult == EnumLogin.USER) {
-			User user = new User();
-			try {
-				user = userDAO.getUserByLogin(login);
-				List<Message> messageList = messageDAO.getMessagesDeletedByNoSelfUser(user);
-				request.setAttribute("userReportFirst", messageList);
-				List<Sanction> sanctionList = sanctionDAO.getUserSanctions(user);
-				request.setAttribute("userReportSecond", sanctionList);
-				int countSendedMessages = messageDAO.getCountMessagesSendedByUser(user);
-				int countDeletedMessages = messageDAO.getCountDeletedMessagesSendedByUser(user);
-				request.setAttribute("countSendedMessages", countSendedMessages);
-				request.setAttribute("countDeletedMessages", countDeletedMessages);
-				int commandNumber = -1;
-				List<Team> teamList = teamDAO.getTeamsForUser(user);
-				if (teamList.size() != 0) {
-					commandNumber = teamList.get(0).getId();
-//					request.setAttribute("team_id", commandNumber);
-					request.setAttribute("teamList", teamList);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			factory.returnConnectionToPool();
+			ReportLogic.addUserReports(request, login);
 		} else if (loginResult == EnumLogin.EXPERT) {
-			User expert = new User();
-			try {
-				expert = userDAO.getUserByLogin(login);
-				List<Team> firstReportList = teamDAO.getTeamsConsultedByExpert(expert);
-				request.setAttribute("expertReportFirst", firstReportList);
-				
-				if (request.getParameter("countCommands") != null) {
-					int n = Integer.parseInt(request.getParameter("countCommands"));
-					Map<Team, Integer> secondReportList = teamDAO.getNTeamsBestCooperatedExpert(expert, n);
-					request.setAttribute("expertReportSecond", secondReportList);
-				}
-				else {
-				}
-				List<Team> thirdReportList = teamDAO.getTeamsEjectedExpert(expert);
-				request.setAttribute("expertReportThird", thirdReportList);
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			
-			factory.returnConnectionToPool();
+			ReportLogic.addExpertReports(request, login);
 		} else if (loginResult == EnumLogin.MODERATOR) {
-			User moderator = new User();
-			try {
-				moderator = userDAO.getUserByLogin(login);
-				List<User> firstReportList = userDAO.getUnprivilegedUsers();
-				request.setAttribute("moderatorReportFirst", firstReportList);
-				
-				List<Sanction> secondReportList = sanctionDAO.getSanctionsByUser(moderator);
-				request.setAttribute("moderatorReportSecond", secondReportList);
-				
-				
-				if (request.getParameter("countBlocked") != null) {
-					int n = Integer.parseInt(request.getParameter("countBlocked"));
-					List<User> thirdReportList = userDAO.getBlockedUsersMoreNTimes(n);
-					request.setAttribute("moderatorReportThird", thirdReportList);
-				}
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			factory.returnConnectionToPool();
+			ReportLogic.addModeratorReports(request, login);
 		}
+		
+		ReportLogic.closeFactory();
+		
 		return ReportCommand.getPage(loginResult);
 	}
 

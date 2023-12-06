@@ -96,9 +96,6 @@ public class MenuCommand implements ActionCommand {
 				catch (RedirectErrorPage e) {
 					return ConfigurationManager.getProperty("path.page.error");
 				} 
-				catch (SQLException e) {
-					e.printStackTrace();
-				}
 				return ConfigurationManager.getProperty("path.page.team");
 			}
 			

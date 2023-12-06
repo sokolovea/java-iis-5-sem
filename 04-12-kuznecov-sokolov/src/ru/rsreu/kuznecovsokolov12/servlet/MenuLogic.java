@@ -29,7 +29,7 @@ import ru.rsreu.kuznecovsokolov12.exceptions.RedirectErrorPage;
 
 public class MenuLogic extends DAOAcces {
 
-	public static void fillTeamPageForUser(HttpServletRequest request, String login, int teamId) throws RedirectErrorPage, SQLException {
+	public static void fillTeamPageForUser(HttpServletRequest request, String login, int teamId) throws RedirectErrorPage {
 		List<Message> messageList = null;
 		Map<Message, Integer> deletedMessageSet = null;
 		List<User> teamMembers = null;
@@ -87,11 +87,13 @@ public class MenuLogic extends DAOAcces {
 		Set<MessageAttaching> deletedMessageSet = null;
 		List<User> userList = null;
 		Map<Team, Map<String, Integer>> fullTeamMap = null;
+		Set<User> blockedUsers = null;
 		try {
 			fullTeamMap = teamDAO.getAllTeam();
 			userList = userDAO.getUnprivilegedUsers();
 			messageList = messageAttachDAO.getAllMessageAttachs();
 			deletedMessageSet = messageAttachDAO.getAllDeletedMessageAttachs();
+			blockedUsers = userDAO.getBlockedUsers();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -99,14 +101,18 @@ public class MenuLogic extends DAOAcces {
 		request.setAttribute("messageList", messageList);
 		request.setAttribute("deletedMessageSet", deletedMessageSet);
 		request.setAttribute("fullTeamMap", fullTeamMap);
+		request.setAttribute("blockedUsers", blockedUsers);
 	}
 
 	public static void fillMainPageForAdmin(HttpServletRequest request) {
 		try {
 			List<User> userList = userDAO.getUsers();
 			List<Role> roleList = roleDAO.getAllRoles();
+			Set<User> blockedUsers = userDAO.getBlockedUsers();
+			
 			request.setAttribute("user_list", userList);
 			request.setAttribute("roleList", roleList);
+			request.setAttribute("blockedUsers", blockedUsers);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

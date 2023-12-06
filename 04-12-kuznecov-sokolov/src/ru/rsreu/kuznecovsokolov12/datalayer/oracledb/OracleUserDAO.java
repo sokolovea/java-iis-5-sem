@@ -6,8 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Role;
@@ -26,6 +28,7 @@ public class OracleUserDAO implements UserDAO, ResourcerHolder {
 	private final static String SQL_BLOCKED_MORE_N_TIMES_USERS_SELECT = resourser.getString("sql.user.select_blocked_more_n_times_users");
 	private static final String SQL_TEAM_USER_LIST_SELECT = resourser.getString("sql.user.select_team_user_list");
 	private static final String SQL_TEAM_CAPITAN_SELECT = resourser.getString("sql.user.select_team_captain");
+	private static final String SQL_BLOCKED_USERS_SELECT = resourser.getString("sql.user.select_blocked_users");
 	
 	private final static String SQL_USER_UPDATE = resourser.getString("sql.user.update_user");
 	private final static String SQL_USER_CREATE = resourser.getString("sql.user.create_user");
@@ -165,6 +168,19 @@ public class OracleUserDAO implements UserDAO, ResourcerHolder {
 		List<User> result = new ArrayList<User>();
 		ps = this.connection.prepareStatement(SQL_BLOCKED_MORE_N_TIMES_USERS_SELECT);
 		ps.setInt(1, N);
+		ResultSet resultSet = ps.executeQuery();
+		while (resultSet.next()) {
+			User user = getUserData(resultSet, COLUMN_USER_ID, COLUMN_USER_LOGIN);
+			result.add(user);
+		}
+		return result;
+	}
+	
+	@Override
+	public Set<User> getBlockedUsers() throws SQLException {
+		PreparedStatement ps;
+		Set<User> result = new HashSet<User>();
+		ps = this.connection.prepareStatement(SQL_BLOCKED_USERS_SELECT);
 		ResultSet resultSet = ps.executeQuery();
 		while (resultSet.next()) {
 			User user = getUserData(resultSet, COLUMN_USER_ID, COLUMN_USER_LOGIN);
