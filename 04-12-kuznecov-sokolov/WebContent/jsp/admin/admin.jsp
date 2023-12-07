@@ -21,7 +21,6 @@
 			<div id="center_bar" class="container">
 				<div id="user_info_form">
 					<div id="user_info_form_caption">Изменение данных пользователей</div>
-					<div id="current_user_caption">Текущий пользователь: не выбран</div>
 					<div class="user_form_item">
 						<div class="user_form_item_caption">Логин</div>
 						<input id="user_login" class="text_box" type="text" name="userLogin" placeholder="user1" value="${form_login}"/>
