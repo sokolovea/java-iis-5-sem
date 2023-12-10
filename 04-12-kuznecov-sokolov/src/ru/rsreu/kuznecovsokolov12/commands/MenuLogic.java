@@ -128,7 +128,7 @@ public class MenuLogic extends DAOAcces {
 						teamInteractDAO.getTeamInteractTypeByName("Exit"), teamList.get(0), null);
 				teamInteractDAO.addTeamInteract(teamInteract);
 				int countMembers = teamDAO.getCountTeamMembers(teamList.get(0));
-				if (countMembers == 1) {
+				if (countMembers <= 1) {
 					teamDAO.deleteTeam(teamList.get(0));
 				}
 			}

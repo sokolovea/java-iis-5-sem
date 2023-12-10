@@ -226,7 +226,16 @@ public class DatabaseLogic extends DAOAcces {
 	public static void removeUser(String userLogin) throws SQLException {
 		User tempUser = userDAO.getUserByLogin(userLogin);
 		if (tempUser.getLogin() != null) {
+			List<Team> teamList = teamDAO.getTeamsForUser(tempUser);
+			
 			userDAO.deleteUser(tempUser);
+			
+			if (teamList.size() != 0) {
+				int countMembers = teamDAO.getCountTeamMembers(teamList.get(0));
+				if (countMembers <= 1) {
+					teamDAO.deleteTeam(teamList.get(0));
+				}
+			}
 		}
 	}
 
