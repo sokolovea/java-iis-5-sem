@@ -13,6 +13,16 @@ function insertLoginToTextBox(element) {
 
 function modifyUser(commandType) {
 
+	if (document.getElementById("user_login").value == ""){
+		alert("Введите логин пользователя");
+		return;
+	}
+	
+	if (document.getElementById("user_password").value == ""){
+		alert("Введите пароль пользователя");
+		return;
+	}
+	
 	var xhr = new XMLHttpRequest();
 	
     var data = {
