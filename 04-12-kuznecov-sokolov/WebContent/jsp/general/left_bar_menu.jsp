@@ -18,9 +18,11 @@
 				<a class="menu_button_ref" href="controller?destination=main&command=Menu">Команды</a>
 			</li>
 			<c:if test="${!capitanChecker.isCapitan(login, team_id)}">
-				<li id="button_exit_team" class="menu_button">
-					<a class="menu_button_ref" href="controller?destination=exit_team&command=Menu">Покинуть команду</a>
-				</li>
+				<c:if test="${team_id != null}">
+					<li id="button_exit_team" class="menu_button">
+						<a class="menu_button_ref" href="controller?destination=exit_team&command=Menu">Покинуть команду</a>
+					</li>
+				</c:if>
 			</c:if>
 			<li id="button_report" class="menu_button">
 				<a class="menu_button_ref" href="controller?command=Report">Отчеты</a>
