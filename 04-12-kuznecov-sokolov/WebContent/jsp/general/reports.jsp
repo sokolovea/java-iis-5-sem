@@ -82,7 +82,7 @@
 								<div class="report_inputs">
 									<input type="hidden" name="command" value="Report"/>
 									<span style="margin-right: 7px;">N =</span> 
-									<input id="n_teams_text_box" class="text_box" type="number" name="countCommands" min="0" max="10000"/><br/>
+									<input id="n_teams_text_box" class="text_box" type="number" name="countCommands" min="0" max="10000" required/><br/>
 			            			<input id="n_teams_search" type="submit" name="countCommands_submit" value="Найти"/>
 								</div>
 							</form>
@@ -237,7 +237,7 @@
 								<div class="report_inputs">
 									<input type="hidden" name="command" value="Report"/>
 									<span style="margin-right: 7px;">N =</span> 
-									<input id="n_moderator_blocked_n_text_box" class="text_box" type="number" name="countBlocked" min="0" max="10000"/>
+									<input id="n_moderator_blocked_n_text_box" class="text_box" type="number" name="countBlocked" min="0" max="10000" required/>
 			            			<input id="n_moderator_blocked_n_search" type="submit" name="countBlocked_submit" value="Найти"/>
 								</div>
 							</form>
