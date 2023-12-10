@@ -18,7 +18,7 @@ function modifyUser(commandType) {
 		return;
 	}
 	
-	if (document.getElementById("user_password").value == ""){
+	if (document.getElementById("user_password").value == "" && commandType != "remove_user"){
 		alert("Введите пароль пользователя");
 		return;
 	}
