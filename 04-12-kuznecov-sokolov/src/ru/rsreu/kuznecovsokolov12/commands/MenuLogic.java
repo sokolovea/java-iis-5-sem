@@ -17,6 +17,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.TeamInteract;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 import ru.rsreu.kuznecovsokolov12.exceptions.RedirectErrorPage;
+import ru.rsreu.kuznecovsokolov12.utils.ConfigurationManager;
 
 public class MenuLogic extends DAOAcces {
 
@@ -32,7 +33,8 @@ public class MenuLogic extends DAOAcces {
 			
 			team = teamDAO.getTeamById(teamId);
 			if (!teamList.contains(team)) {
-				throw new RedirectErrorPage();
+				String url = ConfigurationManager.getProperty("path.page.team_select");
+				throw new RedirectErrorPage(url);
 			}
 			teamExpert = userDAO.getExpertForTeam(team);
 			teamMembers = userDAO.getTeamUserList(team);

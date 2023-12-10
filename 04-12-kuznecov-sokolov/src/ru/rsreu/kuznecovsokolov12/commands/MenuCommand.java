@@ -61,7 +61,8 @@ public class MenuCommand implements ActionCommand {
 					MenuLogic.fillTeamPageForUser(request, login, teamId);
 				}
 				catch (RedirectErrorPage e) {
-					return ConfigurationManager.getProperty("path.page.error");
+					MenuLogic.fillTeamSelectPageForUser(request, login);
+					return e.getUrl();
 				} 
 				return ConfigurationManager.getProperty("path.page.team");
 			}
