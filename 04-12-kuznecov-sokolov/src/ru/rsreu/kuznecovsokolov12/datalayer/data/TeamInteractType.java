@@ -3,7 +3,7 @@ package ru.rsreu.kuznecovsokolov12.datalayer.data;
 /***
  * Type of interact with command
  * 
- * @author cuzne
+ * @author Cuznecov
  *
  */
 public class TeamInteractType extends AbstractEntity {

@@ -3,7 +3,7 @@ package ru.rsreu.kuznecovsokolov12.datalayer.data;
 /***
  * Role for separating user powers
  * 
- * @author cuzne
+ * @author Cuznecov
  *
  */
 public class Role extends AbstractEntity {

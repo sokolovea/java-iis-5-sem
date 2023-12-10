@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 /***
  * Assignment role for user (receiver) by sender
  * 
- * @author cuzne
+ * @author Cuznecov
  *
  */
 public class RoleAssigment extends AbstractEntity {

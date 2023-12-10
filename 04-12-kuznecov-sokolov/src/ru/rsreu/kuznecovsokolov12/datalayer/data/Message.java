@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 /***
  * Message written by the User
  * 
- * @author cuzne
+ * @author Cuznecov
  *
  */
 public class Message extends AbstractEntity {

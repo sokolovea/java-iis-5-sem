@@ -3,7 +3,7 @@ package ru.rsreu.kuznecovsokolov12.datalayer.data;
 /***
  * Abstract class for all entity, contains 1 attribute - id
  * 
- * @author cuzne
+ * @author Cuznecov
  *
  */
 public abstract class AbstractEntity {

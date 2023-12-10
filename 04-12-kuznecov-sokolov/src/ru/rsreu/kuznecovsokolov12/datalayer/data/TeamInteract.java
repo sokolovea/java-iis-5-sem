@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 /***
  * Interact with team by user
  * 
- * @author cuzne
+ * @author Cuznecov
  *
  */
 public class TeamInteract extends AbstractEntity {

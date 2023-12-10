@@ -3,7 +3,7 @@ package ru.rsreu.kuznecovsokolov12.datalayer.data;
 /***
  * Setting of information system
  * 
- * @author cuzne
+ * @author Cuznecov
  *
  */
 public class Setting extends AbstractEntity {

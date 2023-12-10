@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 /***
  * Delivery sanction to the user(receiver) by sender
  * 
- * @author cuzne
+ * @author Cuznecov
  *
  */
 public class Sanction extends AbstractEntity {

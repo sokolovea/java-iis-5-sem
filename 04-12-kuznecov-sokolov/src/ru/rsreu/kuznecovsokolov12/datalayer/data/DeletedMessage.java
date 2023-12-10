@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 /***
  * Message deleted by sender
  * 
- * @author cuzne
+ * @author Cuznecov
  *
  */
 public class DeletedMessage extends AbstractEntity {
