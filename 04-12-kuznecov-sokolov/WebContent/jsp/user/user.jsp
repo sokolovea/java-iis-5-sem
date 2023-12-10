@@ -137,7 +137,7 @@
 						</c:forEach>
 					</div>
 				</div>
-				<jsp:useBean id="capitanChecker" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
+				<jsp:useBean id="capitanChecker" class="ru.rsreu.kuznecovsokolov12.commands.LoginLogic" scope="page"></jsp:useBean>
 				<div id="expert_block">
 					<c:if test = "${role.toString() != 'expert'}">
 						<div id="expert_block_caption">

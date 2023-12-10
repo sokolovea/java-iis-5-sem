@@ -8,9 +8,8 @@ import java.sql.SQLException;
 import ru.rsreu.kuznecovsokolov12.datalayer.DeletedMessageDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.DeletedMessage;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.Role;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
-import ru.rsreu.kuznecovsokolov12.servlet.ResourcerHolder;
+import ru.rsreu.kuznecovsokolov12.utils.ResourcerHolder;
 
 public class OracleDeletedMessageDAO implements DeletedMessageDAO, ResourcerHolder {
 

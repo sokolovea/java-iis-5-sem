@@ -1,4 +1,4 @@
-package ru.rsreu.kuznecovsokolov12.servlet;
+package ru.rsreu.kuznecovsokolov12.commands;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,10 +30,8 @@ public class ReportLogic extends DAOAcces {
 			int countDeletedMessages = messageDAO.getCountDeletedMessagesSendedByUser(user);
 			request.setAttribute("countSendedMessages", countSendedMessages);
 			request.setAttribute("countDeletedMessages", countDeletedMessages);
-			int commandNumber = -1;
 			List<Team> teamList = teamDAO.getTeamsForUser(user);
 			if (teamList.size() != 0) {
-				commandNumber = teamList.get(0).getId();
 				request.setAttribute("teamList", teamList);
 			}
 		} catch (SQLException e) {

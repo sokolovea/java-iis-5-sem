@@ -1,43 +1,18 @@
-package ru.rsreu.kuznecovsokolov12.servlet;
+package ru.rsreu.kuznecovsokolov12.commands;
 
-import java.awt.image.DataBuffer;
-import java.net.http.HttpRequest;
 import java.sql.SQLException;
-import java.time.temporal.TemporalUnit;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.taglibs.standard.lang.jstl.test.beans.Factory;
-
-import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
-import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
-import ru.rsreu.kuznecovsokolov12.datalayer.DeletedMessageDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.MessageAttachingDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.RoleAssigmentDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.RoleDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.SanctionDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.TeamInteractDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.DeletedMessage;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.MessageAttaching;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Role;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.RoleAssigment;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.Sanction;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.SanctionType;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Setting;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.TeamInteract;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.TeamInteractType;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
-import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleSanctionDAO;
 import ru.rsreu.kuznecovsokolov12.exceptions.RedirectErrorPage;
+import ru.rsreu.kuznecovsokolov12.servlet.EnumLogin;
+import ru.rsreu.kuznecovsokolov12.utils.ConfigurationManager;
 
 public class DatabaseCommand implements ActionCommand {
 

@@ -12,7 +12,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.RoleDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Role;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.RoleGroup;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
-import ru.rsreu.kuznecovsokolov12.servlet.ResourcerHolder;
+import ru.rsreu.kuznecovsokolov12.utils.ResourcerHolder;
 
 public class OracleRoleDAO implements RoleDAO, ResourcerHolder {
 

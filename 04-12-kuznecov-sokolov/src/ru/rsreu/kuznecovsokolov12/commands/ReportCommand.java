@@ -1,31 +1,14 @@
-package ru.rsreu.kuznecovsokolov12.servlet;
+package ru.rsreu.kuznecovsokolov12.commands;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
-import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
-import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.RoleAssigmentDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.SanctionDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.Role;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.RoleAssigment;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.Sanction;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
+import ru.rsreu.kuznecovsokolov12.servlet.EnumLogin;
+import ru.rsreu.kuznecovsokolov12.utils.ConfigurationManager;
 
 public class ReportCommand implements ActionCommand {
-	private static final String PARAM_NAME_LOGIN = "login";
-	private static final String PARAM_NAME_PASSWORD = "password";
 
 	@Override
 	public String execute(HttpServletRequest request) {

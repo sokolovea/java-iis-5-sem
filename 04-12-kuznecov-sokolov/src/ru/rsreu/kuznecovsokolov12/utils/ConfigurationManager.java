@@ -1,4 +1,4 @@
-package ru.rsreu.kuznecovsokolov12.servlet;
+package ru.rsreu.kuznecovsokolov12.utils;
 
 import java.util.ResourceBundle;
 

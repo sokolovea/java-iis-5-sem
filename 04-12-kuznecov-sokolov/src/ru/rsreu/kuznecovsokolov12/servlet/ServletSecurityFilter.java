@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import ru.rsreu.kuznecovsokolov12.commands.ActionCommand;
+
 public class ServletSecurityFilter implements Filter {
 	private String indexPath;
 

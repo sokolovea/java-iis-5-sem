@@ -1,17 +1,14 @@
-package ru.rsreu.kuznecovsokolov12.servlet;
+package ru.rsreu.kuznecovsokolov12.commands;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
-import jdk.jshell.UnresolvedReferenceException;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.*;
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
 import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
 import ru.rsreu.kuznecovsokolov12.datalayer.RoleDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.SanctionDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleDataBaseDAOFactory;
-import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleUserDAO;
+import ru.rsreu.kuznecovsokolov12.servlet.EnumLogin;
 
 public class LoginLogic {
 

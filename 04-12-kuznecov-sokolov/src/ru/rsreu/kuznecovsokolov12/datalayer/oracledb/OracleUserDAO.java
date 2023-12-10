@@ -15,7 +15,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Role;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
-import ru.rsreu.kuznecovsokolov12.servlet.ResourcerHolder;
+import ru.rsreu.kuznecovsokolov12.utils.ResourcerHolder;
 
 public class OracleUserDAO implements UserDAO, ResourcerHolder {
 

@@ -12,11 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import ru.rsreu.kuznecovsokolov12.commands.ActionCommand;
+
 public class ServletAuthorizeFilter implements Filter {
-	private String indexPath;
 
 	public void init(FilterConfig fConfig) throws ServletException {
-		indexPath = fConfig.getInitParameter("INDEX_PATH");
+
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)

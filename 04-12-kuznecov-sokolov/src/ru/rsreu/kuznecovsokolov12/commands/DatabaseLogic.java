@@ -1,29 +1,12 @@
-package ru.rsreu.kuznecovsokolov12.servlet;
+package ru.rsreu.kuznecovsokolov12.commands;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-import jdk.jshell.UnresolvedReferenceException;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.*;
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOAcces;
-import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
-import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
-import ru.rsreu.kuznecovsokolov12.datalayer.DeletedMessageDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.MessageAttachingDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.RoleAssigmentDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.RoleDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.SanctionDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.TeamInteractDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleDataBaseDAOFactory;
-import ru.rsreu.kuznecovsokolov12.datalayer.oracledb.OracleUserDAO;
 import ru.rsreu.kuznecovsokolov12.exceptions.RedirectErrorPage;
 
 public class DatabaseLogic extends DAOAcces {

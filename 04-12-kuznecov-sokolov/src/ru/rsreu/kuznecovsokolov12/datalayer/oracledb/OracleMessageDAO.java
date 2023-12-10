@@ -13,7 +13,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
-import ru.rsreu.kuznecovsokolov12.servlet.ResourcerHolder;
+import ru.rsreu.kuznecovsokolov12.utils.ResourcerHolder;
 
 public class OracleMessageDAO implements MessageDAO, ResourcerHolder {
 

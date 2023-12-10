@@ -11,7 +11,7 @@ import ru.rsreu.kuznecovsokolov12.datalayer.SanctionDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Sanction;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.SanctionType;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
-import ru.rsreu.kuznecovsokolov12.servlet.ResourcerHolder;
+import ru.rsreu.kuznecovsokolov12.utils.ResourcerHolder;
 
 public class OracleSanctionDAO implements SanctionDAO, ResourcerHolder {
 	

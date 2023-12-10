@@ -1,4 +1,4 @@
-package ru.rsreu.kuznecovsokolov12.servlet;
+package ru.rsreu.kuznecovsokolov12.commands;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -9,15 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOAcces;
-import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
-import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
-import ru.rsreu.kuznecovsokolov12.datalayer.MessageAttachingDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.RoleDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.TeamInteractDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.MessageAttaching;
 import ru.rsreu.kuznecovsokolov12.datalayer.data.Role;

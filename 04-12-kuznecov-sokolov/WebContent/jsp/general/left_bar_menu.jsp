@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/user_list.css">
 </head>
 <body>
-	<jsp:useBean id="capitanChecker" class="ru.rsreu.kuznecovsokolov12.servlet.LoginLogic" scope="page"></jsp:useBean>
+	<jsp:useBean id="capitanChecker" class="ru.rsreu.kuznecovsokolov12.commands.LoginLogic" scope="page"></jsp:useBean>
 	<ol>
 		<c:if test="${role.toString() == 'user'}">
 			<c:if test="${team_id != null}">

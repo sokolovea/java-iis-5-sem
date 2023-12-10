@@ -1,36 +1,11 @@
-package ru.rsreu.kuznecovsokolov12.servlet;
+package ru.rsreu.kuznecovsokolov12.commands;
 
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.Session;
-
-
-import ru.rsreu.kuznecovsokolov12.datalayer.DAOFactory;
-import ru.rsreu.kuznecovsokolov12.datalayer.DBType;
-import ru.rsreu.kuznecovsokolov12.datalayer.DeletedMessageDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.MessageAttachingDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.MessageDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.RoleDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.TeamDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.TeamInteractDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.UserDAO;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.DeletedMessage;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.Message;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.MessageAttaching;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.Role;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.Setting;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.Team;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.TeamInteract;
-import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
 import ru.rsreu.kuznecovsokolov12.exceptions.RedirectErrorPage;
+import ru.rsreu.kuznecovsokolov12.servlet.EnumLogin;
+import ru.rsreu.kuznecovsokolov12.utils.ConfigurationManager;
 
 public class MenuCommand implements ActionCommand {
 
@@ -43,16 +18,8 @@ public class MenuCommand implements ActionCommand {
 			return ConfigurationManager.getProperty("path.page.index");
 		}
 		
-		String login = (String) session.getAttribute(PARAM_USER_LOGIN);
-		String password = (String) session.getAttribute(PARAM_USER_PASSWORD);
 		String destination = request.getParameter(MenuCommand.PARAM_DESTINATION);
-		EnumLogin loginResult = null;
-		
-		try {
-			loginResult = LoginLogic.checkLogin(login, password);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+
 		MenuLogic.initDAOitems();
 		
 		String page = MenuCommand.getPage(destination, request);
