@@ -28,15 +28,13 @@ public class ServletAuthorizeFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		
-		System.out.println(req.getServletPath() + " ; " + req.getRequestURI());
-	    if (req.getServletPath().equals("/login")) {
+	    if (req.getServletPath().equals(ActionCommand.URL_LOGIN_PAGE)) {
 	        chain.doFilter(request, response);
 	        return;
 	    }
 	    
 		HttpSession session = req.getSession();
 		EnumLogin sessionRoleType = (EnumLogin) session.getAttribute(ActionCommand.PARAM_USER_ROLE);
-		System.out.println("Сейчас мы в фильтре на NOUSER");
 		String login = (String) session.getAttribute(ActionCommand.PARAM_USER_LOGIN);
 		String password = (String) session.getAttribute(ActionCommand.PARAM_USER_PASSWORD);
 		EnumLogin checkLoginResult = EnumLogin.NOUSER;
@@ -46,10 +44,9 @@ public class ServletAuthorizeFilter implements Filter {
 			e.printStackTrace();
 		}
 		if (sessionRoleType == null || checkLoginResult == EnumLogin.NOUSER || checkLoginResult != sessionRoleType) {
-			System.out.println("Фильтр на NOUSER сработал");
 			sessionRoleType = EnumLogin.NOUSER;
 			session.setAttribute(ActionCommand.PARAM_USER_ROLE, sessionRoleType);
-			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/login");
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(ActionCommand.URL_LOGIN_PAGE);
 			dispatcher.forward(req, resp);
 			return;
 		}		

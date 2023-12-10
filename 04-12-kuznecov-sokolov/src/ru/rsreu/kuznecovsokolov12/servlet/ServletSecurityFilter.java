@@ -26,17 +26,14 @@ public class ServletSecurityFilter implements Filter {
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		HttpSession session = httpRequest.getSession(false);
 		if (session == null) {
-			System.out.println("SESSION = NULL!!!");
 			httpResponse.sendRedirect(httpRequest.getContextPath() + indexPath);
 			return;
 		}
 		EnumLogin role = (EnumLogin) session.getAttribute(ActionCommand.PARAM_USER_ROLE);
 		if ((role != null) && (role != EnumLogin.NOUSER)) {
-			System.out.println("SESSION EXISTS!");
 			httpResponse.sendRedirect(httpRequest.getContextPath() + indexPath + "?command=Menu&destination=main");
 			return;
 		}
-		System.out.println("ROLE == NULL OR ROLE == NOUSER");
 		httpResponse.sendRedirect(httpRequest.getContextPath() + indexPath);
 		chain.doFilter(request, response);
 	}
