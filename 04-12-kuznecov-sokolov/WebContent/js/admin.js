@@ -59,6 +59,11 @@ function modifyUser(commandType) {
 
 function findUserData(commandType) {
 
+	if (document.getElementById("user_login").value == ""){
+		alert("Введите логин пользователя");
+		return;
+	}
+	
 	var xhr = new XMLHttpRequest();
 	
     var data = {
