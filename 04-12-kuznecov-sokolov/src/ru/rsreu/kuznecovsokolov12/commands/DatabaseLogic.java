@@ -46,7 +46,7 @@ public class DatabaseLogic extends DAOAcces {
 			List<Team> teamList = teamDAO.getTeamsForUser(user);
 			if (teamList.size() != 0) {
 				if (LoginLogic.isCapitan(userLogin, teamList.get(0).getId())) {
-					throw new RedirectErrorPage("Капитан команды не может создавать команду");
+					throw new RedirectErrorPage(null, "Капитан команды не может создавать команду");
 				}
 				TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Exit"),
 						teamList.get(0), null);
@@ -54,7 +54,7 @@ public class DatabaseLogic extends DAOAcces {
 			}
 			Team teamExisted = teamDAO.getTeamByName(teamName);
 			if (teamExisted.getName() != null) {
-				throw new RedirectErrorPage("Команда с таким названием (" + teamName + ") уже существует");
+				throw new RedirectErrorPage(null, "Команда с таким названием (" + teamName + ") уже существует");
 			}
 			Team team = new Team();
 			team.setName(teamName);
