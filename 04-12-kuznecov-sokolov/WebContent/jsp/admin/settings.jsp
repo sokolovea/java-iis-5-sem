@@ -8,6 +8,26 @@
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/input_items.css">
 	<link rel="stylesheet" href="/04-12-kuznecov-sokolov/css/settings.css">
 </head>
+<script type="text/javascript">
+    function validateForm() {
+        var teamCapacity = document.getElementById('team_capacity').value;
+        var expertCapacity = document.getElementById('expert_capacity').value;
+
+        // Проверка на пустые значения
+        if (teamCapacity === '' || expertCapacity === '') {
+            alert('Пожалуйста, заполните все поля!');
+            return false;
+        }
+
+        // Проверка на значения меньше нуля и больше 1000
+        if (teamCapacity < 0 || teamCapacity > 100 || expertCapacity < 0 || expertCapacity > 100) {
+            alert('Значение в поле должно быть в пределах от 0 до 100!');
+            return false;
+        }
+
+        return true;
+    }
+</script>
 <body>
 	<div class="window">
 		<div id="top_bar" class="container">
@@ -18,7 +38,7 @@
 				<c:import url="/jsp/general/left_bar_menu.jsp"/>
 			</div>
 			<div id="center_bar" class="container">
-				<form id="settings_form" action="controller" method="POST">
+				<form id="settings_form" action="controller" method="POST" onsubmit="return validateForm()">
 				    <input type="hidden" name="command" value="Database"/>
 				    <input type="hidden" name="activity" value="update_setting"/>
 					<div id="settings_div">
