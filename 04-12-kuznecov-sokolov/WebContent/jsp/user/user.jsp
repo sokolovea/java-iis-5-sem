@@ -53,6 +53,24 @@
 	window.onload = function() {
 		scrollToBottom();
 	};
+	
+    function validateMessageForm() {
+        var message = document.getElementById('text_box_message').value;
+
+        // Проверка на пустое сообщение
+        if (message === '') {
+            alert('Сообщение не должно быть пустым!');
+            return false;
+        }
+
+        // Проверка на длину сообщения не более 250 символов
+        if (message.length > 250) {
+            alert('Сообщение не должно превышать 250 символов.');
+            return false;
+        }
+
+        return true;
+    }
 	</script>
 
 </head>
@@ -90,7 +108,7 @@
 						</c:if>
 					</c:forEach>
 				</div>
-				<form class="display_contents_form" id="message_chat_form" action="controller" method="POST">
+				<form class="display_contents_form" id="message_chat_form" action="controller" method="POST" onsubmit="return validateMessageForm()">
 					<input type="hidden" name="team_id" value="<%= teamId %>"/>
 					<input type="hidden" name="command" value="Database"/>
 					<input type="hidden" name="activity" value="send_message"/>
