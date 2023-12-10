@@ -22,12 +22,6 @@ public class DatabaseLogic extends DAOAcces {
 	public static void sendMessage(String login, String messageData, int teamId) throws SQLException {
 		User user = userDAO.getUserByLogin(login);
 		List<Team> teamList = teamDAO.getTeamsForUser(user);
-		if (teamList.size() == 0) {
-			System.out.println("Null team list for user!!!");
-		}
-		if (messageData == null) {
-			System.out.println("Null message!!!"); // Message(id, data, author, time)
-		}
 		Team userTeam = teamDAO.getTeamById(teamId);
 		if (teamList.contains(userTeam)) {
 			Message message = new Message();

@@ -11,14 +11,8 @@ import ru.rsreu.kuznecovsokolov12.commands.LoginLogic;
 public class SessionListener implements HttpSessionListener, HttpSessionBindingListener {
 
     @Override
-    public void sessionCreated(HttpSessionEvent se) {
-        System.out.println("Сессия создана. ID сессии: " + se.getSession().getId());
-    }
-
-    @Override
     public void sessionDestroyed(HttpSessionEvent se) {
     	String login = (String) se.getSession().getAttribute(DatabaseCommand.PARAM_USER_LOGIN);
-		System.out.println("DEBUG DESTROY!!!: login = " + login);
 		if (login != null) {
 			try {
 				LoginLogic.setUserAuth(login, false);
@@ -26,6 +20,5 @@ public class SessionListener implements HttpSessionListener, HttpSessionBindingL
 				e.printStackTrace();
 			}
 		}
-        System.out.println("Сессия уничтожена. ID сессии: " + se.getSession().getId());
     }
 }
