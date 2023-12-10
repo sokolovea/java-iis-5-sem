@@ -41,6 +41,7 @@ public class MenuCommand implements ActionCommand {
 		if (loginResult == EnumLogin.USER) {
 			if (destination.equals("exit_team")) {
 				MenuLogic.userExitFromTeam(login);
+				session.setAttribute(ActionCommand.PARAM_TEAM_ID, null);
 				return MenuCommand.URL_MAIN_PAGE;
 			}
 		}

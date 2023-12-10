@@ -35,7 +35,7 @@ public class ServletAuthorizeFilter implements Filter {
 	    }
 	    
 		HttpSession session = req.getSession();
-		EnumLogin type = (EnumLogin) session.getAttribute(ActionCommand.PARAM_USER_ROLE);
+		EnumLogin sessionRoleType = (EnumLogin) session.getAttribute(ActionCommand.PARAM_USER_ROLE);
 		System.out.println("Сейчас мы в фильтре на NOUSER");
 		String login = (String) session.getAttribute(ActionCommand.PARAM_USER_LOGIN);
 		String password = (String) session.getAttribute(ActionCommand.PARAM_USER_PASSWORD);
@@ -45,10 +45,10 @@ public class ServletAuthorizeFilter implements Filter {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		if (type == null || checkLoginResult == EnumLogin.NOUSER) {
+		if (sessionRoleType == null || checkLoginResult == EnumLogin.NOUSER || checkLoginResult != sessionRoleType) {
 			System.out.println("Фильтр на NOUSER сработал");
-			type = EnumLogin.NOUSER;
-			session.setAttribute(ActionCommand.PARAM_USER_ROLE, type);
+			sessionRoleType = EnumLogin.NOUSER;
+			session.setAttribute(ActionCommand.PARAM_USER_ROLE, sessionRoleType);
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/login");
 			dispatcher.forward(req, resp);
 			return;
