@@ -23,19 +23,19 @@
 					<div id="user_info_form_caption">Изменение данных пользователей</div>
 					<div class="user_form_item">
 						<div class="user_form_item_caption">Логин</div>
-						<input id="user_login" class="text_box" type="text" name="userLogin" placeholder="user1" value="${form_login}"/>
+						<input id="user_login" class="text_box" type="text" name="userLogin" placeholder="user1" value="${form_login}" maxlength="30"/>
 					</div>
 					<div class="user_form_item">
 						<div class="user_form_item_caption">Пароль</div>
-						<input id="user_password" class="text_box" type="text" name="userPassword" placeholder="1234567890" value="${form_password}"/>
+						<input id="user_password" class="text_box" type="text" name="userPassword" placeholder="1234567890" value="${form_password}" maxlength="50"/>
 					</div>
 					<div class="user_form_item">
 						<div class="user_form_item_caption">Имя</div>
-						<input id="user_name" class="text_box" type="text" name="userName" placeholder="Userov User Userovich" value="${form_name}"/>
+						<input id="user_name" class="text_box" type="text" name="userName" placeholder="Userov User Userovich" value="${form_name}" maxlength="50"/>
 					</div>
 					<div class="user_form_item">
 						<div class="user_form_item_caption">Электронная почта</div>
-						<input id="user_email" class="text_box" type="text" name="userEmail" placeholder="123@yandex.ru" value="${form_email}"/>
+						<input id="user_email" class="text_box" type="text" name="userEmail" placeholder="123@yandex.ru" value="${form_email}" maxlength="50"/>
 					</div>
 					<div class="user_form_item">
 						<div class="user_form_item_caption">Роль</div>
