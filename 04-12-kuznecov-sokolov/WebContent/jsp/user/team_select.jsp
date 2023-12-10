@@ -34,7 +34,7 @@
 										<input type="hidden" name="team_id" value="<%= teamId %>"/>
 										<input type="hidden" name="command" value="Database"/>
 										<input type="hidden" name="activity" value="create_team"/>
-										<input class="text_box" type="text" name="teamFormName" placeholder="Название команды"/>
+										<input class="text_box" type="text" name="teamFormName" placeholder="Название команды" maxlength="50"/>
 										<div class="error_box">
 											${errorTeamCreate}
 										</div>

@@ -14,11 +14,11 @@
 			<input type="hidden" name="command" value="login" />
 			<div id="login_box">
 				<div id="login_box_caption">Логин</div>
-				<input class="text_box" type="text" name="login" value=""/>
+				<input class="text_box" type="text" name="login" value="" maxlength="30"/>
 			</div>
 			<div id="password_box">
 				<div id="password_box_caption">Пароль</div>
-				<input class="text_box" type="password" name="password" value=""/>
+				<input class="text_box" type="password" name="password" value="" maxlength="50"/>
 			</div>
 			<div class="error_box">
 				${errorLoginPassMessage}

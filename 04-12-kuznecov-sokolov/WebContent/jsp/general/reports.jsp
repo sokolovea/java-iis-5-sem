@@ -82,7 +82,7 @@
 								<div class="report_inputs">
 									<input type="hidden" name="command" value="Report"/>
 									<span style="margin-right: 7px;">N =</span> 
-									<input id="n_teams_text_box" class="text_box" type="number" name="countCommands"/><br/>
+									<input id="n_teams_text_box" class="text_box" type="number" name="countCommands" min="0" max="10000"/><br/>
 			            			<input id="n_teams_search" type="submit" name="countCommands_submit" value="Найти"/>
 								</div>
 							</form>
@@ -237,7 +237,7 @@
 								<div class="report_inputs">
 									<input type="hidden" name="command" value="Report"/>
 									<span style="margin-right: 7px;">N =</span> 
-									<input id="n_moderator_blocked_n_text_box" class="text_box" type="number" name="countBlocked"/>
+									<input id="n_moderator_blocked_n_text_box" class="text_box" type="number" name="countBlocked" min="0" max="10000"/>
 			            			<input id="n_moderator_blocked_n_search" type="submit" name="countBlocked_submit" value="Найти"/>
 								</div>
 							</form>
@@ -297,7 +297,7 @@
 								<div class="report_inputs">
 									<input type="hidden" name="command" value="Report"/>
 									<span style="margin-right: 7px;">login =</span> 
-									<input id="user_login_text_box" class="text_box" type="text" name="adminUserRole" placeholder="Введите логин пользователя"/>
+									<input id="user_login_text_box" class="text_box" type="text" name="adminUserRole" placeholder="Введите логин пользователя" maxlength="30"/>
 			            			<input id="user_search" type="submit" name="adminUserRole_submit" value="Найти"/>
 								</div>
 							</form>
