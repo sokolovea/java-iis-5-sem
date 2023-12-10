@@ -2,6 +2,12 @@ package ru.rsreu.kuznecovsokolov12.datalayer.data;
 
 import java.sql.Timestamp;
 
+/***
+ * Message deleted by sender
+ * 
+ * @author cuzne
+ *
+ */
 public class DeletedMessage extends AbstractEntity {
 
 	private User sender;

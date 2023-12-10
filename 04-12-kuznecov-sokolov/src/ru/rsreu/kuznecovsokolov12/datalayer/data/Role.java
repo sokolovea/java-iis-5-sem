@@ -1,5 +1,11 @@
 package ru.rsreu.kuznecovsokolov12.datalayer.data;
 
+/***
+ * Role for separating user powers
+ * 
+ * @author cuzne
+ *
+ */
 public class Role extends AbstractEntity {
 
 	private String name;

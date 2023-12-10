@@ -1,5 +1,11 @@
 package ru.rsreu.kuznecovsokolov12.datalayer.data;
 
+/***
+ * Team that users can join
+ * 
+ * @author cuzne
+ *
+ */
 public class Team extends AbstractEntity {
 	
 	private String name;

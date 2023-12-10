@@ -1,5 +1,11 @@
 package ru.rsreu.kuznecovsokolov12.datalayer.data;
 
+/***
+ * Type of the sanction
+ * 
+ * @author cuzne
+ *
+ */
 public class SanctionType extends AbstractEntity {
 	
 	private String name;

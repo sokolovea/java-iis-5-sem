@@ -2,6 +2,12 @@ package ru.rsreu.kuznecovsokolov12.datalayer.data;
 
 import java.sql.Timestamp;
 
+/***
+ * Interact with team by user
+ * 
+ * @author cuzne
+ *
+ */
 public class TeamInteract extends AbstractEntity {
 
 	private User user;

@@ -2,6 +2,12 @@ package ru.rsreu.kuznecovsokolov12.datalayer.data;
 
 import java.sql.Timestamp;
 
+/***
+ * Assignment role for user (receiver) by sender
+ * 
+ * @author cuzne
+ *
+ */
 public class RoleAssigment extends AbstractEntity {
 
 	private Role role;

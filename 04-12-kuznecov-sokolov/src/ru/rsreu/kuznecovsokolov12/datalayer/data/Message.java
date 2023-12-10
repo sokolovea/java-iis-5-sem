@@ -2,6 +2,12 @@ package ru.rsreu.kuznecovsokolov12.datalayer.data;
 
 import java.sql.Timestamp;
 
+/***
+ * Message written by the User
+ * 
+ * @author cuzne
+ *
+ */
 public class Message extends AbstractEntity {
 
 	private String data;

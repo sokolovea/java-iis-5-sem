@@ -1,5 +1,11 @@
 package ru.rsreu.kuznecovsokolov12.datalayer.data;
 
+/***
+ * Separating role to groups
+ * 
+ * @author cuzne
+ *
+ */
 public class RoleGroup extends AbstractEntity {
 	
 	private String name;

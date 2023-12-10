@@ -2,6 +2,12 @@ package ru.rsreu.kuznecovsokolov12.datalayer.data;
 
 import java.sql.Timestamp;
 
+/***
+ * Delivery sanction to the user(receiver) by sender
+ * 
+ * @author cuzne
+ *
+ */
 public class Sanction extends AbstractEntity {
 
 	private SanctionType type;

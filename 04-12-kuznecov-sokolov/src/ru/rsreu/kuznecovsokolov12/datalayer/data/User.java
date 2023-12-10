@@ -1,5 +1,11 @@
 package ru.rsreu.kuznecovsokolov12.datalayer.data;
 
+/***
+ * Entity that use the information system
+ * 
+ * @author cuzne
+ *
+ */
 public class User extends AbstractEntity {
 
 	private String login;

@@ -1,5 +1,11 @@
 package ru.rsreu.kuznecovsokolov12.datalayer.data;
 
+/***
+ * Abstract class for all entity, contains 1 attribute - id
+ * 
+ * @author cuzne
+ *
+ */
 public abstract class AbstractEntity {
 
 	private int id;

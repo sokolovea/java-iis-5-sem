@@ -1,6 +1,11 @@
 package ru.rsreu.kuznecovsokolov12.datalayer.data;
 
-
+/***
+ * Attaching message to command
+ * 
+ * @author cuzne
+ *
+ */
 public class MessageAttaching extends AbstractEntity {
 
 	private Team team;

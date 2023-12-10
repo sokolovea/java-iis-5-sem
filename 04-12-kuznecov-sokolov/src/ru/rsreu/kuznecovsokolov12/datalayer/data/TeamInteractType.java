@@ -1,5 +1,11 @@
 package ru.rsreu.kuznecovsokolov12.datalayer.data;
 
+/***
+ * Type of interact with command
+ * 
+ * @author cuzne
+ *
+ */
 public class TeamInteractType extends AbstractEntity {
 
 	private String name;
