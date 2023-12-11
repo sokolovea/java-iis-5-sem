@@ -8,12 +8,16 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.*;
 import ru.rsreu.kuznecovsokolov12.datalayer.DAOAcces;
 import ru.rsreu.kuznecovsokolov12.datalayer.SettingDAO;
 import ru.rsreu.kuznecovsokolov12.exceptions.RedirectErrorPage;
+import ru.rsreu.kuznecovsokolov12.utils.ResourcerHolder;
 
-public class DatabaseLogic extends DAOAcces {
+public class DatabaseLogic extends DAOAcces implements ResourcerHolder {
+	
+	private static final String ERROR_CAPTAIN_TRY_CREATE_TEAM = resourser.getString("error.captain_try_create_team");
+	private static final String ERROR_TEAM_NAME_ALREADY_EXIST = resourser.getString("error.team_name_already_exist");
 
 	public static List<Setting> updateSetting(String teamCapacity, String expertCapacity) throws SQLException {
-		Setting settingTeamCapacity = new Setting("max_team_capacity", Integer.parseInt(teamCapacity));
-		Setting settingExpertCapacity = new Setting("max_team_consulted_expert", Integer.parseInt(expertCapacity));
+		Setting settingTeamCapacity = new Setting(ActionCommand.SETTING_MAX_TEAM_COUNT, Integer.parseInt(teamCapacity));
+		Setting settingExpertCapacity = new Setting(ActionCommand.SETTING_MAX_TEAMS_FOR_EXPERT, Integer.parseInt(expertCapacity));
 		settingDAO.setSetting(settingTeamCapacity);
 		settingDAO.setSetting(settingExpertCapacity);
 		return settingDAO.getSetting();
@@ -40,21 +44,21 @@ public class DatabaseLogic extends DAOAcces {
 			List<Team> teamList = teamDAO.getTeamsForUser(user);
 			if (teamList.size() != 0) {
 				if (LoginLogic.isCapitan(userLogin, teamList.get(0).getId())) {
-					throw new RedirectErrorPage(null, "Капитан команды не может создавать команду");
+					throw new RedirectErrorPage(null, ERROR_CAPTAIN_TRY_CREATE_TEAM);
 				}
-				TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Exit"),
+				TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName(ActionCommand.TEAM_INTERACT_TYPE_EXIT),
 						teamList.get(0), null);
 				teamInteractDAO.addTeamInteract(teamInteract);
 			}
 			Team teamExisted = teamDAO.getTeamByName(teamName);
 			if (teamExisted.getName() != null) {
-				throw new RedirectErrorPage(null, "Команда с таким названием (" + teamName + ") уже существует");
+				throw new RedirectErrorPage(null, String.format(ERROR_TEAM_NAME_ALREADY_EXIST, teamName));
 			}
 			Team team = new Team();
 			team.setName(teamName);
 			teamDAO.addTeam(team);
 			team = teamDAO.getTeamByName(teamName);
-			TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Join"),
+			TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName(ActionCommand.TEAM_INTERACT_TYPE_JOIN),
 					team, null);
 			teamInteractDAO.addTeamInteract(teamInteract);
 		}
@@ -67,7 +71,7 @@ public class DatabaseLogic extends DAOAcces {
 			if (LoginLogic.isCapitan(userLogin, teamList.get(0).getId()) || (teamList.get(0).getId() == teamId)) {
 				return;
 			}
-			TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Exit"),
+			TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName(ActionCommand.TEAM_INTERACT_TYPE_EXIT),
 					teamList.get(0), null);
 			teamInteractDAO.addTeamInteract(teamInteract);
 		}
@@ -77,7 +81,7 @@ public class DatabaseLogic extends DAOAcces {
 		int team_capacity = settingDAO.getSetting().get(0).getValue();
 		int joinTeamMembers = teamDAO.getCountTeamMembers(team);
 		if (joinTeamMembers < team_capacity) {
-			TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Join"), team,
+			TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName(ActionCommand.TEAM_INTERACT_TYPE_JOIN), team,
 					null);
 			teamInteractDAO.addTeamInteract(teamInteract);
 		}
@@ -91,7 +95,7 @@ public class DatabaseLogic extends DAOAcces {
 		User expert = userDAO.getUserByLogin(expertLogin);
 		int currentExpertTeamsCount = teamDAO.getTeamsConsultedByExpert(expert).size();
 		if ((expertForTeam.getLogin() == null) && (expertCapacity > currentExpertTeamsCount)) {
-			TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Join"),
+			TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName(ActionCommand.TEAM_INTERACT_TYPE_JOIN),
 					team, null);
 			teamInteractDAO.addTeamInteract(teamInteract);
 		}
@@ -104,7 +108,7 @@ public class DatabaseLogic extends DAOAcces {
 			List<Team> teamList = teamDAO.getTeamsForUser(user);
 			Team team = teamDAO.getTeamById(teamId);
 			if (teamList.size() != 0 && teamList.contains(team)) {
-				TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName("Exit"),
+				TeamInteract teamInteract = new TeamInteract(0, user, teamInteractDAO.getTeamInteractTypeByName(ActionCommand.TEAM_INTERACT_TYPE_EXIT),
 						team, null);
 				teamInteractDAO.addTeamInteract(teamInteract);
 			}
@@ -122,7 +126,7 @@ public class DatabaseLogic extends DAOAcces {
 			User expert = userDAO.getExpertForTeam(team);
 			if (expert.getLogin() != null) {
 				TeamInteract teamInteract = new TeamInteract(0, expert,
-						teamInteractDAO.getTeamInteractTypeByName("Expert_ejected"), team, null);
+						teamInteractDAO.getTeamInteractTypeByName(ActionCommand.TEAM_INTERACT_TYPE_EXPERT_EJECTED), team, null);
 				teamInteractDAO.addTeamInteract(teamInteract);
 			}
 		}
@@ -176,23 +180,23 @@ public class DatabaseLogic extends DAOAcces {
 			Role currentRole = roleDAO.getUserRole(newUserData);
 			if (newRole != currentRole) {
 				
-				if (currentRole.getName().equals("Expert")) {
+				if (currentRole.getName().equals(ActionCommand.ROLE_EXPERT)) {
 					List<Team> expertTeams = teamDAO.getTeamsConsultedByExpert(newUserData);
 					for (Team consulted_team : expertTeams) {
-						TeamInteract teamInteract = new TeamInteract(0, newUserData, teamInteractDAO.getTeamInteractTypeByName("Exit"),
+						TeamInteract teamInteract = new TeamInteract(0, newUserData, teamInteractDAO.getTeamInteractTypeByName(ActionCommand.TEAM_INTERACT_TYPE_EXIT),
 								consulted_team, null);
 						teamInteractDAO.addTeamInteract(teamInteract);
 					}
 				}
 				
-				if (currentRole.getName().equals("Common user")) {
+				if (currentRole.getName().equals(ActionCommand.ROLE_USER)) {
 					List<Team> userTeams = teamDAO.getTeamsForUser(newUserData);
 					for (Team userTeam : userTeams) {
 						if (LoginLogic.isCapitan(newUserData.getLogin(), userTeam.getId())) {
 							teamInteractDAO.deleteTeamInteractsForUser(newUserData);
 						}
 						else {
-							TeamInteract teamInteract = new TeamInteract(0, newUserData, teamInteractDAO.getTeamInteractTypeByName("Exit"),
+							TeamInteract teamInteract = new TeamInteract(0, newUserData, teamInteractDAO.getTeamInteractTypeByName(ActionCommand.TEAM_INTERACT_TYPE_EXIT),
 									userTeam, null);
 							teamInteractDAO.addTeamInteract(teamInteract);
 						}

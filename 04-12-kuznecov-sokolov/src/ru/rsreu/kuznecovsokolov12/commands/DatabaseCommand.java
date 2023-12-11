@@ -77,7 +77,7 @@ public class DatabaseCommand implements ActionCommand {
 		}
 		String login = (String) session.getAttribute(DatabaseCommand.PARAM_USER_LOGIN);
 
-		if (activity.equals("send_message")) {
+		if (activity.equals(ActionCommand.ACTIVITY_SEND_MESSAGE)) {
 			String message = request.getParameter(DatabaseCommand.PARAM_MESSAGE);
 			Integer teamId = (Integer) session.getAttribute(DatabaseCommand.PARAM_TEAM_ID);
 			if (message != null && !message.isEmpty()) {
@@ -86,19 +86,19 @@ public class DatabaseCommand implements ActionCommand {
 			return DatabaseCommand.URL_TEAM_PAGE;
 		}
 
-		else if (activity.equals("delete_message")) {
+		else if (activity.equals(ActionCommand.ACTIVITY_DELETE_MESSAGE)) {
 			int messageId = Integer.parseInt(request.getParameter(DatabaseCommand.PARAM_MESSAGE_ID));
 			DatabaseLogic.deleteMessage(login, messageId);
 			return DatabaseCommand.URL_TEAM_PAGE;
 		}
 
-		else if (activity.equals("restore_message")) {
+		else if (activity.equals(ActionCommand.ACTIVITY_RESTORE_MESSAGE)) {
 			int messageId = Integer.parseInt(request.getParameter(DatabaseCommand.PARAM_MESSAGE_ID));
 			DatabaseLogic.restoreMessage(messageId);
 			return DatabaseCommand.URL_TEAM_PAGE;
 		}
 
-		else if (activity.equals("create_team")) {
+		else if (activity.equals(ActionCommand.ACTIVITY_CREATE_TEAM)) {
 			String teamFormName = request.getParameter("teamFormName");
 			try {
 				DatabaseLogic.createTeam(login, teamFormName);
@@ -108,13 +108,13 @@ public class DatabaseCommand implements ActionCommand {
 			return DatabaseCommand.URL_MAIN_PAGE;
 		}
 
-		else if (activity.equals("join_team")) {
+		else if (activity.equals(ActionCommand.ACTIVITY_JOIN_TEAM)) {
 			String teamId = request.getParameter(DatabaseCommand.PARAM_TEAM_ID);
 			DatabaseLogic.userJoinTeam(login, Integer.parseInt(teamId));
 			return DatabaseCommand.URL_MAIN_PAGE;
 		}
 
-		else if (activity.equals("captain_pop_expert")) {
+		else if (activity.equals(ActionCommand.ACTIVITY_POP_EXPERT)) {
 			int teamId = (int) session.getAttribute(DatabaseCommand.PARAM_TEAM_ID);
 			DatabaseLogic.ejectExpertFromTeam(login, teamId);
 			return DatabaseCommand.URL_TEAM_PAGE;
@@ -131,19 +131,19 @@ public class DatabaseCommand implements ActionCommand {
 		String login = (String) session.getAttribute(DatabaseCommand.PARAM_USER_LOGIN);
 		String team_id = request.getParameter(DatabaseCommand.PARAM_TEAM_ID);
 
-		if (activity.equals("join_team")) {
+		if (activity.equals(ActionCommand.ACTIVITY_JOIN_TEAM)) {
 			int teamId = Integer.parseInt(team_id);
 			DatabaseLogic.expertJoinTeam(login, teamId);
 			return DatabaseCommand.URL_MAIN_PAGE;
 		}
 
-		else if (activity.equals("expert_exit_team")) {
+		else if (activity.equals(ActionCommand.ACTIVITY_EXPERT_EXIT_TEAM)) {
 			int teamId = Integer.parseInt(team_id);
 			DatabaseLogic.expertExitFromTeam(login, teamId);
 			return DatabaseCommand.URL_MAIN_PAGE;
 		}
 
-		else if (activity.equals("send_message")) {
+		else if (activity.equals(ActionCommand.ACTIVITY_SEND_MESSAGE)) {
 			String message = request.getParameter(DatabaseCommand.PARAM_MESSAGE);
 			if (message != null && !message.isEmpty()) {
 				DatabaseLogic.sendMessage(login, message, Integer.parseInt(team_id));
@@ -151,13 +151,13 @@ public class DatabaseCommand implements ActionCommand {
 			return String.format(DatabaseCommand.URL_TEAM_PAGE_AND_TEAM_ID, team_id);
 		}
 
-		else if (activity.equals("delete_message")) {
+		else if (activity.equals(ActionCommand.ACTIVITY_DELETE_MESSAGE)) {
 			int messageId = Integer.parseInt(request.getParameter(DatabaseCommand.PARAM_MESSAGE_ID));
 			DatabaseLogic.deleteMessage(login, messageId);
 			return String.format(DatabaseCommand.URL_TEAM_PAGE_AND_TEAM_ID, team_id);
 		}
 
-		else if (activity.equals("restore_message")) {
+		else if (activity.equals(ActionCommand.ACTIVITY_RESTORE_MESSAGE)) {
 			int messageId = Integer.parseInt(request.getParameter(DatabaseCommand.PARAM_MESSAGE_ID));
 			DatabaseLogic.restoreMessage(messageId);
 			return String.format(DatabaseCommand.URL_TEAM_PAGE_AND_TEAM_ID, team_id);
@@ -173,23 +173,23 @@ public class DatabaseCommand implements ActionCommand {
 		}
 		String login = (String) session.getAttribute(DatabaseCommand.PARAM_USER_LOGIN);
 
-		if (activity.equals("delete_message")) {
+		if (activity.equals(ActionCommand.ACTIVITY_DELETE_MESSAGE)) {
 			int messageId = Integer.parseInt(request.getParameter(DatabaseCommand.PARAM_MESSAGE_ID));
 			DatabaseLogic.deleteMessage(login, messageId);
 			return DatabaseCommand.URL_MAIN_PAGE;
 
 		}
 
-		else if (activity.equals("restore_message")) {
+		else if (activity.equals(ActionCommand.ACTIVITY_RESTORE_MESSAGE)) {
 			int messageId = Integer.parseInt(request.getParameter(DatabaseCommand.PARAM_MESSAGE_ID));
 			DatabaseLogic.restoreMessage(messageId);
 			return DatabaseCommand.URL_MAIN_PAGE;
 		}
 
-		else if (activity.equals("add_sanction")) {
-			int userIdForSanction = Integer.parseInt(request.getParameter("user_id"));
-			String sanction = request.getParameter("sanction");
-			String reason = request.getParameter("reason");
+		else if (activity.equals(ActionCommand.ACTIVITY_ADD_SANCTION)) {
+			int userIdForSanction = Integer.parseInt(request.getParameter(ActionCommand.PARAM_USER_ID));
+			String sanction = request.getParameter(ActionCommand.PARAM_SANCTION);
+			String reason = request.getParameter(ActionCommand.PARAM_REASON);
 			DatabaseLogic.createSanction(login, userIdForSanction, sanction, reason);
 			return DatabaseCommand.URL_MAIN_PAGE;
 		}
@@ -204,7 +204,7 @@ public class DatabaseCommand implements ActionCommand {
 		}
 		String login = (String) session.getAttribute(DatabaseCommand.PARAM_USER_LOGIN);
 
-		if (activity.equals("update_setting")) {
+		if (activity.equals(ActionCommand.ACTIVITY_UPDATE_SETTING)) {
 			String teamCapacity = request.getParameter("teamCapacity");
 			String expertCapacity = request.getParameter("expertCapacity");
 			List<Setting> settingList = DatabaseLogic.updateSetting(teamCapacity, expertCapacity);
@@ -212,30 +212,30 @@ public class DatabaseCommand implements ActionCommand {
 			return DatabaseCommand.URL_SETTINGS_PAGE;
 		}
 
-		else if (activity.equals("update_user")) {
+		else if (activity.equals(ActionCommand.ACTIVITY_UPDATE_USER)) {
 			String commandType = request.getParameter("command_type");
 			String userLogin = request.getParameter("form_login");
 			String userPassword = request.getParameter("form_password");
 			String userName = request.getParameter("form_name");
 			String userEmail = request.getParameter("form_email");
 			String userRole = request.getParameter("form_role");
-			if (commandType.equals("save_user")) {
+			if (commandType.equals(ActionCommand.ACTIVITY_SAVE_USER)) {
 				DatabaseLogic.saveUser(new User(-1, userLogin, userPassword, userName, userEmail), userRole, login);
 			}
 
-			else if (commandType.equals("create_user")) {
+			else if (commandType.equals(ActionCommand.ACTIVITY_CREATE_USER)) {
 				DatabaseLogic.createUser(new User(userLogin, userPassword, userName, userEmail), userRole, login);
 			}
 
-			else if (commandType.equals("remove_user")) {
+			else if (commandType.equals(ActionCommand.ACTIVITY_REMOVE_USER)) {
 				String currentAdminLogin = (String) session.getAttribute(DatabaseCommand.PARAM_USER_LOGIN);
 				if (!currentAdminLogin.equals(userLogin)) {
 					DatabaseLogic.removeUser(userLogin);
 				}
-				return MenuCommand.getPage("main", request);
+				return MenuCommand.getPage(ActionCommand.DESTINATION_MAIN, request);
 			}
 
-			else if (commandType.equals("find_user")) {
+			else if (commandType.equals(ActionCommand.ACTIVITY_FIND_USER)) {
 				Map.Entry<User, Role> user = DatabaseLogic.findUser(userLogin);
 				if (user != null) {
 					request.setAttribute("form_login", user.getKey().getLogin());
@@ -244,7 +244,7 @@ public class DatabaseCommand implements ActionCommand {
 					request.setAttribute("form_email", user.getKey().getEmail());
 					request.setAttribute("form_role", user.getValue().getName());
 				}
-				return MenuCommand.getPage("main", request);
+				return MenuCommand.getPage(ActionCommand.DESTINATION_MAIN, request);
 			}
 		}
 		return null;

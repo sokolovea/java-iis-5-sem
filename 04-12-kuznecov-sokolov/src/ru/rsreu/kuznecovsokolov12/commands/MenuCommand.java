@@ -39,7 +39,7 @@ public class MenuCommand implements ActionCommand {
 		EnumLogin loginResult = (EnumLogin) session.getAttribute(MenuCommand.PARAM_USER_ROLE);
 		String login = (String) session.getAttribute(MenuCommand.PARAM_USER_LOGIN);
 		if (loginResult == EnumLogin.USER) {
-			if (destination.equals("exit_team")) {
+			if (destination.equals(ActionCommand.DESTINATION_EXIT_TEAM)) {
 				MenuLogic.userExitFromTeam(login);
 				session.setAttribute(ActionCommand.PARAM_TEAM_ID, null);
 				return MenuCommand.URL_MAIN_PAGE;
@@ -47,7 +47,7 @@ public class MenuCommand implements ActionCommand {
 		}
 		
 		if (loginResult == EnumLogin.USER || loginResult == EnumLogin.EXPERT || loginResult == EnumLogin.CAPTAIN) {
-			if (destination.equals("team")) {
+			if (destination.equals(ActionCommand.DESTINATION_TEAM)) {
 				try {
 					Object tempTeamId = request.getSession().getAttribute(MenuCommand.PARAM_TEAM_ID);
 					if (tempTeamId == null) {
@@ -55,7 +55,7 @@ public class MenuCommand implements ActionCommand {
 					}
 					int teamId = 0;
 					if (loginResult == EnumLogin.EXPERT) {
-						teamId = Integer.parseInt(request.getParameter("team_id"));
+						teamId = Integer.parseInt(request.getParameter(ActionCommand.PARAM_TEAM_ID));
 					} else {
 						teamId = (int) request.getSession().getAttribute(MenuCommand.PARAM_TEAM_ID);
 					}
@@ -68,26 +68,26 @@ public class MenuCommand implements ActionCommand {
 				return ConfigurationManager.getProperty("path.page.team");
 			}
 			
-			if (destination.equals("main")) {
+			if (destination.equals(ActionCommand.DESTINATION_MAIN)) {
 				MenuLogic.fillTeamSelectPageForUser(request, login);
 				return ConfigurationManager.getProperty("path.page.team_select");
 			}
 		}
 		
 		if (loginResult == EnumLogin.MODERATOR) {
-			if (destination.equals("main")) {
+			if (destination.equals(ActionCommand.DESTINATION_MAIN)) {
 				MenuLogic.fillMainPageForModerator(request);
 				return ConfigurationManager.getProperty("path.page.moderator");
 			}
 		}
 		
 		if (loginResult == EnumLogin.ADMIN ) {
-			if (destination.equals("settings")) {
+			if (destination.equals(ActionCommand.DESTINATION_SETTINGS)) {
 				MenuLogic.fillSettingsPageForAdmin(request);
 				return ConfigurationManager.getProperty("path.page.admin_settings");
 			} 
 			
-			if (destination.equals("main")) {
+			if (destination.equals(ActionCommand.DESTINATION_MAIN)) {
 				MenuLogic.fillMainPageForAdmin(request);
 				return ConfigurationManager.getProperty("path.page.admin");
 			}

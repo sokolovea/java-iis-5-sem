@@ -42,9 +42,6 @@ public class LoginCommand implements ActionCommand {
 			e1.printStackTrace();
 		}
 		
-//		Cookie cookie = new Cookie("model", "Canon D7000");
-//		response.addCookie(cookie);
-		
 		HttpSession session = request.getSession(true);
 		session.setMaxInactiveInterval(60 * 60);
 		session.setAttribute(LoginCommand.PARAM_USER_LOGIN, login);

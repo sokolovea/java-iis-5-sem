@@ -27,7 +27,7 @@ public class LoginLogic {
 		
 		Sanction lastSanction = sanctionDAO.getLastUserSanction(user);
 		if (lastSanction.getReceiver() != null) {
-			if (lastSanction.getType().getName().toString().equals("Block")) {
+			if (lastSanction.getType().getName().toString().equals(ActionCommand.SANCTION_TYPE_BLOCK)) {
 				factory.returnConnectionToPool();
 				return EnumLogin.NOUSER;
 			}
@@ -43,13 +43,13 @@ public class LoginLogic {
 		if (roleName == null) {
 			return EnumLogin.NOUSER;
 		}
-		if (roleName.equals("Administrator")) {
+		if (roleName.equals(ActionCommand.ROLE_ADMIN)) {
 			return EnumLogin.ADMIN;
-		} else if (roleName.equals("Moderator")) {
+		} else if (roleName.equals(ActionCommand.ROLE_MODER)) {
 			return EnumLogin.MODERATOR;
-		} else if (roleName.equals("Expert")) {
+		} else if (roleName.equals(ActionCommand.ROLE_EXPERT)) {
 			return EnumLogin.EXPERT;
-		} else if (roleName.equals("Common user")) {
+		} else if (roleName.equals(ActionCommand.ROLE_USER)) {
 			return EnumLogin.USER;
 		}
 		return EnumLogin.NOUSER;
