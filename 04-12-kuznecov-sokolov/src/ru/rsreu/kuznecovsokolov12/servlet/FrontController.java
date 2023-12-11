@@ -11,6 +11,17 @@ import ru.rsreu.kuznecovsokolov12.commands.ActionCommand;
 import ru.rsreu.kuznecovsokolov12.utils.ConfigurationManager;
 import ru.rsreu.kuznecovsokolov12.utils.MessageManager;
 
+/**
+ * The {@code FrontController} class serves as the controller for handling requests and responses.
+ * It accepts requests from associated JSP pages, invokes the corresponding business logic for processing,
+ * and, depending on the result, determines which JSP page to associate with the result.
+ *
+ * <p>This servlet class implements the doGet and doPost methods to handle HTTP GET and POST requests,
+ * respectively. The doGet method forwards the request to the appropriate JSP page using a RequestDispatcher,
+ * while the doPost method redirects to the JSP page based on the result of request processing.
+ *
+ * <p>The class includes methods for processing requests, defining commands, and redirecting to the index page.
+ */
 public class FrontController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -44,7 +55,7 @@ public class FrontController extends HttpServlet {
 	 * @param response HttpServletResponse object
 	 * @return the page to be redirected 
 	 * @throws ServletException
-	 * @throws IOException
+	 * @throws IOException if the request for the could not be handled
 	 */
 	private String processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -60,7 +71,7 @@ public class FrontController extends HttpServlet {
 	 * Processes redirect to index page
 	 * @param request HttpServletRequest object
 	 * @param response HttpServletResponse object
-	 * @throws IOException
+	 * @throws IOException if an input or output error isdetected when the servlet handlesthe request
 	 */
 	private void redirectToIndexPage(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String page = ConfigurationManager.getProperty("path.page.index");
