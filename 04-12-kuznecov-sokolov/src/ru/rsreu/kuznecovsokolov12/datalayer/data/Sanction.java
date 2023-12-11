@@ -9,9 +9,6 @@ import java.sql.Timestamp;
  *
  * <p>This class provides constructors for creating instances with different sets of attributes.
  * It includes getter and setter methods for accessing and modifying the sanction type, sender, receiver, reason, and time attributes.
- *
- * @version 1.0
- * @since 2023-01-01
  */
 public class Sanction extends AbstractEntity {
 
