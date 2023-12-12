@@ -79,7 +79,7 @@ public class User extends AbstractEntity {
 	 * @param password	 The String representing the user's password.
 	 * @param name		 The String representing the user's name.
 	 * @param email		The String representing the user's email.
-	 * @param isAuthorized The boolean representing the authorization status of the user.
+	 * @param is_authorized The boolean representing the authorization status of the user.
 	 */
 	public User(int id, String login, String password, String name, String email, boolean is_authorized) {
 		this(id, login, password, name, email);
@@ -170,7 +170,7 @@ public class User extends AbstractEntity {
 	/**
 	 * Sets the authorization status of the user.
 	 *
-	 * @param isAuthorized The boolean representing the authorization status of the user.
+	 * @param is_authorized The boolean representing the authorization status of the user.
 	 */
 	public void setIsAuthorized(boolean is_authorized) {
 		this.is_authorized = is_authorized;

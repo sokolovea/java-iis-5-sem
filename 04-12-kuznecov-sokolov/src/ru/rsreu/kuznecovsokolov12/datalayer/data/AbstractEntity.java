@@ -45,6 +45,12 @@ public abstract class AbstractEntity {
 		this.id = id;
 	}
 	
+	/***
+	 * Implements equals method to compare objects
+	 * {@inheritDoc}
+	 * 
+	 * @param obj The object to be compared
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -57,6 +63,10 @@ public abstract class AbstractEntity {
 		return this.getId() == other.getId();
 	}
 
+	/***
+	 * Implements hashcode method to get the hash of the object
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		return this.getId();

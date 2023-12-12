@@ -35,7 +35,7 @@ public interface RoleAssigmentDAO {
 	/**
 	 * Adds a new role assignment.
 	 *
-	 * @param roleAssignment The role assignment to be added.
+	 * @param roleAssigment The role assignment to be added.
 	 * @throws SQLException If a database error occurs.
 	 */
 	void addRoleAssigment(RoleAssigment roleAssigment) throws SQLException;
