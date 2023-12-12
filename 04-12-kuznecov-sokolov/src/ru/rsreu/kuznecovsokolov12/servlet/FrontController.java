@@ -48,15 +48,15 @@ public class FrontController extends HttpServlet {
 		}
 	}
 
-    /**
-     * Handles POST requests, processes it, gets the page to be redirected.
-     * {@inheritDoc}
-     * 
-     * @param request HttpServletRequest object.
-     * @param response HttpServletResponse object.
-     * @throws ServletException If errors with servlet occurs.
-     * @throws IOException If an I/O error occurs.
-     */
+	/**
+	 * Handles POST requests, processes it, gets the page to be redirected.
+	 * {@inheritDoc}
+	 * 
+	 * @param request HttpServletRequest object.
+	 * @param response HttpServletResponse object.
+	 * @throws ServletException If errors with servlet occurs.
+	 * @throws IOException If an I/O error occurs.
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
