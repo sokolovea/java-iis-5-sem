@@ -26,16 +26,16 @@ public class FrontController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * Handles GET requests, processes it, gets the page to be redirected, forwards
-     * the request to the appropriate JSP page.
-     * {@inheritDoc}
-     * 
-     * @param request HttpServletRequest object.
-     * @param response HttpServletResponse object.
-     * @throws ServletException If errors with servlet occurs.
-     * @throws IOException If an I/O error occurs.
-     */
+	/**
+	 * Handles GET requests, processes it, gets the page to be redirected, forwards
+	 * the request to the appropriate JSP page.
+	 * {@inheritDoc}
+	 * 
+	 * @param request HttpServletRequest object.
+	 * @param response HttpServletResponse object.
+	 * @throws ServletException If errors with servlet occurs.
+	 * @throws IOException If an I/O error occurs.
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
