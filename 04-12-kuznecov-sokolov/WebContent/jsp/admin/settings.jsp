@@ -19,9 +19,9 @@
             return false;
         }
 
-        // Проверка на значения меньше нуля и больше 1000
-        if (teamCapacity < 0 || teamCapacity > 100 || expertCapacity < 0 || expertCapacity > 100) {
-            alert('Значение в поле должно быть в пределах от 0 до 100!');
+        // Проверка на значения меньше 1 и больше 100
+        if (teamCapacity < 1 || teamCapacity > 100 || expertCapacity < 0 || expertCapacity > 100) {
+            alert('Значение в поле должно быть в пределах от 1 до 100!');
             return false;
         }
 
