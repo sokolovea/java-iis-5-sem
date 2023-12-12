@@ -14,29 +14,29 @@ import ru.rsreu.kuznecovsokolov12.datalayer.data.User;
  */
 public interface RoleDAO {
 	
-    /**
-     * Retrieves the role of a specific user.
-     *
-     * @param user The user for whom to retrieve the role.
-     * @return The role of the specified user.
-     * @throws SQLException If a database error occurs.
-     */
+	/**
+	 * Retrieves the role of a specific user.
+	 *
+	 * @param user The user for whom to retrieve the role.
+	 * @return The role of the specified user.
+	 * @throws SQLException If a database error occurs.
+	 */
 	Role getUserRole(User user) throws SQLException;
 	
-    /**
-     * Retrieves a role by its name.
-     *
-     * @param name The name of the role to retrieve.
-     * @return The role with the specified name.
-     * @throws SQLException If a database error occurs.
-     */
+	/**
+	 * Retrieves a role by its name.
+	 *
+	 * @param name The name of the role to retrieve.
+	 * @return The role with the specified name.
+	 * @throws SQLException If a database error occurs.
+	 */
 	Role getRoleByName(String name) throws SQLException;
 	
-    /**
-     * Retrieves a list of all roles.
-     *
-     * @return A list of all roles.
-     * @throws SQLException If a database error occurs.
-     */
+	/**
+	 * Retrieves a list of all roles.
+	 *
+	 * @return A list of all roles.
+	 * @throws SQLException If a database error occurs.
+	 */
 	List<Role> getAllRoles() throws SQLException;
 }

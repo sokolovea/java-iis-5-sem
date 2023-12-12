@@ -28,11 +28,11 @@ public class ServletAuthorizeFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		
-	    if (req.getServletPath().equals(ActionCommand.URL_LOGIN_PAGE)) {
-	        chain.doFilter(request, response);
-	        return;
-	    }
-	    
+		if (req.getServletPath().equals(ActionCommand.URL_LOGIN_PAGE)) {
+			chain.doFilter(request, response);
+			return;
+		}
+		
 		HttpSession session = req.getSession();
 		EnumLogin sessionRoleType = (EnumLogin) session.getAttribute(ActionCommand.PARAM_USER_ROLE);
 		String login = (String) session.getAttribute(ActionCommand.PARAM_USER_LOGIN);

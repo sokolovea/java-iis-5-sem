@@ -11,46 +11,46 @@ public class Team extends AbstractEntity {
 	
 	private String name;
 	
-    /**
-     * Constructs a Team with uninitialized values.
-     */
+	/**
+	 * Constructs a Team with uninitialized values.
+	 */
 	public Team() {
 	}
 
-    /**
-     * Constructs a Team with the specified id and uninitialized attributes.
-     *
-     * @param id The id to set for the Team.
-     */
+	/**
+	 * Constructs a Team with the specified id and uninitialized attributes.
+	 *
+	 * @param id The id to set for the Team.
+	 */
 	public Team(int id) {
 		super(id);
 	}
 	
-    /**
-     * Constructs a Team with the specified id and team name.
-     *
-     * @param id   The id to set for the Team.
-     * @param name The String representing the team name.
-     */
+	/**
+	 * Constructs a Team with the specified id and team name.
+	 *
+	 * @param id   The id to set for the Team.
+	 * @param name The String representing the team name.
+	 */
 	public Team(int id, String name) {
 		this(id);
 		this.setName(name);
 	}
 
-    /**
-     * Gets the name of the team.
-     *
-     * @return The String representing the team name.
-     */
+	/**
+	 * Gets the name of the team.
+	 *
+	 * @return The String representing the team name.
+	 */
 	public String getName() {
 		return name;
 	}
 
-    /**
-     * Sets the name of the team.
-     *
-     * @param name The String representing the team name.
-     */
+	/**
+	 * Sets the name of the team.
+	 *
+	 * @param name The String representing the team name.
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}

@@ -11,46 +11,46 @@ public class RoleGroup extends AbstractEntity {
 	
 	private String name;
 	
-    /**
-     * Constructs a RoleGroup with uninitialized values.
-     */
+	/**
+	 * Constructs a RoleGroup with uninitialized values.
+	 */
 	public RoleGroup() {
 	}
 	
-    /**
-     * Constructs a RoleGroup with the specified id and uninitialized attributes.
-     *
-     * @param id The id to set for the RoleGroup.
-     */
+	/**
+	 * Constructs a RoleGroup with the specified id and uninitialized attributes.
+	 *
+	 * @param id The id to set for the RoleGroup.
+	 */
 	public RoleGroup(int id) {
 		super(id);
 	}
 	
-    /**
-     * Constructs a RoleGroup with the specified id and group name.
-     *
-     * @param id   The id to set for the RoleGroup.
-     * @param name The string representing the group name.
-     */
+	/**
+	 * Constructs a RoleGroup with the specified id and group name.
+	 *
+	 * @param id   The id to set for the RoleGroup.
+	 * @param name The string representing the group name.
+	 */
 	public RoleGroup(int id, String name) {
 		this(id);
 		this.name = name;
 	}
 
-    /**
-     * Gets the name of the role group.
-     *
-     * @return The string representing the group name.
-     */
+	/**
+	 * Gets the name of the role group.
+	 *
+	 * @return The string representing the group name.
+	 */
 	public String getName() {
 		return name;
 	}
 
-    /**
-     * Sets the name of the role group.
-     *
-     * @param name The string representing the group name.
-     */
+	/**
+	 * Sets the name of the role group.
+	 *
+	 * @param name The string representing the group name.
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}

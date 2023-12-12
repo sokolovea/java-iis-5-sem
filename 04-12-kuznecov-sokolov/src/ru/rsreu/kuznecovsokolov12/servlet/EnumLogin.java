@@ -11,12 +11,12 @@ public enum EnumLogin {
 	private String title;
 	
 	EnumLogin(String title) {
-       this.title = title;
+	   this.title = title;
 	}
 	
-    @Override
-    public String toString() {
-        return this.title;
-    }
+	@Override
+	public String toString() {
+		return this.title;
+	}
 
 }

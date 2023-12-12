@@ -38,7 +38,7 @@ public class OracleUserDAO implements UserDAO, ResourcerHolder {
 	public final static String COLUMN_USER_LOGIN 		  = resourser.getString("sql.user.column.login");
 	public final static String COLUMN_USER_PASSWORD 	  = resourser.getString("sql.user.column.password");
 	public final static String COLUMN_USER_NAME 		  = resourser.getString("sql.user.column.name");
-	public final static String COLUMN_USER_EMAIL 	      = resourser.getString("sql.user.column.email");
+	public final static String COLUMN_USER_EMAIL 		  = resourser.getString("sql.user.column.email");
 	public final static String COLUMN_USER_IS_AUTHORIZED  = resourser.getString("sql.user.column.is_auth");
 	public final static String[] ALL_USER_COLUMNS = {COLUMN_USER_ID, COLUMN_USER_LOGIN, COLUMN_USER_PASSWORD, COLUMN_USER_NAME, COLUMN_USER_EMAIL, COLUMN_USER_IS_AUTHORIZED};
 	

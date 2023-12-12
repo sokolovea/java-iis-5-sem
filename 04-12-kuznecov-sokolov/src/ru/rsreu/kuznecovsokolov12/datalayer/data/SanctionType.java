@@ -11,46 +11,46 @@ public class SanctionType extends AbstractEntity {
 	
 	private String name;
 	
-    /**
-     * Constructs a SanctionType with uninitialized values.
-     */
+	/**
+	 * Constructs a SanctionType with uninitialized values.
+	 */
 	public SanctionType() {
 	}
 	
-    /**
-     * Constructs a SanctionType with the specified id and uninitialized attributes.
-     *
-     * @param id The id to set for the SanctionType.
-     */
+	/**
+	 * Constructs a SanctionType with the specified id and uninitialized attributes.
+	 *
+	 * @param id The id to set for the SanctionType.
+	 */
 	public SanctionType(int id) {
 		super(id);
 	}
 	
-    /**
-     * Constructs a SanctionType with the specified id and type name.
-     *
-     * @param id   The id to set for the SanctionType.
-     * @param name The String representing the type name.
-     */
+	/**
+	 * Constructs a SanctionType with the specified id and type name.
+	 *
+	 * @param id   The id to set for the SanctionType.
+	 * @param name The String representing the type name.
+	 */
 	public SanctionType(int id, String name) {
 		this(id);
 		this.name = name;
 	}
 
-    /**
-     * Gets the name of the sanction type.
-     *
-     * @return The String representing the type name.
-     */
+	/**
+	 * Gets the name of the sanction type.
+	 *
+	 * @return The String representing the type name.
+	 */
 	public String getName() {
 		return name;
 	}
 
-    /**
-     * Sets the name of the sanction type.
-     *
-     * @param name The String representing the type name.
-     */
+	/**
+	 * Sets the name of the sanction type.
+	 *
+	 * @param name The String representing the type name.
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}

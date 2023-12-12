@@ -11,36 +11,36 @@ public abstract class AbstractEntity {
 
 	private int id;
 	
-    /**
-     * Constructs an AbstractEntity without initialized id.
-     */
+	/**
+	 * Constructs an AbstractEntity without initialized id.
+	 */
 	protected AbstractEntity() {
 		
 	}
 	
-    /**
-     * Constructs an AbstractEntity with the specified id.
-     *
-     * @param id The id to set for the entity.
-     */
+	/**
+	 * Constructs an AbstractEntity with the specified id.
+	 *
+	 * @param id The id to set for the entity.
+	 */
 	protected AbstractEntity(int id) {
 		this.setId(id);
 	}
 	
-    /**
-     * Gets the id of the entity.
-     *
-     * @return The id of the entity.
-     */
+	/**
+	 * Gets the id of the entity.
+	 *
+	 * @return The id of the entity.
+	 */
 	public int getId() {
 		return id;
 	}
 
-    /**
-     * Sets the id of the entity.
-     *
-     * @param id The id to set for the entity.
-     */
+	/**
+	 * Sets the id of the entity.
+	 *
+	 * @param id The id to set for the entity.
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}

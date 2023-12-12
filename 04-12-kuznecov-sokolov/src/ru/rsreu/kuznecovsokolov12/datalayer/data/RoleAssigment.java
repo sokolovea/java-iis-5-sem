@@ -17,30 +17,30 @@ public class RoleAssigment extends AbstractEntity {
 	private User receiver;
 	private Timestamp time;
 	
-    /**
-     * Constructs a RoleAssignment with default (uninitialized) values.
-     */
+	/**
+	 * Constructs a RoleAssignment with default (uninitialized) values.
+	 */
 	public RoleAssigment() {
 	}
 	
-    /**
-     * Constructs a RoleAssignment with the specified id and default (uninitialized) attributes.
-     *
-     * @param id The id to set for the RoleAssignment.
-     */
+	/**
+	 * Constructs a RoleAssignment with the specified id and default (uninitialized) attributes.
+	 *
+	 * @param id The id to set for the RoleAssignment.
+	 */
 	public RoleAssigment(int id) {
 		super(id);
 	}
 
-    /**
-     * Constructs a RoleAssignment with the specified id, assigned role, sender, receiver, and time.
-     *
-     * @param id       The id to set for the RoleAssignment.
-     * @param role     The Role representing the assigned role.
-     * @param sender   The User representing the sender of the assignment.
-     * @param receiver The User representing the receiver of the assignment.
-     * @param time     The Timestamp representing the time of assignment.
-     */
+	/**
+	 * Constructs a RoleAssignment with the specified id, assigned role, sender, receiver, and time.
+	 *
+	 * @param id	   The id to set for the RoleAssignment.
+	 * @param role	 The Role representing the assigned role.
+	 * @param sender   The User representing the sender of the assignment.
+	 * @param receiver The User representing the receiver of the assignment.
+	 * @param time	 The Timestamp representing the time of assignment.
+	 */
 	public RoleAssigment(int id, Role role, User sender, User receiver, Timestamp time) {
 		this(id);
 		this.setRole(role);;
@@ -49,75 +49,75 @@ public class RoleAssigment extends AbstractEntity {
 		this.setTime(time);;
 	}
 	
-    /**
-     * Gets the assigned role.
-     *
-     * @return The Role representing the assigned role.
-     */
+	/**
+	 * Gets the assigned role.
+	 *
+	 * @return The Role representing the assigned role.
+	 */
 	public Role getRole() {
 		return role;
 	}
 	
-    /**
-     * Sets the assigned role.
-     *
-     * @param role The Role representing the assigned role.
-     */
+	/**
+	 * Sets the assigned role.
+	 *
+	 * @param role The Role representing the assigned role.
+	 */
 	public void setRole(Role role) {
 		this.role = role;
 	}
 	
-    /**
-     * Gets the sender of the assignment.
-     *
-     * @return The User representing the sender of the assignment.
-     */
+	/**
+	 * Gets the sender of the assignment.
+	 *
+	 * @return The User representing the sender of the assignment.
+	 */
 	public User getSender() {
 		return sender;
 	}
 	
-    /**
-     * Sets the sender of the assignment.
-     *
-     * @param sender The User representing the sender of the assignment.
-     */
+	/**
+	 * Sets the sender of the assignment.
+	 *
+	 * @param sender The User representing the sender of the assignment.
+	 */
 	public void setSender(User sender) {
 		this.sender = sender;
 	}
 	
-    /**
-     * Gets the receiver of the assignment.
-     *
-     * @return The User representing the receiver of the assignment.
-     */
+	/**
+	 * Gets the receiver of the assignment.
+	 *
+	 * @return The User representing the receiver of the assignment.
+	 */
 	public User getReceiver() {
 		return receiver;
 	}
 	
-    /**
-     * Sets the receiver of the assignment.
-     *
-     * @param receiver The User representing the receiver of the assignment.
-     */
+	/**
+	 * Sets the receiver of the assignment.
+	 *
+	 * @param receiver The User representing the receiver of the assignment.
+	 */
 	public void setReceiver(User receiver) {
 		this.receiver = receiver;
 	}
 	
 
-    /**
-     * Gets the timestamp of assignment.
-     *
-     * @return The Timestamp representing the time of assignment.
-     */
+	/**
+	 * Gets the timestamp of assignment.
+	 *
+	 * @return The Timestamp representing the time of assignment.
+	 */
 	public Timestamp getTime() {
 		return time;
 	}
 	
-    /**
-     * Sets the timestamp of assignment.
-     *
-     * @param time The Timestamp representing the time of assignment.
-     */
+	/**
+	 * Sets the timestamp of assignment.
+	 *
+	 * @param time The Timestamp representing the time of assignment.
+	 */
 	public void setTime(Timestamp time) {
 		this.time = time;
 	}

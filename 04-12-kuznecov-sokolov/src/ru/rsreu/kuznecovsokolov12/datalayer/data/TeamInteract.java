@@ -17,30 +17,30 @@ public class TeamInteract extends AbstractEntity {
 	private Team team;
 	private Timestamp time;
 	
-    /**
-     * Constructs a TeamInteract with uninitialized values.
-     */
+	/**
+	 * Constructs a TeamInteract with uninitialized values.
+	 */
 	public TeamInteract() {
 	}
 
-    /**
-     * Constructs a TeamInteract with the specified id and uninitialized attributes.
-     *
-     * @param id The id to set for the TeamInteract.
-     */
+	/**
+	 * Constructs a TeamInteract with the specified id and uninitialized attributes.
+	 *
+	 * @param id The id to set for the TeamInteract.
+	 */
 	public TeamInteract(int id) {
 		super(id);
 	}
 	
-    /**
-     * Constructs a TeamInteract with the specified id, user, interaction type, team, and time.
-     *
-     * @param id    The id to set for the TeamInteract.
-     * @param user  The User representing the user involved in the interaction.
-     * @param type  The TeamInteractType representing the type of interaction.
-     * @param team  The Team representing the team involved in the interaction.
-     * @param time  The Timestamp representing the time of the interaction.
-     */
+	/**
+	 * Constructs a TeamInteract with the specified id, user, interaction type, team, and time.
+	 *
+	 * @param id	The id to set for the TeamInteract.
+	 * @param user  The User representing the user involved in the interaction.
+	 * @param type  The TeamInteractType representing the type of interaction.
+	 * @param team  The Team representing the team involved in the interaction.
+	 * @param time  The Timestamp representing the time of the interaction.
+	 */
 	public TeamInteract(int id, User user, TeamInteractType type, Team team, Timestamp time) {
 		this(id);
 		this.setUser(user);
@@ -49,74 +49,74 @@ public class TeamInteract extends AbstractEntity {
 		this.setTime(time);
 	}
 
-    /**
-     * Gets the user involved in the interaction.
-     *
-     * @return The User representing the user involved in the interaction.
-     */
+	/**
+	 * Gets the user involved in the interaction.
+	 *
+	 * @return The User representing the user involved in the interaction.
+	 */
 	public User getUser() {
 		return user;
 	}
 
-    /**
-     * Sets the user involved in the interaction.
-     *
-     * @param user The User representing the user involved in the interaction.
-     */
+	/**
+	 * Sets the user involved in the interaction.
+	 *
+	 * @param user The User representing the user involved in the interaction.
+	 */
 	public void setUser(User user) {
 		this.user = user;
 	}
 
-    /**
-     * Gets the type of interaction.
-     *
-     * @return The TeamInteractType representing the type of interaction.
-     */
+	/**
+	 * Gets the type of interaction.
+	 *
+	 * @return The TeamInteractType representing the type of interaction.
+	 */
 	public TeamInteractType getType() {
 		return type;
 	}
 
-    /**
-     * Sets the type of interaction.
-     *
-     * @param type The TeamInteractType representing the type of interaction.
-     */
+	/**
+	 * Sets the type of interaction.
+	 *
+	 * @param type The TeamInteractType representing the type of interaction.
+	 */
 	public void setType(TeamInteractType type) {
 		this.type = type;
 	}
 
-    /**
-     * Gets the team involved in the interaction.
-     *
-     * @return The Team representing the team involved in the interaction.
-     */
+	/**
+	 * Gets the team involved in the interaction.
+	 *
+	 * @return The Team representing the team involved in the interaction.
+	 */
 	public Team getTeam() {
 		return team;
 	}
 
-    /**
-     * Sets the team involved in the interaction.
-     *
-     * @param team The Team representing the team involved in the interaction.
-     */
+	/**
+	 * Sets the team involved in the interaction.
+	 *
+	 * @param team The Team representing the team involved in the interaction.
+	 */
 	public void setTeam(Team team) {
 		this.team = team;
 	}
 
 	 /**
-     * Gets the timestamp of the interaction.
-     *
-     * @return The Timestamp representing the time of the interaction.
-     */
+	 * Gets the timestamp of the interaction.
+	 *
+	 * @return The Timestamp representing the time of the interaction.
+	 */
 	public Timestamp getTime() {
 		return time;
 	}
 
-    /**
-     * Sets the timestamp of the interaction.
-     *
-     * @param time The Timestamp representing the time of the interaction.
-     */
+	/**
+	 * Sets the timestamp of the interaction.
+	 *
+	 * @param time The Timestamp representing the time of the interaction.
+	 */
 	public void setTime(Timestamp time) {
 		this.time = time;
 	}
